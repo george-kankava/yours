@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+
+@media ( max-width : 600px) {
+	.logo-image {
+		width: 257px;
+		min-height: 144px;
+		background-image: url(../img/yours.gif);
+		background-repeat: no-repeat;
+		margin-left: 70px;
+	}
+}
+
+@media ( min-width : 600px) {
+	.logo-image {
+		width: 257px;
+		min-height: 144px;
+		background-image: url(../img/yours.gif);
+		background-repeat: no-repeat;
+		margin-top: 40px;
+		margin-left: 440px;
+	}
+}
