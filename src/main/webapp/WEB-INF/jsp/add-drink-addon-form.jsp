@@ -75,21 +75,23 @@
           									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           									<h4 class="modal-title">Add</h4>
         								</div>
+        								<form class="form-inline" role="form">
         									<div class="modal-body">
-        											<input type="hidden" id="drinkAddOn-${drinkAddOn.id}" name="drinkAddOnId" value="${drinkAddOn.id}">
+        											<input type="hidden" id="drinkAddOnId-${drinkAddOn.id}" value="${drinkAddOn.id}">
   													<div class="form-group">
     													<label for="drinkAddOnAmount-${drinkAddOn.id }">Amount</label>
-    													<input type="text" class="form-control" id="drinkAddOnAmount-${drinkAddOn.id}" name="amount" placeholder="Enter Amount">
+    													<input type="text" class="form-control" id="drinkAddOnAmount-${drinkAddOn.id}" placeholder="Enter Amount">
 													</div>
   													<div class="form-group">
     													<label for="drinkAddOnPrice-${drinkAddOn.id }">Price</label>
-    													<input type="text" class="form-control" id="drinkAddOnPrice-${drinkAddOn.id}" name="price" placeholder="Enter Price">
+    													<input type="text" class="form-control" id="drinkAddOnPrice-${drinkAddOn.id}" placeholder="Enter Price">
   													</div>
         									</div>
         									<div class="modal-footer">
           										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           										<button type="button" id="my-modal-${drinkAddOn.id}"  class="btn btn-primary">Add</button>
         									</div>
+        								</form>
       								</div><!-- /.modal-content -->
     							</div><!-- /.modal-dialog -->
   							</div><!-- /.modal -->
@@ -102,17 +104,19 @@
 </div>
 <script>
 	$('#drink-add-on-add-btn').click(function() {
-		var url = 'process-drink-add-on-form';
+		var url = 'process-add-drink-add-on-form';
 		$.ajax({
 			url: url,
-			data: {
-				nameGeo: $('#addonNameGeo').val(),
-				nameEng: $('#addonNameEng').val(),
-				nameRus: $('#addonNameRus').val(),
-				descriptionGeo: $('#addonDescGeo').val(),
-				descriptionEng: $('#addonDescEng').val(),
-				descriptionRus: $('#addonDescRus').val()
-			}
+			type: "POST",
+			contentType: "application/json; charset=UTF-8",
+			data: JSON.stringify({
+				nameGeo: toUnicode($('#addonNameGeo').val()),
+				nameEng: toUnicode($('#addonNameEng').val()),
+				nameRus: toUnicode($('#addonNameRus').val()),
+				descriptionGeo: toUnicode($('#addonDescGeo').val()),
+				descriptionEng: toUnicode($('#addonDescEng').val()),
+				descriptionRus: toUnicode($('#addonDescRus').val())
+			})
 		}).done(function(response) {
 			$('#addonNameGeo').val('');
 			$('#addonNameEng').val('');
@@ -126,16 +130,16 @@
 	});
 	<c:forEach items="${drinkAddOns }" var="drinkAddOn">
 		$('#my-modal-${drinkAddOn.id}').click(function() {
-			var url =  'process-drink-add-on-amount-and-size';
+			var url =  'process-drink-add-on-amount-and-price';
 			$.ajax({
 				url: url,
 				data: {
 					drinkAddOnId: $('#drinkAddOnId-${drinkAddOn.id}').val(),
-					size: $('#drinkAddOnAmount-${drinkAddOn.id}').val(),
+					amount: toUnicode($('#drinkAddOnAmount-${drinkAddOn.id}').val()),
 					price: $('#drinkAddOnPrice-${drinkAddOn.id}').val()
 				}
 			}).done(function(drinkAddOnAmountAndPrice) {
-				$('#drink-add-on-amount-and-price-${drinkAddOn.id}').append(new Option(drinkAddOnAmountAndPrice.amount + '-' + drinkAddOnAmountAndPrice.price, '', false, true));
+				$('#drink-add-on-amount-and-price-${drinkAddOn.id}').append('<option value=' + drinkAddOnAmountAndPrice.id + ' selected="selected" >' + drinkAddOnAmountAndPrice.amount + ' - ' + parseFloat(Math.round(drinkAddOnAmountAndPrice.price * 100) / 100).toFixed(2) + '</option>');
 				$('#myModal-${drinkAddOn.id}').modal('hide');
 			});
 		});
@@ -150,6 +154,7 @@
 						}
 					}).done(function() {
 						$("#drink-add-on-amount-and-price-${drinkAddOn.id} option[value=" + $('#drink-add-on-amount-and-price-${drinkAddOn.id}').val() + "]").remove();
+						alertify.error("Data has been removed");
 					});			
 				}
 			});
@@ -163,6 +168,7 @@
 						data: {drinkAddOnId: '${drinkAddOn.id}'}
 					}).done(function() {
 						$('.drink-add-on-${drinkAddOn.id }').remove();
+						alertify.error("Data has been removed");
 					});			    	
 			    } 
 			});

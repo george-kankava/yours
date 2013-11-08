@@ -1,34 +1,4 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<h5>
-	<span style="margin-left: 35px">Sausage</span>
-</h5>
-<form>
-	<table class="table table-bordered">
-		<tr>
-			<td><input type="text" class="form-control" id="sausageTypeGeo" placeholder="Sausage Type Geo"></input>
-		</tr>
-		<tr>
-			<td><input type="text" class="form-control" id="sausageTypeEng" placeholder="Sausage Type Eng"></input>
-		</tr>
-		<tr>
-			<td><input type="text" class="form-control" id="sausageTypeRus" placeholder="Sausage Type Rus"></td>
-		</tr>
-		<tr>
-			<td><input type="text" class="form-control" id="sausageDescGeo" placeholder="Sausage Desc Geo"></td>
-		</tr>
-		<tr>
-			<td><input type="text" class="form-control" id="sausageDescEng" placeholder="Sausage Desc Eng"></td>
-		</tr>
-		<tr>
-			<td><input type="text" class="form-control" id="sausageDescRus" placeholder="Sausage Desc Rus"></td>
-		</tr>
-		<tr>
-			<td><button type="submit" class="btn btn-default">Add</button></td>
-		</tr>
-	</table>
-</form>
-
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <h5>
@@ -55,7 +25,7 @@
 				<td><input type="text" class="form-control" id="sausageDescRus" placeholder="Sausage Desc Rus" /></td>
 			</tr>
 			<tr>
-				<td><button type="submit" id="hotdog-sausage-btn" class="btn btn-default">Add</button></td>
+				<td><button type="button" id="hotdog-sausage-add-btn" class="btn btn-default">Add</button></td>
 			</tr>
 		</table>
 </div>
@@ -70,7 +40,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${hotdogSausage }" var="hotdogSausage">
+				<c:forEach items="${hotdogSausages }" var="hotdogSausage">
 					<tr class="hotdog-sausage-${hotdogSausage.id }">
 						<td>
 							<select class="form-control">
@@ -88,8 +58,8 @@
 						</td>
 						<td>
 							<select id="hotdog-sausage-amount-and-price-${hotdogSausage.id}" class="form-control">
-								<c:forEach items="${hotdogSausage.hotdogSausageAmountAndPrices }" var="hotdogSausageAmountAndPrice">
-									<option value="${hotdogSausageAmountAndPrice.id }">${hotdogSausageAmountAndPrice.amount } - ${hotdogSausageAmountAndPrice.price }</option>
+								<c:forEach items="${hotdogSausage.hotDogSausageAmountAndPrice }" var="hotdogSausageAmountAndPrice">
+									<option value="${hotdogSausageAmountAndPrice.id }">${hotdogSausageAmountAndPrice.portion } - ${hotdogSausageAmountAndPrice.price }</option>
 								</c:forEach>
 							</select>
 						</td>
@@ -105,6 +75,7 @@
           									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           									<h4 class="modal-title">Add</h4>
         								</div>
+        								<form class="form-inline" role="form">
         									<div class="modal-body">
         											<input type="hidden" id="hotdogSausageId-${hotdogSausage.id}" name="hotdogSausageId" value="${hotdogSausage.id}">
   													<div class="form-group">
@@ -120,6 +91,7 @@
           										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           										<button type="button" id="my-modal-${hotdogSausage.id}"  class="btn btn-primary">Add</button>
         									</div>
+        								</form>
       								</div><!-- /.modal-content -->
     							</div><!-- /.modal-dialog -->
   							</div><!-- /.modal -->
@@ -135,14 +107,16 @@
 		var url = 'process-add-hotdog-sausage-form';
 		$.ajax({
 			url: url,
-			data: {
-				nameGeo: $('#sausageNameGeo').val(),
-				nameEng: $('#sausageNameEng').val(),
-				nameRus: $('#sausageNameRus').val(),
-				descriptionGeo: $('#sausageDescGeo').val(),
-				descriptionEng: $('#sausageDescEng').val(),
-				descriptionRus: $('#sausageDescRus').val()
-			}
+			type: "POST",
+			contentType: "application/json",
+			data: JSON.stringify({
+				nameGeo: toUnicode($('#sausageNameGeo').val()),
+				nameEng: toUnicode($('#sausageNameEng').val()),
+				nameRus: toUnicode($('#sausageNameRus').val()),
+				descriptionGeo: toUnicode($('#sausageDescGeo').val()),
+				descriptionEng: toUnicode($('#sausageDescEng').val()),
+				descriptionRus: toUnicode($('#sausageDescRus').val())
+			})
 		}).done(function(response) {
 			$('#sausageNameGeo').val('');
 			$('#sausageNameEng').val('');
@@ -154,19 +128,20 @@
 			alertify.success("Data has been saved");			
 		});
 	});
-	<c:forEach items="${hotdogSausage }" var="hotdogSausage">
+	<c:forEach items="${hotdogSausages }" var="hotdogSausage">
 		$('#my-modal-${hotdogSausage.id}').click(function() {
 			var url =  'process-hotdog-sausage-amount-and-price';
 			$.ajax({
 				url: url,
 				data: {
 					hotdogSausageId: $('#hotdogSausageId-${hotdogSausage.id}').val(),
-					amount: $('#hotdogSausageAmount-${hotdogSausage.id}').val(),
+					amount: toUnicode($('#hotdogSausageAmount-${hotdogSausage.id}').val()),
 					price: $('#hotdogSausagePrice-${hotdogSausage.id}').val()
 				}
 			}).done(function(hotdogSausageAmountAndPrice) {
-				$('#hotdog-sausage-amount-and-price-${hotdogSausage.id}').append(new Option(hotdogSausageAmountAndPrice.amount + '-' + hotdogSausageAmountAndPrice.price, '', false, true));
+				$('#hotdog-sausage-amount-and-price-${hotdogSausage.id}').append('<option value=' + hotdogSausageAmountAndPrice.id + ' selected="selected">' + hotdogSausageAmountAndPrice.portion + ' - ' + parseFloat(Math.round(hotdogSausageAmountAndPrice.price * 100) / 100).toFixed(2) + '</option>');
 				$('#myModal-${hotdogSausage.id}').modal('hide');
+				alertify.success("Data has been saved");
 			});
 		});
 		$('#hotdog-sausage-amount-and-price-select-item-remove-${hotdogSausage.id }').click(function() {
@@ -180,6 +155,7 @@
 						}
 					}).done(function() {
 						$("#hotdog-sausage-amount-and-price-${hotdogSausage.id} option[value=" + $('#hotdog-sausage-amount-and-price-${hotdogSausage.id}').val() + "]").remove();
+						alertify.error("Data has been removed");
 					});			
 				}
 			});
@@ -193,6 +169,7 @@
 						data: {hotdogSausageId: '${hotdogSausage.id}'}
 					}).done(function() {
 						$('.hotdog-sausage-${hotdogSausage.id }').remove();
+						alertify.error("Data has been removed");
 					});			    	
 			    } 
 			});

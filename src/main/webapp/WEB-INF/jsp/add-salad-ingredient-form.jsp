@@ -1,11 +1,8 @@
-
-
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <h5>
-	<span style="margin-left: 35px"><spring:message
-			code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></span>
+	<span style="margin-left: 35px"><spring:message code="yours.list.heading.sandwich.sublist.vegetables" text="Bread" /></span>
 </h5>
 <div class="col-md-3">
 		<table class="table table-bordered">
@@ -28,7 +25,7 @@
 				<td><input type="text" class="form-control" id="ingredientDescRus" placeholder="Ingredient Desc Rus" /></td>
 			</tr>
 			<tr>
-				<td><button type="submit" id="salad-ingredient-add-btn" class="btn btn-default">Add</button></td>
+				<td><button type="button" id="salad-ingredient-add-btn" class="btn btn-default">Add</button></td>
 			</tr>
 		</table>
 </div>
@@ -61,7 +58,7 @@
 						</td>
 						<td>
 							<select id="salad-ingredient-amount-and-price-${saladIngredient.id}" class="form-control">
-								<c:forEach items="${saladIngredient.IngredientAmountAndPrices }" var="ingredientAmountAndPrice">
+								<c:forEach items="${saladIngredient.saladIngredientAmountAndPrices }" var="ingredientAmountAndPrice">
 									<option value="${ingredientAmountAndPrice.id }">${ingredientAmountAndPrice.amount } - ${ingredientAmountAndPrice.price }</option>
 								</c:forEach>
 							</select>
@@ -78,21 +75,23 @@
           									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           									<h4 class="modal-title">Add</h4>
         								</div>
+        								<form class="form-inline" role="form">
         									<div class="modal-body">
         											<input type="hidden" id="saladIngredientId-${saladIngredient.id}" name="saladIngredientId" value="${saladIngredient.id}">
   													<div class="form-group">
-    													<label for="saladIngredientAmount">Amount</label>
-    													<input type="text" class="form-control" id="saladIngredientSize-${saladIngredient.id}" name="size" placeholder="Enter Amount">
+    													<label for="saladIngredientAmount-${saladIngredient.id}">Amount</label>
+    													<input type="text" class="form-control" id="saladIngredientAmount-${saladIngredient.id}" placeholder="Enter Amount">
 													</div>
   													<div class="form-group">
-    													<label for="saladIngredientPrice">Price</label>
-    													<input type="text" class="form-control" id="saladIngredientPrice-${saladIngredient.id}" name="price" placeholder="Enter Price">
+    													<label for="saladIngredientPrice-${saladIngredient.id}">Price</label>
+    													<input type="text" class="form-control" id="saladIngredientPrice-${saladIngredient.id}" placeholder="Enter Price">
   													</div>
         									</div>
         									<div class="modal-footer">
           										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           										<button type="button" id="my-modal-${saladIngredient.id}"  class="btn btn-primary">Add</button>
         									</div>
+        									</form>
       								</div><!-- /.modal-content -->
     							</div><!-- /.modal-dialog -->
   							</div><!-- /.modal -->
@@ -108,14 +107,16 @@
 		var url = 'process-add-salad-ingredient-form';
 		$.ajax({
 			url: url,
-			data: {
-				nameGeo: $('#ingredientGeo').val(),
-				nameEng: $('#ingredientEng').val(),
-				nameRus: $('#ingredientRus').val(),
-				descriptionGeo: $('#ingredientDescGeo').val(),
-				descriptionEng: $('#ingredientDescEng').val(),
-				descriptionRus: $('#ingredientDescRus').val()
-			}
+			type: "POST",
+			contentType: "application/json",
+			data: JSON.stringify({
+				nameGeo: toUnicode($('#ingredientGeo').val()),
+				nameEng: toUnicode($('#ingredientEng').val()),
+				nameRus: toUnicode($('#ingredientRus').val()),
+				descriptionGeo: toUnicode($('#ingredientDescGeo').val()),
+				descriptionEng: toUnicode($('#ingredientDescEng').val()),
+				descriptionRus: toUnicode($('#ingredientDescRus').val())
+			})
 		}).done(function(response) {
 			$('#ingredientGeo').val('');
 			$('#ingredientEng').val('');
@@ -129,17 +130,18 @@
 	});
 	<c:forEach items="${saladIngredients }" var="saladIngredient">
 		$('#my-modal-${saladIngredient.id}').click(function() {
-			var url =  'process-salad-ingredient-price-and-size';
+			var url =  'process-salad-ingredient-amount-and-price';
 			$.ajax({
 				url: url,
 				data: {
 					saladIngredientId: $('#saladIngredientId-${saladIngredient.id}').val(),
-					size: $('#saladIngredientAmount-${saladIngredient.id}').val(),
+					amount: toUnicode($('#saladIngredientAmount-${saladIngredient.id}').val()),
 					price: $('#saladIngredientPrice-${saladIngredient.id}').val()
 				}
 			}).done(function(saladIngredientAmountAndPrice) {
-				$('#salad-ingredient-amount-and-price-${saladIngredient.id}').append(new Option(saladIngredientAmountAndPrice.amount + '-' + saladIngredientAmountAndPrice.price, '', false, true));
+				$('#salad-ingredient-amount-and-price-${saladIngredient.id}').append('<option value=' + saladIngredientAmountAndPrice.id + ' selected="selected">' + saladIngredientAmountAndPrice.amount + ' - ' + parseFloat(Math.round(saladIngredientAmountAndPrice.price * 100) / 100).toFixed(2) + '</option>');
 				$('#myModal-${saladIngredient.id}').modal('hide');
+				alertify.success("Data has been saved");
 			});
 		});
 		$('#salad-ingredient-amount-and-price-select-item-remove-${saladIngredient.id }').click(function() {
@@ -153,6 +155,7 @@
 						}
 					}).done(function() {
 						$("#salad-ingredient-amount-and-price-${saladIngredient.id} option[value=" + $('#salad-ingredient-amount-and-price-${saladIngredient.id}').val() + "]").remove();
+						alertify.error("Data has been removed");
 					});			
 				}
 			});
@@ -166,7 +169,8 @@
 						data: {saladIngredientId: '${saladIngredient.id}'}
 					}).done(function() {
 						$('.salad-ingredient-${saladIngredient.id }').remove();
-					});			    	
+						alertify.error("Data has been removed");
+					});		    	
 			    } 
 			});
 		});

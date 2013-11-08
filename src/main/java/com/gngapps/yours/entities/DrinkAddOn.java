@@ -1,14 +1,17 @@
 package com.gngapps.yours.entities;
 
-import java.math.BigDecimal;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Drinks {
+public class DrinkAddOn {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,10 +19,13 @@ public class Drinks {
 	private String nameGeo;
 	private String nameEng;
 	private String nameRus;
-	private BigDecimal price;
 	private String descriptionGeo;
 	private String descriptionEng;
 	private String descriptionRus;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "drink_addon_id")
+	private List<DrinkAddOnAmountAndPrice> drinkAddOnAmountAndPrices;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -44,12 +50,6 @@ public class Drinks {
 	public void setNameRus(String nameRus) {
 		this.nameRus = nameRus;
 	}
-	public BigDecimal getPrice() {
-		return price;
-	}
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
 	public String getDescriptionGeo() {
 		return descriptionGeo;
 	}
@@ -68,11 +68,21 @@ public class Drinks {
 	public void setDescriptionRus(String descriptionRus) {
 		this.descriptionRus = descriptionRus;
 	}
-	
+	public List<DrinkAddOnAmountAndPrice> getDrinkAddOnAmountAndPrices() {
+		return drinkAddOnAmountAndPrices;
+	}
+	public void setDrinkAddOnAmountAndPrices(List<DrinkAddOnAmountAndPrice> drinkAddOnAmountAndPrices) { 
+		this.drinkAddOnAmountAndPrices = drinkAddOnAmountAndPrices;
+	}
 	@Override
 	public String toString() {
-		return "Drinks [id=" + id + ", nameGeo=" + nameGeo + ", nameEng=" + nameEng + ", nameRus=" + nameRus + ", price=" + price
-				+ ", descriptionGeo=" + descriptionGeo + ", descriptionEng=" + descriptionEng + ", descriptionRus=" + descriptionRus + "]";
+		return "DrinkAddOn [id=" + id + ", nameGeo=" + nameGeo + ", nameEng="
+				+ nameEng + ", nameRus=" + nameRus + ", descriptionGeo="
+				+ descriptionGeo + ", descriptionEng=" + descriptionEng
+				+ ", descriptionRus=" + descriptionRus
+				+ ", drinkAddOnAmountAndPrices=" + drinkAddOnAmountAndPrices
+				+ "]";
 	}
+	
 	
 }

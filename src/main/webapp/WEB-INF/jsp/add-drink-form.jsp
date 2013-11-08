@@ -25,7 +25,7 @@
 				<td><input type="text" class="form-control" id="drinkDescRus" placeholder="Drink Desc Rus" /></td>
 			</tr>
 			<tr>
-				<td><button type="submit" id="drink-add-btn" class="btn btn-default">Add</button></td>
+				<td><button type="button" id="drink-add-btn" class="btn btn-default">Add</button></td>
 			</tr>
 		</table>
 </div>
@@ -79,11 +79,11 @@
         											<input type="hidden" id="drinkId-${drink.id}" name="drinkId" value="${drink.id}">
   													<div class="form-group">
     													<label for="drinkSize-${drink.id }">Size</label>
-    													<input type="text" class="form-control" id="drinkSize-${drink.id}" name="size" placeholder="Enter Size">
+    													<input type="text" class="form-control" id="drinkSize-${drink.id}" placeholder="Enter Size">
 													</div>
   													<div class="form-group">
     													<label for="drinkPrice-${drink.id}">Price</label>
-    													<input type="text" class="form-control" id="drinkPrice-${drink.id}" name="price" placeholder="Enter Price">
+    													<input type="text" class="form-control" id="drinkPrice-${drink.id}" placeholder="Enter Price">
   													</div>
         									</div>
         									<div class="modal-footer">
@@ -105,14 +105,16 @@
 		var url = 'process-add-drink-form';
 		$.ajax({
 			url: url,
-			data: {
-				nameGeo: $('#drinkNameGeo').val(),
-				nameEng: $('#drinkNameEng').val(),
-				nameRus: $('#drinkNameRus').val(),
-				descriptionGeo: $('#drinkDescGeo').val(),
-				descriptionEng: $('#drinkDescEng').val(),
-				descriptionRus: $('#drinkDescRus').val()
-			}
+			type: "POST",
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({
+				nameGeo: toUnicode($('#drinkNameGeo').val()),
+				nameEng: toUnicode($('#drinkNameEng').val()),
+				nameRus: toUnicode($('#drinkNameRus').val()),
+				descriptionGeo: toUnicode($('#drinkDescGeo').val()),
+				descriptionEng: toUnicode($('#drinkDescEng').val()),
+				descriptionRus: toUnicode($('#drinkDescRus').val())
+			})
 		}).done(function(response) {
 			$('#drinkNameGeo').val('');
 			$('#drinkNameEng').val('');
@@ -131,11 +133,11 @@
 				url: url,
 				data: {
 					drinkId: $('#drinkId-${drink.id}').val(),
-					size: $('#drinkSize-${drink.id}').val(),
+					size: toUnicode($('#drinkSize-${drink.id}').val()),
 					price: $('#drinkPrice-${drink.id}').val()
 				}
 			}).done(function(drinkSizeAndPrice) {
-				$('#drink-size-and-price-${drink.id}').append(new Option(drinkSizeAndPrice.size + '-' + drinkSizeAndPrice.price, '', false, true));
+				$('#drink-size-and-price-${drink.id}').append('<option value=' + drinkSizeAndPrice.id + ' selected="selected">' + drinkSizeAndPrice.size + ' - ' + parseFloat(Math.round(drinkSizeAndPrice.price * 100) / 100).toFixed(2) + '</option>');
 				$('#myModal-${drink.id}').modal('hide');
 			});
 		});
@@ -150,6 +152,7 @@
 						}
 					}).done(function() {
 						$("#drink-size-and-price-${drink.id} option[value=" + $('#drink-size-and-price-${drink.id}').val() + "]").remove();
+						alertify.error("Data has been removed");
 					});			
 				}
 			});
@@ -163,6 +166,7 @@
 						data: {drinkId: '${drink.id}'}
 					}).done(function() {
 						$('.drink-${drink.id }').remove();
+						alertify.error("Data has been removed");
 					});			    	
 			    } 
 			});

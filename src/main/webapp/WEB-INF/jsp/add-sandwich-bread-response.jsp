@@ -63,17 +63,18 @@
 </tr>
 <script>
 $('#my-modal-${sandwichBread.id}').click(function() {
-	var url =  'process-sandwich-bread-price-and-size';
+	var url =  'process-sandwich-bread-size-and-price';
 	$.ajax({
 		url: url,
 		data: {
 			sandwichBreadId: $('#sandwichBreadId-${sandwichBread.id}').val(),
-			size: $('#sandwichBreadSize-${sandwichBread.id}').val(),
+			size: toUnicode($('#sandwichBreadSize-${sandwichBread.id}').val()),
 			price: $('#sandwichBreadPrice-${sandwichBread.id}').val()
 		}
 	}).done(function(sandwichBreadSizeAndPrice) {
-		$('#sandwich-bread-size-and-price-${sandwichBread.id}').append(new Option(sandwichBreadSizeAndPrice.size + '-' + sandwichBreadSizeAndPrice.price, sandwichBreadSizeAndPrice.id, false, true));
+		$('#sandwich-bread-size-and-price-${sandwichBread.id}').append('<option value=' + sandwichBreadSizeAndPrice.id + ' selected="selected">' + sandwichBreadSizeAndPrice.size + ' - ' + parseFloat(Math.round(sandwichBreadSizeAndPrice.price * 100) / 100).toFixed(2) + '</option>');
 		$('#myModal-${sandwichBread.id}').modal('hide');
+		alertify.success("Data has been saved");
 	});
 });
 $('#sandwich-bread-size-and-price-select-item-remove-${sandwichBread.id }').click(function() {
@@ -87,6 +88,7 @@ $('#sandwich-bread-size-and-price-select-item-remove-${sandwichBread.id }').clic
 				}
 			}).done(function() {
 				$("#sandwich-bread-size-and-price-${sandwichBread.id} option[value=" + $('#sandwich-bread-size-and-price-${sandwichBread.id}').val() + "]").remove();
+				alertify.error("Data has been removed");
 			});			
 		}
 	});
@@ -100,6 +102,7 @@ $('#sandwich-bread-remove-btn-${sandwichBread.id }').click(function() {
 				data: {sandwichBreadId: '${sandwichBread.id}'}
 			}).done(function() {
 				$('.sandwich-bread-${sandwichBread.id }').remove();
+				alertify.error("Data has been removed");
 			});			    	
 	    } 
 	});

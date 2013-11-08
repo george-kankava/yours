@@ -161,7 +161,7 @@
 		$( ".hotdog-ingredient-bread" ).click(function() {
 			$.get( "add-hotdog-ingredient-bread-form", function( content ) {
 				$( ".yours-ingredients-list" ).empty();
-				$( ".hotdog-ingredients-list" ).append( content );
+				$( ".yours-ingredients-list" ).append( content );
 			});
 		});
 		$( ".hotdog-ingredient-sausage" ).click(function() {
@@ -182,6 +182,16 @@
 				$( ".yours-ingredients-list" ).append( content );
 			});
 		});
+		
+		function toUnicode(theString) {
+			  var unicodeString = '';
+			  for (var i=0; i < theString.length; i++) {
+			    var theUnicode = theString.charCodeAt(i).toString(10);
+			    theUnicode = '&#' + theUnicode + ';';
+			    unicodeString += theUnicode;
+			  }
+			  return unicodeString;
+		}
 	</script>
 </body>
 </html>

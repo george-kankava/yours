@@ -8,8 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class SandwichBreadSizeAndPrice {
-	
+public class HotdogBreadSizeAndPrice {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -37,8 +37,7 @@ public class SandwichBreadSizeAndPrice {
 	
 	@Override
 	public String toString() {
-		return "BreadSizeAndPrice [id=" + id + ", size=" + size + ", price=" + price + "]";
+		return "HotDogBreadSizeAndPrice [id=" + id + ", size=" + size + ", price=" + price + "]";
 	}
-	
 	
 }

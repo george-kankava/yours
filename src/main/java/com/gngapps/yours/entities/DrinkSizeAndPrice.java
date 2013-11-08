@@ -4,14 +4,16 @@ import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Id;
 
 @Entity
-public class SandwichBreadSizeAndPrice {
-	
+public class DrinkSizeAndPrice {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
 	private String size;
 	private BigDecimal price;
@@ -37,7 +39,8 @@ public class SandwichBreadSizeAndPrice {
 	
 	@Override
 	public String toString() {
-		return "BreadSizeAndPrice [id=" + id + ", size=" + size + ", price=" + price + "]";
+		return "DrinkSizeAndPrice [id=" + id + ", size=" + size + ", price="
+				+ price + "]";
 	}
 	
 	

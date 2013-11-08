@@ -1,14 +1,17 @@
 package com.gngapps.yours.entities;
 
-import java.math.BigDecimal;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
-public class DrinkAddOns {
+public class Drink {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,11 +19,12 @@ public class DrinkAddOns {
 	private String nameGeo;
 	private String nameEng;
 	private String nameRus;
-	private BigDecimal price;
 	private String descriptionGeo;
 	private String descriptionEng;
 	private String descriptionRus;
-	
+	@JoinColumn(name = "drink_id")
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<DrinkSizeAndPrice> drinkSizeAndPrices;
 	public Integer getId() {
 		return id;
 	}
@@ -45,12 +49,6 @@ public class DrinkAddOns {
 	public void setNameRus(String nameRus) {
 		this.nameRus = nameRus;
 	}
-	public BigDecimal getPrice() {
-		return price;
-	}
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
 	public String getDescriptionGeo() {
 		return descriptionGeo;
 	}
@@ -69,11 +67,18 @@ public class DrinkAddOns {
 	public void setDescriptionRus(String descriptionRus) {
 		this.descriptionRus = descriptionRus;
 	}
-	
+	public List<DrinkSizeAndPrice> getDrinkSizeAndPrices() {
+		return drinkSizeAndPrices;
+	}
+	public void setDrinkSizeAndPrices(List<DrinkSizeAndPrice> drinkSizeAndPrices) {
+		this.drinkSizeAndPrices = drinkSizeAndPrices;
+	}
 	@Override
 	public String toString() {
-		return "DrinkAddOns [id=" + id + ", nameGeo=" + nameGeo + ", nameEng=" + nameEng + ", nameRus=" + nameRus + ", price=" + price
-				+ ", descriptionGeo=" + descriptionGeo + ", descriptionEng=" + descriptionEng + ", descriptionRus=" + descriptionRus + "]";
+		return "Drinks [id=" + id + ", nameGeo=" + nameGeo + ", nameEng=" + nameEng + ", nameRus=" + nameRus + ", descriptionGeo=" + descriptionGeo + 
+				", descriptionEng=" + descriptionEng + ", descriptionRus=" + descriptionRus + ", drinkSizeAndPrices=" + drinkSizeAndPrices + "]";
 	}
+	
+	
 	
 }

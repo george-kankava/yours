@@ -8,12 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class HotDogBreadSizeAndPrice {
+public class DrinkAddOnAmountAndPrice {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Integer size;
+	private String amount;
 	private BigDecimal price;
 	
 	public Integer getId() {
@@ -22,11 +22,11 @@ public class HotDogBreadSizeAndPrice {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getSize() {
-		return size;
+	public String getAmount() {
+		return amount;
 	}
-	public void setSize(Integer size) {
-		this.size = size;
+	public void setAmount(String amount) {
+		this.amount = amount;
 	}
 	public BigDecimal getPrice() {
 		return price;
@@ -34,10 +34,10 @@ public class HotDogBreadSizeAndPrice {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	
 	@Override
 	public String toString() {
-		return "HotDogBreadSizeAndPrice [id=" + id + ", size=" + size + ", price=" + price + "]";
+		return "DrinkAddOnAmountAndPrice [id=" + id + ", amount=" + amount + ", price=" + price + "]";
 	}
+	
 	
 }

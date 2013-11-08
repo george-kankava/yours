@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,6 @@
 <link href="resources/css/bootstrap.css" rel="stylesheet" />
 
 <!-- Custom styles for this template -->
-<link href="resources/css/jumbotron-narrow.css" rel="stylesheet" />
 <link href="resources/css/yours-food-service.css" rel="stylesheet" />
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -37,275 +37,184 @@
 			<h3 class="text-muted">Yours.ge - Online Food Service</h3>
 		</div>
 		<div class="logo-image"></div>
-		<div class="row marketing">
-			<div class="col-lg-3">
-				<h4>
-					<span style="margin-left: 15px"><spring:message code="yours.list.heading.sandwich" text="Sandwich" /></span>
-				</h4>
+		<div class="row">
+			<div class="col-lg-3" style="margin-top:30px">
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+          				<h3 class="panel-title"><spring:message code="yours.list.heading.sandwich" text="Sandwich" /></h3>
+        			</div>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><spring:message
+										code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
+							</tr>
+						</thead>
+						<c:forEach items="${sandwichBreads }" var="sandwichBread">
+							<tr>
+								<td><input type="radio"><span
+									style="margin-left: 10px">${sandwichBread.nameGeo }</span></td>
+							</tr>
+						</c:forEach>
+					</table>
 
-				<h5>
-					<span style="margin-left: 35px"><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></span>
-				</h5>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
+							</tr>
+						</thead>
+						<c:forEach items="${sandwichSausages }" var="sandwichSausage">
+							<tr>
+								<td><input type="radio"><span style="margin-left: 10px">${sandwichSausage.nameGeo }</span></td>
+							</tr>
+						</c:forEach>
+					</table>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><spring:message code="yours.list.heading.sandwich.sublist.vegetables" text="Vegetables" /></th>
+							</tr>
+						</thead>
+						<c:forEach items="${sandwichVegetables }" var="sandwichVegetable">
+							<tr>
+								<td><input type="radio"><span style="margin-left: 10px">${sandwichVegetable.nameGeo }</span></td>
+							</tr>
+						</c:forEach>
+					</table>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><spring:message code="yours.list.heading.sandwich.sublist.sauce" text="Sauce" /></th>
+							</tr>
+						</thead>
+						<c:forEach items="${sandwichSauces }" var="sandwichSauce">
+							<tr>
+								<td><input type="radio"><span style="margin-left: 10px">${sandwichSauce.nameGeo }</span></td>
+							</tr>
+						</c:forEach>
+					</table>
 
-				<blockquote>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Toasted</span>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><spring:message code="yours.list.heading.sandwich.sublist.spice" text="Spice" /></th>
+							</tr>
+						</thead>
+						<c:forEach items="${sandwichSpices }" var="sandwichSpice">
+							<tr>
+								<td><input type="radio"><span style="margin-left: 10px">${sandwichSpice.nameGeo }</span></td>
+							</tr>
+						</c:forEach>
+					</table>
+					<div class="col-md-offset-4" style="margin-top:14px;padding-bottom: 10px;">
+						<button type="button" class="btn btn-success">Save</button>
 					</div>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Yeast bread</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Buckwheat</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Flatbread</span>
-					</div>
-				</blockquote>
-
-				<h5>
-					<span style="margin-left: 35px"><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></span>
-				</h5>
-
-				<blockquote>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Swojska</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Krajanska</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Wurst</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Szynkowa</span>
-					</div>
-				</blockquote>
-
-				<h5>
-					<span style="margin-left: 35px"><spring:message code="yours.list.heading.sandwich.sublist.vegetables" text="Vegetables" /></span>
-				</h5>
-
-				<blockquote>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Tomato</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Cucumber</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Salad List</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Onion</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Garlic</span>
-					</div>
-				</blockquote>
-
-				<h5>
-					<span style="margin-left: 35px"><spring:message code="yours.list.heading.sandwich.sublist.sauce" text="Sauce" /></span>
-				</h5>
-
-				<blockquote>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Hollandaise</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Mustard</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Ketchup</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Gremolata</span>
-					</div>
-				</blockquote>
-
-				<h5>
-					<span style="margin-left: 35px"><spring:message
-							code="yours.list.heading.sandwich.sublist.spice" text="Spice" /></span>
-				</h5>
-
-				<blockquote>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Barberry</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Carob</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Cinnamon</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Fennel</span>
-					</div>
-				</blockquote>
+				</div>
 			</div>
 
-			<div class="col-lg-3">
-				<h4>
-					<span style="margin-left: 20px"><spring:message code="yours.list.heading.salad" text="Salad" /></span>
-				</h4>
-				<div style="margin-top: 30px"></div>
-				<blockquote>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Pomegran</span>
+			<div class="col-lg-3" style="margin-top:30px">
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+          				<h3 class="panel-title"><spring:message code="yours.list.heading.salad" text="Salad" /></h3>
+        			</div>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Ingredients</th>
+							</tr>
+						</thead>
+						<c:forEach items="${saladIngredients }" var="saladIngredient">
+							<tr>
+								<td><input type="radio"><span style="margin-left: 10px">${saladIngredient.nameGeo }</span></td>
+							</tr>
+						</c:forEach>
+					</table>
+					<div class="col-md-offset-4" style="margin-top:14px;padding-bottom: 10px;">
+						<button type="button" class="btn btn-success">Save</button>
 					</div>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Caesar</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Roquefort</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Rice</span>
-					</div>
-				</blockquote>
+				</div>
 			</div>
-			<div class="col-lg-3">
-				<h4>
-					<span style="margin-left: 20px"><spring:message code="yours.list.heading.drinks" text="Drinks" /></span>
-				</h4>
-				<div style="margin-top: 30px"></div>
-				<blockquote>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Tea</span>
+			<div class="col-lg-3" style="margin-top:30px">
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+          				<h3 class="panel-title"><spring:message code="yours.list.heading.drinks" text="Drinks" /></h3>
+        			</div>
+					<table class="table table-striped">
+						<c:forEach items="${drinks}" var="drink">
+							<tr>
+								<td><input type="radio"><span style="margin-left: 10px">${drink.nameGeo }</span></td>
+							</tr>
+						</c:forEach>
+					</table>
+				<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Add ons</th>
+							</tr>
+						</thead>
+						<c:forEach items="${drinkAddOns}" var="drinkAddOn">
+							<tr>
+								<td><input type="radio"><span style="margin-left: 10px">${drinkAddOn.nameGeo }</span></td>
+							</tr>
+						</c:forEach>
+				</table>
+				<div class="col-md-offset-4" style="margin-top:14px;padding-bottom: 10px;">
+						<button type="button" class="btn btn-success">Save</button>
 					</div>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Coffee</span>
 					</div>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Cappuccino</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Americano</span>
-					</div>
-				</blockquote>
-				<blockquote>
-					<p class="text-muted">Add-ons</p>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Red Bull</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Vodka</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Sugar</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Chocolate</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Whiskey</span>
-					</div>
-				</blockquote>
 			</div>
-
-			<div class="col-lg-3">
-				<h4>
-					<span style="margin-left: 15px">Hot Dog</span>
-				</h4>
-
-				<h5>
-					<span style="margin-left: 35px"><spring:message
-							code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></span>
-				</h5>
-
-				<blockquote>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Regular</span>
+			<div class="col-lg-3" style="margin-top:30px">
+			<div class="panel panel-warning">
+					<div class="panel-heading">
+          				<h3 class="panel-title">Hot Dog</h3>
+        			</div>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>
+									<spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" />
+								</th>
+							</tr>
+						</thead>
+						<c:forEach items="${hotdogBreads}" var="hotdogBread">
+							<tr>
+								<td><input type="radio"><span style="margin-left: 10px">${hotdogBread.nameGeo }</span></td>
+							</tr>
+						</c:forEach>
+					</table>
+				<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
+							</tr>
+						</thead>
+						<c:forEach items="${hotdogSausages}" var="hotdogSausage">
+							<tr>
+								<td><input type="radio"><span style="margin-left: 10px">${hotdogSausage.nameGeo }</span></td>
+							</tr>
+						</c:forEach>
+				</table>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>
+									<spring:message code="yours.list.heading.sandwich.sublist.sauce" text="Sauce" />
+								</th>
+							</tr>
+						</thead>
+						<c:forEach items="${hotdogSauces}" var="hotdogSauce">
+							<tr>
+								<td><input type="radio"><span style="margin-left: 10px">${hotdogSauce.nameGeo }</span></td>
+							</tr>
+						</c:forEach>
+					</table>
+				<div class="col-md-offset-4" style="margin-top:14px;padding-bottom: 10px;">
+						<button type="button" class="btn btn-success">Save</button>
 					</div>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Sesame</span>
 					</div>
-				</blockquote>
-				<div style="margin-top: 50px"></div>
-				<h5>
-					<span style="margin-left: 35px"><spring:message
-							code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></span>
-				</h5>
-				<blockquote>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Italian</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Knockwurst</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Krakowska</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="radio"></span><span
-							style="margin-left: 10px">Chorizo</span>
-					</div>
-				</blockquote>
-				
-				<h5>
-					<span style="margin-left: 35px"><spring:message
-							code="yours.list.heading.sandwich.sublist.sauce" text="Sauce" /></span>
-				</h5>
-
-				<blockquote>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Hollandaise</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Mustard</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Ketchup</span>
-					</div>
-					<div class="input-group">
-						<span> <input type="checkbox"></span><span
-							style="margin-left: 10px">Gremolata</span>
-					</div>
-				</blockquote>
 			</div>
 		</div>
-
 		<div class="footer">
 			<p>&copy; Yours 2013<span class="pull-right">Developed by GNG Apps</span></p>
 		</div>

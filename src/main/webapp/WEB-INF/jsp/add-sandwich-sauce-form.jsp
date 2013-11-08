@@ -41,7 +41,7 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${sandwichSauces }" var="sandwichSauce">
-					<tr>
+					<tr class="sandwich-sauce-${sandwichSauce.id }">
 						<td>
 							<select class="form-control">
 								<option>${sandwichSauce.nameGeo }</option>
@@ -57,9 +57,9 @@
 							</select>
 						</td>
 						<td>
-							<select class="form-control">
+							<select id="sandwich-sauce-amount-and-price-${sandwichSauce.id}" class="form-control">
 								<c:forEach items="${sandwichSauce.sauceAmountAndPrices }" var="sauceAmountAndPrice">
-									<option>${sauceAmountAndPrice.portion} - ${sauceAmountAndPrice.price }</option>
+									<option value="${sauceAmountAndPrice.id }">${sauceAmountAndPrice.portion} - ${sauceAmountAndPrice.price }</option>
 								</c:forEach>
 							</select>
 						</td>
@@ -75,9 +75,8 @@
           									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           									<h4 class="modal-title">Add</h4>
         								</div>
-        								<form class="form-inline" role="form" action="process-sandwich-sauce-amount-and-price" method="POST">
         									<div class="modal-body">
-        											<input type="hidden" name="sandwichSauceId-${sandwichSauce.id }" value="${sandwichSauce.id}">
+        											<input type="hidden" id="sandwichSauceId-${sandwichSauce.id }" value="${sandwichSauce.id}">
   													<div class="form-group">
     													<label for="sandwichSauceAmount-${sandwichSauce.id }">Amount</label>
     													<input id="sandwichSauceAmount-${sandwichSauce.id }" type="text" class="form-control" name="amount" placeholder="Enter Amount">
@@ -91,7 +90,6 @@
           										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           										<button id="my-modal-${sandwichSauce.id }" type="submit" class="btn btn-primary">Add</button>
         									</div>
-        								</form>
       								</div><!-- /.modal-content -->
     							</div><!-- /.modal-dialog -->
   							</div><!-- /.modal -->
@@ -107,14 +105,16 @@
 		var url = 'process-add-sandwich-sauce-form';
 		$.ajax({
 			url: url,
-			data: {
-				nameGeo: $('#sauceNameGeo').val(),
-				nameEng: $('#sauceNameEng').val(),
-				nameRus: $('#sauceNameRus').val(),
-				descriptionGeo: $('#sauceDescGeo').val(),
-				descriptionEng: $('#sauceDescEng').val(),
-				descriptionRus: $('#sauceDescRus').val()
-			}
+			type: "POST",
+			contentType: "application/json",
+			data: JSON.stringify({
+				nameGeo: toUnicode($('#sauceNameGeo').val()),
+				nameEng: toUnicode($('#sauceNameEng').val()),
+				nameRus: toUnicode($('#sauceNameRus').val()),
+				descriptionGeo: toUnicode($('#sauceDescGeo').val()),
+				descriptionEng: toUnicode($('#sauceDescEng').val()),
+				descriptionRus: toUnicode($('#sauceDescRus').val())
+			})
 		}).done(function(response) {
 			$('#sauceNameGeo').val('');
 			$('#sauceNameEng').val('');
@@ -133,12 +133,13 @@
 				url: url,
 				data: {
 					sandwichSauceId: $('#sandwichSauceId-${sandwichSauce.id}').val(),
-					amount: $('#sandwichSauceAmount-${sandwichSauce.id}').val(),
+					amount: toUnicode($('#sandwichSauceAmount-${sandwichSauce.id}').val()),
 					price: $('#sandwichSaucePrice-${sandwichSauce.id}').val()
 				}
 			}).done(function(sandwichSauceAmountAndPrice) {
-				$('#sandwich-sauce-amount-and-price-${sandwichSauce.id}').append(new Option(sandwichSauceAmountAndPrice.amount + '-' + sandwichSauceAmountAndPrice.price, '', false, true));
+				$('#sandwich-sauce-amount-and-price-${sandwichSauce.id}').append('<option value=' + sandwichSauceAmountAndPrice.id + ' selected="selected">' + sandwichSauceAmountAndPrice.portion + ' - ' + parseFloat(Math.round(sandwichSauceAmountAndPrice.price * 100) / 100).toFixed(2) + '</option>');
 				$('#myModal-${sandwichSauce.id}').modal('hide');
+				alertify.success("Data has been saved");
 			});
 		});
 		$('#sandwich-sauce-amount-and-price-select-item-remove-${sandwichSauce.id }').click(function() {
@@ -152,7 +153,8 @@
 						}
 					}).done(function() {
 						$("#sandwich-sauce-amount-and-price-${sandwichSauce.id} option[value=" + $('#sandwich-sauce-amount-and-price-${sandwichSauce.id}').val() + "]").remove();
-					});			
+						alertify.error("Data has been removed");
+					});
 				}
 			});
 		});
@@ -165,8 +167,9 @@
 						data: {sandwichSauceId: '${sandwichSauce.id}'}
 					}).done(function() {
 						$('.sandwich-sauce-${sandwichSauce.id }').remove();
-					});			    	
-			    } 
+						alertify.error("Data has been removed");
+					});
+			    }
 			});
 		});
 	</c:forEach>

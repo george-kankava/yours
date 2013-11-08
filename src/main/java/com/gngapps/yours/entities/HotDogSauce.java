@@ -11,20 +11,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
-public class SaladIngredient {
-	
+public class HotDogSauce {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nameGeo;
-	private String nameEng;
 	private String nameRus;
+	private String nameEng;
 	private String descriptionGeo;
 	private String descriptionEng;
 	private String descriptionRus;
-	@JoinColumn(name = "salad_ingredient_id")
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<SaladIngredientAmountAndPrice> saladIngredientAmountAndPrices;
+	@JoinColumn(name = "hotdog_sauce_id")
+	private List<HotdogSauceAmountAndPrice> hotdogSauceAmountAndPrice;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -37,17 +38,17 @@ public class SaladIngredient {
 	public void setNameGeo(String nameGeo) {
 		this.nameGeo = nameGeo;
 	}
-	public String getNameEng() {
-		return nameEng;
-	}
-	public void setNameEng(String nameEng) {
-		this.nameEng = nameEng;
-	}
 	public String getNameRus() {
 		return nameRus;
 	}
 	public void setNameRus(String nameRus) {
 		this.nameRus = nameRus;
+	}
+	public String getNameEng() {
+		return nameEng;
+	}
+	public void setNameEng(String nameEng) {
+		this.nameEng = nameEng;
 	}
 	public String getDescriptionGeo() {
 		return descriptionGeo;
@@ -67,22 +68,18 @@ public class SaladIngredient {
 	public void setDescriptionRus(String descriptionRus) {
 		this.descriptionRus = descriptionRus;
 	}
-	
-	public List<SaladIngredientAmountAndPrice> getSaladIngredientAmountAndPrices() {
-		return saladIngredientAmountAndPrices;
+	public List<HotdogSauceAmountAndPrice> getHotdogSauceAmountAndPrice() {
+		return hotdogSauceAmountAndPrice;
 	}
-	
-	public void setSaladIngredientAmountAndPrice(List<SaladIngredientAmountAndPrice> saladIngredientAmountAndPrices) {
-		this.saladIngredientAmountAndPrices = saladIngredientAmountAndPrices;
+	public void setHotdogSauceAmountAndPrice(
+			List<HotdogSauceAmountAndPrice> hotdogSauceAmountAndPrice) {
+		this.hotdogSauceAmountAndPrice = hotdogSauceAmountAndPrice;
 	}
-	
 	@Override
 	public String toString() {
-		return "SaladIngredient [id=" + id + ", nameGeo=" + nameGeo
-				+ ", nameEng=" + nameEng + ", nameRus=" + nameRus
-				+ ", descriptionGeo=" + descriptionGeo + ", descriptionEng="
-				+ descriptionEng + ", descriptionRus=" + descriptionRus
-				+ ", saladIngredientAmountAndPrices="
-				+ saladIngredientAmountAndPrices + "]";
+		return "HotDogSauce [id=" + id + ", nameGeo=" + nameGeo + ", nameRus=" + nameRus + ", nameEng=" + nameEng + ", descriptionGeo=" + descriptionGeo +
+				", descriptionEng=" + descriptionEng + ", descriptionRus=" + descriptionRus + ", hotdogSauceAmountAndPrice=" + hotdogSauceAmountAndPrice + "]";
 	}
+	
+	
 }

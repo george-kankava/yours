@@ -25,7 +25,7 @@
 				<td><input type="text" class="form-control" id="breadDescRus" placeholder="Bread Desc Rus" /></td>
 			</tr>
 			<tr>
-				<td><button type="submit" id="hotdog-bread-add-btn" class="btn btn-default">Add</button></td>
+				<td><button type="button" id="hotdog-bread-add-btn" class="btn btn-default">Add</button></td>
 			</tr>
 		</table>
 </div>
@@ -75,21 +75,23 @@
           									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           									<h4 class="modal-title">Add</h4>
         								</div>
+        								<form class="form-inline" role="form">
         									<div class="modal-body">
-        											<input type="hidden" id="hotdogBreadId-${hotdogBread.id}" name="hotdogBreadId" value="${hotdogBread.id}">
-  													<div class="form-group">
-    													<label for="hotdogBreadSize-${hotdogBread.id }">Size</label>
-    													<input type="text" class="form-control" id="hotdogBreadSize-${hotdogBread.id}" name="size" placeholder="Enter Size">
-													</div>
-  													<div class="form-group">
-    													<label for="hotdogBreadPrice-${hotdogBread.id }">Price</label>
-    													<input type="text" class="form-control" id="hotdogBreadPrice-${hotdogBread.id}" name="price" placeholder="Enter Price">
-  													</div>
+												<input type="hidden" id="hotdogBreadId-${hotdogBread.id}" name="hotdogBreadId" value="${hotdogBread.id}">
+  												<div class="form-group">
+    												<label for="hotdogBreadSize-${hotdogBread.id }">Size</label>
+    												<input type="text" class="form-control" id="hotdogBreadSize-${hotdogBread.id}" name="size" placeholder="Enter Size">
+												</div>
+  												<div class="form-group">
+    												<label for="hotdogBreadPrice-${hotdogBread.id }">Price</label>
+    												<input type="text" class="form-control" id="hotdogBreadPrice-${hotdogBread.id}" name="price" placeholder="Enter Price">
+  												</div>
         									</div>
         									<div class="modal-footer">
           										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           										<button type="button" id="my-modal-${hotdogBread.id}"  class="btn btn-primary">Add</button>
         									</div>
+        								</form>
       								</div><!-- /.modal-content -->
     							</div><!-- /.modal-dialog -->
   							</div><!-- /.modal -->
@@ -105,14 +107,16 @@
 		var url = 'process-add-hotdog-bread-form';
 		$.ajax({
 			url: url,
-			data: {
-				nameGeo: $('#breadTypeGeo').val(),
-				nameEng: $('#breadTypeEng').val(),
-				nameRus: $('#breadTypeRus').val(),
-				descriptionGeo: $('#breadDescGeo').val(),
-				descriptionEng: $('#breadDescEng').val(),
-				descriptionRus: $('#breadDescRus').val()
-			}
+			type: "POST",
+			contentType: "application/json",
+			data: JSON.stringify({
+				nameGeo: toUnicode($('#breadTypeGeo').val()),
+				nameEng: toUnicode($('#breadTypeEng').val()),
+				nameRus: toUnicode($('#breadTypeRus').val()),
+				descriptionGeo: toUnicode($('#breadDescGeo').val()),
+				descriptionEng: toUnicode($('#breadDescEng').val()),
+				descriptionRus: toUnicode($('#breadDescRus').val())
+			})
 		}).done(function(response) {
 			$('#breadTypeGeo').val('');
 			$('#breadTypeEng').val('');
@@ -126,7 +130,7 @@
 	});
 	<c:forEach items="${hotdogBreads }" var="hotdogBread">
 		$('#my-modal-${hotdogBread.id}').click(function() {
-			var url =  'process-hotdog-bread-price-and-size';
+			var url =  'process-hotdog-bread-size-and-price';
 			$.ajax({
 				url: url,
 				data: {
@@ -135,7 +139,7 @@
 					price: $('#hotdogBreadPrice-${hotdogBread.id}').val()
 				}
 			}).done(function(hotdogBreadSizeAndPrice) {
-				$('#hotdog-bread-size-and-price-${hotdogBread.id}').append(new Option(hotdogBreadSizeAndPrice.size + '-' + hotdogBreadSizeAndPrice.price, '', false, true));
+				$('#hotdog-bread-size-and-price-${hotdogBread.id}').append('<option value=' + hotdogBreadSizeAndPrice.id + ' selected="selected">' + hotdogBreadSizeAndPrice.size + ' - ' + parseFloat(Math.round(hotdogBreadSizeAndPrice.price * 100) / 100).toFixed(2) + '</option>');
 				$('#myModal-${hotdogBread.id}').modal('hide');
 			});
 		});
@@ -150,6 +154,7 @@
 						}
 					}).done(function() {
 						$("#hotdog-bread-size-and-price-${hotdogBread.id} option[value=" + $('#hotdog-bread-size-and-price-${hotdogBread.id}').val() + "]").remove();
+						alertify.error("Data has been removed");
 					});			
 				}
 			});
@@ -163,6 +168,7 @@
 						data: {hotdogBreadId: '${hotdogBread.id}'}
 					}).done(function() {
 						$('.hotdog-bread-${hotdogBread.id }').remove();
+						alertify.error("Data has been removed");
 					});			    	
 			    } 
 			});

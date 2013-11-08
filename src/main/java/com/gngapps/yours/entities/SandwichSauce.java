@@ -70,8 +70,7 @@ public class SandwichSauce {
 	public List<SandwichSauceAmountAndPrice> getSauceAmountAndPrices() {
 		return sauceAmountAndPrices;
 	}
-	public void setSauceAmountAndPrices(
-			List<SandwichSauceAmountAndPrice> sauceAmountAndPrices) {
+	public void setSauceAmountAndPrices(List<SandwichSauceAmountAndPrice> sauceAmountAndPrices) {
 		this.sauceAmountAndPrices = sauceAmountAndPrices;
 	}
 	@Override

@@ -7,10 +7,10 @@
 <div class="col-md-3">
 		<table class="table table-bordered">
 			<tr>
-				<td><input type="text" class="form-control" id="sauceNameGeo" placeholder="Sauce Name Geo" /></td>
+				<td><input type="text" class="form-control" id="sauceNameGeo" name="nameGeo" placeholder="Sauce Name Geo" /></td>
 			</tr>
 			<tr>
-				<td><input type="text" class="form-control" id="sauceNameEng" placeholder="Sauce Name Eng" /></td>
+				<td><input type="text" class="form-control" id="sauceNameEng" name="nameEng" placeholder="Sauce Name Eng" /></td>
 			</tr>
 			<tr>
 				<td><input type="text" class="form-control" id="sauceNameRus" placeholder="Sauce Name Rus" /></td>
@@ -25,7 +25,7 @@
 				<td><input type="text" class="form-control" id="sauceDescRus" placeholder="Sauce Desc Rus" /></td>
 			</tr>
 			<tr>
-				<td><button type="submit" id="hotdog-sauce-add-btn" class="btn btn-default">Add</button></td>
+				<td><button type="button" id="hotdog-sauce-add-btn" class="btn btn-default">Add</button></td>
 			</tr>
 		</table>
 </div>
@@ -58,7 +58,7 @@
 						</td>
 						<td>
 							<select id="hotdog-sauce-amount-and-price-${hotdogSauce.id}" class="form-control">
-								<c:forEach items="${hotdogSauce.hotdogSauceAmountAndPrices }" var="hotdogSauceAmountAndPrice">
+								<c:forEach items="${hotdogSauce.hotdogSauceAmountAndPrice }" var="hotdogSauceAmountAndPrice">
 									<option value="${hotdogSauceAmountAndPrice.id }">${hotdogSauceAmountAndPrice.amount } - ${hotdogSauceAmountAndPrice.price }</option>
 								</c:forEach>
 							</select>
@@ -76,6 +76,7 @@
           									<h4 class="modal-title">Add</h4>
         								</div>
         									<div class="modal-body">
+        										<form class="form-inline" role="form">
         											<input type="hidden" id="hotdogSauceId-${hotdogSauce.id}" name="hotdogSauceId" value="${hotdogSauce.id}">
   													<div class="form-group">
     													<label for="hotdogSauceAmount-${hotdogSauce.id }">Amount</label>
@@ -85,6 +86,7 @@
     													<label for="hotdogSaucePrice-${hotdogSauce.id }">Price</label>
     													<input type="text" class="form-control" id="hotdogSaucePrice-${hotdogSauce.id}" name="price" placeholder="Enter Price">
   													</div>
+  												</form>
         									</div>
         									<div class="modal-footer">
           										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -105,14 +107,16 @@
 		var url = 'process-add-hotdog-sauce-form';
 		$.ajax({
 			url: url,
-			data: {
-				nameGeo: $('#sauceNameGeo').val(),
-				nameEng: $('#sauceNameEng').val(),
-				nameRus: $('#sauceNameRus').val(),
-				descriptionGeo: $('#sauceDescGeo').val(),
-				descriptionEng: $('#sauceDescEng').val(),
-				descriptionRus: $('#sauceDescRus').val()
-			}
+			type: "POST",
+			contentType:"application/json; charset=utf-8",
+			data: JSON.stringify({
+				nameGeo: toUnicode($('#sauceNameGeo').val()),
+				nameEng: toUnicode($('#sauceNameEng').val()),
+				nameRus: toUnicode($('#sauceNameRus').val()),
+				descriptionGeo: toUnicode($('#sauceDescGeo').val()),
+				descriptionEng: toUnicode($('#sauceDescEng').val()),
+				descriptionRus: toUnicode($('#sauceDescRus').val())
+			})
 		}).done(function(response) {
 			$('#sauceNameGeo').val('');
 			$('#sauceNameEng').val('');
@@ -131,12 +135,13 @@
 				url: url,
 				data: {
 					hotdogSauceId: $('#hotdogSauceId-${hotdogSauce.id}').val(),
-					amount: $('#hotdogSauceAmount-${hotdogSauce.id}').val(),
+					amount: toUnicode($('#hotdogSauceAmount-${hotdogSauce.id}').val()),
 					price: $('#hotdogSaucePrice-${hotdogSauce.id}').val()
 				}
 			}).done(function(hotdogSauceAmountAndPrice) {
-				$('#hotdog-sauce-amount-and-price-${hotdogSauce.id}').append(new Option(hotdogSauceAmountAndPrice.amount + '-' + hotdogSauceamountAndPrice.price, '', false, true));
+				$('#hotdog-sauce-amount-and-price-${hotdogSauce.id}').append('<option value=' + hotdogSauceAmountAndPrice.id + ' selected="selected">' + hotdogSauceAmountAndPrice.amount + ' - ' + parseFloat(Math.round(hotdogSauceAmountAndPrice.price * 100) / 100).toFixed(2)  + '</option>');
 				$('#myModal-${hotdogSauce.id}').modal('hide');
+				alertify.success("Data has been saved");
 			});
 		});
 		$('#hotdog-sauce-amount-and-price-select-item-remove-${hotdogSauce.id }').click(function() {
@@ -150,6 +155,7 @@
 						}
 					}).done(function() {
 						$("#hotdog-sauce-amount-and-price-${hotdogSauce.id} option[value=" + $('#hotdog-sauce-amount-and-price-${hotdogSauce.id}').val() + "]").remove();
+						alertify.error("Data has been removed");
 					});			
 				}
 			});
@@ -163,6 +169,7 @@
 						data: {hotdogSauceId: '${hotdogSauce.id}'}
 					}).done(function() {
 						$('.hotdog-sauce-${hotdogSauce.id }').remove();
+						alertify.error("Data has been removed");
 					});			    	
 			    } 
 			});

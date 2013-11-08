@@ -8,37 +8,41 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class SandwichBreadSizeAndPrice {
-	
+public class SaladIngredientAmountAndPrice {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String size;
+	private String amount;
 	private BigDecimal price;
 	
 	public Integer getId() {
 		return id;
 	}
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getSize() {
-		return size;
+	
+	public String getAmount() {
+		return amount;
 	}
-	public void setSize(String size) {
-		this.size = size;
+	
+	public void setAmount(String amount) {
+		this.amount = amount;
 	}
+	
 	public BigDecimal getPrice() {
 		return price;
 	}
+	
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "BreadSizeAndPrice [id=" + id + ", size=" + size + ", price=" + price + "]";
+		return "SaladIngredientAmountAndPrice [id=" + id + ", amount=" + amount
+				+ ", price=" + price + "]";
 	}
-	
 	
 }

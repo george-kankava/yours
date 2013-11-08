@@ -106,14 +106,16 @@
 		var url = 'process-add-sandwich-bread-form';
 		$.ajax({
 			url: url,
-			data: {
-				nameGeo: $('#breadTypeGeo').val(),
-				nameEng: $('#breadTypeEng').val(),
-				nameRus: $('#breadTypeRus').val(),
-				descriptionGeo: $('#breadDescGeo').val(),
-				descriptionEng: $('#breadDescEng').val(),
-				descriptionRus: $('#breadDescRus').val()
-			}
+			type: "POST",
+			contentType: "application/json",
+			data: JSON.stringify({
+				nameGeo: toUnicode($('#breadTypeGeo').val()),
+				nameEng: toUnicode($('#breadTypeEng').val()),
+				nameRus: toUnicode($('#breadTypeRus').val()),
+				descriptionGeo: toUnicode($('#breadDescGeo').val()),
+				descriptionEng: toUnicode($('#breadDescEng').val()),
+				descriptionRus: toUnicode($('#breadDescRus').val())
+			})
 		}).done(function(response) {
 			$('#breadTypeGeo').val('');
 			$('#breadTypeEng').val('');
@@ -127,17 +129,18 @@
 	});
 	<c:forEach items="${sandwichBreads }" var="sandwichBread">
 		$('#my-modal-${sandwichBread.id}').click(function() {
-			var url =  'process-sandwich-bread-price-and-size';
+			var url =  'process-sandwich-bread-size-and-price';
 			$.ajax({
 				url: url,
 				data: {
 					sandwichBreadId: $('#sandwichBreadId-${sandwichBread.id}').val(),
-					size: $('#sandwichBreadSize-${sandwichBread.id}').val(),
+					size: toUnicode($('#sandwichBreadSize-${sandwichBread.id}').val()),
 					price: $('#sandwichBreadPrice-${sandwichBread.id}').val()
 				}
 			}).done(function(sandwichBreadSizeAndPrice) {
-				$('#sandwich-bread-size-and-price-${sandwichBread.id}').append(new Option(sandwichBreadSizeAndPrice.size + '-' + sandwichBreadSizeAndPrice.price, '', false, true));
+				$('#sandwich-bread-size-and-price-${sandwichBread.id}').append('<option value=' + sandwichBreadSizeAndPrice.id + ' selected="selected">' + sandwichBreadSizeAndPrice.size + ' - ' + parseFloat(Math.round(sandwichBreadSizeAndPrice.price * 100) / 100).toFixed(2) + '</option>');
 				$('#myModal-${sandwichBread.id}').modal('hide');
+				alertify.success("Data has been saved");
 			});
 		});
 		$('#sandwich-bread-size-and-price-select-item-remove-${sandwichBread.id }').click(function() {
@@ -151,6 +154,7 @@
 						}
 					}).done(function() {
 						$("#sandwich-bread-size-and-price-${sandwichBread.id} option[value=" + $('#sandwich-bread-size-and-price-${sandwichBread.id}').val() + "]").remove();
+						alertify.error("Data has been removed");
 					});			
 				}
 			});
@@ -164,6 +168,7 @@
 						data: {sandwichBreadId: '${sandwichBread.id}'}
 					}).done(function() {
 						$('.sandwich-bread-${sandwichBread.id }').remove();
+						alertify.error("Data has been removed");
 					});			    	
 			    } 
 			});

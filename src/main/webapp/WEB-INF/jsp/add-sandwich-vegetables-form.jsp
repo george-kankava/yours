@@ -31,7 +31,7 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${sandwichVegetables }" var="sandwichVegetable">
-					<tr>
+					<tr class="sandwich-vegetable-${sandwichVegetable.id }">
 						<td>
 							<select class="form-control">
 								<option>${sandwichVegetable.nameGeo }</option>
@@ -42,7 +42,7 @@
 						<td>
 							<select id="sandwich-vegetable-amount-and-price-${sandwichVegetable.id }" class="form-control">
 								<c:forEach items="${sandwichVegetable.vegetableAmountAndPrices }" var="vegetableAmountAndPrice">
-									<option>${vegetableAmountAndPrice.portion} - ${vegetableAmountAndPrice.price }</option>
+									<option value="${vegetableAmountAndPrice.id }">${vegetableAmountAndPrice.portion} - ${vegetableAmountAndPrice.price }</option>
 								</c:forEach>
 							</select>
 						</td>
@@ -58,7 +58,6 @@
           									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           									<h4 class="modal-title">Add</h4>
         								</div>
-        								<form class="form-inline" role="form" action="process-sandwich-vegetable-amount-and-price" method="POST">
         									<div class="modal-body">
         											<input type="hidden" id="sandwichVegetableId-${sandwichVegetable.id }" name="sandwichVegetableId" value="${sandwichVegetable.id}">
   													<div class="form-group">
@@ -72,14 +71,13 @@
         									</div>
         									<div class="modal-footer">
           										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          										<button type="submit" class="btn btn-primary">Add</button>
+          										<button id="my-modal-${sandwichVegetable.id }" type="submit" class="btn btn-primary">Add</button>
         									</div>
-        								</form>
       								</div><!-- /.modal-content -->
     							</div><!-- /.modal-dialog -->
   							</div><!-- /.modal -->
 						</td>
-						<td><button id="sandwich-vegetable-remove-btn-${sendwichVegetable.id }" type="button" class="btn btn-danger">Remove</button></td>
+						<td><button id="sandwich-vegetable-remove-btn-${sandwichVegetable.id }" type="button" class="btn btn-danger">Remove</button></td>
 					</tr>
 			</c:forEach>
 			</tbody>
@@ -90,32 +88,35 @@
 		var url = 'process-add-sandwich-vegetable-form';
 		$.ajax({
 			url: url,
-			data: {
-				nameGeo: $('#vegetableGeo').val(),
-				nameEng: $('#vegetableEng').val(),
-				nameRus: $('#vegetableRus').val(),
-			}
+			type: "POST",
+			contentType: "application/json",
+			data: JSON.stringify({
+				nameGeo: toUnicode($('#vegetableGeo').val()),
+				nameEng: toUnicode($('#vegetableEng').val()),
+				nameRus: toUnicode($('#vegetableRus').val()),
+			})
 		}).done(function(response) {
 			$('#vegetableGeo').val('');
 			$('#vegetableEng').val('');
 			$('#vegetableRus').val('');
 			$('.table-sandwich-vegetables > tbody:last').append(response);
-			alertify.success("Data has been saved");			
+			alertify.success("Data has been saved");
 		});
 	});
 	<c:forEach items="${sandwichVegetables }" var="sandwichVegetable">
-		$('#myModal-${sandwichVegetable.id}').click(function() {
+		$('#my-modal-${sandwichVegetable.id}').click(function() {
 			var url =  'process-sandwich-vegetable-amount-and-price';
 			$.ajax({
 				url: url,
 				data: {
 					sandwichVegetableId: $('#sandwichVegetableId-${sandwichVegetable.id}').val(),
-					amount: $('#sandwichVegetableAmount-${sandwichVegetable.id}').val(),
+					amount: toUnicode($('#sandwichVegetableAmount-${sandwichVegetable.id}').val()),
 					price: $('#sandwichVegetablePrice-${sandwichVegetable.id}').val()
 				}
 			}).done(function(sandwichVegetableAmountAndPrice) {
-				$('#sandwich-vegetable-amount-and-price-${sandwichVegetable.id}').append(new Option(sandwichVegetableAmountAndPrice.amount + '-' + sandwichVegetableAmountAndPrice.price, '', false, true));
+				$('#sandwich-vegetable-amount-and-price-${sandwichVegetable.id}').append('<option value=' + sandwichVegetableAmountAndPrice.id + ' selected="selected">' + sandwichVegetableAmountAndPrice.portion + ' - ' + parseFloat(Math.round(sandwichVegetableAmountAndPrice.price * 100) / 100).toFixed(2) + '</option>');
 				$('#myModal-${sandwichVegetable.id}').modal('hide');
+				alertify.success("Data has been saved");
 			});
 		});
 		$('#sandwich-vegetable-amount-and-price-select-item-remove-${sandwichVegetable.id }').click(function() {
@@ -129,6 +130,7 @@
 						}
 					}).done(function() {
 						$("#sandwich-vegetable-amount-and-price-${sandwichVegetable.id} option[value=" + $('#sandwich-vegetable-amount-and-price-${sandwichVegetable.id}').val() + "]").remove();
+						alertify.error("Data has been removed");
 					});
 				}
 			});
@@ -142,6 +144,7 @@
 						data: {sandwichVegetableId: '${sandwichVegetable.id}'}
 					}).done(function() {
 						$('.sandwich-vegetable-${sandwichVegetable.id }').remove();
+						alertify.error("Data has been removed");
 					});			    	
 			    } 
 			});

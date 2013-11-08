@@ -31,7 +31,7 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${sandwichSpices }" var="sandwichSpice">
-					<tr>
+					<tr class="sandwich-spice-${sandwichSpice.id }">
 						<td>
 							<select class="form-control">
 								<option>${sandwichSpice.nameGeo }</option>
@@ -42,7 +42,7 @@
 						<td>
 							<select id="sandwich-spice-amount-and-price-${sandwichSpice.id }" class="form-control">
 								<c:forEach items="${sandwichSpice.spiceAmountAndPrice }" var="spiceAmountAndPrice">
-									<option>${spiceAmountAndPrice.portion} - ${spiceAmountAndPrice.price }</option>
+									<option value="${spiceAmountAndPrice.id}">${spiceAmountAndPrice.portion} - ${spiceAmountAndPrice.price }</option>
 								</c:forEach>
 							</select>
 						</td>
@@ -58,7 +58,7 @@
           									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           									<h4 class="modal-title">Add</h4>
         								</div>
-        								<form class="form-inline" role="form" action="process-sandwich-spice-amount-and-price" method="POST">
+        								<form class="form-inline" role="form">
         									<div class="modal-body">
         											<input type="hidden" id="sandwichSpiceId-${sandwichSpice.id}" name="sandwichSpiceId" value="${sandwichSpice.id}">
   													<div class="form-group">
@@ -72,7 +72,7 @@
         									</div>
         									<div class="modal-footer">
           										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          										<button type="submit" class="btn btn-primary">Add</button>
+          										<button type="button" id="my-modal-${sandwichSpice.id}" class="btn btn-primary">Add</button>
         									</div>
         								</form>
       								</div><!-- /.modal-content -->
@@ -90,11 +90,13 @@
 		var url = 'process-add-sandwich-spice-form';
 		$.ajax({
 			url: url,
-			data: {
-				nameGeo: $('#spiceGeo').val(),
-				nameEng: $('#spiceEng').val(),
-				nameRus: $('#spiceRus').val(),
-			}
+			type: "POST",
+			contentType: "application/json",
+			data: JSON.stringify({
+				nameGeo: toUnicode($('#spiceGeo').val()),
+				nameEng: toUnicode($('#spiceEng').val()),
+				nameRus: toUnicode($('#spiceRus').val()),
+			})
 		}).done(function(response) {
 			$('#spiceGeo').val('');
 			$('#spiceEng').val('');
@@ -104,18 +106,19 @@
 		});
 	});
 	<c:forEach items="${sandwichSpices }" var="sandwichSpice">
-		$('#myModal-${sandwichSpice.id}').click(function() {
+		$('#my-modal-${sandwichSpice.id}').click(function() {
 			var url =  'process-sandwich-spice-amount-and-price';
 			$.ajax({
 				url: url,
 				data: {
 					sandwichSpiceId: $('#sandwichSpiceId-${sandwichSpice.id}').val(),
-					amount: $('#sandwichSpiceAmount-${sandwichSpice.id}').val(),
+					amount: toUnicode($('#sandwichSpiceAmount-${sandwichSpice.id}').val()),
 					price: $('#sandwichSpicePrice-${sandwichSpice.id}').val()
 				}
 			}).done(function(sandwichSpiceAmountAndPrice) {
-				$('#sandwich-spice-amount-and-price-${sandwichSpice.id}').append(new Option(sandwichSpiceAmountAndPrice.portion + '-' + sandwichSpiceAmountAndPrice.price, '', false, true));
+				$('#sandwich-spice-amount-and-price-${sandwichSpice.id}').append('<option value=' + sandwichSpiceAmountAndPrice.id + ' selected="selected">' + sandwichSpiceAmountAndPrice.portion + ' - ' + parseFloat(Math.round(sandwichSpiceAmountAndPrice.price * 100) / 100).toFixed(2) + '</option>');
 				$('#myModal-${sandwichSpice.id}').modal('hide');
+				alertify.success("Data has been saved");
 			});
 		});
 		$('#sandwich-spice-amount-and-price-select-item-remove-${sandwichSpice.id }').click(function() {
@@ -129,6 +132,7 @@
 						}
 					}).done(function() {
 						$("#sandwich-spice-amount-and-price-${sandwichSpice.id} option[value=" + $('#sandwich-spice-amount-and-price-${sandwichSpice.id}').val() + "]").remove();
+						alertify.error("Data has been removed");
 					});			
 				}
 			});
@@ -142,6 +146,7 @@
 						data: {sandwichSpiceId: '${sandwichSpice.id}'}
 					}).done(function() {
 						$('.sandwich-spice-${sandwichSpice.id }').remove();
+						alertify.error("Data has been removed");
 					});			    	
 			    } 
 			});

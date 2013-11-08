@@ -24,7 +24,7 @@ public class HotDogBread {
 	private String descriptionRus;
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "hot_dog_bread_id")
-	private List<HotDogBreadSizeAndPrice> hotDogBreadSizeAndPrices;
+	private List<HotdogBreadSizeAndPrice> hotdogBreadSizeAndPrices;
 	
 	public Integer getId() {
 		return id;
@@ -68,17 +68,17 @@ public class HotDogBread {
 	public void setDescriptionRus(String descriptionRus) {
 		this.descriptionRus = descriptionRus;
 	}
-	public List<HotDogBreadSizeAndPrice> getHotDogBreadSizeAndPrices() {
-		return hotDogBreadSizeAndPrices;
+	public List<HotdogBreadSizeAndPrice> getHotdogBreadSizeAndPrices() {
+		return hotdogBreadSizeAndPrices;
 	}
-	public void setHotDogBreadSizeAndPrices(
-			List<HotDogBreadSizeAndPrice> hotDogBreadSizeAndPrices) {
-		this.hotDogBreadSizeAndPrices = hotDogBreadSizeAndPrices;
+	public void setHotdogBreadSizeAndPrices(
+			List<HotdogBreadSizeAndPrice> hotdogBreadSizeAndPrices) {
+		this.hotdogBreadSizeAndPrices = hotdogBreadSizeAndPrices;
 	}
 	@Override
 	public String toString() {
 		return "HotDogBread [id=" + id + ", nameGeo=" + nameGeo + ", nameEng=" + nameEng + ", nameRus=" + nameRus + ", descriptionGeo=" + descriptionGeo + 
-				", descriptionEng=" + descriptionEng + ", descriptionRus=" + descriptionRus + ", hotDogBreadSizeAndPrices=" + hotDogBreadSizeAndPrices + "]";
+				", descriptionEng=" + descriptionEng + ", descriptionRus=" + descriptionRus + ", hotdogBreadSizeAndPrices=" + hotdogBreadSizeAndPrices + "]";
 	}
 	
 }
