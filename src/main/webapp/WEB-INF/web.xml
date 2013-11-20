@@ -53,6 +53,7 @@
     <url-pattern>/admin/add-hotdog-ingredient-bread-form</url-pattern>
     <url-pattern>/admin/add-hotdog-ingredient-sausage-form</url-pattern>
     <url-pattern>/admin/add-hotdog-ingredient-sauce-form</url-pattern>
+    <url-pattern>/food-components-list</url-pattern>
   </filter-mapping>
   <!-- <filter>
     <filter-name>springSecurityFilterChain</filter-name>

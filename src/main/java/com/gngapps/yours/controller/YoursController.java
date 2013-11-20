@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gngapps.yours.controller.response.Sandwich;
+import com.gngapps.yours.controller.response.SandwichSausageJson;
+import com.gngapps.yours.controller.response.SandwichVegetableJson;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
@@ -86,8 +89,13 @@ public class YoursController {
     	mav.addObject("hotdogSausages", hotdogSausages);
     	List<HotDogSauce> hotdogSauces = databaseService.getHotdogSauces();
     	mav.addObject("hotdogSauces", hotdogSauces);
-    	mav.setViewName("food-components-list");
+    	mav.setViewName("food-components-list-v2");
     	return mav;
+	}
+    
+    @RequestMapping(value = "/process-add-sandwich", consumes = "application/json", method = RequestMethod.POST)
+	public void processAddSandwich(@RequestBody String sandwich) {
+    	System.out.println("YoursController.processAddSandwich()");
 	}
     
     @RequestMapping(value = "/index.html")

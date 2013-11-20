@@ -46,51 +46,95 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th><spring:message
-										code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
+								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichBreads }" var="sandwichBread">
 							<tr>
-								<td><input type="radio"><span
-									style="margin-left: 10px">${sandwichBread.nameGeo }</span></td>
+								<td><input type="radio" name="sandwichBreads"><span class="label label-info" style="margin-left: 10px">${sandwichBread.nameGeo }</span></td>
+								<td>
+									<div class="btn-group">
+ 	 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+									    	Size <span class="caret"></span>
+									 	 </button>
+									  <ul class="dropdown-menu" role="menu">
+									  <c:forEach items="${sandwichBread.sandwichBreadSizeAndPrices}" var="sizeAndPrice">
+											<li><a href="#"><c:out value="${sizeAndPrice.size}" escapeXml="false"/></a></li>
+										</c:forEach>
+									  </ul>
+									</div>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>
-
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
+								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichSausages }" var="sandwichSausage">
 							<tr>
-								<td><input type="radio"><span style="margin-left: 10px">${sandwichSausage.nameGeo }</span></td>
+								<td><input name="sandwichSausages" type="radio"><span class="label label-info" style="margin-left: 10px"><c:out value="${sandwichSausage.nameGeo }" escapeXml="false"/></span></td>
+								<td>
+									<div class="btn-group">
+ 	 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+									    	Size <span class="caret"></span>
+									 	 </button>
+									  <ul class="dropdown-menu" role="menu">
+									  <c:forEach items="${sandwichSausage.sausageAmountAndPrices}" var="sizeAndPrice">
+											<li><a href="#"><c:out value="${sizeAndPrice.portion}" escapeXml="false"/></a></li>
+										</c:forEach>
+									  </ul>
+									</div>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th><spring:message code="yours.list.heading.sandwich.sublist.vegetables" text="Vegetables" /></th>
+								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.vegetables" text="Vegetables" /></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichVegetables }" var="sandwichVegetable">
 							<tr>
-								<td><input type="radio"><span style="margin-left: 10px">${sandwichVegetable.nameGeo }</span></td>
+								<td><input type="radio"><span class="label label-info" style="margin-left: 10px"><c:out value="${sandwichVegetable.nameGeo }" escapeXml="false"/></span></td>
+								<td>
+									<div class="btn-group">
+ 	 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+									    	Size <span class="caret"></span>
+									 	 </button>
+									  <ul class="dropdown-menu" role="menu">
+									  <c:forEach items="${sandwichVegetable.vegetableAmountAndPrices}" var="amountAndPrices">
+											<li><a href="#"><c:out value="${amountAndPrices.portion}" escapeXml="false"/></a></li>
+										</c:forEach>
+									  </ul>
+									</div>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th><spring:message code="yours.list.heading.sandwich.sublist.sauce" text="Sauce" /></th>
+								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sauce" text="Sauce" /></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichSauces }" var="sandwichSauce">
 							<tr>
-								<td><input type="radio"><span style="margin-left: 10px">${sandwichSauce.nameGeo }</span></td>
+								<td><input type="radio"><span class="label label-info" style="margin-left: 10px"><c:out value="${sandwichSauce.nameGeo }" escapeXml="false"/></span></td>
+								<td>
+									<div class="btn-group">
+ 	 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Size<span class="caret"></span>
+									 	 </button>
+									  <ul class="dropdown-menu" role="menu">
+									  <c:forEach items="${sandwichSauce.sauceAmountAndPrices}" var="amountAndPrice">
+											<li><a href="#"><c:out value="${amountAndPrice.portion}" escapeXml="false"/></a></li>
+										</c:forEach>
+									  </ul>
+									</div>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -98,12 +142,23 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th><spring:message code="yours.list.heading.sandwich.sublist.spice" text="Spice" /></th>
+								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.spice" text="Spice" /></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichSpices }" var="sandwichSpice">
 							<tr>
-								<td><input type="radio"><span style="margin-left: 10px">${sandwichSpice.nameGeo }</span></td>
+								<td><input type="radio"><span class="label label-info" style="margin-left: 10px"><c:out value="${sandwichSpice.nameGeo }" escapeXml="false"/></span></td>
+								<td>
+									<div class="btn-group">
+ 	 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Size<span class="caret"></span>
+									 	 </button>
+									  <ul class="dropdown-menu" role="menu">
+									  <c:forEach items="${sandwichSpice.spiceAmountAndPrice}" var="amountAndPrice">
+											<li><a href="#"><c:out value="${amountAndPrice.portion}" escapeXml="false"/></a></li>
+										</c:forEach>
+									  </ul>
+									</div>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>

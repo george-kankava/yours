@@ -8,6 +8,15 @@
 		background-repeat: no-repeat;
 		margin-left: 70px;
 	}
+	.logo-image-narrow {
+		width: 257px;
+		min-height: 144px;
+		background-image: url(../img/yours.gif);
+		background-repeat: no-repeat;
+		margin-top: 10px;
+		margin-left: 70px;
+		margin-bottom: 15px;
+	}
 }
 
 @media ( min-width : 600px) {
@@ -18,5 +27,15 @@
 		background-repeat: no-repeat;
 		margin-top: 40px;
 		margin-left: 440px;
+	}
+	
+	.logo-image-narrow {
+		width: 257px;
+		min-height: 144px;
+		background-image: url(../img/yours.gif);
+		background-repeat: no-repeat;
+		margin-top: 10px;
+		margin-bottom: 15px;
+		margin-left: 240px;
 	}
 }

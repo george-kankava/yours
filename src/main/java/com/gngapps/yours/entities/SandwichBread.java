@@ -32,7 +32,7 @@ public class SandwichBread {
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name = "bread_id")
-	private List<SandwichBreadSizeAndPrice> sandwichBreadSizeAndPrices;
+	private List<SandwichBreadSizeAndPrice> sandwichBreadSizeAndPrices;       
 
 	public Integer getId() {
 		return id;
