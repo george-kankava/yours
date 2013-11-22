@@ -24,8 +24,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gngapps.yours.controller.response.Sandwich;
-import com.gngapps.yours.controller.response.SandwichSausageJson;
-import com.gngapps.yours.controller.response.SandwichVegetableJson;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
@@ -94,7 +92,7 @@ public class YoursController {
 	}
     
     @RequestMapping(value = "/process-add-sandwich", consumes = "application/json", method = RequestMethod.POST)
-	public void processAddSandwich(@RequestBody String sandwich) {
+	public void processAddSandwich(@RequestBody Sandwich sandwich) {
     	System.out.println("YoursController.processAddSandwich()");
 	}
     
