@@ -1,6 +1,7 @@
 package com.gngapps.yours.service.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -11,6 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gngapps.yours.controller.YoursController;
 import com.gngapps.yours.controller.response.Sandwich;
+import com.gngapps.yours.controller.response.SandwichSauceIdWithAmountAndPrice;
+import com.gngapps.yours.controller.response.SandwichSausageIdWithAmountAndPriceId;
+import com.gngapps.yours.controller.response.SandwichSpiceIdWithAmountAndPriceId;
+import com.gngapps.yours.controller.response.SandwichVegetableIdWithAmountAndPriceId;
 import com.gngapps.yours.dao.DataGetterDao;
 import com.gngapps.yours.dao.DataRemoverDao;
 import com.gngapps.yours.dao.DataSaverDao;
@@ -31,12 +36,16 @@ import com.gngapps.yours.entities.SandwichBread;
 import com.gngapps.yours.entities.SandwichBreadSizeAndPrice;
 import com.gngapps.yours.entities.SandwichSauce;
 import com.gngapps.yours.entities.SandwichSauceAmountAndPrice;
+import com.gngapps.yours.entities.SandwichSauceWithAmountAndPrice;
 import com.gngapps.yours.entities.SandwichSausage;
 import com.gngapps.yours.entities.SandwichSausageAmountAndPrice;
+import com.gngapps.yours.entities.SandwichSausageWithAmountAndPrice;
 import com.gngapps.yours.entities.SandwichSpice;
 import com.gngapps.yours.entities.SandwichSpiceAmountAndPrice;
+import com.gngapps.yours.entities.SandwichSpiceWithAmountAndPrice;
 import com.gngapps.yours.entities.SandwichVegetable;
 import com.gngapps.yours.entities.SandwichVegetableAmountAndPrice;
+import com.gngapps.yours.entities.SandwichVegetableWithAmountAndPrice;
 import com.gngapps.yours.service.DatabaseService;
 
 @Service("databaseService")
@@ -461,10 +470,128 @@ public class DatabaseServiceImpl implements DatabaseService {
 			}
 			SandwichBread sandwichBread = dataGetterDao.findSandwichBreadById(sandwichBreadId);
 			SandwichBreadSizeAndPrice sizeAndPrice = dataGetterDao.findSandwichBreadSizeAndPriceId(sandwichBreadSizeAndPriceId);
-			sandwichEntity.setSandwichBread(sandwichBread);
-			sandwichEntity.setSandwichBreadSizeAndPrice(sizeAndPrice);
+			List<SandwichSausageIdWithAmountAndPriceId> sandwichSausages = sandwich.getSandwichSausages().getSandwichSausages();
+			List<SandwichSausageWithAmountAndPrice> sandwichSausageWithAmountAndPrices = new ArrayList<SandwichSausageWithAmountAndPrice>();
+			fillSandwichSausageWithAmountAndPriceList(sandwichSausages, sandwichSausageWithAmountAndPrices);
+			List<SandwichVegetableIdWithAmountAndPriceId> sandwichVegetableIdWithAmountAndPriceIds = sandwich.getSandwichVegetables().getSandwichVegetables();
+			List<SandwichVegetableWithAmountAndPrice> sandwichVegetableWithAmountAndPrices = new ArrayList<SandwichVegetableWithAmountAndPrice>();
+			fillSandwichVegetableWIthAmountAndPriceList(sandwichVegetableIdWithAmountAndPriceIds, sandwichVegetableWithAmountAndPrices);
+			List<SandwichSauceIdWithAmountAndPrice> sandwichSauceIdWithAmountAndPriceIds = sandwich.getSandwichSauces().getSandwichSauces();
+			List<SandwichSauceWithAmountAndPrice> sandwichSauceWithAmountAndPrices = new ArrayList<SandwichSauceWithAmountAndPrice>();
+			fillSandwichSauceWithAmountAndPriceList(sandwichSauceIdWithAmountAndPriceIds, sandwichSauceWithAmountAndPrices);
+			List<SandwichSpiceIdWithAmountAndPriceId> sandwichSpiceIdWithAmountAndPriceIds = sandwich.getSandwichSpices().getSandwichSpices();
+			List<SandwichSpiceWithAmountAndPrice> sandwichSpiceAmountAndPrices = new ArrayList<SandwichSpiceWithAmountAndPrice>();
+			fillSandwichSpiceWithAmountAndPriceList(sandwichSpiceIdWithAmountAndPriceIds, sandwichSpiceAmountAndPrices);
+			setPropertiesForSandwichEntity(sandwichEntity, sandwichBread, sizeAndPrice, sandwichSausageWithAmountAndPrices, sandwichVegetableWithAmountAndPrices,
+					sandwichSauceWithAmountAndPrices, sandwichSpiceAmountAndPrices);
+			dataSaverDao.saveCustomerSandwich(sandwichEntity);
 		} catch(Exception ex) {
 			logger.error(ex.getMessage());
+		}
+	}
+
+	/**
+	 * @param sandwichEntity
+	 * @param sandwichBread
+	 * @param sizeAndPrice
+	 * @param sandwichSausageWithAmountAndPrices
+	 * @param sandwichVegetableWithAmountAndPrices
+	 * @param sandwichSauceWithAmountAndPrices
+	 * @param sandwichSpiceAmountAndPrices
+	 */
+	private void setPropertiesForSandwichEntity(
+			com.gngapps.yours.entities.Sandwich sandwichEntity,
+			SandwichBread sandwichBread,
+			SandwichBreadSizeAndPrice sizeAndPrice,
+			List<SandwichSausageWithAmountAndPrice> sandwichSausageWithAmountAndPrices,
+			List<SandwichVegetableWithAmountAndPrice> sandwichVegetableWithAmountAndPrices,
+			List<SandwichSauceWithAmountAndPrice> sandwichSauceWithAmountAndPrices,
+			List<SandwichSpiceWithAmountAndPrice> sandwichSpiceAmountAndPrices) {
+		sandwichEntity.setSandwichBread(sandwichBread);
+		sandwichEntity.setSandwichBreadSizeAndPrice(sizeAndPrice);
+		sandwichEntity.setSandwichSausages(sandwichSausageWithAmountAndPrices);
+		sandwichEntity.setSandwichVegetables(sandwichVegetableWithAmountAndPrices);
+		sandwichEntity.setSandwichSauce(sandwichSauceWithAmountAndPrices);
+		sandwichEntity.setSandwichSpices(sandwichSpiceAmountAndPrices);
+	}
+
+	/**
+	 * @param sandwichSpiceIdWithAmountAndPriceIds
+	 * @param sandwichSpiceAmountAndPrices
+	 */
+	private void fillSandwichSpiceWithAmountAndPriceList(List<SandwichSpiceIdWithAmountAndPriceId> sandwichSpiceIdWithAmountAndPriceIds, List<SandwichSpiceWithAmountAndPrice> sandwichSpiceAmountAndPrices) {
+		for(SandwichSpiceIdWithAmountAndPriceId sandwichSpiceIdWithAmountAndPriceId : sandwichSpiceIdWithAmountAndPriceIds) {
+			Integer sandwichSpiceId = sandwichSpiceIdWithAmountAndPriceId.getSandwichSpiceId();
+			Integer sandwichSpiceAmountAndPriceId = sandwichSpiceIdWithAmountAndPriceId.getSandwichSpiceAmountAndPriceId();
+			if(sandwichSpiceId == null || sandwichSpiceAmountAndPriceId == null) {
+				throw new IllegalArgumentException("sandwichSpiceId or sandwichSpiceAmountAndPriceId is null");
+			}
+			SandwichSpice sandwichSpice = dataGetterDao.findSandwichSpiceById(sandwichSpiceId);
+			SandwichSpiceAmountAndPrice amountAndPrice = dataGetterDao.findSandwichSpiceAmountAndPriceById(sandwichSpiceAmountAndPriceId);
+			SandwichSpiceWithAmountAndPrice sandwichSpiceWithAmountAndPrice = new SandwichSpiceWithAmountAndPrice();
+			sandwichSpiceWithAmountAndPrice.setSandwichSpice(sandwichSpice);
+			sandwichSpiceWithAmountAndPrice.setSandwichSpiceAmountAndPrice(amountAndPrice);
+			sandwichSpiceAmountAndPrices.add(sandwichSpiceWithAmountAndPrice);
+		}
+	}
+
+	/**
+	 * @param sandwichSauceIdWithAmountAndPriceIds
+	 * @param sandwichSauceWithAmountAndPrices
+	 */
+	private void fillSandwichSauceWithAmountAndPriceList(List<SandwichSauceIdWithAmountAndPrice> sandwichSauceIdWithAmountAndPriceIds, List<SandwichSauceWithAmountAndPrice> sandwichSauceWithAmountAndPrices) {
+		for(SandwichSauceIdWithAmountAndPrice sandwichSauceIdWithAmountAndPrice : sandwichSauceIdWithAmountAndPriceIds) {
+			Integer sandwichSauceId = sandwichSauceIdWithAmountAndPrice.getSandwichSauceId();
+			Integer sandwichSauceAmountAndPriceId = sandwichSauceIdWithAmountAndPrice.getSandwichSauceAmountAndPriceId();
+			if(sandwichSauceId == null || sandwichSauceAmountAndPriceId == null) {
+				throw new IllegalArgumentException("sandwichSauceId or sandwichSauceAmountAndPriceId is null");
+			}
+			SandwichSauce sandwichSauce = dataGetterDao.findSandwichSauceById(sandwichSauceId);
+			SandwichSauceAmountAndPrice amountAndPrice = dataGetterDao.findSandwichSauceAmountAndPriceById(sandwichSauceAmountAndPriceId);
+			SandwichSauceWithAmountAndPrice sandwichSauceWithAmountAndPrice = new SandwichSauceWithAmountAndPrice();
+			sandwichSauceWithAmountAndPrice.setSandwichSauce(sandwichSauce);
+			sandwichSauceWithAmountAndPrice.setSandwichSauceAmountAndPrice(amountAndPrice);
+			sandwichSauceWithAmountAndPrices.add(sandwichSauceWithAmountAndPrice);
+		}
+	}
+
+	/**
+	 * @param sandwichVegetableIdWithAmountAndPriceIds
+	 * @param sandwichVegetableWithAmountAndPrices
+	 */
+	private void fillSandwichVegetableWIthAmountAndPriceList(List<SandwichVegetableIdWithAmountAndPriceId> sandwichVegetableIdWithAmountAndPriceIds, List<SandwichVegetableWithAmountAndPrice> sandwichVegetableWithAmountAndPrices) {
+		for(SandwichVegetableIdWithAmountAndPriceId sandwichVegetableIdWithAmountAndPriceId : sandwichVegetableIdWithAmountAndPriceIds) {
+			Integer sandwichVegetableId = sandwichVegetableIdWithAmountAndPriceId.getSandwichVegetableId();
+			Integer sandwichVegetableAmountAndPriceId = sandwichVegetableIdWithAmountAndPriceId.getSandwichVegetableAmountAndPriceId();
+			if(sandwichVegetableId == null || sandwichVegetableAmountAndPriceId == null) {
+				throw new IllegalArgumentException("sandwichVegetableId or sandwichVegetableAmountAndPriceId is null");
+			}
+			SandwichVegetable sandwichVegetable = dataGetterDao.findSandwichVegetableById(sandwichVegetableId);
+			SandwichVegetableAmountAndPrice amountAndPrice = dataGetterDao.findSandwichVegetableAmountAndPriceById(sandwichVegetableAmountAndPriceId);
+			SandwichVegetableWithAmountAndPrice sandwichVegetableWithAmountAndPrice = new SandwichVegetableWithAmountAndPrice();
+			sandwichVegetableWithAmountAndPrice.setSandwichVegetable(sandwichVegetable);
+			sandwichVegetableWithAmountAndPrice.setSandwichVegetableAmountAndPrice(amountAndPrice);
+			sandwichVegetableWithAmountAndPrices.add(sandwichVegetableWithAmountAndPrice);
+		}
+	}
+
+	/**
+	 * @param sandwichSausages
+	 * @param sandwichSausageWithAmountAndPrices
+	 */
+	private void fillSandwichSausageWithAmountAndPriceList(List<SandwichSausageIdWithAmountAndPriceId> sandwichSausages, List<SandwichSausageWithAmountAndPrice> sandwichSausageWithAmountAndPrices) {
+		for(SandwichSausageIdWithAmountAndPriceId sandwichSausageWithAmountAndPriceId : sandwichSausages) {
+			Integer sandwichSausageId = sandwichSausageWithAmountAndPriceId.getSandwichSausageId();
+			Integer sandwichSausageAmountAndPriceId = sandwichSausageWithAmountAndPriceId.getSandwichSausageAmountAndPriceId();
+			if(sandwichSausageId == null || sandwichSausageAmountAndPriceId == null) {
+				throw new IllegalArgumentException("sandwichSausageId or sandwichSausageAmountAndPriceId is null");
+			}
+			SandwichSausage sandwichSausage = dataGetterDao.findSandwichSausageById(sandwichSausageId);
+			SandwichSausageAmountAndPrice amountAndPrice = dataGetterDao.findSandwichSausageAmountAndPriceById(sandwichSausageAmountAndPriceId);
+			SandwichSausageWithAmountAndPrice sandwichSausageWithAmountAndPrice = new SandwichSausageWithAmountAndPrice();
+			sandwichSausageWithAmountAndPrice.setSandwichSausage(sandwichSausage);
+			sandwichSausageWithAmountAndPrice.setAmountAndPrice(amountAndPrice);
+			sandwichSausageWithAmountAndPrices.add(sandwichSausageWithAmountAndPrice);
 		}
 	}
 

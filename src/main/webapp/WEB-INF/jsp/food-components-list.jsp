@@ -41,12 +41,12 @@
 			<div class="col-lg-3" style="margin-top:30px">
 				<div class="panel panel-warning">
 					<div class="panel-heading">
-          				<h3 class="panel-title"><spring:message code="yours.list.heading.sandwich" text="Sandwich" /></h3>
+          				<h3 class="panel-title"><spring:message code="yours.list.heading.sandwich.sublist.vegetables" text="Vegetables" /></h3>
         			</div>
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
+								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.vegetables" text="Vegetables" /></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichBreads }" var="sandwichBread">

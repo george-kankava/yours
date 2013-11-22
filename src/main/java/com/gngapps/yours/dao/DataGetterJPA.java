@@ -18,9 +18,13 @@ import com.gngapps.yours.entities.SaladIngredient;
 import com.gngapps.yours.entities.SandwichBread;
 import com.gngapps.yours.entities.SandwichBreadSizeAndPrice;
 import com.gngapps.yours.entities.SandwichSauce;
+import com.gngapps.yours.entities.SandwichSauceAmountAndPrice;
 import com.gngapps.yours.entities.SandwichSausage;
+import com.gngapps.yours.entities.SandwichSausageAmountAndPrice;
 import com.gngapps.yours.entities.SandwichSpice;
+import com.gngapps.yours.entities.SandwichSpiceAmountAndPrice;
 import com.gngapps.yours.entities.SandwichVegetable;
+import com.gngapps.yours.entities.SandwichVegetableAmountAndPrice;
 
 @Repository("dataGetterDao")
 public class DataGetterJPA implements DataGetterDao {
@@ -173,6 +177,26 @@ public class DataGetterJPA implements DataGetterDao {
 	@Override
 	public SandwichBreadSizeAndPrice findSandwichBreadSizeAndPriceId(Integer sandwichBreadSizeAndPriceId) {
 		return em.find(SandwichBreadSizeAndPrice.class, sandwichBreadSizeAndPriceId);
+	}
+
+	@Override
+	public SandwichSausageAmountAndPrice findSandwichSausageAmountAndPriceById(Integer sandwichSausageAmountAndPriceId) {
+		return em.find(SandwichSausageAmountAndPrice.class, sandwichSausageAmountAndPriceId);
+	}
+
+	@Override
+	public SandwichVegetableAmountAndPrice findSandwichVegetableAmountAndPriceById(Integer sandwichVegetableAmountAndPriceId) {
+		return em.find(SandwichVegetableAmountAndPrice.class, sandwichVegetableAmountAndPriceId);
+	}
+
+	@Override
+	public SandwichSauceAmountAndPrice findSandwichSauceAmountAndPriceById(Integer sandwichSauceAmountAndPriceId) {
+		return em.find(SandwichSauceAmountAndPrice.class, sandwichSauceAmountAndPriceId);
+	}
+
+	@Override
+	public SandwichSpiceAmountAndPrice findSandwichSpiceAmountAndPriceById(Integer sandwichSpiceAmountAndPriceId) {
+		return em.find(SandwichSpiceAmountAndPrice.class, sandwichSpiceAmountAndPriceId);
 	}
 	
 }

@@ -175,8 +175,84 @@
 						<button id="sandwichSaveButton" type="button" class="btn btn-success">Save</button>
 					</div>
 			</div>
-			<div class="tab-pane" id="salad">.s..</div>
-			<div class="tab-pane" id="drinks">.f..</div>
+			<div class="tab-pane" id="salad">
+				<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th colspan="2">Salad Ingredients</th>
+							</tr>
+						</thead>
+						<c:forEach items="${saladIngredients }" var="saladIngredient">
+							<tr>
+								<td>
+									<input type="checkbox" name="saladIngredient" id="${saladIngredient.id }"/>
+									<label>${saladIngredient.nameGeo }</label>
+								</td>
+								<td>
+									<select class="form-control" id="saladIngredientSizeAndPrice${saladIngredient.id }">
+										<c:forEach items="${saladIngredient.saladIngredientAmountAndPrices }" var="amountAndPrice">
+											<option value="${amountAndPrice.id}">${amountAndPrice.amount}</option>
+										</c:forEach>
+									</select>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
+					<div class="col-md-offset-5" style="margin-top:14px;">
+						<button id="saladSaveButton" type="button" class="btn btn-success">Save</button>
+					</div>
+			</div>
+			<div class="tab-pane active" id="drinks">
+				<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th colspan="2"><spring:message code="yours.list.heading.drinks" text="Drinks" /></th>
+							</tr>
+						</thead>
+						<c:forEach items="${drinks }" var="drink">
+							<tr>
+								<td>
+									<input type="radio" name="drink" id="${drink.id }"/>
+									<label>${drink.nameGeo }</label>
+								</td>
+								<td>
+									<select class="form-control" id="drinkSizeAndPrices${drink.id }">
+										<c:forEach items="${drink.drinkSizeAndPrices }" var="sizeAndPrice">
+											<option value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
+										</c:forEach>
+									</select>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th colspan="2">Drink Add-ons</th>
+							</tr>
+						</thead>
+						<c:forEach items="${drinkAddOns }" var="drinkAddOn">
+							<tr>
+								<td>
+									<div>
+										<input name="drinkAddOn" type="checkbox" id="${drinkAddOn.id }">
+										<label>${drinkAddOn.nameGeo }</label>
+									</div>
+								</td>
+								<td>
+									<select class="form-control" id="drinkAddOnAmountAndPrices${drinkAddOn.id }">
+										<c:forEach items="${drinkAddOn.drinkAddOnAmountAndPrices }" var="sizeAndPrice">
+											<option value="${sizeAndPrice.id}">${sizeAndPrice.amount}</option>
+										</c:forEach>
+									</select>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
+					<div class="col-md-offset-5" style="margin-top:14px;">
+						<button id="drinkSaveButton" type="button" class="btn btn-success">Save</button>
+					</div>
+			</div>
 			<div class="tab-pane" id="hotdog">..as.</div>
 		</div>
 

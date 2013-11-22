@@ -12,9 +12,13 @@ import com.gngapps.yours.entities.SaladIngredient;
 import com.gngapps.yours.entities.SandwichBread;
 import com.gngapps.yours.entities.SandwichBreadSizeAndPrice;
 import com.gngapps.yours.entities.SandwichSauce;
+import com.gngapps.yours.entities.SandwichSauceAmountAndPrice;
 import com.gngapps.yours.entities.SandwichSausage;
+import com.gngapps.yours.entities.SandwichSausageAmountAndPrice;
 import com.gngapps.yours.entities.SandwichSpice;
+import com.gngapps.yours.entities.SandwichSpiceAmountAndPrice;
 import com.gngapps.yours.entities.SandwichVegetable;
+import com.gngapps.yours.entities.SandwichVegetableAmountAndPrice;
 
 public interface DataGetterDao {
 	
@@ -65,5 +69,13 @@ public interface DataGetterDao {
 	List<HotDogSauce> getHotdogSauces();
 
 	SandwichBreadSizeAndPrice findSandwichBreadSizeAndPriceId(Integer sandwichBreadSizeAndPriceId);
+
+	SandwichSausageAmountAndPrice findSandwichSausageAmountAndPriceById(Integer sandwichSausageAmountAndPriceId);
+
+	SandwichVegetableAmountAndPrice findSandwichVegetableAmountAndPriceById(Integer sandwichVegetableAmountAndPriceId);
+
+	SandwichSauceAmountAndPrice findSandwichSauceAmountAndPriceById(Integer sandwichSauceAmountAndPriceId);
+
+	SandwichSpiceAmountAndPrice findSandwichSpiceAmountAndPriceById(Integer sandwichSpiceAmountAndPriceId);
 
 }

@@ -1,7 +1,6 @@
 package com.gngapps.yours.dao;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
@@ -20,6 +19,7 @@ import com.gngapps.yours.entities.HotdogSauceAmountAndPrice;
 import com.gngapps.yours.entities.Role;
 import com.gngapps.yours.entities.SaladIngredient;
 import com.gngapps.yours.entities.SaladIngredientAmountAndPrice;
+import com.gngapps.yours.entities.Sandwich;
 import com.gngapps.yours.entities.SandwichBread;
 import com.gngapps.yours.entities.SandwichBreadSizeAndPrice;
 import com.gngapps.yours.entities.SandwichSauce;
@@ -257,6 +257,15 @@ public class DataSaverJPA implements DataSaverDao {
 			em.merge(amountAndPrice);
 		} else {
 			em.persist(amountAndPrice);
+		}
+	}
+
+	@Override
+	public void saveCustomerSandwich(Sandwich sandwich) {
+		if(sandwich.getId() != null) {
+			em.merge(sandwich);
+		} else {
+			em.persist(sandwich);
 		}
 	}
 

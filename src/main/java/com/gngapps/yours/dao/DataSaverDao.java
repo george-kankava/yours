@@ -13,6 +13,7 @@ import com.gngapps.yours.entities.HotdogBreadSizeAndPrice;
 import com.gngapps.yours.entities.HotdogSauceAmountAndPrice;
 import com.gngapps.yours.entities.SaladIngredient;
 import com.gngapps.yours.entities.SaladIngredientAmountAndPrice;
+import com.gngapps.yours.entities.Sandwich;
 import com.gngapps.yours.entities.SandwichBread;
 import com.gngapps.yours.entities.SandwichBreadSizeAndPrice;
 import com.gngapps.yours.entities.SandwichSauce;
@@ -51,4 +52,5 @@ public interface DataSaverDao {
 	void saveHotdogSausageAmountAndPrice(HotDogSausageAmountAndPrice amountAndPrice);
 	void saveHotdogSauce(HotDogSauce hotdogSauce);
 	void saveHotdogSauceAmountAndPrice(HotdogSauceAmountAndPrice amountAndPrice);
+	void saveCustomerSandwich(Sandwich sandwich);
 }
