@@ -33,4 +33,58 @@ public class Sandwich {
 	@JoinColumn(name = "sandwich_id")
 	private List<SandwichSpiceWithAmountAndPrice> sandwichSpices;
 	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public SandwichBread getSandwichBread() {
+		return sandwichBread;
+	}
+	public void setSandwichBread(SandwichBread sandwichBread) {
+		this.sandwichBread = sandwichBread;
+	}
+	public SandwichBreadSizeAndPrice getSandwichBreadSizeAndPrice() {
+		return sandwichBreadSizeAndPrice;
+	}
+	public void setSandwichBreadSizeAndPrice(
+			SandwichBreadSizeAndPrice sandwichBreadSizeAndPrice) {
+		this.sandwichBreadSizeAndPrice = sandwichBreadSizeAndPrice;
+	}
+	public List<SandwichSausageWithAmountAndPrice> getSandwichSausages() {
+		return sandwichSausages;
+	}
+	public void setSandwichSausages(
+			List<SandwichSausageWithAmountAndPrice> sandwichSausages) {
+		this.sandwichSausages = sandwichSausages;
+	}
+	public List<SandwichVegetableWithAmountAndPrice> getSandwichVegetables() {
+		return sandwichVegetables;
+	}
+	public void setSandwichVegetables(
+			List<SandwichVegetableWithAmountAndPrice> sandwichVegetables) {
+		this.sandwichVegetables = sandwichVegetables;
+	}
+	public List<SandwichSauceWithAmountAndPrice> getSandwichSauce() {
+		return sandwichSauce;
+	}
+	public void setSandwichSauce(List<SandwichSauceWithAmountAndPrice> sandwichSauce) {
+		this.sandwichSauce = sandwichSauce;
+	}
+	public List<SandwichSpiceWithAmountAndPrice> getSandwichSpices() {
+		return sandwichSpices;
+	}
+	public void setSandwichSpices(
+			List<SandwichSpiceWithAmountAndPrice> sandwichSpices) {
+		this.sandwichSpices = sandwichSpices;
+	}
+	@Override
+	public String toString() {
+		return "Sandwich [id=" + id + ", sandwichBread=" + sandwichBread + ", sandwichBreadSizeAndPrice=" + sandwichBreadSizeAndPrice
+				+ ", sandwichSausages=" + sandwichSausages + ", sandwichVegetables=" + sandwichVegetables
+				+ ", sandwichSauce=" + sandwichSauce + ", sandwichSpices=" + sandwichSpices + "]";
+	}
+	
+	
 }

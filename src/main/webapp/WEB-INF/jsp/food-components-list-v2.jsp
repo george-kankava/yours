@@ -25,6 +25,9 @@
 	<link href="resources/css/jquery.fs.selecter.css" rel="stylesheet" />
 	<link href="resources/css/jumbotron-narrow.css" rel="stylesheet" />
 	<link href="resources/css/blue.css" rel="stylesheet" />
+	<link href="resources/css/alertify.core.css" rel="stylesheet" />
+	<link href="resources/css/alertify.default.css" rel="stylesheet" />
+	<link href="resources/css/alertify.bootstrap.css" rel="stylesheet" />
 	
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -196,6 +199,7 @@
 	<script src="resources/js/bootstrap.min.js"></script>
 	<script src="resources/js/jquery.fs.selecter.min.js"></script>
 	<script src="resources/js/yours.js"></script>
-	<script src="resources/js/jquery.icheck.js"></script>
+	<script src="resources/js/jquery.icheck.js"></script>\
+	<script src="resources/js/alertify.min.js"></script>
   </body>
 </html>

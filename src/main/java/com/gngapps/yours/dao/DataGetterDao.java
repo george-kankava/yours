@@ -10,6 +10,7 @@ import com.gngapps.yours.entities.HotDogSauce;
 import com.gngapps.yours.entities.HotDogSausage;
 import com.gngapps.yours.entities.SaladIngredient;
 import com.gngapps.yours.entities.SandwichBread;
+import com.gngapps.yours.entities.SandwichBreadSizeAndPrice;
 import com.gngapps.yours.entities.SandwichSauce;
 import com.gngapps.yours.entities.SandwichSausage;
 import com.gngapps.yours.entities.SandwichSpice;
@@ -62,5 +63,7 @@ public interface DataGetterDao {
 	HotDogSauce findHotdogSauceById(Integer hotdogSauceId);
 
 	List<HotDogSauce> getHotdogSauces();
+
+	SandwichBreadSizeAndPrice findSandwichBreadSizeAndPriceId(Integer sandwichBreadSizeAndPriceId);
 
 }

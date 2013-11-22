@@ -3,10 +3,14 @@ package com.gngapps.yours.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gngapps.yours.controller.YoursController;
+import com.gngapps.yours.controller.response.Sandwich;
 import com.gngapps.yours.dao.DataGetterDao;
 import com.gngapps.yours.dao.DataRemoverDao;
 import com.gngapps.yours.dao.DataSaverDao;
@@ -46,7 +50,8 @@ public class DatabaseServiceImpl implements DatabaseService {
 	
 	@Autowired
 	private DataRemoverDao dataRemoverDao;
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(YoursController.class);
 	
 	@Override
 	public Customer findCustomerByUsername(String username) {
@@ -442,6 +447,25 @@ public class DatabaseServiceImpl implements DatabaseService {
 	@Override
 	public List<HotDogSauce> getHotdogSauces() {
 		return dataGetterDao.getHotdogSauces();
+	}
+
+	@Override
+	@Transactional
+	public void saveCustomerSandwich(Sandwich sandwich) {
+		try {
+			com.gngapps.yours.entities.Sandwich sandwichEntity = new com.gngapps.yours.entities.Sandwich();
+			Integer sandwichBreadId = sandwich.getSandwichBread().getSandwichBreadId();
+			Integer sandwichBreadSizeAndPriceId = sandwich.getSandwichBread().getSandwichBreadSizeAndPriceId();
+			if(sandwichBreadId == null || sandwichBreadSizeAndPriceId == null) {
+				throw new IllegalArgumentException("sandwichBreadId or sandwichBreadSizeAndPriceId is null");
+			}
+			SandwichBread sandwichBread = dataGetterDao.findSandwichBreadById(sandwichBreadId);
+			SandwichBreadSizeAndPrice sizeAndPrice = dataGetterDao.findSandwichBreadSizeAndPriceId(sandwichBreadSizeAndPriceId);
+			sandwichEntity.setSandwichBread(sandwichBread);
+			sandwichEntity.setSandwichBreadSizeAndPrice(sizeAndPrice);
+		} catch(Exception ex) {
+			logger.error(ex.getMessage());
+		}
 	}
 
 }

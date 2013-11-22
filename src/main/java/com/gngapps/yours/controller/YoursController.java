@@ -91,10 +91,11 @@ public class YoursController {
     	return mav;
 	}
     
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/process-add-sandwich", consumes = "application/json", method = RequestMethod.POST)
 	public void processAddSandwich(@RequestBody Sandwich sandwich) {
-    	System.out.println("YoursController.processAddSandwich()");
-	}
+    	databaseService.saveCustomerSandwich(sandwich);
+    }
     
     @RequestMapping(value = "/index.html")
 	public String indexPage(ModelAndView mav, HttpSession session) {

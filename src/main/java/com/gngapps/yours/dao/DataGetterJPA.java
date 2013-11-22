@@ -16,6 +16,7 @@ import com.gngapps.yours.entities.HotDogSauce;
 import com.gngapps.yours.entities.HotDogSausage;
 import com.gngapps.yours.entities.SaladIngredient;
 import com.gngapps.yours.entities.SandwichBread;
+import com.gngapps.yours.entities.SandwichBreadSizeAndPrice;
 import com.gngapps.yours.entities.SandwichSauce;
 import com.gngapps.yours.entities.SandwichSausage;
 import com.gngapps.yours.entities.SandwichSpice;
@@ -167,6 +168,11 @@ public class DataGetterJPA implements DataGetterDao {
 	public List<HotDogSauce> getHotdogSauces() {
 		String qlString = "FROM HotDogSauce sauce";
 		return em.createQuery(qlString).getResultList();
+	}
+
+	@Override
+	public SandwichBreadSizeAndPrice findSandwichBreadSizeAndPriceId(Integer sandwichBreadSizeAndPriceId) {
+		return em.find(SandwichBreadSizeAndPrice.class, sandwichBreadSizeAndPriceId);
 	}
 	
 }

@@ -52,7 +52,7 @@ $( "#sandwichSaveButton" ).click(function() {
 						}
 					)
 			}).done(function(response) {
-				alertify.success("Ajax success");		
+				alertify.success("Ajax succeeded");		
 			});
 		});
 		

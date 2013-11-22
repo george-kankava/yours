@@ -3,6 +3,7 @@ package com.gngapps.yours.service;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.gngapps.yours.controller.response.Sandwich;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
@@ -85,4 +86,5 @@ public interface DatabaseService {
 	void removeHotdogSauce(Integer hotdogSauceId);
 	void removeHotdogSauceAmountAndPrice(Integer hotdogSauceAmountAndPriceId);
 	List<HotDogSauce> getHotdogSauces();
+	void saveCustomerSandwich(Sandwich sandwich);
 }

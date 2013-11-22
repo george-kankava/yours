@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -14,7 +15,7 @@ public class SandwichSausageWithAmountAndPrice {
 	private Integer id;
 	@OneToOne
 	private SandwichSausage sandwichSausage;
-	@OneToOne
+	@ManyToOne
 	private SandwichSausageAmountAndPrice amountAndPrice;
 	
 	public Integer getId() {

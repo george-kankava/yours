@@ -1,11 +1,19 @@
 package com.gngapps.yours.controller.response;
 
 public class Sandwich {
+	private SandwichBreadJson sandwichBread;
 	private SandwichSausageJson sandwichSausages;
 	private SandwichVegetableJson sandwichVegetables;
 	private SandwichSauceJson sandwichSauces;
 	private SandwichSpiceJson sandwichSpices;
 	
+	
+	public SandwichBreadJson getSandwichBread() {
+		return sandwichBread;
+	}
+	public void setSandwichBread(SandwichBreadJson sandwichBread) {
+		this.sandwichBread = sandwichBread;
+	}
 	public SandwichSausageJson getSandwichSausages() {
 		return sandwichSausages;
 	}
@@ -32,8 +40,8 @@ public class Sandwich {
 	}
 	@Override
 	public String toString() {
-		return "Sandwich [sandwichSausages=" + sandwichSausages + ", sandwichVegetables=" + sandwichVegetables +
-				", sandwichSauces=" + sandwichSauces + ", sandwichSpices=" + sandwichSpices + "]";
+		return "Sandwich [sandwichBread=" + sandwichBread + ", sandwichSausages=" + sandwichSausages + ", sandwichVegetables=" + sandwichVegetables
+				+ ", sandwichSauces=" + sandwichSauces + ", sandwichSpices=" + sandwichSpices + "]";
 	}
-	
+
 }

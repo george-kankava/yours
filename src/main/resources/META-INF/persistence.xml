@@ -6,6 +6,35 @@
 	version="1.0">
 
 	<persistence-unit name="yoursFoodServicePU" transaction-type="RESOURCE_LOCAL">
+		<class>com.gngapps.yours.entities.SandwichBread</class>
+		<class>com.gngapps.yours.entities.SandwichBreadSizeAndPrice</class>
+		<class>com.gngapps.yours.entities.SandwichSauce</class>
+		<class>com.gngapps.yours.entities.SandwichSausage</class>
+		<class>com.gngapps.yours.entities.SandwichSauceAmountAndPrice</class>
+		<class>com.gngapps.yours.entities.SandwichSausageAmountAndPrice</class>
+		<class>com.gngapps.yours.entities.SandwichSpice</class>
+		<class>com.gngapps.yours.entities.SandwichSpiceAmountAndPrice</class>
+		<class>com.gngapps.yours.entities.SandwichVegetable</class>
+		<class>com.gngapps.yours.entities.SandwichVegetableAmountAndPrice</class>
+		<class>com.gngapps.yours.entities.Customer</class>
+		<class>com.gngapps.yours.entities.Drink</class>
+		<class>com.gngapps.yours.entities.DrinkAddOn</class>
+		<class>com.gngapps.yours.entities.DrinkAddOnAmountAndPrice</class>
+		<class>com.gngapps.yours.entities.DrinkSizeAndPrice</class>
+		<class>com.gngapps.yours.entities.HotDogBread</class>
+		<class>com.gngapps.yours.entities.HotdogBreadSizeAndPrice</class>
+		<class>com.gngapps.yours.entities.HotDogSauce</class>
+		<class>com.gngapps.yours.entities.HotdogSauceAmountAndPrice</class>
+		<class>com.gngapps.yours.entities.HotDogSausage</class>
+		<class>com.gngapps.yours.entities.HotDogSausageAmountAndPrice</class>
+		<class>com.gngapps.yours.entities.Role</class>
+		<class>com.gngapps.yours.entities.SaladIngredient</class>
+		<class>com.gngapps.yours.entities.SaladIngredientAmountAndPrice</class>
+		<class>com.gngapps.yours.entities.Sandwich</class>
+		<class>com.gngapps.yours.entities.SandwichSausageWithAmountAndPrice</class>
+		<class>com.gngapps.yours.entities.SandwichVegetableWithAmountAndPrice</class>
+		<class>com.gngapps.yours.entities.SandwichSpiceWithAmountAndPrice</class>
+		<class>com.gngapps.yours.entities.SandwichSauceWithAmountAndPrice</class>
 	</persistence-unit>
 
 </persistence>
