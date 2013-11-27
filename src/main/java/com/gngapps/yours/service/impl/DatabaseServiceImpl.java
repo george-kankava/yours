@@ -632,33 +632,37 @@ public class DatabaseServiceImpl implements DatabaseService {
 	@Override
 	@Transactional
 	public void saveCustomerDrink(DrinksJson drinkJson) {
-		DrinkIdWithDrinkSizeAndPriceId drinkIdWithDrinkSizeAndPriceId = drinkJson.getDrink();
-		Integer drinkId = drinkIdWithDrinkSizeAndPriceId.getDrinkId();
-		Integer drinkSizeAndPriceId = drinkIdWithDrinkSizeAndPriceId.getDrinkSizeAndPriceId();
-		if(drinkId == null || drinkSizeAndPriceId == null) {
-			throw new IllegalArgumentException("drinkId or drinkSizeAndPriceId is  null");
+		try {
+			DrinkIdWithDrinkSizeAndPriceId drinkIdWithDrinkSizeAndPriceId = drinkJson.getDrink();
+			Integer drinkId = drinkIdWithDrinkSizeAndPriceId.getDrinkId();
+			Integer drinkSizeAndPriceId = drinkIdWithDrinkSizeAndPriceId.getDrinkSizeAndPriceId();
+			if(drinkId == null || drinkSizeAndPriceId == null) {
+				throw new IllegalArgumentException("drinkId or drinkSizeAndPriceId is  null");
+			}
+			Drink drink = dataGetterDao.findDrinkById(drinkId);
+			DrinkSizeAndPrice sizeAndPrice = dataGetterDao.findDrinkSizeAndPriceById(drinkSizeAndPriceId);
+			DrinkWithSizeAndPrice drinkWithSizeAndPrice = new DrinkWithSizeAndPrice();
+			drinkWithSizeAndPrice.setDrink(drink);
+			drinkWithSizeAndPrice.setSizeAndPrice(sizeAndPrice);
+			List<DrinkAddonIdWithAmountAndSizeId> addonIdsWithDrinkSizeAndPriceIds = drinkJson.getDrinkAddons().getDrinkAddons();
+			List<DrinkAddonWithAmountAndPrice> drinkAddonWithAmountAndPrices = new ArrayList<DrinkAddonWithAmountAndPrice>();
+			for(DrinkAddonIdWithAmountAndSizeId drinkAddonIdWithAmountAndSizeId : addonIdsWithDrinkSizeAndPriceIds) {
+				Integer addonId = drinkAddonIdWithAmountAndSizeId.getDrinkAddonId();
+				Integer addonAmountAndPriceId = drinkAddonIdWithAmountAndSizeId.getDrinkAddonAmountAndPriceId();
+				DrinkAddOn drinkAddOn = dataGetterDao.findDrinkAddOnById(addonId);
+				DrinkAddOnAmountAndPrice addOnAmountAndPrice = dataGetterDao.findDrinkAddOnAmountAndPriceById(addonAmountAndPriceId);
+				DrinkAddonWithAmountAndPrice addonWithAmountAndPrice = new DrinkAddonWithAmountAndPrice();
+				addonWithAmountAndPrice.setDrinkAddOn(drinkAddOn);
+				addonWithAmountAndPrice.setAddOnAmountAndPrice(addOnAmountAndPrice);
+				drinkAddonWithAmountAndPrices.add(addonWithAmountAndPrice);
+			}
+			CustomerDrink customerDrink = new CustomerDrink();
+			customerDrink.setDrinkWithSizeAndPrice(drinkWithSizeAndPrice);
+			customerDrink.setAddonWithAmountAndPrices(drinkAddonWithAmountAndPrices);
+			dataSaverDao.saveCustomerDrink(customerDrink);
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
 		}
-		Drink drink = dataGetterDao.findDrinkById(drinkId);
-		DrinkSizeAndPrice sizeAndPrice = dataGetterDao.findDrinkSizeAndPriceById(drinkSizeAndPriceId);
-		DrinkWithSizeAndPrice drinkWithSizeAndPrice = new DrinkWithSizeAndPrice();
-		drinkWithSizeAndPrice.setDrink(drink);
-		drinkWithSizeAndPrice.setSizeAndPrice(sizeAndPrice);
-		List<DrinkAddonIdWithAmountAndSizeId> addonIdsWithDrinkSizeAndPriceIds = drinkJson.getDrinkAddons().getDrinkAddons();
-		List<DrinkAddonWithAmountAndPrice> drinkAddonWithAmountAndPrices = new ArrayList<DrinkAddonWithAmountAndPrice>();
-		for(DrinkAddonIdWithAmountAndSizeId drinkAddonIdWithAmountAndSizeId : addonIdsWithDrinkSizeAndPriceIds) {
-			Integer addonId = drinkAddonIdWithAmountAndSizeId.getDrinkAddonId();
-			Integer addonAmountAndPriceId = drinkAddonIdWithAmountAndSizeId.getDrinkAddonAmountAndPriceId();
-			DrinkAddOn drinkAddOn = dataGetterDao.findDrinkAddOnById(addonId);
-			DrinkAddOnAmountAndPrice addOnAmountAndPrice = dataGetterDao.findDrinkAddOnAmountAndPriceById(addonAmountAndPriceId);
-			DrinkAddonWithAmountAndPrice addonWithAmountAndPrice = new DrinkAddonWithAmountAndPrice();
-			addonWithAmountAndPrice.setDrinkAddOn(drinkAddOn);
-			addonWithAmountAndPrice.setAddOnAmountAndPrice(addOnAmountAndPrice);
-			drinkAddonWithAmountAndPrices.add(addonWithAmountAndPrice);
-		}
-		CustomerDrink customerDrink = new CustomerDrink();
-		customerDrink.setDrinkWithSizeAndPrice(drinkWithSizeAndPrice);
-		customerDrink.setAddonWithAmountAndPrices(drinkAddonWithAmountAndPrices);
-		dataSaverDao.saveCustomerDrink(customerDrink);
 	}
 
 	@Override
@@ -679,33 +683,43 @@ public class DatabaseServiceImpl implements DatabaseService {
 	@Override
 	@Transactional
 	public void saveCustomerHotdog(HotdogJson hotdogJson) {
-		Integer hotdogBreadId = hotdogJson.getHotdogBread().getHotdogBreadId();
-		Integer hotdogBreadSizeAndPriceId = hotdogJson.getHotdogBread().getHotdogBreadSizeAndPriceId();
-		HotDogBread bread = dataGetterDao.findHotdogBreadById(hotdogBreadId);
-		HotdogBreadSizeAndPrice sizeAndPrice = dataGetterDao.findHotdogBreadSizeAndPriceById(hotdogBreadSizeAndPriceId); 
-		Integer hotdogSausageId = hotdogJson.getHotdogSausage().getHotdogSausageId();
-		Integer hotdogSausageAmountAndPriceId = hotdogJson.getHotdogSausage().getHotdogSausageAmountAndPriceId();
-		HotDogSausage sausage = dataGetterDao.findHotdogSausageById(hotdogSausageId);
-		HotDogSausageAmountAndPrice amountAndPrice = dataGetterDao.findHotdogSausageAmountAndPriceById(hotdogSausageAmountAndPriceId);
-		List<HotdogSauceJson> hotdogSauces = hotdogJson.getHotdogSauces();
-		List<HotDogSauceWithAmountAndPrice> sauceWithAmountAndPrices = new ArrayList<HotDogSauceWithAmountAndPrice>();
-		for(HotdogSauceJson sauceJson : hotdogSauces) {
-			Integer hotdogSauceId = sauceJson.getHotdogSauceId();
-			Integer hotdogSauceAmountAndPriceId = sauceJson.getHotdogSauceAmountAndPriceId();
-			HotDogSauce sauce = dataGetterDao.findHotdogSauceById(hotdogSauceId);
-			HotdogSauceAmountAndPrice sauceAmountAndPrice = dataGetterDao.findHotdogSauceAmountAndPriceById(hotdogSauceAmountAndPriceId);
-			HotDogSauceWithAmountAndPrice withAmountAndPrice = new HotDogSauceWithAmountAndPrice();
-			withAmountAndPrice.setSauce(sauce);
-			withAmountAndPrice.setAmountAndPrice(sauceAmountAndPrice);
-			sauceWithAmountAndPrices.add(withAmountAndPrice);
+		try {
+			Integer hotdogBreadId = hotdogJson.getHotdogBread().getHotdogBreadId();
+			Integer hotdogBreadSizeAndPriceId = hotdogJson.getHotdogBread().getHotdogBreadSizeAndPriceId();
+			if(hotdogBreadId == null || hotdogBreadSizeAndPriceId == null) {
+				throw new IllegalArgumentException("hotdogBreadId or hotdogBreadSizeAndPriceId is  null");
+			}
+			HotDogBread bread = dataGetterDao.findHotdogBreadById(hotdogBreadId);
+			HotdogBreadSizeAndPrice sizeAndPrice = dataGetterDao.findHotdogBreadSizeAndPriceById(hotdogBreadSizeAndPriceId); 
+			Integer hotdogSausageId = hotdogJson.getHotdogSausage().getHotdogSausageId();
+			Integer hotdogSausageAmountAndPriceId = hotdogJson.getHotdogSausage().getHotdogSausageAmountAndPriceId();
+			if(hotdogSausageId == null || hotdogSausageAmountAndPriceId == null) {
+				throw new IllegalArgumentException("hotdogSausageId or hotdogSausageAmountAndPriceId is  null");
+			}
+			HotDogSausage sausage = dataGetterDao.findHotdogSausageById(hotdogSausageId);
+			HotDogSausageAmountAndPrice amountAndPrice = dataGetterDao.findHotdogSausageAmountAndPriceById(hotdogSausageAmountAndPriceId);
+			List<HotdogSauceJson> hotdogSauces = hotdogJson.getHotdogSauces();
+			List<HotDogSauceWithAmountAndPrice> sauceWithAmountAndPrices = new ArrayList<HotDogSauceWithAmountAndPrice>();
+			for(HotdogSauceJson sauceJson : hotdogSauces) {
+				Integer hotdogSauceId = sauceJson.getHotdogSauceId();
+				Integer hotdogSauceAmountAndPriceId = sauceJson.getHotdogSauceAmountAndPriceId();
+				HotDogSauce sauce = dataGetterDao.findHotdogSauceById(hotdogSauceId);
+				HotdogSauceAmountAndPrice sauceAmountAndPrice = dataGetterDao.findHotdogSauceAmountAndPriceById(hotdogSauceAmountAndPriceId);
+				HotDogSauceWithAmountAndPrice withAmountAndPrice = new HotDogSauceWithAmountAndPrice();
+				withAmountAndPrice.setSauce(sauce);
+				withAmountAndPrice.setAmountAndPrice(sauceAmountAndPrice);
+				sauceWithAmountAndPrices.add(withAmountAndPrice);
+			}
+			CustomerHotdog customerHotdog = new CustomerHotdog();
+			customerHotdog.setBread(bread);
+			customerHotdog.setSizeAndPrice(sizeAndPrice);
+			customerHotdog.setSausage(sausage);
+			customerHotdog.setAmountAndPrice(amountAndPrice);
+			customerHotdog.setAmountAndPrices(sauceWithAmountAndPrices);
+			dataSaverDao.saveCustomerHotdog(customerHotdog);
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
 		}
-		CustomerHotdog customerHotdog = new CustomerHotdog();
-		customerHotdog.setBread(bread);
-		customerHotdog.setSizeAndPrice(sizeAndPrice);
-		customerHotdog.setSausage(sausage);
-		customerHotdog.setAmountAndPrice(amountAndPrice);
-		customerHotdog.setAmountAndPrices(sauceWithAmountAndPrices);
-		dataSaverDao.saveCustomerHotdog(customerHotdog);
 	}
 
 }
