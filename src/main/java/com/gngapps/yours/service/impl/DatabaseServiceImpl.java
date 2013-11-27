@@ -11,27 +11,40 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gngapps.yours.controller.YoursController;
-import com.gngapps.yours.controller.response.Sandwich;
-import com.gngapps.yours.controller.response.SandwichSauceIdWithAmountAndPrice;
-import com.gngapps.yours.controller.response.SandwichSausageIdWithAmountAndPriceId;
-import com.gngapps.yours.controller.response.SandwichSpiceIdWithAmountAndPriceId;
-import com.gngapps.yours.controller.response.SandwichVegetableIdWithAmountAndPriceId;
 import com.gngapps.yours.dao.DataGetterDao;
 import com.gngapps.yours.dao.DataRemoverDao;
 import com.gngapps.yours.dao.DataSaverDao;
+import com.gngapps.yours.databinding.json.request.DrinkAddonIdWithAmountAndSizeId;
+import com.gngapps.yours.databinding.json.request.DrinkIdWithDrinkSizeAndPriceId;
+import com.gngapps.yours.databinding.json.request.DrinksJson;
+import com.gngapps.yours.databinding.json.request.HotdogJson;
+import com.gngapps.yours.databinding.json.request.HotdogSauceJson;
+import com.gngapps.yours.databinding.json.request.SaladIngredientIdWithAmountAndPriceId;
+import com.gngapps.yours.databinding.json.request.SaladJson;
+import com.gngapps.yours.databinding.json.request.SandwichJson;
+import com.gngapps.yours.databinding.json.request.SandwichSauceIdWithAmountAndPrice;
+import com.gngapps.yours.databinding.json.request.SandwichSausageIdWithAmountAndPriceId;
+import com.gngapps.yours.databinding.json.request.SandwichSpiceIdWithAmountAndPriceId;
+import com.gngapps.yours.databinding.json.request.SandwichVegetableIdWithAmountAndPriceId;
 import com.gngapps.yours.entities.Customer;
+import com.gngapps.yours.entities.CustomerDrink;
+import com.gngapps.yours.entities.CustomerHotdog;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
+import com.gngapps.yours.entities.DrinkAddonWithAmountAndPrice;
 import com.gngapps.yours.entities.DrinkSizeAndPrice;
+import com.gngapps.yours.entities.DrinkWithSizeAndPrice;
 import com.gngapps.yours.entities.HotDogBread;
 import com.gngapps.yours.entities.HotDogSauce;
+import com.gngapps.yours.entities.HotDogSauceWithAmountAndPrice;
 import com.gngapps.yours.entities.HotDogSausage;
 import com.gngapps.yours.entities.HotDogSausageAmountAndPrice;
 import com.gngapps.yours.entities.HotdogBreadSizeAndPrice;
 import com.gngapps.yours.entities.HotdogSauceAmountAndPrice;
 import com.gngapps.yours.entities.SaladIngredient;
 import com.gngapps.yours.entities.SaladIngredientAmountAndPrice;
+import com.gngapps.yours.entities.SaladIngredientWithAmountAndPrice;
 import com.gngapps.yours.entities.SandwichBread;
 import com.gngapps.yours.entities.SandwichBreadSizeAndPrice;
 import com.gngapps.yours.entities.SandwichSauce;
@@ -320,18 +333,12 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 	@Override
 	@Transactional
-	public void addNewDrinkAddOn(DrinkAddOn drinkAddOn) {
-		dataSaverDao.saveDrinkAddOn(drinkAddOn);
-	}
-
-	@Override
-	@Transactional
 	public DrinkAddOnAmountAndPrice addNewDrinkAddOnAmountAndPrice(Integer drinkAddOnId, String amount, BigDecimal price) {
 		DrinkAddOnAmountAndPrice amountAndPrice = new DrinkAddOnAmountAndPrice();
 		amountAndPrice.setAmount(amount);
 		amountAndPrice.setPrice(price);
 		dataSaverDao.saveDrinkAddOnAmountAndPrice(amountAndPrice);
-		DrinkAddOn drinkAddOn = dataGetterDao.findDrinkAddOn(drinkAddOnId);
+		DrinkAddOn drinkAddOn = dataGetterDao.findDrinkAddOnById(drinkAddOnId);
 		drinkAddOn.getDrinkAddOnAmountAndPrices().add(amountAndPrice);
 		return amountAndPrice;
 	}
@@ -460,9 +467,9 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 	@Override
 	@Transactional
-	public void saveCustomerSandwich(Sandwich sandwich) {
+	public void saveCustomerSandwich(SandwichJson sandwich) {
 		try {
-			com.gngapps.yours.entities.Sandwich sandwichEntity = new com.gngapps.yours.entities.Sandwich();
+			com.gngapps.yours.entities.CustomerSandwich sandwichEntity = new com.gngapps.yours.entities.CustomerSandwich();
 			Integer sandwichBreadId = sandwich.getSandwichBread().getSandwichBreadId();
 			Integer sandwichBreadSizeAndPriceId = sandwich.getSandwichBread().getSandwichBreadSizeAndPriceId();
 			if(sandwichBreadId == null || sandwichBreadSizeAndPriceId == null) {
@@ -500,7 +507,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 	 * @param sandwichSpiceAmountAndPrices
 	 */
 	private void setPropertiesForSandwichEntity(
-			com.gngapps.yours.entities.Sandwich sandwichEntity,
+			com.gngapps.yours.entities.CustomerSandwich sandwichEntity,
 			SandwichBread sandwichBread,
 			SandwichBreadSizeAndPrice sizeAndPrice,
 			List<SandwichSausageWithAmountAndPrice> sandwichSausageWithAmountAndPrices,
@@ -593,6 +600,112 @@ public class DatabaseServiceImpl implements DatabaseService {
 			sandwichSausageWithAmountAndPrice.setAmountAndPrice(amountAndPrice);
 			sandwichSausageWithAmountAndPrices.add(sandwichSausageWithAmountAndPrice);
 		}
+	}
+
+	@Override
+	@Transactional
+	public void saveCustomerSalad(SaladJson salad) {
+		try {
+			List<SaladIngredientIdWithAmountAndPriceId> saladIngredientIdWithAmountAndPriceIds = salad.getSaladIngredients().getSaladIngredients();
+			List<SaladIngredientWithAmountAndPrice> saladIngredientWithAmountAndPrices = new ArrayList<SaladIngredientWithAmountAndPrice>();
+			for(SaladIngredientIdWithAmountAndPriceId saladIngredientIdWithAmountAndPriceId : saladIngredientIdWithAmountAndPriceIds) {
+				Integer saladIngredientId = saladIngredientIdWithAmountAndPriceId.getSaladIngredientId();
+				Integer saladIngredientAmountAndPriceId = saladIngredientIdWithAmountAndPriceId.getSaladIngredientAmountAndPriceId();
+				if(saladIngredientId == null || saladIngredientAmountAndPriceId == null) {
+					throw new IllegalArgumentException("saladIngredientId or saladIngredientAmountAndPriceId is null");
+				}
+				SaladIngredient saladIngredient = dataGetterDao.findSaladIngredientById(saladIngredientId);
+				SaladIngredientAmountAndPrice amountAndPrice = dataGetterDao.findSaladIngredientAmountAndPriceById(saladIngredientAmountAndPriceId);
+				SaladIngredientWithAmountAndPrice saladIngredientWithAmountAndPrice = new SaladIngredientWithAmountAndPrice();
+				saladIngredientWithAmountAndPrice.setSaladIngredient(saladIngredient);
+				saladIngredientWithAmountAndPrice.setAmountAndPrice(amountAndPrice);
+				saladIngredientWithAmountAndPrices.add(saladIngredientWithAmountAndPrice);
+			}
+			for(SaladIngredientWithAmountAndPrice saladIngredientWithAmountAndPrice : saladIngredientWithAmountAndPrices) {
+				dataSaverDao.saveCustomerSalad(saladIngredientWithAmountAndPrice);
+			}
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+		}
+	}
+
+	@Override
+	@Transactional
+	public void saveCustomerDrink(DrinksJson drinkJson) {
+		DrinkIdWithDrinkSizeAndPriceId drinkIdWithDrinkSizeAndPriceId = drinkJson.getDrink();
+		Integer drinkId = drinkIdWithDrinkSizeAndPriceId.getDrinkId();
+		Integer drinkSizeAndPriceId = drinkIdWithDrinkSizeAndPriceId.getDrinkSizeAndPriceId();
+		if(drinkId == null || drinkSizeAndPriceId == null) {
+			throw new IllegalArgumentException("drinkId or drinkSizeAndPriceId is  null");
+		}
+		Drink drink = dataGetterDao.findDrinkById(drinkId);
+		DrinkSizeAndPrice sizeAndPrice = dataGetterDao.findDrinkSizeAndPriceById(drinkSizeAndPriceId);
+		DrinkWithSizeAndPrice drinkWithSizeAndPrice = new DrinkWithSizeAndPrice();
+		drinkWithSizeAndPrice.setDrink(drink);
+		drinkWithSizeAndPrice.setSizeAndPrice(sizeAndPrice);
+		List<DrinkAddonIdWithAmountAndSizeId> addonIdsWithDrinkSizeAndPriceIds = drinkJson.getDrinkAddons().getDrinkAddons();
+		List<DrinkAddonWithAmountAndPrice> drinkAddonWithAmountAndPrices = new ArrayList<DrinkAddonWithAmountAndPrice>();
+		for(DrinkAddonIdWithAmountAndSizeId drinkAddonIdWithAmountAndSizeId : addonIdsWithDrinkSizeAndPriceIds) {
+			Integer addonId = drinkAddonIdWithAmountAndSizeId.getDrinkAddonId();
+			Integer addonAmountAndPriceId = drinkAddonIdWithAmountAndSizeId.getDrinkAddonAmountAndPriceId();
+			DrinkAddOn drinkAddOn = dataGetterDao.findDrinkAddOnById(addonId);
+			DrinkAddOnAmountAndPrice addOnAmountAndPrice = dataGetterDao.findDrinkAddOnAmountAndPriceById(addonAmountAndPriceId);
+			DrinkAddonWithAmountAndPrice addonWithAmountAndPrice = new DrinkAddonWithAmountAndPrice();
+			addonWithAmountAndPrice.setDrinkAddOn(drinkAddOn);
+			addonWithAmountAndPrice.setAddOnAmountAndPrice(addOnAmountAndPrice);
+			drinkAddonWithAmountAndPrices.add(addonWithAmountAndPrice);
+		}
+		CustomerDrink customerDrink = new CustomerDrink();
+		customerDrink.setDrinkWithSizeAndPrice(drinkWithSizeAndPrice);
+		customerDrink.setAddonWithAmountAndPrices(drinkAddonWithAmountAndPrices);
+		dataSaverDao.saveCustomerDrink(customerDrink);
+	}
+
+	@Override
+	@Transactional
+	public void addNewDrinkAddOn(String nameGeo, String nameRus, String nameEng, String descriptionGeo, String descriptionEng, String descriptionRus, Integer drinkId) {
+		Drink drink = dataGetterDao.findDrinkById(drinkId);
+		DrinkAddOn addOn = new DrinkAddOn();
+		addOn.setNameEng(nameEng);
+		addOn.setNameGeo(nameGeo);
+		addOn.setNameRus(nameRus);
+		addOn.setDescriptionEng(descriptionEng);
+		addOn.setDescriptionGeo(descriptionGeo);
+		addOn.setDescriptionRus(descriptionRus);
+		addOn.setDrink(drink);
+		dataSaverDao.saveDrinkAddOn(addOn);
+	}
+
+	@Override
+	@Transactional
+	public void saveCustomerHotdog(HotdogJson hotdogJson) {
+		Integer hotdogBreadId = hotdogJson.getHotdogBread().getHotdogBreadId();
+		Integer hotdogBreadSizeAndPriceId = hotdogJson.getHotdogBread().getHotdogBreadSizeAndPriceId();
+		HotDogBread bread = dataGetterDao.findHotdogBreadById(hotdogBreadId);
+		HotdogBreadSizeAndPrice sizeAndPrice = dataGetterDao.findHotdogBreadSizeAndPriceById(hotdogBreadSizeAndPriceId); 
+		Integer hotdogSausageId = hotdogJson.getHotdogSausage().getHotdogSausageId();
+		Integer hotdogSausageAmountAndPriceId = hotdogJson.getHotdogSausage().getHotdogSausageAmountAndPriceId();
+		HotDogSausage sausage = dataGetterDao.findHotdogSausageById(hotdogSausageId);
+		HotDogSausageAmountAndPrice amountAndPrice = dataGetterDao.findHotdogSausageAmountAndPriceById(hotdogSausageAmountAndPriceId);
+		List<HotdogSauceJson> hotdogSauces = hotdogJson.getHotdogSauces();
+		List<HotDogSauceWithAmountAndPrice> sauceWithAmountAndPrices = new ArrayList<HotDogSauceWithAmountAndPrice>();
+		for(HotdogSauceJson sauceJson : hotdogSauces) {
+			Integer hotdogSauceId = sauceJson.getHotdogSauceId();
+			Integer hotdogSauceAmountAndPriceId = sauceJson.getHotdogSauceAmountAndPriceId();
+			HotDogSauce sauce = dataGetterDao.findHotdogSauceById(hotdogSauceId);
+			HotdogSauceAmountAndPrice sauceAmountAndPrice = dataGetterDao.findHotdogSauceAmountAndPriceById(hotdogSauceAmountAndPriceId);
+			HotDogSauceWithAmountAndPrice withAmountAndPrice = new HotDogSauceWithAmountAndPrice();
+			withAmountAndPrice.setSauce(sauce);
+			withAmountAndPrice.setAmountAndPrice(sauceAmountAndPrice);
+			sauceWithAmountAndPrices.add(withAmountAndPrice);
+		}
+		CustomerHotdog customerHotdog = new CustomerHotdog();
+		customerHotdog.setBread(bread);
+		customerHotdog.setSizeAndPrice(sizeAndPrice);
+		customerHotdog.setSausage(sausage);
+		customerHotdog.setAmountAndPrice(amountAndPrice);
+		customerHotdog.setAmountAndPrices(sauceWithAmountAndPrices);
+		dataSaverDao.saveCustomerHotdog(customerHotdog);
 	}
 
 }

@@ -23,7 +23,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gngapps.yours.controller.response.Sandwich;
+import com.gngapps.yours.databinding.json.request.DrinkAddonRequestJson;
+import com.gngapps.yours.databinding.json.request.DrinksJson;
+import com.gngapps.yours.databinding.json.request.HotdogJson;
+import com.gngapps.yours.databinding.json.request.SaladJson;
+import com.gngapps.yours.databinding.json.request.SandwichJson;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
@@ -93,8 +97,26 @@ public class YoursController {
     
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/process-add-sandwich", consumes = "application/json", method = RequestMethod.POST)
-	public void processAddSandwich(@RequestBody Sandwich sandwich) {
+	public void processAddSandwich(@RequestBody SandwichJson sandwich) {
     	databaseService.saveCustomerSandwich(sandwich);
+    }
+    
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(value = "/process-add-salad", consumes = "application/json", method = RequestMethod.POST)
+	public void processAddSandwich(@RequestBody SaladJson salad) {
+    	databaseService.saveCustomerSalad(salad);
+    }
+    
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(value = "/process-add-drink", consumes = "application/json", method = RequestMethod.POST)
+	public void processAddDrinks(@RequestBody DrinksJson drink) {
+    	databaseService.saveCustomerDrink(drink);
+    }
+    
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(value = "/process-add-hotdog", consumes = "application/json", method = RequestMethod.POST)
+	public void processAddDrinks(@RequestBody HotdogJson hotdog) {
+    	databaseService.saveCustomerHotdog(hotdog);
     }
     
     @RequestMapping(value = "/index.html")
@@ -384,6 +406,8 @@ public class YoursController {
     
     @RequestMapping(value = "admin/add-drink-addon-form")
 	public ModelAndView addDrinkAddonForm(ModelAndView mav) {
+    	List<Drink> drinks = databaseService.getDrinks();
+    	mav.addObject("drinks", drinks);
     	List<DrinkAddOn> drinkAddons = databaseService.getDrinkAddOns();
     	mav.addObject("drinkAddOns", drinkAddons);
     	mav.setViewName("add-drink-addon-form");
@@ -392,9 +416,11 @@ public class YoursController {
     
     @RequestMapping(value = "admin/process-add-drink-add-on-form", method = RequestMethod.POST, consumes = {"application/json"})
     @ResponseStatus(HttpStatus.OK)
-	public ModelAndView processAddDrinkAddOnForm(ModelAndView mav, @RequestBody DrinkAddOn drinkAddOn, BindingResult result) {
-    	databaseService.addNewDrinkAddOn(drinkAddOn);
-    	mav.addObject("drink", drinkAddOn);
+	public ModelAndView processAddDrinkAddOnForm(ModelAndView mav, @RequestBody DrinkAddonRequestJson drinkAddonJson, BindingResult result) {
+    	DrinkAddOn drinkAddOn = new DrinkAddOn();
+    	databaseService.addNewDrinkAddOn(drinkAddonJson.getNameGeo(), drinkAddonJson.getNameRus(), drinkAddonJson.getNameEng(), 
+    			drinkAddonJson.getDescriptionEng(), drinkAddonJson.getDescriptionEng(), drinkAddonJson.getDescriptionRus(), drinkAddonJson.getDrinkId());
+    	mav.addObject("drinkAddOn", drinkAddOn);
     	mav.setViewName("add-drink-add-on-response");
     	return mav;
 	}

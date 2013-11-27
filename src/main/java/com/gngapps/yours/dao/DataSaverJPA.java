@@ -1,11 +1,15 @@
 package com.gngapps.yours.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
 import com.gngapps.yours.entities.Customer;
+import com.gngapps.yours.entities.CustomerDrink;
+import com.gngapps.yours.entities.CustomerHotdog;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
@@ -19,7 +23,8 @@ import com.gngapps.yours.entities.HotdogSauceAmountAndPrice;
 import com.gngapps.yours.entities.Role;
 import com.gngapps.yours.entities.SaladIngredient;
 import com.gngapps.yours.entities.SaladIngredientAmountAndPrice;
-import com.gngapps.yours.entities.Sandwich;
+import com.gngapps.yours.entities.SaladIngredientWithAmountAndPrice;
+import com.gngapps.yours.entities.CustomerSandwich;
 import com.gngapps.yours.entities.SandwichBread;
 import com.gngapps.yours.entities.SandwichBreadSizeAndPrice;
 import com.gngapps.yours.entities.SandwichSauce;
@@ -261,11 +266,38 @@ public class DataSaverJPA implements DataSaverDao {
 	}
 
 	@Override
-	public void saveCustomerSandwich(Sandwich sandwich) {
+	public void saveCustomerSandwich(CustomerSandwich sandwich) {
 		if(sandwich.getId() != null) {
 			em.merge(sandwich);
 		} else {
 			em.persist(sandwich);
+		}
+	}
+
+	@Override
+	public void saveCustomerSalad(SaladIngredientWithAmountAndPrice saladIngredientWithAmountAndPriceEntity) {
+		if(saladIngredientWithAmountAndPriceEntity.getId() != null) {
+			em.merge(saladIngredientWithAmountAndPriceEntity);
+		} else {
+			em.persist(saladIngredientWithAmountAndPriceEntity);
+		}
+	}
+
+	@Override
+	public void saveCustomerDrink(CustomerDrink customerDrink) {
+		if(customerDrink.getId() != null) {
+			em.merge(customerDrink);
+		} else {
+			em.persist(customerDrink);
+		}
+	}
+
+	@Override
+	public void saveCustomerHotdog(CustomerHotdog customerHotdog) {
+		if(customerHotdog.getId() != null) {
+			em.merge(customerHotdog);
+		} else {
+			em.persist(customerHotdog);
 		}
 	}
 

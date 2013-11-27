@@ -41,8 +41,7 @@ public class SaladIngredientAmountAndPrice {
 
 	@Override
 	public String toString() {
-		return "SaladIngredientAmountAndPrice [id=" + id + ", amount=" + amount
-				+ ", price=" + price + "]";
+		return "SaladIngredientAmountAndPrice [id=" + id + ", amount=" + amount + ", price=" + price + "]";
 	}
 	
 }

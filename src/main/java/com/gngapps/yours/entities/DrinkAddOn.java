@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -25,6 +26,9 @@ public class DrinkAddOn {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "drink_addon_id")
 	private List<DrinkAddOnAmountAndPrice> drinkAddOnAmountAndPrices;
+	@ManyToOne
+	@JoinColumn(name = "drink_id")
+	private Drink drink;
 	
 	public Integer getId() {
 		return id;
@@ -71,18 +75,21 @@ public class DrinkAddOn {
 	public List<DrinkAddOnAmountAndPrice> getDrinkAddOnAmountAndPrices() {
 		return drinkAddOnAmountAndPrices;
 	}
-	public void setDrinkAddOnAmountAndPrices(List<DrinkAddOnAmountAndPrice> drinkAddOnAmountAndPrices) { 
+	public void setDrinkAddOnAmountAndPrices(
+			List<DrinkAddOnAmountAndPrice> drinkAddOnAmountAndPrices) {
 		this.drinkAddOnAmountAndPrices = drinkAddOnAmountAndPrices;
+	}
+	public Drink getDrink() {
+		return drink;
+	}
+	public void setDrink(Drink drink) {
+		this.drink = drink;
 	}
 	@Override
 	public String toString() {
-		return "DrinkAddOn [id=" + id + ", nameGeo=" + nameGeo + ", nameEng="
-				+ nameEng + ", nameRus=" + nameRus + ", descriptionGeo="
-				+ descriptionGeo + ", descriptionEng=" + descriptionEng
-				+ ", descriptionRus=" + descriptionRus
-				+ ", drinkAddOnAmountAndPrices=" + drinkAddOnAmountAndPrices
-				+ "]";
+		return "DrinkAddOn [id=" + id + ", nameGeo=" + nameGeo + ", nameEng=" + nameEng + ", nameRus=" + nameRus + ", descriptionGeo="
+				+ descriptionGeo + ", descriptionEng=" + descriptionEng + ", descriptionRus=" + descriptionRus
+				+ ", drinkAddOnAmountAndPrices=" + drinkAddOnAmountAndPrices + ", drink=" + drink + "]";
 	}
-	
 	
 }

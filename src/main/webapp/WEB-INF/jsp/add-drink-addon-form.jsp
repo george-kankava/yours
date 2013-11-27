@@ -7,6 +7,15 @@
 <div class="col-md-3">
 		<table class="table table-bordered">
 			<tr>
+				<td>
+					<select class="form-control" id="drinkId">
+						<c:forEach items="${drinks }" var="drink">
+							<option value="${drink.id }">${drink.nameGeo }</option>
+						</c:forEach>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td><input type="text" class="form-control" id="addonNameGeo" placeholder="Add-On Name Geo" /></td>
 			</tr>
 			<tr>
@@ -115,7 +124,8 @@
 				nameRus: toUnicode($('#addonNameRus').val()),
 				descriptionGeo: toUnicode($('#addonDescGeo').val()),
 				descriptionEng: toUnicode($('#addonDescEng').val()),
-				descriptionRus: toUnicode($('#addonDescRus').val())
+				descriptionRus: toUnicode($('#addonDescRus').val()),
+				drinkId: $('#drinkId').val()
 			})
 		}).done(function(response) {
 			$('#addonNameGeo').val('');

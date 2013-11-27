@@ -3,7 +3,10 @@ package com.gngapps.yours.service;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.gngapps.yours.controller.response.Sandwich;
+import com.gngapps.yours.databinding.json.request.DrinksJson;
+import com.gngapps.yours.databinding.json.request.HotdogJson;
+import com.gngapps.yours.databinding.json.request.SaladJson;
+import com.gngapps.yours.databinding.json.request.SandwichJson;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
@@ -66,7 +69,6 @@ public interface DatabaseService {
 	void removeDrinkSizeAndPrice(Integer drinkSizeAndPriceId);
 	DrinkSizeAndPrice addNewDrinkSizeAndPrice(Integer drinkId, String size, BigDecimal price);
 	List<Drink> getDrinks();
-	void addNewDrinkAddOn(DrinkAddOn drinkAddOn);
 	DrinkAddOnAmountAndPrice addNewDrinkAddOnAmountAndPrice(Integer drinkAddOnId, String amount, BigDecimal price);
 	void removeDrinkAddOn(Integer drinkAddOnId);
 	void removeDrinkAddOnAmountAndPrice(Integer drinkAddOnAmountAndPriceId);
@@ -86,5 +88,9 @@ public interface DatabaseService {
 	void removeHotdogSauce(Integer hotdogSauceId);
 	void removeHotdogSauceAmountAndPrice(Integer hotdogSauceAmountAndPriceId);
 	List<HotDogSauce> getHotdogSauces();
-	void saveCustomerSandwich(Sandwich sandwich);
+	void saveCustomerSandwich(SandwichJson sandwich);
+	void saveCustomerSalad(SaladJson salad);
+	void saveCustomerDrink(DrinksJson drink);
+	void addNewDrinkAddOn(String nameGeo, String nameRus, String nameEng, String descriptionGeo, String descriptionEng, String descriptionRus, Integer drinkId);
+	void saveCustomerHotdog(HotdogJson hotdog);
 }

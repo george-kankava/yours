@@ -11,10 +11,16 @@ import org.springframework.stereotype.Repository;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
+import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
+import com.gngapps.yours.entities.DrinkSizeAndPrice;
 import com.gngapps.yours.entities.HotDogBread;
 import com.gngapps.yours.entities.HotDogSauce;
 import com.gngapps.yours.entities.HotDogSausage;
+import com.gngapps.yours.entities.HotDogSausageAmountAndPrice;
+import com.gngapps.yours.entities.HotdogBreadSizeAndPrice;
+import com.gngapps.yours.entities.HotdogSauceAmountAndPrice;
 import com.gngapps.yours.entities.SaladIngredient;
+import com.gngapps.yours.entities.SaladIngredientAmountAndPrice;
 import com.gngapps.yours.entities.SandwichBread;
 import com.gngapps.yours.entities.SandwichBreadSizeAndPrice;
 import com.gngapps.yours.entities.SandwichSauce;
@@ -126,7 +132,7 @@ public class DataGetterJPA implements DataGetterDao {
 	}
 
 	@Override
-	public DrinkAddOn findDrinkAddOn(Integer drinkAddOnId) {
+	public DrinkAddOn findDrinkAddOnById(Integer drinkAddOnId) {
 		return em.find(DrinkAddOn.class, drinkAddOnId);
 	}
 
@@ -197,6 +203,36 @@ public class DataGetterJPA implements DataGetterDao {
 	@Override
 	public SandwichSpiceAmountAndPrice findSandwichSpiceAmountAndPriceById(Integer sandwichSpiceAmountAndPriceId) {
 		return em.find(SandwichSpiceAmountAndPrice.class, sandwichSpiceAmountAndPriceId);
+	}
+
+	@Override
+	public SaladIngredientAmountAndPrice findSaladIngredientAmountAndPriceById(Integer saladIngredientAmountAndPriceId) {
+		return em.find(SaladIngredientAmountAndPrice.class, saladIngredientAmountAndPriceId);
+	}
+
+	@Override
+	public DrinkSizeAndPrice findDrinkSizeAndPriceById(Integer drinkSizeAndPriceId) {
+		return em.find(DrinkSizeAndPrice.class, drinkSizeAndPriceId);
+	}
+
+	@Override
+	public DrinkAddOnAmountAndPrice findDrinkAddOnAmountAndPriceById(Integer addonAmountAndPriceId) {
+		return em.find(DrinkAddOnAmountAndPrice.class, addonAmountAndPriceId);
+	}
+
+	@Override
+	public HotdogBreadSizeAndPrice findHotdogBreadSizeAndPriceById(Integer hotdogBreadSizeAndPriceId) {
+		return em.find(HotdogBreadSizeAndPrice.class, hotdogBreadSizeAndPriceId);
+	}
+
+	@Override
+	public HotDogSausageAmountAndPrice findHotdogSausageAmountAndPriceById(Integer hotdogSausageAmountAndPriceId) {
+		return em.find(HotDogSausageAmountAndPrice.class, hotdogSausageAmountAndPriceId);
+	}
+
+	@Override
+	public HotdogSauceAmountAndPrice findHotdogSauceAmountAndPriceById(Integer hotdogSauceAmountAndPriceId) {
+		return em.find(HotdogSauceAmountAndPrice.class, hotdogSauceAmountAndPriceId);
 	}
 	
 }

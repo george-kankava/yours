@@ -7,6 +7,7 @@
   <head>
   	<style>
   		.selecter {
+  		
   		}
   	</style>
   	<meta charset="utf-8" />
@@ -189,7 +190,7 @@
 									<label>${saladIngredient.nameGeo }</label>
 								</td>
 								<td>
-									<select class="form-control" id="saladIngredientSizeAndPrice${saladIngredient.id }">
+									<select class="form-control" id="saladIngredientAmountAndPrice${saladIngredient.id }">
 										<c:forEach items="${saladIngredient.saladIngredientAmountAndPrices }" var="amountAndPrice">
 											<option value="${amountAndPrice.id}">${amountAndPrice.amount}</option>
 										</c:forEach>
@@ -253,7 +254,79 @@
 						<button id="drinkSaveButton" type="button" class="btn btn-success">Save</button>
 					</div>
 			</div>
-			<div class="tab-pane" id="hotdog">..as.</div>
+			<div class="tab-pane active" id="hotdog">
+				<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
+							</tr>
+						</thead>
+						<c:forEach items="${hotdogBreads}" var="hotdogBread">
+							<tr>
+								<td>
+									<input type="radio" name="hotdogBread" id="${hotdogBread.id }"/>
+									<label>${hotdogBread.nameGeo }</label>
+								</td>
+								<td>
+									<select class="form-control" id="hotdogBreadSizeAndPrices${hotdogBread.id }">
+										<c:forEach items="${hotdogBread.hotdogBreadSizeAndPrices }" var="sizeAndPrice">
+											<option value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
+										</c:forEach>
+									</select>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
+							</tr>
+						</thead>
+						<c:forEach items="${hotdogSausages}" var="hotdogSausage">
+							<tr>
+								<td>
+									<div>
+										<input name="hotdogSausages" type="radio" id="${hotdogSausage.id }">
+										<label>${hotdogSausage.nameGeo }</label>
+									</div>
+								</td>
+								<td>
+									<select class="form-control" id="hotDogSausageAmountAndPrice${hotdogSausage.id }">
+										<c:forEach items="${hotdogSausage.hotDogSausageAmountAndPrice }" var="sizeAndPrice">
+											<option value="${sizeAndPrice.id}">${sizeAndPrice.portion}</option>
+										</c:forEach>
+									</select>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sauce" text="Sauce" /></th>
+							</tr>
+						</thead>
+						<c:forEach items="${hotdogSauces}" var="hotdogSauce">
+							<tr>
+								<td>
+									<input name="hotdogSauces"  id="${hotdogSauce.id }" type="checkbox">
+									<label>${hotdogSauce.nameGeo }</label>
+								</td>
+								<td>
+									<select class="form-control" id="hotdogSauceAmountAndPrice${hotdogSauce.id }">
+										<c:forEach items="${hotdogSauce.hotdogSauceAmountAndPrice}" var="amountAndPrice">
+											<option value="${amountAndPrice.id}">${amountAndPrice.amount}</option>
+										</c:forEach>
+									</select>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
+					<div class="col-md-offset-5" style="margin-top:14px;">
+						<button id="hotdogSaveButton" type="button" class="btn btn-success">Save</button>
+					</div>
+			</div>
 		</div>
 
       <div class="row marketing">
@@ -275,7 +348,11 @@
 	<script src="resources/js/bootstrap.min.js"></script>
 	<script src="resources/js/jquery.fs.selecter.min.js"></script>
 	<script src="resources/js/yours.js"></script>
-	<script src="resources/js/jquery.icheck.js"></script>\
+	<script src="resources/js/sandwich.js"></script>
+	<script src="resources/js/salad.js"></script>
+	<script src="resources/js/drinks.js"></script>
+	<script src="resources/js/hotdog.js"></script>
+	<script src="resources/js/jquery.icheck.js"></script>
 	<script src="resources/js/alertify.min.js"></script>
   </body>
 </html>

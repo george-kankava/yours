@@ -1,4 +1,4 @@
-package com.gngapps.yours.controller.response;
+package com.gngapps.yours.databinding.json.request;
 
 public class SandwichSausageIdWithAmountAndPriceId {
 	private Integer sandwichSausageId;

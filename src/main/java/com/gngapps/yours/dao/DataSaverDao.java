@@ -1,6 +1,8 @@
 package com.gngapps.yours.dao;
 
 import com.gngapps.yours.entities.Customer;
+import com.gngapps.yours.entities.CustomerDrink;
+import com.gngapps.yours.entities.CustomerHotdog;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
@@ -13,7 +15,8 @@ import com.gngapps.yours.entities.HotdogBreadSizeAndPrice;
 import com.gngapps.yours.entities.HotdogSauceAmountAndPrice;
 import com.gngapps.yours.entities.SaladIngredient;
 import com.gngapps.yours.entities.SaladIngredientAmountAndPrice;
-import com.gngapps.yours.entities.Sandwich;
+import com.gngapps.yours.entities.SaladIngredientWithAmountAndPrice;
+import com.gngapps.yours.entities.CustomerSandwich;
 import com.gngapps.yours.entities.SandwichBread;
 import com.gngapps.yours.entities.SandwichBreadSizeAndPrice;
 import com.gngapps.yours.entities.SandwichSauce;
@@ -52,5 +55,8 @@ public interface DataSaverDao {
 	void saveHotdogSausageAmountAndPrice(HotDogSausageAmountAndPrice amountAndPrice);
 	void saveHotdogSauce(HotDogSauce hotdogSauce);
 	void saveHotdogSauceAmountAndPrice(HotdogSauceAmountAndPrice amountAndPrice);
-	void saveCustomerSandwich(Sandwich sandwich);
+	void saveCustomerSandwich(CustomerSandwich sandwich);
+	void saveCustomerSalad(SaladIngredientWithAmountAndPrice saladIngredientWithAmountAndPrice);
+	void saveCustomerDrink(CustomerDrink customerDrink);
+	void saveCustomerHotdog(CustomerHotdog customerHotdog);
 }

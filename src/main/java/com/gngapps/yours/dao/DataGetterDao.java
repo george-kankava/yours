@@ -5,10 +5,16 @@ import java.util.List;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
+import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
+import com.gngapps.yours.entities.DrinkSizeAndPrice;
 import com.gngapps.yours.entities.HotDogBread;
 import com.gngapps.yours.entities.HotDogSauce;
 import com.gngapps.yours.entities.HotDogSausage;
+import com.gngapps.yours.entities.HotDogSausageAmountAndPrice;
+import com.gngapps.yours.entities.HotdogBreadSizeAndPrice;
+import com.gngapps.yours.entities.HotdogSauceAmountAndPrice;
 import com.gngapps.yours.entities.SaladIngredient;
+import com.gngapps.yours.entities.SaladIngredientAmountAndPrice;
 import com.gngapps.yours.entities.SandwichBread;
 import com.gngapps.yours.entities.SandwichBreadSizeAndPrice;
 import com.gngapps.yours.entities.SandwichSauce;
@@ -52,7 +58,7 @@ public interface DataGetterDao {
 
 	List<Drink> getDrinks();
 
-	DrinkAddOn findDrinkAddOn(Integer drinkAddOnId);
+	DrinkAddOn findDrinkAddOnById(Integer drinkAddOnId);
 
 	List<DrinkAddOn> getDrinkAddOns();
 
@@ -77,5 +83,17 @@ public interface DataGetterDao {
 	SandwichSauceAmountAndPrice findSandwichSauceAmountAndPriceById(Integer sandwichSauceAmountAndPriceId);
 
 	SandwichSpiceAmountAndPrice findSandwichSpiceAmountAndPriceById(Integer sandwichSpiceAmountAndPriceId);
+
+	SaladIngredientAmountAndPrice findSaladIngredientAmountAndPriceById(Integer saladIngredientAmountAndPriceId);
+
+	DrinkSizeAndPrice findDrinkSizeAndPriceById(Integer drinkSizeAndPriceId);
+
+	DrinkAddOnAmountAndPrice findDrinkAddOnAmountAndPriceById(Integer addonAmountAndPriceId);
+
+	HotdogBreadSizeAndPrice findHotdogBreadSizeAndPriceById(Integer hotdogBreadSizeAndPriceId);
+
+	HotDogSausageAmountAndPrice findHotdogSausageAmountAndPriceById(Integer hotdogSausageAmountAndPriceId);
+
+	HotdogSauceAmountAndPrice findHotdogSauceAmountAndPriceById(Integer hotdogSauceAmountAndPriceId);
 
 }

@@ -67,7 +67,7 @@
 								price: $('#saladIngredientPrice-${saladIngredient.id}').val()
 							}
 						}).done(function(saladIngredientAmountAndPrice) {
-							$$('#salad-ingredient-amount-and-price-${saladIngredient.id}').append('<option value=' + saladIngredientAmountAndPrice.id + ' selected="selected">' + saladIngredientAmountAndPrice.amount + ' - ' + parseFloat(Math.round(saladIngredientAmountAndPrice.price * 100) / 100).toFixed(2) + '</option>');
+							$('#salad-ingredient-amount-and-price-${saladIngredient.id}').append('<option value=' + saladIngredientAmountAndPrice.id + ' selected="selected">' + saladIngredientAmountAndPrice.amount + ' - ' + parseFloat(Math.round(saladIngredientAmountAndPrice.price * 100) / 100).toFixed(2) + '</option>');
 							$('#myModal-${saladIngredient.id}').modal('hide');
 							alertify.success("Data has been saved");
 						});

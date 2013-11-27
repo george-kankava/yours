@@ -25,6 +25,7 @@ public class Drink {
 	@JoinColumn(name = "drink_id")
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<DrinkSizeAndPrice> drinkSizeAndPrices;
+	
 	public Integer getId() {
 		return id;
 	}
