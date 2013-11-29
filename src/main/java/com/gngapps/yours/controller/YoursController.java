@@ -1,5 +1,6 @@
 package com.gngapps.yours.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -46,9 +47,8 @@ public class YoursController {
 	
 
 	@RequestMapping("/customer-meals-page")
-	public ModelAndView customerMeals(ModelAndView mav, @RequestParam Integer customerId) {
-		String username = LoggedUsersContext.getCurrentUserUsername();
-		Map<String, Object> customerMeals = databaseService.getCustomerMeals(username);
+	public ModelAndView customerMeals(Principal principal, ModelAndView mav) {
+		Map<String, Object> customerMeals = databaseService.getCustomerMeals(principal.getName());
 		mav.addObject("meals", customerMeals);
 		mav.setViewName("customer-meals");
 		return mav;

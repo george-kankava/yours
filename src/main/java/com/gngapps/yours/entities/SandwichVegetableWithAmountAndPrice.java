@@ -32,8 +32,7 @@ public class SandwichVegetableWithAmountAndPrice {
 	public SandwichVegetableAmountAndPrice getSandwichVegetableAmountAndPrice() {
 		return sandwichVegetableAmountAndPrice;
 	}
-	public void setSandwichVegetableAmountAndPrice(
-			SandwichVegetableAmountAndPrice sandwichVegetableAmountAndPrice) {
+	public void setSandwichVegetableAmountAndPrice(SandwichVegetableAmountAndPrice sandwichVegetableAmountAndPrice) {
 		this.sandwichVegetableAmountAndPrice = sandwichVegetableAmountAndPrice;
 	}
 	@Override
