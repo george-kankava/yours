@@ -22,8 +22,8 @@ public class SaladIngredient {
 	private String descriptionGeo;
 	private String descriptionEng;
 	private String descriptionRus;
-	@JoinColumn(name = "salad_ingredient_id")
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "salad_ingredient_id")
 	private List<SaladIngredientAmountAndPrice> saladIngredientAmountAndPrices;
 	public Integer getId() {
 		return id;

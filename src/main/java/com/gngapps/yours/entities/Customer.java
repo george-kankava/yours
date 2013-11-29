@@ -1,11 +1,16 @@
 package com.gngapps.yours.entities;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Pattern;
 
@@ -17,6 +22,7 @@ public class Customer {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	@Pattern(regexp = "[a-zA-Z0-9,.-_]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}", message = "Please Enter Valid Email")
+	@Column(unique = true)
 	private String username;
 	private String firstname;
 	private String lastname;
@@ -25,7 +31,18 @@ public class Customer {
 	private Date birthday;
 	@OneToOne
 	private Role role;
-	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "customer_id")
+	private List<CustomerSandwich> sandwichs;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "customer_id")
+	private List<SaladIngredientWithAmountAndPrice> saladIngredientWithAmountAndPrices;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "customer_id")
+	private List<CustomerDrink> drinks;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "customer_id")
+	private List<CustomerHotdog> hotdogs;
 	public Integer getId() {
 		return id;
 	}
@@ -62,19 +79,43 @@ public class Customer {
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
-	
 	public Role getRole() {
 		return role;
 	}
 	public void setRole(Role role) {
 		this.role = role;
 	}
-	@Override
-	public String toString() {
-		return "Customer [id=" + id + ", username=" + username + ", firstname="
-				+ firstname + ", lastname=" + lastname + ", password=" + password + ", birthday="
-				+ birthday + "]";
+	public List<CustomerSandwich> getSandwichs() {
+		return sandwichs;
+	}
+	public void setSandwichs(List<CustomerSandwich> sandwichs) {
+		this.sandwichs = sandwichs;
+	}
+	public List<SaladIngredientWithAmountAndPrice> getSaladIngredientWithAmountAndPrices() {
+		return saladIngredientWithAmountAndPrices;
+	}
+	public void setSaladIngredientWithAmountAndPrices(
+			List<SaladIngredientWithAmountAndPrice> saladIngredientWithAmountAndPrices) {
+		this.saladIngredientWithAmountAndPrices = saladIngredientWithAmountAndPrices;
+	}
+	public List<CustomerDrink> getDrinks() {
+		return drinks;
+	}
+	public void setDrinks(List<CustomerDrink> drinks) {
+		this.drinks = drinks;
+	}
+	public List<CustomerHotdog> getHotdogs() {
+		return hotdogs;
+	}
+	public void setHotdogs(List<CustomerHotdog> hotdogs) {
+		this.hotdogs = hotdogs;
 	}
 	
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname + ", password="
+				+ password + ", birthday=" + birthday + ", role=" + role + ", sandwichs=" + sandwichs
+				+ ", saladIngredientWithAmountAndPrices=" + saladIngredientWithAmountAndPrices + ", drinks=" + drinks + ", hotdogs=" + hotdogs + "]";
+	}
 	
 }

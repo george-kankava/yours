@@ -33,7 +33,6 @@ public class CustomerSandwich {
 	@JoinColumn(name = "sandwich_id")
 	private List<SandwichSpiceWithAmountAndPrice> sandwichSpices;
 	@ManyToOne
-	@JoinColumn(name = "customer_id")
 	private Customer customer;
 	
 	public Integer getId() {

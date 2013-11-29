@@ -2,7 +2,9 @@ package com.gngapps.yours.service.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -467,7 +469,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 	@Override
 	@Transactional
-	public void saveCustomerSandwich(SandwichJson sandwich) {
+	public void saveCustomerSandwich(SandwichJson sandwich, String username) {
 		try {
 			com.gngapps.yours.entities.CustomerSandwich sandwichEntity = new com.gngapps.yours.entities.CustomerSandwich();
 			Integer sandwichBreadId = sandwich.getSandwichBread().getSandwichBreadId();
@@ -477,6 +479,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 			}
 			SandwichBread sandwichBread = dataGetterDao.findSandwichBreadById(sandwichBreadId);
 			SandwichBreadSizeAndPrice sizeAndPrice = dataGetterDao.findSandwichBreadSizeAndPriceId(sandwichBreadSizeAndPriceId);
+			Customer customer = findCustomerByUsername(username);
 			List<SandwichSausageIdWithAmountAndPriceId> sandwichSausages = sandwich.getSandwichSausages().getSandwichSausages();
 			List<SandwichSausageWithAmountAndPrice> sandwichSausageWithAmountAndPrices = new ArrayList<SandwichSausageWithAmountAndPrice>();
 			fillSandwichSausageWithAmountAndPriceList(sandwichSausages, sandwichSausageWithAmountAndPrices);
@@ -490,7 +493,8 @@ public class DatabaseServiceImpl implements DatabaseService {
 			List<SandwichSpiceWithAmountAndPrice> sandwichSpiceAmountAndPrices = new ArrayList<SandwichSpiceWithAmountAndPrice>();
 			fillSandwichSpiceWithAmountAndPriceList(sandwichSpiceIdWithAmountAndPriceIds, sandwichSpiceAmountAndPrices);
 			setPropertiesForSandwichEntity(sandwichEntity, sandwichBread, sizeAndPrice, sandwichSausageWithAmountAndPrices, sandwichVegetableWithAmountAndPrices,
-					sandwichSauceWithAmountAndPrices, sandwichSpiceAmountAndPrices);
+					sandwichSauceWithAmountAndPrices, sandwichSpiceAmountAndPrices, customer);
+			
 			dataSaverDao.saveCustomerSandwich(sandwichEntity);
 		} catch(Exception ex) {
 			logger.error(ex.getMessage());
@@ -513,7 +517,9 @@ public class DatabaseServiceImpl implements DatabaseService {
 			List<SandwichSausageWithAmountAndPrice> sandwichSausageWithAmountAndPrices,
 			List<SandwichVegetableWithAmountAndPrice> sandwichVegetableWithAmountAndPrices,
 			List<SandwichSauceWithAmountAndPrice> sandwichSauceWithAmountAndPrices,
-			List<SandwichSpiceWithAmountAndPrice> sandwichSpiceAmountAndPrices) {
+			List<SandwichSpiceWithAmountAndPrice> sandwichSpiceAmountAndPrices,
+			Customer customer) {
+		sandwichEntity.setCustomer(customer);
 		sandwichEntity.setSandwichBread(sandwichBread);
 		sandwichEntity.setSandwichBreadSizeAndPrice(sizeAndPrice);
 		sandwichEntity.setSandwichSausages(sandwichSausageWithAmountAndPrices);
@@ -604,7 +610,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 	@Override
 	@Transactional
-	public void saveCustomerSalad(SaladJson salad) {
+	public void saveCustomerSalad(SaladJson salad, String username) {
 		try {
 			List<SaladIngredientIdWithAmountAndPriceId> saladIngredientIdWithAmountAndPriceIds = salad.getSaladIngredients().getSaladIngredients();
 			List<SaladIngredientWithAmountAndPrice> saladIngredientWithAmountAndPrices = new ArrayList<SaladIngredientWithAmountAndPrice>();
@@ -614,9 +620,11 @@ public class DatabaseServiceImpl implements DatabaseService {
 				if(saladIngredientId == null || saladIngredientAmountAndPriceId == null) {
 					throw new IllegalArgumentException("saladIngredientId or saladIngredientAmountAndPriceId is null");
 				}
+				Customer customer = findCustomerByUsername(username);
 				SaladIngredient saladIngredient = dataGetterDao.findSaladIngredientById(saladIngredientId);
 				SaladIngredientAmountAndPrice amountAndPrice = dataGetterDao.findSaladIngredientAmountAndPriceById(saladIngredientAmountAndPriceId);
 				SaladIngredientWithAmountAndPrice saladIngredientWithAmountAndPrice = new SaladIngredientWithAmountAndPrice();
+				saladIngredientWithAmountAndPrice.setCustomer(customer);
 				saladIngredientWithAmountAndPrice.setSaladIngredient(saladIngredient);
 				saladIngredientWithAmountAndPrice.setAmountAndPrice(amountAndPrice);
 				saladIngredientWithAmountAndPrices.add(saladIngredientWithAmountAndPrice);
@@ -631,7 +639,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 	@Override
 	@Transactional
-	public void saveCustomerDrink(DrinksJson drinkJson) {
+	public void saveCustomerDrink(DrinksJson drinkJson, String username) {
 		try {
 			DrinkIdWithDrinkSizeAndPriceId drinkIdWithDrinkSizeAndPriceId = drinkJson.getDrink();
 			Integer drinkId = drinkIdWithDrinkSizeAndPriceId.getDrinkId();
@@ -656,7 +664,9 @@ public class DatabaseServiceImpl implements DatabaseService {
 				addonWithAmountAndPrice.setAddOnAmountAndPrice(addOnAmountAndPrice);
 				drinkAddonWithAmountAndPrices.add(addonWithAmountAndPrice);
 			}
+			Customer customer = findCustomerByUsername(username);
 			CustomerDrink customerDrink = new CustomerDrink();
+			customerDrink.setCustomer(customer);
 			customerDrink.setDrinkWithSizeAndPrice(drinkWithSizeAndPrice);
 			customerDrink.setAddonWithAmountAndPrices(drinkAddonWithAmountAndPrices);
 			dataSaverDao.saveCustomerDrink(customerDrink);
@@ -682,7 +692,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 	@Override
 	@Transactional
-	public void saveCustomerHotdog(HotdogJson hotdogJson) {
+	public void saveCustomerHotdog(HotdogJson hotdogJson, String username) {
 		try {
 			Integer hotdogBreadId = hotdogJson.getHotdogBread().getHotdogBreadId();
 			Integer hotdogBreadSizeAndPriceId = hotdogJson.getHotdogBread().getHotdogBreadSizeAndPriceId();
@@ -710,7 +720,9 @@ public class DatabaseServiceImpl implements DatabaseService {
 				withAmountAndPrice.setAmountAndPrice(sauceAmountAndPrice);
 				sauceWithAmountAndPrices.add(withAmountAndPrice);
 			}
+			Customer customer = findCustomerByUsername(username);
 			CustomerHotdog customerHotdog = new CustomerHotdog();
+			customerHotdog.setCustomer(customer);
 			customerHotdog.setBread(bread);
 			customerHotdog.setSizeAndPrice(sizeAndPrice);
 			customerHotdog.setSausage(sausage);
@@ -720,6 +732,17 @@ public class DatabaseServiceImpl implements DatabaseService {
 		} catch(Exception ex) {
 			logger.info(ex.getMessage());
 		}
+	}
+
+	@Override
+	public Map<String, Object> getCustomerMeals(String customerUsername) {
+		Customer customer = dataGetterDao.findCustomerByUsername(customerUsername);
+		Map<String, Object> customerMeals = new LinkedHashMap<String, Object>();
+		customerMeals.put("sandwiches", customer.getSandwichs());
+		customerMeals.put("saladIngredients", customer.getSaladIngredientWithAmountAndPrices());
+		customerMeals.put("drinks", customer.getDrinks());
+		customerMeals.put("hotdogs", customer.getHotdogs());
+		return customerMeals;
 	}
 
 }

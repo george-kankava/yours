@@ -25,6 +25,9 @@ public class CustomerDrink {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_drink_id")
 	private List<DrinkAddonWithAmountAndPrice> addonWithAmountAndPrices;
+	
+	@ManyToOne
+	private Customer customer;
 
 	public Integer getId() {
 		return id;
@@ -51,9 +54,18 @@ public class CustomerDrink {
 		this.addonWithAmountAndPrices = addonWithAmountAndPrices;
 	}
 
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
 	@Override
 	public String toString() {
-		return "CustomerDrink [id=" + id + ", drinkWithSizeAndPrice=" + drinkWithSizeAndPrice + ", addonWithAmountAndPrices=" + addonWithAmountAndPrices + "]";
+		return "CustomerDrink [id=" + id + ", drinkWithSizeAndPrice=" + drinkWithSizeAndPrice + ", addonWithAmountAndPrices="
+				+ addonWithAmountAndPrices + ", customer=" + customer + "]";
 	}
 	
 }

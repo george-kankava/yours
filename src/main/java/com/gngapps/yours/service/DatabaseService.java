@@ -2,6 +2,7 @@ package com.gngapps.yours.service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import com.gngapps.yours.databinding.json.request.DrinksJson;
 import com.gngapps.yours.databinding.json.request.HotdogJson;
@@ -88,9 +89,10 @@ public interface DatabaseService {
 	void removeHotdogSauce(Integer hotdogSauceId);
 	void removeHotdogSauceAmountAndPrice(Integer hotdogSauceAmountAndPriceId);
 	List<HotDogSauce> getHotdogSauces();
-	void saveCustomerSandwich(SandwichJson sandwich);
-	void saveCustomerSalad(SaladJson salad);
-	void saveCustomerDrink(DrinksJson drink);
+	void saveCustomerSandwich(SandwichJson sandwich, String username);
+	void saveCustomerSalad(SaladJson salad, String username);
+	void saveCustomerDrink(DrinksJson drink, String username);
 	void addNewDrinkAddOn(String nameGeo, String nameRus, String nameEng, String descriptionGeo, String descriptionEng, String descriptionRus, Integer drinkId);
-	void saveCustomerHotdog(HotdogJson hotdog);
+	void saveCustomerHotdog(HotdogJson hotdog, String username);
+	Map<String, Object> getCustomerMeals(String customerUsername);
 }

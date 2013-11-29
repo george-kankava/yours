@@ -33,10 +33,10 @@
 					<p>Food Service for your.</p>
 				</div>
 			</div>
-			<form class="form-signin">
+			<form class="form-signin" method="POST" action="j_spring_security_check">
 				<h2 class="form-signin-heading">Please sign in</h2>
-				<input class="form-control" path="username" placeholder="Email address" autofocus="" />
-				<input class="form-control" path="password" placeholder="Password" />
+				<input class="form-control" path="username" name="j_username" placeholder="Email address" autofocus="" />
+				<input class="form-control" path="password" name="j_password" placeholder="Password" />
 				<label class="checkbox"> 
 					<input type="checkbox" value="remember-me">Remember me</input> 
 				</label>

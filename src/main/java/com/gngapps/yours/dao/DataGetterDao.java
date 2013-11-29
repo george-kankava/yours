@@ -96,4 +96,6 @@ public interface DataGetterDao {
 
 	HotdogSauceAmountAndPrice findHotdogSauceAmountAndPriceById(Integer hotdogSauceAmountAndPriceId);
 
+	Customer findCustomerById(Integer customerId);
+
 }

@@ -4,70 +4,85 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Food Service" />
-<meta name="author" content="GNG Apps" />
-<link rel="shortcut icon" href="resources/ico/yours-sml-logo.gif" />
+  <head>
+  	<style>
+  		.selecter {
+  		
+  		}
+  	</style>
+  	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="Food Service" />
+	<meta name="author" content="GNG Apps" />
+	<link rel="shortcut icon" href="resources/ico/yours-sml-logo.gif" />
+	
+	<title>Yours Food Service</title>
+	
+	<!-- Bootstrap core CSS -->
+	<link href="resources/css/bootstrap.css" rel="stylesheet" />
+	
+	<!-- Custom styles for this template -->
+	<link href="resources/css/yours-food-service.css" rel="stylesheet" />
+	<link href="resources/css/jquery.fs.selecter.css" rel="stylesheet" />
+	<link href="resources/css/jumbotron-narrow.css" rel="stylesheet" />
+	<link href="resources/css/blue.css" rel="stylesheet" />
+	<link href="resources/css/alertify.core.css" rel="stylesheet" />
+	<link href="resources/css/alertify.default.css" rel="stylesheet" />
+	<link href="resources/css/alertify.bootstrap.css" rel="stylesheet" />
+	
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	      <script src="resources/assets/js/html5shiv.js"></script>
+	      <script src="resources/assets/js/respond.min.js"></script>
+	<![endif]-->
+  </head>
 
-<title>Yours Food Service</title>
+  <body>
 
-<!-- Bootstrap core CSS -->
-<link href="resources/css/bootstrap.css" rel="stylesheet" />
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="j_spring_security_logout">Logout</a></li>
+        </ul>
+        <h3 class="text-muted">Project name</h3>
+      </div>
+      
+      <div class="logo-image-narrow"></div>
 
-<!-- Custom styles for this template -->
-<link href="resources/css/yours-food-service.css" rel="stylesheet" />
+		<ul class="nav nav-tabs" id="foodComponentsTab">
+			<li class="active"><a href="#sandwich" data-toggle="tab">Sandwich</a></li>
+			<li><a href="#salad" data-toggle="tab">Salad</a></li>
+			<li><a href="#drinks" data-toggle="tab">Drinks</a></li>
+			<li><a href="#hotdog" data-toggle="tab">Hotdog</a></li>
+		</ul>
 
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-      <script src="resources/assets/js/html5shiv.js"></script>
-      <script src="resources/assets/js/respond.min.js"></script>
-    <![endif]-->
-</head>
-
-<body>
-	<div class="container">
-		<div class="header">
-			<ul class="nav nav-pills pull-right">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Contact</a></li>
-			</ul>
-			<h3 class="text-muted">Yours.ge - Online Food Service</h3>
-		</div>
-		<div class="logo-image"></div>
-		<div class="row">
-			<div class="col-lg-3" style="margin-top:30px">
-				<div class="panel panel-warning">
-					<div class="panel-heading">
-          				<h3 class="panel-title"><spring:message code="yours.list.heading.sandwich.sublist.vegetables" text="Vegetables" /></h3>
-        			</div>
-					<table class="table table-striped">
+		<div class="tab-content">
+			<div class="tab-pane active" id="sandwich">
+				<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.vegetables" text="Vegetables" /></th>
+								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichBreads }" var="sandwichBread">
 							<tr>
-								<td><input type="radio" name="sandwichBreads"><span class="label label-info" style="margin-left: 10px">${sandwichBread.nameGeo }</span></td>
 								<td>
-									<div class="btn-group">
- 	 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-									    	Size <span class="caret"></span>
-									 	 </button>
-									  <ul class="dropdown-menu" role="menu">
-									  <c:forEach items="${sandwichBread.sandwichBreadSizeAndPrices}" var="sizeAndPrice">
-											<li><a href="#"><c:out value="${sizeAndPrice.size}" escapeXml="false"/></a></li>
+									<input type="radio" name="sandwichBread" id="${sandwichBread.id }"/>
+									<label>${sandwichBread.nameGeo }</label>
+								</td>
+								<td>
+									<select class="form-control" id="sandwichBreadSizeAndPrice${sandwichBread.id }">
+										<c:forEach items="${sandwichBread.sandwichBreadSizeAndPrices }" var="sizeAndPrice">
+											<option value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
 										</c:forEach>
-									  </ul>
-									</div>
+									</select>
 								</td>
 							</tr>
 						</c:forEach>
 					</table>
-					<table class="table table-striped">
+					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
 								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
@@ -75,23 +90,23 @@
 						</thead>
 						<c:forEach items="${sandwichSausages }" var="sandwichSausage">
 							<tr>
-								<td><input name="sandwichSausages" type="radio"><span class="label label-info" style="margin-left: 10px"><c:out value="${sandwichSausage.nameGeo }" escapeXml="false"/></span></td>
 								<td>
-									<div class="btn-group">
- 	 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-									    	Size <span class="caret"></span>
-									 	 </button>
-									  <ul class="dropdown-menu" role="menu">
-									  <c:forEach items="${sandwichSausage.sausageAmountAndPrices}" var="sizeAndPrice">
-											<li><a href="#"><c:out value="${sizeAndPrice.portion}" escapeXml="false"/></a></li>
-										</c:forEach>
-									  </ul>
+									<div>
+										<input name="sandwichSausages" type="checkbox" id="${sandwichSausage.id }">
+										<label>${sandwichSausage.nameGeo }</label>
 									</div>
+								</td>
+								<td>
+									<select class="form-control" id="sandwichSausageAmountAndPrice${sandwichSausage.id }">
+										<c:forEach items="${sandwichSausage.sausageAmountAndPrices }" var="sizeAndPrice">
+											<option value="${sizeAndPrice.id}">${sizeAndPrice.portion}</option>
+										</c:forEach>
+									</select>
 								</td>
 							</tr>
 						</c:forEach>
 					</table>
-					<table class="table table-striped">
+					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
 								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.vegetables" text="Vegetables" /></th>
@@ -99,23 +114,21 @@
 						</thead>
 						<c:forEach items="${sandwichVegetables }" var="sandwichVegetable">
 							<tr>
-								<td><input type="radio"><span class="label label-info" style="margin-left: 10px"><c:out value="${sandwichVegetable.nameGeo }" escapeXml="false"/></span></td>
 								<td>
-									<div class="btn-group">
- 	 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-									    	Size <span class="caret"></span>
-									 	 </button>
-									  <ul class="dropdown-menu" role="menu">
-									  <c:forEach items="${sandwichVegetable.vegetableAmountAndPrices}" var="amountAndPrices">
-											<li><a href="#"><c:out value="${amountAndPrices.portion}" escapeXml="false"/></a></li>
+									<input name="sandwichVegetable"  id="${sandwichVegetable.id }" type="checkbox">
+									<label>${sandwichVegetable.nameGeo }</label>
+								</td>
+								<td>
+									<select class="form-control" id="sandwichVegetableAmountAndPrice${sandwichVegetable.id }">
+										<c:forEach items="${sandwichVegetable.vegetableAmountAndPrices }" var="amountAndPrices">
+											<option value="${amountAndPrices.id}">${amountAndPrices.portion}</option>
 										</c:forEach>
-									  </ul>
-									</div>
+									</select>
 								</td>
 							</tr>
 						</c:forEach>
 					</table>
-					<table class="table table-striped">
+					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
 								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sauce" text="Sauce" /></th>
@@ -123,23 +136,21 @@
 						</thead>
 						<c:forEach items="${sandwichSauces }" var="sandwichSauce">
 							<tr>
-								<td><input type="radio"><span class="label label-info" style="margin-left: 10px"><c:out value="${sandwichSauce.nameGeo }" escapeXml="false"/></span></td>
 								<td>
-									<div class="btn-group">
- 	 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Size<span class="caret"></span>
-									 	 </button>
-									  <ul class="dropdown-menu" role="menu">
-									  <c:forEach items="${sandwichSauce.sauceAmountAndPrices}" var="amountAndPrice">
-											<li><a href="#"><c:out value="${amountAndPrice.portion}" escapeXml="false"/></a></li>
+									<input name="sandwichSauce"  id="${sandwichSauce.id }" type="checkbox">
+									<label>${sandwichSauce.nameGeo }</label>
+								</td>
+								<td>
+									<select class="form-control" id="sandwichSauceAmountAndPrice${sandwichSauce.id }">
+										<c:forEach items="${sandwichSauce.sauceAmountAndPrices}" var="amountAndPrice">
+											<option value="${amountAndPrice.id}">${amountAndPrice.portion}</option>
 										</c:forEach>
-									  </ul>
-									</div>
+									</select>
 								</td>
 							</tr>
 						</c:forEach>
 					</table>
-
-					<table class="table table-striped">
+					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
 								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.spice" text="Spice" /></th>
@@ -147,141 +158,201 @@
 						</thead>
 						<c:forEach items="${sandwichSpices }" var="sandwichSpice">
 							<tr>
-								<td><input type="radio"><span class="label label-info" style="margin-left: 10px"><c:out value="${sandwichSpice.nameGeo }" escapeXml="false"/></span></td>
 								<td>
-									<div class="btn-group">
- 	 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Size<span class="caret"></span>
-									 	 </button>
-									  <ul class="dropdown-menu" role="menu">
-									  <c:forEach items="${sandwichSpice.spiceAmountAndPrice}" var="amountAndPrice">
-											<li><a href="#"><c:out value="${amountAndPrice.portion}" escapeXml="false"/></a></li>
+									<input name="sandwichSpice" type="checkbox" id="${sandwichSpice.id }">
+									<label>${sandwichSpice.nameGeo }</label>
+								</td>
+								<td>
+									<select class="form-control" id="sandwichSpiceAmountAndPrice${sandwichSpice.id }">
+										<c:forEach items="${sandwichSpice.spiceAmountAndPrice}" var="amountAndPrice">
+											<option value="${amountAndPrice.id}">${amountAndPrice.portion}</option>
 										</c:forEach>
-									  </ul>
-									</div>
+									</select>
 								</td>
 							</tr>
 						</c:forEach>
 					</table>
-					<div class="col-md-offset-4" style="margin-top:14px;padding-bottom: 10px;">
-						<button type="button" class="btn btn-success">Save</button>
+					<div class="col-md-offset-5" style="margin-top:14px;">
+						<button id="sandwichSaveButton" type="button" class="btn btn-success">Save</button>
 					</div>
-				</div>
 			</div>
-
-			<div class="col-lg-3" style="margin-top:30px">
-				<div class="panel panel-warning">
-					<div class="panel-heading">
-          				<h3 class="panel-title"><spring:message code="yours.list.heading.salad" text="Salad" /></h3>
-        			</div>
-					<table class="table table-striped">
+			<div class="tab-pane" id="salad">
+				<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>Ingredients</th>
+								<th colspan="2">Salad Ingredients</th>
 							</tr>
 						</thead>
 						<c:forEach items="${saladIngredients }" var="saladIngredient">
 							<tr>
-								<td><input type="radio"><span style="margin-left: 10px">${saladIngredient.nameGeo }</span></td>
+								<td>
+									<input type="checkbox" name="saladIngredient" id="${saladIngredient.id }"/>
+									<label>${saladIngredient.nameGeo }</label>
+								</td>
+								<td>
+									<select class="form-control" id="saladIngredientAmountAndPrice${saladIngredient.id }">
+										<c:forEach items="${saladIngredient.saladIngredientAmountAndPrices }" var="amountAndPrice">
+											<option value="${amountAndPrice.id}">${amountAndPrice.amount}</option>
+										</c:forEach>
+									</select>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>
-					<div class="col-md-offset-4" style="margin-top:14px;padding-bottom: 10px;">
-						<button type="button" class="btn btn-success">Save</button>
+					<div class="col-md-offset-5" style="margin-top:14px;">
+						<button id="saladSaveButton" type="button" class="btn btn-success">Save</button>
 					</div>
-				</div>
 			</div>
-			<div class="col-lg-3" style="margin-top:30px">
-				<div class="panel panel-warning">
-					<div class="panel-heading">
-          				<h3 class="panel-title"><spring:message code="yours.list.heading.drinks" text="Drinks" /></h3>
-        			</div>
-					<table class="table table-striped">
-						<c:forEach items="${drinks}" var="drink">
-							<tr>
-								<td><input type="radio"><span style="margin-left: 10px">${drink.nameGeo }</span></td>
-							</tr>
-						</c:forEach>
-					</table>
-				<table class="table table-striped">
+			<div class="tab-pane active" id="drinks">
+				<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>Add ons</th>
+								<th colspan="2"><spring:message code="yours.list.heading.drinks" text="Drinks" /></th>
 							</tr>
 						</thead>
-						<c:forEach items="${drinkAddOns}" var="drinkAddOn">
+						<c:forEach items="${drinks }" var="drink">
 							<tr>
-								<td><input type="radio"><span style="margin-left: 10px">${drinkAddOn.nameGeo }</span></td>
+								<td>
+									<input type="radio" name="drink" id="${drink.id }"/>
+									<label>${drink.nameGeo }</label>
+								</td>
+								<td>
+									<select class="form-control" id="drinkSizeAndPrices${drink.id }">
+										<c:forEach items="${drink.drinkSizeAndPrices }" var="sizeAndPrice">
+											<option value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
+										</c:forEach>
+									</select>
+								</td>
 							</tr>
 						</c:forEach>
-				</table>
-				<div class="col-md-offset-4" style="margin-top:14px;padding-bottom: 10px;">
-						<button type="button" class="btn btn-success">Save</button>
-					</div>
-					</div>
-			</div>
-			<div class="col-lg-3" style="margin-top:30px">
-			<div class="panel panel-warning">
-					<div class="panel-heading">
-          				<h3 class="panel-title">Hot Dog</h3>
-        			</div>
-					<table class="table table-striped">
+					</table>
+					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>
-									<spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" />
-								</th>
+								<th colspan="2">Drink Add-ons</th>
+							</tr>
+						</thead>
+						<c:forEach items="${drinkAddOns }" var="drinkAddOn">
+							<tr>
+								<td>
+									<div>
+										<input name="drinkAddOn" type="checkbox" id="${drinkAddOn.id }">
+										<label>${drinkAddOn.nameGeo }</label>
+									</div>
+								</td>
+								<td>
+									<select class="form-control" id="drinkAddOnAmountAndPrices${drinkAddOn.id }">
+										<c:forEach items="${drinkAddOn.drinkAddOnAmountAndPrices }" var="sizeAndPrice">
+											<option value="${sizeAndPrice.id}">${sizeAndPrice.amount}</option>
+										</c:forEach>
+									</select>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
+					<div class="col-md-offset-5" style="margin-top:14px;">
+						<button id="drinkSaveButton" type="button" class="btn btn-success">Save</button>
+					</div>
+			</div>
+			<div class="tab-pane active" id="hotdog">
+				<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
 							</tr>
 						</thead>
 						<c:forEach items="${hotdogBreads}" var="hotdogBread">
 							<tr>
-								<td><input type="radio"><span style="margin-left: 10px">${hotdogBread.nameGeo }</span></td>
+								<td>
+									<input type="radio" name="hotdogBread" id="${hotdogBread.id }"/>
+									<label>${hotdogBread.nameGeo }</label>
+								</td>
+								<td>
+									<select class="form-control" id="hotdogBreadSizeAndPrices${hotdogBread.id }">
+										<c:forEach items="${hotdogBread.hotdogBreadSizeAndPrices }" var="sizeAndPrice">
+											<option value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
+										</c:forEach>
+									</select>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>
-				<table class="table table-striped">
+					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
+								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
 							</tr>
 						</thead>
 						<c:forEach items="${hotdogSausages}" var="hotdogSausage">
 							<tr>
-								<td><input type="radio"><span style="margin-left: 10px">${hotdogSausage.nameGeo }</span></td>
+								<td>
+									<div>
+										<input name="hotdogSausages" type="radio" id="${hotdogSausage.id }">
+										<label>${hotdogSausage.nameGeo }</label>
+									</div>
+								</td>
+								<td>
+									<select class="form-control" id="hotDogSausageAmountAndPrice${hotdogSausage.id }">
+										<c:forEach items="${hotdogSausage.hotDogSausageAmountAndPrice }" var="sizeAndPrice">
+											<option value="${sizeAndPrice.id}">${sizeAndPrice.portion}</option>
+										</c:forEach>
+									</select>
+								</td>
 							</tr>
 						</c:forEach>
-				</table>
-					<table class="table table-striped">
+					</table>
+					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>
-									<spring:message code="yours.list.heading.sandwich.sublist.sauce" text="Sauce" />
-								</th>
+								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sauce" text="Sauce" /></th>
 							</tr>
 						</thead>
 						<c:forEach items="${hotdogSauces}" var="hotdogSauce">
 							<tr>
-								<td><input type="radio"><span style="margin-left: 10px">${hotdogSauce.nameGeo }</span></td>
+								<td>
+									<input name="hotdogSauces"  id="${hotdogSauce.id }" type="checkbox">
+									<label>${hotdogSauce.nameGeo }</label>
+								</td>
+								<td>
+									<select class="form-control" id="hotdogSauceAmountAndPrice${hotdogSauce.id }">
+										<c:forEach items="${hotdogSauce.hotdogSauceAmountAndPrice}" var="amountAndPrice">
+											<option value="${amountAndPrice.id}">${amountAndPrice.amount}</option>
+										</c:forEach>
+									</select>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>
-				<div class="col-md-offset-4" style="margin-top:14px;padding-bottom: 10px;">
-						<button type="button" class="btn btn-success">Save</button>
-					</div>
+					<div class="col-md-offset-5" style="margin-top:14px;">
+						<button id="hotdogSaveButton" type="button" class="btn btn-success">Save</button>
 					</div>
 			</div>
 		</div>
-		<div class="footer">
-			<p>&copy; Yours 2013<span class="pull-right">Developed by GNG Apps</span></p>
-		</div>
 
-	</div>
-	<!-- /container -->
+      <div class="row marketing">
+        <div class="col-lg-12">
+          
+      </div>
 
+      <div class="footer">
+        <p>&copy; Company 2013</p>
+      </div>
+	  </div>
+    </div> <!-- /container -->
+	
 
-	<!-- Bootstrap core JavaScript
+    <!-- Bootstrap core JavaScript
     ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="resources/js/jquery-2.0.3.min.js"></script>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="resources/js/jquery-2.0.3.min.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
-</body>
+	<script src="resources/js/jquery.fs.selecter.min.js"></script>
+	<script src="resources/js/yours.js"></script>
+	<script src="resources/js/sandwich.js"></script>
+	<script src="resources/js/salad.js"></script>
+	<script src="resources/js/drinks.js"></script>
+	<script src="resources/js/hotdog.js"></script>
+	<script src="resources/js/jquery.icheck.js"></script>
+	<script src="resources/js/alertify.min.js"></script>
+  </body>
 </html>

@@ -41,7 +41,7 @@ public class DataGetterJPA implements DataGetterDao {
 	@Override
 	public Customer findCustomerByUsername(String username) {
 		try {
-			return (Customer)em.createQuery("FROM Customer c WHERE c.username := username").setParameter("username", username).getSingleResult();
+			return (Customer)em.createQuery("FROM Customer c WHERE c.username = :username").setParameter("username", username).getSingleResult();
 		} catch(NoResultException e) {
 			return null;
 		}
@@ -233,6 +233,11 @@ public class DataGetterJPA implements DataGetterDao {
 	@Override
 	public HotdogSauceAmountAndPrice findHotdogSauceAmountAndPriceById(Integer hotdogSauceAmountAndPriceId) {
 		return em.find(HotdogSauceAmountAndPrice.class, hotdogSauceAmountAndPriceId);
+	}
+
+	@Override
+	public Customer findCustomerById(Integer customerId) {
+		return em.find(Customer.class, customerId);
 	}
 	
 }

@@ -40,6 +40,9 @@ public class CustomerHotdog {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_hotdog_id")
 	private List<HotDogSauceWithAmountAndPrice> amountAndPrices;
+	@ManyToOne
+	private Customer customer;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -77,10 +80,16 @@ public class CustomerHotdog {
 			List<HotDogSauceWithAmountAndPrice> amountAndPrices) {
 		this.amountAndPrices = amountAndPrices;
 	}
+	public Customer getCustomer() {
+		return customer;
+	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 	@Override
 	public String toString() {
 		return "CustomerHotdog [id=" + id + ", bread=" + bread + ", sizeAndPrice=" + sizeAndPrice + ", sausage=" + sausage
-				+ ", amountAndPrice=" + amountAndPrice + ", amountAndPrices=" + amountAndPrices + "]";
+				+ ", amountAndPrice=" + amountAndPrice + ", amountAndPrices=" + amountAndPrices + ", customer=" + customer + "]";
 	}
 	
 }

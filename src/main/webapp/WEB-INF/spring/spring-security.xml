@@ -9,17 +9,17 @@
 	<http pattern="/resources/**" security="none" />
 	<http pattern="/images/**" security="none" />
 	<http use-expressions="true" >
-		<intercept-url pattern="/index.html" access="permitAll" />
-		<intercept-url pattern="/register-user.html" access="permitAll" />
+		<intercept-url pattern="/signin" access="permitAll" />
+		<intercept-url pattern="/register-user" access="permitAll" />
+		<intercept-url pattern="/process-register-user" access="permitAll"/>
 		<intercept-url pattern="/**" access="isAuthenticated()" />
 		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
-		<form-login login-page="/" default-target-url="/home" authentication-failure-url="/index.html"/>
+		<form-login login-page="/signin" default-target-url="/" authentication-failure-url="/failure"/>
 		<access-denied-handler error-page="/denied.html"/>
 		<logout/>
 	</http>
 	<authentication-manager>
 		<authentication-provider user-service-ref="userDetailsService">
-		<password-encoder hash="md5"/>
 		</authentication-provider>
 	</authentication-manager>
 	<beans:bean id="userDetailsService" class="com.gngapps.yours.security.LoginUserDetailsService" />
