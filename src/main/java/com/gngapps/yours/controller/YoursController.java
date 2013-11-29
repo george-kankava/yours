@@ -63,9 +63,13 @@ public class YoursController {
     
 	private Pattern pattern = Pattern.compile("([a-zA-Z0-9._-]*[\\s]*)*");
 	
-    /**
-     * Selects the home page and populates the model with a message
-     */
+
+	@RequestMapping("/customer-meals-page")
+	public ModelAndView customerMeals(ModelAndView mav) {
+		
+		mav.setViewName("customer-meals");
+		return null;
+	}
 	
     @RequestMapping(value = "/food-components-list")
 	public ModelAndView foodComponentsList(ModelAndView mav) {
