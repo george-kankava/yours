@@ -78,7 +78,7 @@ public class YoursController {
     	mav.addObject("hotdogSausages", hotdogSausages);
     	List<HotDogSauce> hotdogSauces = databaseService.getHotdogSauces();
     	mav.addObject("hotdogSauces", hotdogSauces);
-    	mav.setViewName("food-components-list");
+    	mav.setViewName("food-components-list-v2");
     	return mav;
 	}
     

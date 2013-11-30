@@ -60,7 +60,7 @@
 
 		<div class="tab-content">
 			<div class="tab-pane active" id="sandwich">
-				<table class="table table-bordered table-striped">
+				<table class="table table-bordered">
 						<thead>
 							<tr>
 								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
@@ -82,7 +82,7 @@
 							</tr>
 						</c:forEach>
 					</table>
-					<table class="table table-bordered table-striped">
+					<table class="table table-bordered">
 						<thead>
 							<tr>
 								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
@@ -91,10 +91,8 @@
 						<c:forEach items="${sandwichSausages }" var="sandwichSausage">
 							<tr>
 								<td>
-									<div>
 										<input name="sandwichSausages" type="checkbox" id="${sandwichSausage.id }">
 										<label>${sandwichSausage.nameGeo }</label>
-									</div>
 								</td>
 								<td>
 									<select class="form-control" id="sandwichSausageAmountAndPrice${sandwichSausage.id }">
