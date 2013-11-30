@@ -161,7 +161,7 @@
 											<thead>
 												<tr>
 												<th colspan="2"><strong><spring:message code="yours.food.service.ingredients.salad" text="Salad" /> - ${customerSalad.id}</strong></th>
-												<th><button id="SaladRemoveButtion${customerSalad.id}" type="button" class="close" aria-hidden="true">&times;</button></th>
+												<th><button id="saladRemoveButtion${customerSalad.id}" type="button" class="close" aria-hidden="true">&times;</button></th>
 												<tr>
 											</thead>
 											<tr class="active">
