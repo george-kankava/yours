@@ -49,19 +49,19 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="panel-group" id="accordion">
-					<div class="panel panel-default">
+					<div class="panel panel-danger">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
 									href="#collapseOne"> Sandwiches </a>
 							</h4>
 						</div>
-						<div id="collapseOne" class="panel-collapse collapse in">
+						<div id="collapseOne" class="panel-collapse collapse">
 							<div class="panel-body">
 								<c:forEach items="${meals['sandwiches']}" var="customerSandwich">
-									<table class="table table-hover" id="customerSandwich${customerSandwich.id }">
+									<table class="table table-bordered" id="customerSandwich${customerSandwich.id }">
 											<thead>
-												<tr>
+												<tr class="danger">
 												<th colspan="2"><strong>Sandwich - ${customerSandwich.id}</strong></th>
 												<th><button id="sandwichRemoveButtion${customerSandwich.id}" type="button" class="close" aria-hidden="true">&times;</button></th>
 												<tr>
@@ -147,7 +147,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="panel panel-default">
+					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
@@ -157,9 +157,9 @@
 						<div id="collapseTwo" class="panel-collapse collapse">
 							<div class="panel-body">
 							<c:forEach items="${meals['salads']}" var="customerSalad">
-									<table class="table table-hover" id="customerSalad${customerSalad.id }">
+									<table class="table table-bordered" id="customerSalad${customerSalad.id }">
 											<thead>
-												<tr>
+												<tr class="success">
 												<th colspan="2"><strong><spring:message code="yours.food.service.ingredients.salad" text="Salad" /> - ${customerSalad.id}</strong></th>
 												<th><button id="saladRemoveButtion${customerSalad.id}" type="button" class="close" aria-hidden="true">&times;</button></th>
 												<tr>
@@ -199,7 +199,7 @@
 								</div>
 						</div>
 					</div>
-					<div class="panel panel-default">
+					<div class="panel panel-warning">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
@@ -207,38 +207,130 @@
 							</h4>
 						</div>
 						<div id="collapseThree" class="panel-collapse collapse">
-							<div class="panel-body">Anim pariatur cliche reprehenderit,
-								enim eiusmod high life accusamus terry richardson ad squid. 3
-								wolf moon officia aute, non cupidatat skateboard dolor brunch.
-								Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-								tempor, sunt aliqua put a bird on it squid single-origin coffee
-								nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
-								craft beer labore wes anderson cred nesciunt sapiente ea
-								proident. Ad vegan excepteur butcher vice lomo. Leggings
-								occaecat craft beer farm-to-table, raw denim aesthetic synth
-								nesciunt you probably haven't heard of them accusamus labore
-								sustainable VHS.</div>
+							<div class="panel-body">
+								<c:forEach items="${meals['drinks']}" var="customerDrink">
+									<table class="table table-bordered" id="customerDrink${customerDrink.id }">
+											<thead>
+												<tr class="warning">
+												<th colspan="2"><strong><spring:message code="yours.food.service.ingredients.drink" text="Drink" /> - ${customerDrink.id}</strong></th>
+												<th><button id="drinkRemoveButtion${customerDrink.id}" type="button" class="close" aria-hidden="true">&times;</button></th>
+												<tr>
+											</thead>
+											<tr class="active">
+												<td><strong><spring:message code="yours.food.service.drink.name" text="Drink Name"/></strong></td>
+												<td><strong><spring:message code="yours.food.ingredients.amount" text="Amount"/></strong></td>
+												<td><strong><spring:message code="yours.food.ingredient.price" text="Price"/></strong></td>
+											</tr>
+											<tr>
+												<td>${customerDrink.drinkWithSizeAndPrice.drink.nameGeo }</td>
+												<td>${customerDrink.drinkWithSizeAndPrice.sizeAndPrice.size }</td>
+												<td>${customerDrink.drinkWithSizeAndPrice.sizeAndPrice.price }</td>
+											</tr>
+											<tr class="active">
+												<td><strong><spring:message code="yours.food.service.drink.addon.name" text="Add-on Name"/></strong></td>
+												<td><strong><spring:message code="yours.food.ingredients.amount" text="Amount"/></strong></td>
+												<td><strong><spring:message code="yours.food.ingredient.price" text="Price"/></strong></td>
+											</tr>
+											<c:forEach items="${customerDrink.addonWithAmountAndPrices }" var="addonWithAmountAndPrice">
+												<tr>
+													<td>${addonWithAmountAndPrice.drinkAddOn.nameGeo }</td>
+													<td>${addonWithAmountAndPrice.addOnAmountAndPrice.amount }</td>
+													<td>${addonWithAmountAndPrice.addOnAmountAndPrice.price }</td>
+												</tr>
+											</c:forEach>
+									</table>
+									<script type="text/javascript">
+										$( "#drinkRemoveButtion${customerDrink.id}" ).click(function() {
+											alertify.confirm("Do you really want to remove this drink?", function (e) {
+												if (e) {
+													var url = 'remove-customer-drink';
+													$.ajax({
+														url: url,
+														data: {
+															customerDrinkId: '${customerDrink.id}'
+														}
+													}).done(function() {
+														$('#customerDrink${customerDrink.id }').remove();
+														alertify.success("Drink has been removed");
+													});			
+												}
+											});
+										});
+									</script>
+								</c:forEach>
+							</div>
 						</div>
 					</div>
-					<div class="panel panel-default">
+					<div class="panel panel-danger">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
-									href="#collapseThree"> Hotdogs </a>
+									href="#collapseFour"> Hotdogs </a>
 							</h4>
 						</div>
-						<div id="collapseThree" class="panel-collapse collapse">
-							<div class="panel-body">Anim pariatur cliche reprehenderit,
-								enim eiusmod high life accusamus terry richardson ad squid. 3
-								wolf moon officia aute, non cupidatat skateboard dolor brunch.
-								Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-								tempor, sunt aliqua put a bird on it squid single-origin coffee
-								nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
-								craft beer labore wes anderson cred nesciunt sapiente ea
-								proident. Ad vegan excepteur butcher vice lomo. Leggings
-								occaecat craft beer farm-to-table, raw denim aesthetic synth
-								nesciunt you probably haven't heard of them accusamus labore
-								sustainable VHS.</div>
+						<div id="collapseFour" class="panel-collapse collapse">
+							<div class="panel-body">
+								<c:forEach items="${meals['hotdogs']}" var="customerHotdog">
+									<table class="table table-bordered" id="customerHotdog${customerHotdog.id }">
+											<thead>
+												<tr class="danger">
+												<th colspan="2"><strong><spring:message code="yours.food.service.ingredients.hotdog" text="Hotdog" /> - ${customerHotdog.id}</strong></th>
+												<th><button id="hotdogRemoveButtion${customerHotdog.id}" type="button" class="close" aria-hidden="true">&times;</button></th>
+												<tr>
+											</thead>
+											<tr class="active">
+												<td><strong><spring:message code="yours.food.service.ingredients.bread" text="Bread"/></strong></td>
+												<td><strong><spring:message code="yours.food.ingredients.size" text="Size"/></strong></td>
+												<td><strong><spring:message code="yours.food.ingredient.price" text="Price"/></strong></td>
+											</tr>
+											<tr>
+												<td>${customerHotdog.bread.nameGeo }</td>
+												<td>${customerHotdog.sizeAndPrice.size }</td>
+												<td>${customerHotdog.sizeAndPrice.price }</td>
+											</tr>
+											<tr class="active">
+												<td><strong><spring:message code="yours.food.service.ingredients.hotdog.sausage" text="Sausage"/></strong></td>
+												<td><strong><spring:message code="yours.food.ingredients.amount" text="Amount"/></strong></td>
+												<td><strong><spring:message code="yours.food.ingredient.price" text="Price"/></strong></td>
+											</tr>
+											<tr>
+												<td>${customerHotdog.sausage.nameGeo }</td>
+												<td>${addonWithAmountAndPrice.amountAndPrice.portion }</td>
+												<td>${addonWithAmountAndPrice.amountAndPrice.price }</td>
+											</tr>
+											<tr class="active">
+												<td><strong><spring:message code="yours.food.service.ingredients.hotdog.sauce" text="Sauce"/></strong></td>
+												<td><strong><spring:message code="yours.food.ingredients.amount" text="Amount"/></strong></td>
+												<td><strong><spring:message code="yours.food.ingredient.price" text="Price"/></strong></td>
+											</tr>
+											<c:forEach items="${customerHotdog.amountAndPrices }" var="sauceWithAmountAndPrice">
+												<tr>
+													<td>${sauceWithAmountAndPrice.sauce.nameGeo }</td>
+													<td>${sauceWithAmountAndPrice.amountAndPrice.amount }</td>
+													<td>${sauceWithAmountAndPrice.amountAndPrice.price }</td>
+												</tr>
+											</c:forEach>
+									</table>
+									<script type="text/javascript">
+										$( "#hotdogRemoveButtion${customerHotdog.id}" ).click(function() {
+											alertify.confirm("Do you really want to remove this hotdog?", function (e) {
+												if (e) {
+													var url = 'remove-customer-hotdog';
+													$.ajax({
+														url: url,
+														data: {
+															customerHotdogId: '${customerHotdog.id}'
+														}
+													}).done(function() {
+														$('#customerHotdog${customerHotdog.id }').remove();
+														alertify.success("Hotdog has been removed");
+													});			
+												}
+											});
+										});
+									</script>
+								</c:forEach>
+							</div>
 						</div>
 					</div>
 				</div>

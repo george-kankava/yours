@@ -50,7 +50,11 @@ public class SandwichController {
 	@RequestMapping("/remove-customer-sandwich")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeCustomerSandwich(@RequestParam Integer customerSandwichId) {
-		databaseService.removeCustomerSandwich(customerSandwichId);
+		try {
+			databaseService.removeCustomerSandwich(customerSandwichId);
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+		}
     }
 	
 	@RequestMapping(value = "admin/add-sandwich-bread-form")

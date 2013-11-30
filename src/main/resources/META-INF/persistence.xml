@@ -41,6 +41,7 @@
 		<class>com.gngapps.yours.entities.CustomerDrink</class>
 		<class>com.gngapps.yours.entities.CustomerHotdog</class>
 		<class>com.gngapps.yours.entities.HotDogSauceWithAmountAndPrice</class>
+		<class>com.gngapps.yours.entities.CustomerSalad</class>
 	</persistence-unit>
 
 </persistence>

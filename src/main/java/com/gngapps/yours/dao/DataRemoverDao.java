@@ -50,4 +50,8 @@ public interface DataRemoverDao {
 
 	void removeCustomerSalad(Integer customerSaladId);
 
+	void removeCustomerDrink(Integer customerDrinkId);
+
+	void removeCustomerHotdog(Integer customerHotdogId);
+
 }

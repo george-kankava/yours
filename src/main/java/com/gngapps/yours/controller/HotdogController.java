@@ -41,6 +41,16 @@ public class HotdogController {
     	databaseService.saveCustomerHotdog(hotdog, username);
     }
 	
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@RequestMapping("/remove-customer-hotdog")
+	public void removeCustomerHotdog(@RequestParam Integer customerHotdogId) {
+		try {
+			databaseService.removeCustomerHotdog(customerHotdogId);
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+		}
+	}
+	
 	@RequestMapping(value = "admin/add-hotdog-ingredient-bread-form")
 	public ModelAndView addHotDogIngredientBreadForm(ModelAndView mav) {
     	List<HotDogBread> hotdogBreads = databaseService.getHotdogBreads();

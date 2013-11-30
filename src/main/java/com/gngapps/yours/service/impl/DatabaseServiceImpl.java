@@ -772,4 +772,30 @@ public class DatabaseServiceImpl implements DatabaseService {
 		}
 	}
 
+	@Override
+	@Transactional
+	public void removeCustomerDrink(Integer customerDrinkId) {
+		try {
+			if(customerDrinkId == null) {
+				throw new IllegalArgumentException("customerDrinkId is null");
+			}
+			dataRemoverDao.removeCustomerDrink(customerDrinkId);
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+		}	
+	}
+
+	@Override
+	@Transactional
+	public void removeCustomerHotdog(Integer customerHotdogId) {
+		try {
+			if(customerHotdogId == null) {
+				throw new IllegalArgumentException("customerHotdogId is null");
+			}
+			dataRemoverDao.removeCustomerHotdog(customerHotdogId);
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+		}
+	}
+
 }

@@ -97,4 +97,6 @@ public interface DatabaseService {
 	Map<String, Object> getCustomerMeals(String customerUsername);
 	void removeCustomerSandwich(Integer customerSandwichId);
 	void removeCustomerSalad(Integer customerSaladId);
+	void removeCustomerDrink(Integer customerDrinkId);
+	void removeCustomerHotdog(Integer customerHotdogId);
 }

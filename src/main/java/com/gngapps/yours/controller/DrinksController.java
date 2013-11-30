@@ -40,6 +40,16 @@ public class DrinksController {
     	String username = principal.getName();
     	databaseService.saveCustomerDrink(drink, username);
     }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping("remove-customer-drink")
+    public void removeCustomerDrink(@RequestParam Integer customerDrinkId) {
+    	try {
+    		databaseService.removeCustomerDrink(customerDrinkId);
+    	} catch(Exception ex) {
+    		logger.info(ex.getMessage());
+    	}
+    }
     
     @RequestMapping(value = "admin/add-drink-form")
 	public ModelAndView addDrinkForm(ModelAndView mav) {
