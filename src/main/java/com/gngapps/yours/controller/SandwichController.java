@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gngapps.yours.databinding.json.request.SandwichJson;
-import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.SandwichBread;
 import com.gngapps.yours.entities.SandwichBreadSizeAndPrice;
 import com.gngapps.yours.entities.SandwichSauce;
@@ -31,7 +30,6 @@ import com.gngapps.yours.entities.SandwichSpice;
 import com.gngapps.yours.entities.SandwichSpiceAmountAndPrice;
 import com.gngapps.yours.entities.SandwichVegetable;
 import com.gngapps.yours.entities.SandwichVegetableAmountAndPrice;
-import com.gngapps.yours.security.LoggedUsersContext;
 import com.gngapps.yours.service.DatabaseService;
 
 @Controller
@@ -48,6 +46,12 @@ public class SandwichController {
 		String username = principal.getName();
 		databaseService.saveCustomerSandwich(sandwich, username);
 	}
+	
+	@RequestMapping("/remove-customer-sandwich")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeCustomerSandwich(@RequestParam Integer customerSandwichId) {
+		databaseService.removeCustomerSandwich(customerSandwichId);
+    }
 	
 	@RequestMapping(value = "admin/add-sandwich-bread-form")
 	public ModelAndView addSandwichBreadForm(ModelAndView mav) {
@@ -227,5 +231,5 @@ public class SandwichController {
     public void removeSandwichSpiceAmountAndPrice(@RequestParam(required=true) Integer sandwichSpiceAmountAndPriceId) {
     	databaseService.removeSandwichSpiceAmountAndPrice(sandwichSpiceAmountAndPriceId);
     }
-	 
+
 }

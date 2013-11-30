@@ -31,6 +31,7 @@ import com.gngapps.yours.databinding.json.request.SandwichVegetableIdWithAmountA
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.CustomerDrink;
 import com.gngapps.yours.entities.CustomerHotdog;
+import com.gngapps.yours.entities.CustomerSalad;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
@@ -612,6 +613,8 @@ public class DatabaseServiceImpl implements DatabaseService {
 	@Transactional
 	public void saveCustomerSalad(SaladJson salad, String username) {
 		try {
+			Customer customer = findCustomerByUsername(username);
+			CustomerSalad customerSalad = new CustomerSalad();
 			List<SaladIngredientIdWithAmountAndPriceId> saladIngredientIdWithAmountAndPriceIds = salad.getSaladIngredients().getSaladIngredients();
 			List<SaladIngredientWithAmountAndPrice> saladIngredientWithAmountAndPrices = new ArrayList<SaladIngredientWithAmountAndPrice>();
 			for(SaladIngredientIdWithAmountAndPriceId saladIngredientIdWithAmountAndPriceId : saladIngredientIdWithAmountAndPriceIds) {
@@ -620,18 +623,16 @@ public class DatabaseServiceImpl implements DatabaseService {
 				if(saladIngredientId == null || saladIngredientAmountAndPriceId == null) {
 					throw new IllegalArgumentException("saladIngredientId or saladIngredientAmountAndPriceId is null");
 				}
-				Customer customer = findCustomerByUsername(username);
 				SaladIngredient saladIngredient = dataGetterDao.findSaladIngredientById(saladIngredientId);
 				SaladIngredientAmountAndPrice amountAndPrice = dataGetterDao.findSaladIngredientAmountAndPriceById(saladIngredientAmountAndPriceId);
 				SaladIngredientWithAmountAndPrice saladIngredientWithAmountAndPrice = new SaladIngredientWithAmountAndPrice();
-				saladIngredientWithAmountAndPrice.setCustomer(customer);
 				saladIngredientWithAmountAndPrice.setSaladIngredient(saladIngredient);
 				saladIngredientWithAmountAndPrice.setAmountAndPrice(amountAndPrice);
 				saladIngredientWithAmountAndPrices.add(saladIngredientWithAmountAndPrice);
 			}
-			for(SaladIngredientWithAmountAndPrice saladIngredientWithAmountAndPrice : saladIngredientWithAmountAndPrices) {
-				dataSaverDao.saveCustomerSalad(saladIngredientWithAmountAndPrice);
-			}
+			customerSalad.setCustomer(customer);
+			customerSalad.setIngredientWithAmountAndPrices(saladIngredientWithAmountAndPrices);
+			dataSaverDao.saveCustomerSalad(customerSalad);
 		} catch(Exception ex) {
 			logger.info(ex.getMessage());
 		}
@@ -739,10 +740,36 @@ public class DatabaseServiceImpl implements DatabaseService {
 		Customer customer = dataGetterDao.findCustomerByUsername(customerUsername);
 		Map<String, Object> customerMeals = new LinkedHashMap<String, Object>();
 		customerMeals.put("sandwiches", customer.getSandwichs());
-		customerMeals.put("saladIngredients", customer.getSaladIngredientWithAmountAndPrices());
+		customerMeals.put("salads", customer.getSalads());
 		customerMeals.put("drinks", customer.getDrinks());
 		customerMeals.put("hotdogs", customer.getHotdogs());
 		return customerMeals;
+	}
+
+	@Override
+	@Transactional
+	public void removeCustomerSandwich(Integer customerSandwichId) {
+		try {
+			if(customerSandwichId == null) {
+				throw new IllegalArgumentException("customerSandwichId is null");
+			}
+			dataRemoverDao.removeCustomerSandwich(customerSandwichId);
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+		}
+	}
+
+	@Override
+	@Transactional
+	public void removeCustomerSalad(Integer customerSaladId) {
+		try {
+			if(customerSaladId == null) {
+				throw new IllegalArgumentException("customerSaladId is null");
+			}
+			dataRemoverDao.removeCustomerSalad(customerSaladId);
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+		}
 	}
 
 }

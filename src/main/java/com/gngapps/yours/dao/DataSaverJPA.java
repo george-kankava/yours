@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.CustomerDrink;
 import com.gngapps.yours.entities.CustomerHotdog;
+import com.gngapps.yours.entities.CustomerSalad;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
@@ -275,11 +276,11 @@ public class DataSaverJPA implements DataSaverDao {
 	}
 
 	@Override
-	public void saveCustomerSalad(SaladIngredientWithAmountAndPrice saladIngredientWithAmountAndPriceEntity) {
-		if(saladIngredientWithAmountAndPriceEntity.getId() != null) {
-			em.merge(saladIngredientWithAmountAndPriceEntity);
+	public void saveCustomerSalad(CustomerSalad customerSalad) {
+		if(customerSalad.getId() != null) {
+			em.merge(customerSalad);
 		} else {
-			em.persist(saladIngredientWithAmountAndPriceEntity);
+			em.persist(customerSalad);
 		}
 	}
 

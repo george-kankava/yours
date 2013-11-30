@@ -95,4 +95,6 @@ public interface DatabaseService {
 	void addNewDrinkAddOn(String nameGeo, String nameRus, String nameEng, String descriptionGeo, String descriptionEng, String descriptionRus, Integer drinkId);
 	void saveCustomerHotdog(HotdogJson hotdog, String username);
 	Map<String, Object> getCustomerMeals(String customerUsername);
+	void removeCustomerSandwich(Integer customerSandwichId);
+	void removeCustomerSalad(Integer customerSaladId);
 }

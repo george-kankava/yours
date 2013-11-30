@@ -5,6 +5,8 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
+import com.gngapps.yours.entities.CustomerSalad;
+import com.gngapps.yours.entities.CustomerSandwich;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
@@ -164,5 +166,17 @@ public class DataRemoverJPA implements DataRemoverDao {
 	public void removeHotdogSauceAmountAndPrice(Integer hotdogSauceAmountAndPriceId) {
 		HotdogSauceAmountAndPrice amountAndPrice = em.find(HotdogSauceAmountAndPrice.class, hotdogSauceAmountAndPriceId);
 		em.remove(amountAndPrice);
+	}
+
+	@Override
+	public void removeCustomerSandwich(Integer customerSandwichId) {
+		CustomerSandwich sandwich = em.find(CustomerSandwich.class, customerSandwichId);
+		em.remove(sandwich);
+	}
+
+	@Override
+	public void removeCustomerSalad(Integer customerSaladId) {
+		CustomerSalad customerSalad = em.find(CustomerSalad.class, customerSaladId);
+		em.remove(customerSalad);
 	}
 }

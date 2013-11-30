@@ -38,6 +38,16 @@ public class SaladController {
     	databaseService.saveCustomerSalad(salad, username);
     }
 	
+	@RequestMapping("/remove-customer-salad")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeCustomerSalad(@RequestParam Integer customerSaladId) {
+		try {
+			databaseService.removeCustomerSalad(customerSaladId);
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+		}
+    }
+	
 	@RequestMapping(value = "admin/add-salad-ingredient-form")
 	public ModelAndView addSaladIngredientForm(ModelAndView mav) {
     	List<SaladIngredient> saladIngredients = databaseService.getSaladIngredients();

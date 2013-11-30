@@ -19,8 +19,6 @@ public class SaladIngredientWithAmountAndPrice {
 	@ManyToOne
 	@JoinColumn(name = "salad_ingredient_amount_and_price_id")
 	private SaladIngredientAmountAndPrice amountAndPrice;
-	@ManyToOne
-	private Customer customer;
 	
 	public Integer getId() {
 		return id;
@@ -40,15 +38,10 @@ public class SaladIngredientWithAmountAndPrice {
 	public void setAmountAndPrice(SaladIngredientAmountAndPrice amountAndPrice) {
 		this.amountAndPrice = amountAndPrice;
 	}
-	public Customer getCustomer() {
-		return customer;
-	}
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
 	@Override
 	public String toString() {
-		return "SaladIngredientWithAmountAndPrice [id=" + id + ", saladIngredient=" + saladIngredient + ", amountAndPrice=" + amountAndPrice + ", customer=" + customer + "]";
+		return "SaladIngredientWithAmountAndPrice [id=" + id + ", saladIngredient=" + saladIngredient + ", amountAndPrice="
+				+ amountAndPrice + "]";
 	}
 	
 }

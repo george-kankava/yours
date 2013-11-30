@@ -36,7 +36,7 @@ public class Customer {
 	private List<CustomerSandwich> sandwichs;
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_id")
-	private List<SaladIngredientWithAmountAndPrice> saladIngredientWithAmountAndPrices;
+	private List<CustomerSalad> salads;
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_id")
 	private List<CustomerDrink> drinks;
@@ -91,12 +91,11 @@ public class Customer {
 	public void setSandwichs(List<CustomerSandwich> sandwichs) {
 		this.sandwichs = sandwichs;
 	}
-	public List<SaladIngredientWithAmountAndPrice> getSaladIngredientWithAmountAndPrices() {
-		return saladIngredientWithAmountAndPrices;
+	public List<CustomerSalad> getSalads() {
+		return salads;
 	}
-	public void setSaladIngredientWithAmountAndPrices(
-			List<SaladIngredientWithAmountAndPrice> saladIngredientWithAmountAndPrices) {
-		this.saladIngredientWithAmountAndPrices = saladIngredientWithAmountAndPrices;
+	public void setSalads(List<CustomerSalad> salads) {
+		this.salads = salads;
 	}
 	public List<CustomerDrink> getDrinks() {
 		return drinks;
@@ -110,12 +109,11 @@ public class Customer {
 	public void setHotdogs(List<CustomerHotdog> hotdogs) {
 		this.hotdogs = hotdogs;
 	}
-	
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname + ", password="
-				+ password + ", birthday=" + birthday + ", role=" + role + ", sandwichs=" + sandwichs
-				+ ", saladIngredientWithAmountAndPrices=" + saladIngredientWithAmountAndPrices + ", drinks=" + drinks + ", hotdogs=" + hotdogs + "]";
+				+ password + ", birthday=" + birthday + ", role=" + role + ", sandwichs=" + sandwichs + ", salads=" + salads
+				+ ", drinks=" + drinks + ", hotdogs=" + hotdogs + "]";
 	}
 	
 }

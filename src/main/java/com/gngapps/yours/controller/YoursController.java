@@ -50,7 +50,7 @@ public class YoursController {
 	public ModelAndView customerMeals(Principal principal, ModelAndView mav) {
 		Map<String, Object> customerMeals = databaseService.getCustomerMeals(principal.getName());
 		mav.addObject("meals", customerMeals);
-		mav.setViewName("customer-meals");
+		mav.setViewName("customer-meals-v2");
 		return mav;
 	}
 	

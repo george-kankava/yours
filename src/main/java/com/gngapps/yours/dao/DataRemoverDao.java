@@ -46,4 +46,8 @@ public interface DataRemoverDao {
 
 	void removeHotdogSauceAmountAndPrice(Integer hotdogSauceAmountAndPriceId);
 
+	void removeCustomerSandwich(Integer customerSandwichId);
+
+	void removeCustomerSalad(Integer customerSaladId);
+
 }
