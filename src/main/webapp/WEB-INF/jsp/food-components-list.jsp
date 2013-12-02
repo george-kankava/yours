@@ -36,7 +36,7 @@
 	      <script src="resources/assets/js/respond.min.js"></script>
 	<![endif]-->
   </head>
-
+	
   <body>
 
     <div class="container">

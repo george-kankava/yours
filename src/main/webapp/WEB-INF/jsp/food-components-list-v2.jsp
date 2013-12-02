@@ -75,7 +75,7 @@
 								<td>
 									<select class="form-control" id="sandwichBreadSizeAndPrice${sandwichBread.id }">
 										<c:forEach items="${sandwichBread.sandwichBreadSizeAndPrices }" var="sizeAndPrice">
-											<option value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
+											<option ingredient-price="${sizeAndPrice.price }" value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -91,7 +91,7 @@
 						<c:forEach items="${sandwichSausages }" var="sandwichSausage">
 							<tr>
 								<td>
-										<input name="sandwichSausages" type="checkbox" id="${sandwichSausage.id }">
+										<input name="sandwichSausage" type="checkbox" id="${sandwichSausage.id }">
 										<label>${sandwichSausage.nameGeo }</label>
 								</td>
 								<td>
@@ -351,5 +351,26 @@
 	<script src="resources/js/alertify.min.js"></script>
 	<script src="resources/js//jquery.icheck.js"></script>
 	<script src="resources/js/yours.js"></script>
+	<!-- <script>
+		$('input').on('ifChanged', function(event){
+			var sandwichIngredient = $(event.target.outerHTML).attr('name');
+			if(sandwichIngredient === 'sandwichBread') {
+				var selectElement = $('#' + sandwichIngredient + 'SizeAndPrice' + event.target.id).val();
+				alert($(selectElement).attr('disabled'));
+			} else if(sandwichIngredient === 'sandwichSausage') {
+				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id).val();
+				alert(selectElement);
+			} else if(sandwichIngredient === 'sandwichVegetable') {
+				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id).val();
+				alert(selectElement);
+			} else if(sandwichIngredient === 'sandwichSauce') {
+				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id).val();
+				alert(selectElement);
+			} else if(sandwichIngredient === 'sandwichSpice') {
+				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id).val();
+				alert(selectElement);
+			}
+		});
+	</script> -->
 </body>
 </html>

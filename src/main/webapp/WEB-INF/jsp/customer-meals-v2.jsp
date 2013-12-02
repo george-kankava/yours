@@ -49,7 +49,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="panel-group" id="accordion">
-					<div class="panel panel-danger">
+					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
@@ -261,7 +261,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="panel panel-danger">
+					<div class="panel panel-info">
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion"
