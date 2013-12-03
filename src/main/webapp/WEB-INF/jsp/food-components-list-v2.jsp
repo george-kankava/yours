@@ -73,7 +73,7 @@
 									<label>${sandwichBread.nameGeo }</label>
 								</td>
 								<td>
-									<select class="form-control" id="sandwichBreadSizeAndPrice${sandwichBread.id }">
+									<select disabled class="form-control" id="sandwichBreadSizeAndPrice${sandwichBread.id }">
 										<c:forEach items="${sandwichBread.sandwichBreadSizeAndPrices }" var="sizeAndPrice">
 											<option ingredient-price="${sizeAndPrice.price }" value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
 										</c:forEach>
@@ -95,7 +95,7 @@
 										<label>${sandwichSausage.nameGeo }</label>
 								</td>
 								<td>
-									<select class="form-control" id="sandwichSausageAmountAndPrice${sandwichSausage.id }">
+									<select disabled class="form-control" id="sandwichSausageAmountAndPrice${sandwichSausage.id }">
 										<c:forEach items="${sandwichSausage.sausageAmountAndPrices }" var="sizeAndPrice">
 											<option value="${sizeAndPrice.id}">${sizeAndPrice.portion}</option>
 										</c:forEach>
@@ -117,7 +117,7 @@
 									<label>${sandwichVegetable.nameGeo }</label>
 								</td>
 								<td>
-									<select class="form-control" id="sandwichVegetableAmountAndPrice${sandwichVegetable.id }">
+									<select disabled class="form-control" id="sandwichVegetableAmountAndPrice${sandwichVegetable.id }">
 										<c:forEach items="${sandwichVegetable.vegetableAmountAndPrices }" var="amountAndPrices">
 											<option value="${amountAndPrices.id}">${amountAndPrices.portion}</option>
 										</c:forEach>
@@ -139,7 +139,7 @@
 									<label>${sandwichSauce.nameGeo }</label>
 								</td>
 								<td>
-									<select class="form-control" id="sandwichSauceAmountAndPrice${sandwichSauce.id }">
+									<select disabled class="form-control" id="sandwichSauceAmountAndPrice${sandwichSauce.id }">
 										<c:forEach items="${sandwichSauce.sauceAmountAndPrices}" var="amountAndPrice">
 											<option value="${amountAndPrice.id}">${amountAndPrice.portion}</option>
 										</c:forEach>
@@ -161,7 +161,7 @@
 									<label>${sandwichSpice.nameGeo }</label>
 								</td>
 								<td>
-									<select class="form-control" id="sandwichSpiceAmountAndPrice${sandwichSpice.id }">
+									<select disabled class="form-control" id="sandwichSpiceAmountAndPrice${sandwichSpice.id }">
 										<c:forEach items="${sandwichSpice.spiceAmountAndPrice}" var="amountAndPrice">
 											<option value="${amountAndPrice.id}">${amountAndPrice.portion}</option>
 										</c:forEach>
@@ -351,26 +351,45 @@
 	<script src="resources/js/alertify.min.js"></script>
 	<script src="resources/js//jquery.icheck.js"></script>
 	<script src="resources/js/yours.js"></script>
-	<!-- <script>
-		$('input').on('ifChanged', function(event){
+	<script>
+		$('input').on('ifChecked', function(event){
 			var sandwichIngredient = $(event.target.outerHTML).attr('name');
 			if(sandwichIngredient === 'sandwichBread') {
-				var selectElement = $('#' + sandwichIngredient + 'SizeAndPrice' + event.target.id).val();
-				alert($(selectElement).attr('disabled'));
+				var selectElement = $('#' + sandwichIngredient + 'SizeAndPrice' + event.target.id);
+				$(selectElement).removeAttr('disabled');
 			} else if(sandwichIngredient === 'sandwichSausage') {
-				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id).val();
-				alert(selectElement);
+				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id);
+				$(selectElement).removeAttr('disabled');
 			} else if(sandwichIngredient === 'sandwichVegetable') {
-				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id).val();
-				alert(selectElement);
+				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id);
+				$(selectElement).removeAttr('disabled');
 			} else if(sandwichIngredient === 'sandwichSauce') {
-				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id).val();
-				alert(selectElement);
+				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id);
+				$(selectElement).removeAttr('disabled');
 			} else if(sandwichIngredient === 'sandwichSpice') {
-				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id).val();
-				alert(selectElement);
+				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id);
+				$(selectElement).removeAttr('disabled');
 			}
 		});
-	</script> -->
+		$('input').on('ifUnchecked', function(event){
+			var sandwichIngredient = $(event.target.outerHTML).attr('name');
+			if(sandwichIngredient === 'sandwichBread') {
+				var selectElement = $('#' + sandwichIngredient + 'SizeAndPrice' + event.target.id);
+				$(selectElement).attr('disabled', 'disabled');
+			} else if(sandwichIngredient === 'sandwichSausage') {
+				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id);
+				$(selectElement).attr('disabled', 'disabled');
+			} else if(sandwichIngredient === 'sandwichVegetable') {
+				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id);
+				$(selectElement).attr('disabled', 'disabled');
+			} else if(sandwichIngredient === 'sandwichSauce') {
+				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id);
+				$(selectElement).attr('disabled', 'disabled');
+			} else if(sandwichIngredient === 'sandwichSpice') {
+				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id);
+				$(selectElement).attr('disabled', 'disabled');
+			}
+		});
+	</script>
 </body>
 </html>
