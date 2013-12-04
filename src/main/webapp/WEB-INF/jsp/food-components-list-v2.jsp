@@ -63,7 +63,8 @@
 				<table class="table table-bordered">
 						<thead>
 							<tr>
-								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
+								<th><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
+								<th>Price: <span class="badge" id="priceLi">0.00</span></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichBreads }" var="sandwichBread">
@@ -96,8 +97,8 @@
 								</td>
 								<td>
 									<select disabled class="form-control" id="sandwichSausageAmountAndPrice${sandwichSausage.id }">
-										<c:forEach items="${sandwichSausage.sausageAmountAndPrices }" var="sizeAndPrice">
-											<option value="${sizeAndPrice.id}">${sizeAndPrice.portion}</option>
+										<c:forEach items="${sandwichSausage.sausageAmountAndPrices }" var="amountAndPrice">
+											<option ingredient-price="${amountAndPrice.price }" value="${amountAndPrice.id}">${amountAndPrice.portion}</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -118,8 +119,8 @@
 								</td>
 								<td>
 									<select disabled class="form-control" id="sandwichVegetableAmountAndPrice${sandwichVegetable.id }">
-										<c:forEach items="${sandwichVegetable.vegetableAmountAndPrices }" var="amountAndPrices">
-											<option value="${amountAndPrices.id}">${amountAndPrices.portion}</option>
+										<c:forEach items="${sandwichVegetable.vegetableAmountAndPrices }" var="amountAndPrice">
+											<option ingredient-price="${amountAndPrice.price }" value="${amountAndPrice.id}">${amountAndPrice.portion}</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -141,7 +142,7 @@
 								<td>
 									<select disabled class="form-control" id="sandwichSauceAmountAndPrice${sandwichSauce.id }">
 										<c:forEach items="${sandwichSauce.sauceAmountAndPrices}" var="amountAndPrice">
-											<option value="${amountAndPrice.id}">${amountAndPrice.portion}</option>
+											<option ingredient-price="${amountAndPrice.price }" value="${amountAndPrice.id}">${amountAndPrice.portion}</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -163,7 +164,7 @@
 								<td>
 									<select disabled class="form-control" id="sandwichSpiceAmountAndPrice${sandwichSpice.id }">
 										<c:forEach items="${sandwichSpice.spiceAmountAndPrice}" var="amountAndPrice">
-											<option value="${amountAndPrice.id}">${amountAndPrice.portion}</option>
+											<option ingredient-price="${amountAndPrice.price }" value="${amountAndPrice.id}">${amountAndPrice.portion}</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -171,14 +172,15 @@
 						</c:forEach>
 					</table>
 					<div class="col-md-offset-5" style="margin-top:14px;">
-						<button id="sandwichSaveButton" type="button" class="btn btn-success">Save</button>
+							<button id="sandwichSaveButton" type="button" class="btn btn-success">Save</button>
 					</div>
 			</div>
 			<div class="tab-pane" id="salad">
 				<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th colspan="2">Salad Ingredients</th>
+								<th>Salad Ingredients</th>
+								<th>Price:  <span id="saladPrice" class="label label-success" style="font-size:14px">0.00</span></th>
 							</tr>
 						</thead>
 						<c:forEach items="${saladIngredients }" var="saladIngredient">
@@ -188,9 +190,9 @@
 									<label>${saladIngredient.nameGeo }</label>
 								</td>
 								<td>
-									<select class="form-control" id="saladIngredientAmountAndPrice${saladIngredient.id }">
+									<select disabled class="form-control" id="saladIngredientAmountAndPrice${saladIngredient.id }">
 										<c:forEach items="${saladIngredient.saladIngredientAmountAndPrices }" var="amountAndPrice">
-											<option value="${amountAndPrice.id}">${amountAndPrice.amount}</option>
+											<option ingredient-price="${amountAndPrice.price }" value="${amountAndPrice.id}">${amountAndPrice.amount}</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -205,7 +207,8 @@
 				<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th colspan="2"><spring:message code="yours.list.heading.drinks" text="Drinks" /></th>
+								<th><spring:message code="yours.list.heading.drinks" text="Drinks" /></th>
+								<th>Price: <span id="drinkPrice" class="label label-primary" style="font-size: 14px" >0.00</span></th>
 							</tr>
 						</thead>
 						<c:forEach items="${drinks }" var="drink">
@@ -215,9 +218,9 @@
 									<label>${drink.nameGeo }</label>
 								</td>
 								<td>
-									<select class="form-control" id="drinkSizeAndPrices${drink.id }">
+									<select disabled class="form-control" id="drinkSizeAndPrices${drink.id }">
 										<c:forEach items="${drink.drinkSizeAndPrices }" var="sizeAndPrice">
-											<option value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
+											<option ingredient-price="${sizeAndPrice.price }" value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -239,9 +242,9 @@
 									</div>
 								</td>
 								<td>
-									<select class="form-control" id="drinkAddOnAmountAndPrices${drinkAddOn.id }">
+									<select disabled class="form-control" id="drinkAddOnAmountAndPrices${drinkAddOn.id }">
 										<c:forEach items="${drinkAddOn.drinkAddOnAmountAndPrices }" var="sizeAndPrice">
-											<option value="${sizeAndPrice.id}">${sizeAndPrice.amount}</option>
+											<option ingredient-price="${sizeAndPrice.price }" value="${sizeAndPrice.id}">${sizeAndPrice.amount}</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -256,7 +259,8 @@
 				<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
+								<th><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
+								<th>Price: <span id="hotdogPrice" class="label label-primary" style="font-size: 14px">0.00</span> </th>
 							</tr>
 						</thead>
 						<c:forEach items="${hotdogBreads}" var="hotdogBread">
@@ -266,9 +270,9 @@
 									<label>${hotdogBread.nameGeo }</label>
 								</td>
 								<td>
-									<select class="form-control" id="hotdogBreadSizeAndPrices${hotdogBread.id }">
+									<select disabled class="form-control" id="hotdogBreadSizeAndPrices${hotdogBread.id }">
 										<c:forEach items="${hotdogBread.hotdogBreadSizeAndPrices }" var="sizeAndPrice">
-											<option value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
+											<option ingredient-price="${sizeAndPrice.price }" value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -290,9 +294,9 @@
 									</div>
 								</td>
 								<td>
-									<select class="form-control" id="hotDogSausageAmountAndPrice${hotdogSausage.id }">
-										<c:forEach items="${hotdogSausage.hotDogSausageAmountAndPrice }" var="sizeAndPrice">
-											<option value="${sizeAndPrice.id}">${sizeAndPrice.portion}</option>
+									<select disabled class="form-control" id="hotDogSausageAmountAndPrice${hotdogSausage.id }">
+										<c:forEach items="${hotdogSausage.hotDogSausageAmountAndPrice }" var="amountAndPrice">
+											<option ingredient-price="${amountAndPrice.price }" value="${amountAndPrice.id}">${amountAndPrice.portion}</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -312,9 +316,9 @@
 									<label>${hotdogSauce.nameGeo }</label>
 								</td>
 								<td>
-									<select class="form-control" id="hotdogSauceAmountAndPrice${hotdogSauce.id }">
+									<select disabled class="form-control" id="hotdogSauceAmountAndPrice${hotdogSauce.id }">
 										<c:forEach items="${hotdogSauce.hotdogSauceAmountAndPrice}" var="amountAndPrice">
-											<option value="${amountAndPrice.id}">${amountAndPrice.amount}</option>
+											<option ingredient-price="${amountAndPrice.price }" value="${amountAndPrice.id}">${amountAndPrice.amount}</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -352,42 +356,148 @@
 	<script src="resources/js//jquery.icheck.js"></script>
 	<script src="resources/js/yours.js"></script>
 	<script>
+		var sandwichPrice = 0;
+		var saladPrice = 0;
+		var drinkPrice = 0;
+		var hotdogPrice = 0;
 		$('input').on('ifChecked', function(event){
-			var sandwichIngredient = $(event.target.outerHTML).attr('name');
-			if(sandwichIngredient === 'sandwichBread') {
-				var selectElement = $('#' + sandwichIngredient + 'SizeAndPrice' + event.target.id);
+			var ingredientName = $(event.target.outerHTML).attr('name');
+			if(ingredientName === 'sandwichBread') {
+				var selectElement = $('#' + ingredientName + 'SizeAndPrice' + event.target.id);
 				$(selectElement).removeAttr('disabled');
-			} else if(sandwichIngredient === 'sandwichSausage') {
-				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id);
+				var price = $('#' + ingredientName + 'SizeAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+				sandwichPrice += parseFloat(price);
+				$('#priceLi').text(parseFloat(Math.round(sandwichPrice * 100) / 100).toFixed(2));
+			} else if(ingredientName === 'sandwichSausage') {
+				var selectElement = $('#' + ingredientName + 'AmountAndPrice' + event.target.id);
 				$(selectElement).removeAttr('disabled');
-			} else if(sandwichIngredient === 'sandwichVegetable') {
-				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id);
+				var price = $('#' + ingredientName + 'AmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+				sandwichPrice += parseFloat(price);
+				$('#priceLi').text(parseFloat(Math.round(sandwichPrice * 100) / 100).toFixed(2));
+			} else if(ingredientName === 'sandwichVegetable') {
+				var selectElement = $('#' + ingredientName + 'AmountAndPrice' + event.target.id);
 				$(selectElement).removeAttr('disabled');
-			} else if(sandwichIngredient === 'sandwichSauce') {
-				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id);
+				var price = $('#' + ingredientName + 'AmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+				sandwichPrice += parseFloat(price);
+				$('#priceLi').text(parseFloat(Math.round(sandwichPrice * 100) / 100).toFixed(2));
+			} else if(ingredientName === 'sandwichSauce') {
+				var selectElement = $('#' + ingredientName + 'AmountAndPrice' + event.target.id);
 				$(selectElement).removeAttr('disabled');
-			} else if(sandwichIngredient === 'sandwichSpice') {
-				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id);
+				var price = $('#' + ingredientName + 'AmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+				sandwichPrice += parseFloat(price);
+				$('#priceLi').text(parseFloat(Math.round(sandwichPrice * 100) / 100).toFixed(2));
+			} else if(ingredientName === 'sandwichSpice') {
+				var selectElement = $('#' + ingredientName + 'AmountAndPrice' + event.target.id);
 				$(selectElement).removeAttr('disabled');
+				var price = $('#' + ingredientName + 'AmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+				sandwichPrice += parseFloat(price);
+				$('#priceLi').text(parseFloat(Math.round(sandwichPrice * 100) / 100).toFixed(2));
+			} else if(ingredientName === 'saladIngredient') {
+				var selectElement = $('#' + ingredientName + 'AmountAndPrice' + event.target.id);
+				$(selectElement).removeAttr('disabled');
+				var price = $('#' + ingredientName + 'AmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+				saladPrice += parseFloat(price);
+				$('#saladPrice').text(parseFloat(Math.round(saladPrice * 100) / 100).toFixed(2) + ' Lari');
+			} else if(ingredientName === 'drink') {
+				var selectElement = $('#' + ingredientName + 'SizeAndPrices' + event.target.id);
+				$(selectElement).removeAttr('disabled');
+				var price = $('#' + ingredientName + 'SizeAndPrices' + event.target.id + " :selected").attr('ingredient-price');
+				drinkPrice += parseFloat(price);
+				$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
+			} else if(ingredientName === 'drinkAddOn') {
+				var selectElement = $('#' + ingredientName + 'AmountAndPrices' + event.target.id);
+				$(selectElement).removeAttr('disabled');
+				var price = $('#' + ingredientName + 'AmountAndPrices' + event.target.id + " :selected").attr('ingredient-price');
+				drinkPrice += parseFloat(price);
+				$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
+			} else if(ingredientName === 'hotdogBread') {
+				var selectElement = $('#hotdogBreadSizeAndPrices' + event.target.id);
+				$(selectElement).removeAttr('disabled');
+				var price = $('#hotdogBreadSizeAndPrices' + event.target.id + " :selected").attr('ingredient-price');
+				hotdogPrice += parseFloat(price);
+				$('#hotdogPrice').text(parseFloat(Math.round(hotdogPrice * 100) / 100).toFixed(2));
+			} if(ingredientName === 'hotdogSausages') {
+				var selectElement = $('#hotDogSausageAmountAndPrice' + event.target.id);
+				$(selectElement).removeAttr('disabled');
+				var price = $('#hotDogSausageAmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+				hotdogPrice += parseFloat(price);
+				$('#hotdogPrice').text(parseFloat(Math.round(hotdogPrice * 100) / 100).toFixed(2));
+			} if(ingredientName === 'hotdogSauces') {
+				var selectElement = $('#hotdogSauceAmountAndPrice' + event.target.id);
+				$(selectElement).removeAttr('disabled');
+				var price = $('#hotdogSauceAmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+				hotdogPrice += parseFloat(price);
+				$('#hotdogPrice').text(parseFloat(Math.round(hotdogPrice * 100) / 100).toFixed(2));
 			}
 		});
 		$('input').on('ifUnchecked', function(event){
-			var sandwichIngredient = $(event.target.outerHTML).attr('name');
-			if(sandwichIngredient === 'sandwichBread') {
-				var selectElement = $('#' + sandwichIngredient + 'SizeAndPrice' + event.target.id);
+			var ingredientName = $(event.target.outerHTML).attr('name');
+			if(ingredientName === 'sandwichBread') {
+				var selectElement = $('#' + ingredientName + 'SizeAndPrice' + event.target.id);
 				$(selectElement).attr('disabled', 'disabled');
-			} else if(sandwichIngredient === 'sandwichSausage') {
-				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id);
+				var price = $('#' + ingredientName + 'SizeAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+				sandwichPrice -= parseFloat(price);
+				$('#priceLi').text(parseFloat(Math.round(sandwichPrice * 100) / 100).toFixed(2));
+			} else if(ingredientName === 'sandwichSausage') {
+				var selectElement = $('#' + ingredientName + 'AmountAndPrice' + event.target.id);
 				$(selectElement).attr('disabled', 'disabled');
-			} else if(sandwichIngredient === 'sandwichVegetable') {
-				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id);
+				var price = $('#' + ingredientName + 'AmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+				sandwichPrice -= parseFloat(price);
+				$('#priceLi').text(parseFloat(Math.round(sandwichPrice * 100) / 100).toFixed(2));
+			} else if(ingredientName === 'sandwichVegetable') {
+				var selectElement = $('#' + ingredientName + 'AmountAndPrice' + event.target.id);
 				$(selectElement).attr('disabled', 'disabled');
-			} else if(sandwichIngredient === 'sandwichSauce') {
-				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id);
+				var price = $('#' + ingredientName + 'AmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+				sandwichPrice -= parseFloat(price);
+				$('#priceLi').text(parseFloat(Math.round(sandwichPrice * 100) / 100).toFixed(2));
+			} else if(ingredientName === 'sandwichSauce') {
+				var selectElement = $('#' + ingredientName + 'AmountAndPrice' + event.target.id);
 				$(selectElement).attr('disabled', 'disabled');
-			} else if(sandwichIngredient === 'sandwichSpice') {
-				var selectElement = $('#' + sandwichIngredient + 'AmountAndPrice' + event.target.id);
+				var price = $('#' + ingredientName + 'AmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+				sandwichPrice -= parseFloat(price);
+				$('#priceLi').text(parseFloat(Math.round(sandwichPrice * 100) / 100).toFixed(2));
+			} else if(ingredientName === 'sandwichSpice') {
+				var selectElement = $('#' + ingredientName + 'AmountAndPrice' + event.target.id);
 				$(selectElement).attr('disabled', 'disabled');
+				var price = $('#' + ingredientName + 'AmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+				sandwichPrice -= parseFloat(price);
+				$('#priceLi').text(parseFloat(Math.round(sandwichPrice * 100) / 100).toFixed(2));
+			} else if(ingredientName === 'saladIngredient') {
+				var selectElement = $('#' + ingredientName + 'AmountAndPrice' + event.target.id);
+				$(selectElement).attr('disabled', 'disabled');
+				var price = $('#' + ingredientName + 'AmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+				saladPrice -= parseFloat(price);
+				$('#saladPrice').text(parseFloat(Math.round(saladPrice * 100) / 100).toFixed(2) + ' Lari');
+			} else if(ingredientName === 'drink') {
+				var selectElement = $('#' + ingredientName + 'SizeAndPrices' + event.target.id);
+				$(selectElement).attr('disabled', 'disabled');
+				var price = $('#' + ingredientName + 'SizeAndPrices' + event.target.id + " :selected").attr('ingredient-price');
+				drinkPrice -= parseFloat(price);
+				$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
+			} else if(ingredientName === 'drinkAddOn') {
+				var selectElement = $('#' + ingredientName + 'AmountAndPrices' + event.target.id);
+				$(selectElement).attr('disabled', 'disabled');
+				var price = $('#' + ingredientName + 'AmountAndPrices' + event.target.id + " :selected").attr('ingredient-price');
+				drinkPrice -= parseFloat(price);
+				$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
+			} if(ingredientName === 'hotdogBread') {
+				var selectElement = $('#hotdogBreadSizeAndPrices' + event.target.id);
+				$(selectElement).attr('disabled', 'disabled');
+				var price = $('#hotdogBreadSizeAndPrices' + event.target.id + " :selected").attr('ingredient-price');
+				hotdogPrice -= parseFloat(price);
+				$('#hotdogPrice').text(parseFloat(Math.round(hotdogPrice * 100) / 100).toFixed(2));
+			} if(ingredientName === 'hotdogSausages') {
+				var selectElement = $('#hotDogSausageAmountAndPrice' + event.target.id);
+				$(selectElement).attr('disabled', 'disabled');
+				var price = $('#hotDogSausageAmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+				hotdogPrice -= parseFloat(price);
+				$('#hotdogPrice').text(parseFloat(Math.round(hotdogPrice * 100) / 100).toFixed(2));
+			} if(ingredientName === 'hotdogSauces') {
+				var selectElement = $('#hotdogSauceAmountAndPrice' + event.target.id);
+				$(selectElement).attr('disabled', 'disabled');
+				var price = $('#hotdogSauceAmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+				hotdogPrice -= parseFloat(price);
+				$('#hotdogPrice').text(parseFloat(Math.round(hotdogPrice * 100) / 100).toFixed(2));
 			}
 		});
 	</script>
