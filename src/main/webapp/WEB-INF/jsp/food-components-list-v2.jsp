@@ -29,7 +29,7 @@
 	<link href="resources/css/alertify.core.css" rel="stylesheet" />
 	<link href="resources/css/alertify.default.css" rel="stylesheet" />
 	<link href="resources/css/alertify.bootstrap.css" rel="stylesheet" />
-	
+	<script src="resources/js/jquery-2.0.3.min.js"></script>
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	      <script src="resources/assets/js/html5shiv.js"></script>
@@ -38,6 +38,12 @@
   </head>
 
   <body>
+  	<script>
+  		var sandwichPrice = 0;
+		var saladPrice = 0;
+		var drinkPrice = 0;
+		var hotdogPrice = 0;
+  	</script>
 
     <div class="container">
       <div class="header">
@@ -57,7 +63,7 @@
 			<li><a href="#drinks" data-toggle="tab">Drinks</a></li>
 			<li><a href="#hotdog" data-toggle="tab">Hotdog</a></li>
 		</ul>
-
+		
 		<div class="tab-content">
 			<div class="tab-pane active" id="sandwich">
 				<table class="table table-bordered">
@@ -81,6 +87,20 @@
 									</select>
 								</td>
 							</tr>
+							<script>
+							(function () {
+						    	var previousPrice = null;
+
+						    	$("#sandwichBreadSizeAndPrice${sandwichBread.id }").mousedown(function () {
+						    		previousPrice = $(this.options[this.selectedIndex]).attr('ingredient-price');
+						    	}).change(function() {
+									sandwichPrice -= parseFloat(previousPrice);
+									var price = $(this.options[this.selectedIndex]).attr('ingredient-price');
+									sandwichPrice += parseFloat(price);
+									$('#priceLi').text(parseFloat(Math.round(sandwichPrice * 100) / 100).toFixed(2));
+						    	});
+							})();
+						</script>
 						</c:forEach>
 					</table>
 					<table class="table table-bordered">
@@ -346,7 +366,6 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="resources/js/jquery-2.0.3.min.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
 	<script src="resources/js/sandwich.js"></script>
 	<script src="resources/js/salad.js"></script>
@@ -356,10 +375,6 @@
 	<script src="resources/js//jquery.icheck.js"></script>
 	<script src="resources/js/yours.js"></script>
 	<script>
-		var sandwichPrice = 0;
-		var saladPrice = 0;
-		var drinkPrice = 0;
-		var hotdogPrice = 0;
 		$('input').on('ifChecked', function(event){
 			var ingredientName = $(event.target.outerHTML).attr('name');
 			if(ingredientName === 'sandwichBread') {
