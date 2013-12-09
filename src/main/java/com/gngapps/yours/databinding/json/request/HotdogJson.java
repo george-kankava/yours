@@ -2,8 +2,6 @@ package com.gngapps.yours.databinding.json.request;
 
 import java.util.List;
 
-import com.gngapps.yours.controller.json.request.HotdogSausageJson;
-
 public class HotdogJson {
 	private HotdogBreadJson hotdogBread;
 	private HotdogSausageJson hotdogSausage;

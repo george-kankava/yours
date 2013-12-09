@@ -9,6 +9,11 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import com.gngapps.yours.entities.Customer;
+import com.gngapps.yours.entities.CustomerDrink;
+import com.gngapps.yours.entities.CustomerHotdog;
+import com.gngapps.yours.entities.CustomerOrder;
+import com.gngapps.yours.entities.CustomerSalad;
+import com.gngapps.yours.entities.CustomerSandwich;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
@@ -238,6 +243,33 @@ public class DataGetterJPA implements DataGetterDao {
 	@Override
 	public Customer findCustomerById(Integer customerId) {
 		return em.find(Customer.class, customerId);
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<CustomerOrder> getCustomerActiveOrders() {
+		return em.createQuery("FROM CustomerOrder co WHERE co.activeOrder := activeOrder").setParameter("activeOrder", true).getResultList();
+	}
+
+	@Override
+	public CustomerSandwich findSandwichById(Integer sandwichId) {
+		CustomerSandwich sandwich = em.find(CustomerSandwich.class, sandwichId);
+		return sandwich;
+	}
+
+	@Override
+	public CustomerSalad findCustomerSaladById(Integer saladId) {
+		return em.find(CustomerSalad.class, saladId);
+	}
+
+	@Override
+	public CustomerDrink findCustomerDrinkById(Integer drinkId) {
+		return em.find(CustomerDrink.class, drinkId);
+	}
+
+	@Override
+	public CustomerHotdog findCustomerHotdogById(Integer hotdogId) {
+		return em.find(CustomerHotdog.class, hotdogId);
 	}
 	
 }

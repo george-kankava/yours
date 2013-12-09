@@ -1,4 +1,4 @@
-package com.gngapps.yours.controller.json.request;
+package com.gngapps.yours.databinding.json.request;
 
 public class HotdogSausageJson {
 	private Integer hotdogSausageId;

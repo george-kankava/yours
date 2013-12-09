@@ -4,11 +4,13 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import com.gngapps.yours.databinding.json.request.CustoemrOrderJson;
 import com.gngapps.yours.databinding.json.request.DrinksJson;
 import com.gngapps.yours.databinding.json.request.HotdogJson;
 import com.gngapps.yours.databinding.json.request.SaladJson;
 import com.gngapps.yours.databinding.json.request.SandwichJson;
 import com.gngapps.yours.entities.Customer;
+import com.gngapps.yours.entities.CustomerOrder;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
@@ -99,4 +101,6 @@ public interface DatabaseService {
 	void removeCustomerSalad(Integer customerSaladId);
 	void removeCustomerDrink(Integer customerDrinkId);
 	void removeCustomerHotdog(Integer customerHotdogId);
+	List<CustomerOrder> getCustomerActiveOrders();
+	void addNewCustomerOrder(Customer customer, CustoemrOrderJson customerFoodsAndDrinks);
 }

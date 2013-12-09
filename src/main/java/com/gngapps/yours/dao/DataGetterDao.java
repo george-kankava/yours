@@ -3,6 +3,11 @@ package com.gngapps.yours.dao;
 import java.util.List;
 
 import com.gngapps.yours.entities.Customer;
+import com.gngapps.yours.entities.CustomerDrink;
+import com.gngapps.yours.entities.CustomerHotdog;
+import com.gngapps.yours.entities.CustomerOrder;
+import com.gngapps.yours.entities.CustomerSalad;
+import com.gngapps.yours.entities.CustomerSandwich;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
@@ -97,5 +102,15 @@ public interface DataGetterDao {
 	HotdogSauceAmountAndPrice findHotdogSauceAmountAndPriceById(Integer hotdogSauceAmountAndPriceId);
 
 	Customer findCustomerById(Integer customerId);
+
+	List<CustomerOrder> getCustomerActiveOrders();
+
+	CustomerSandwich findSandwichById(Integer sandwichId);
+
+	CustomerSalad findCustomerSaladById(Integer saladId);
+
+	CustomerDrink findCustomerDrinkById(Integer drinkId);
+
+	CustomerHotdog findCustomerHotdogById(Integer hotdogId);
 
 }

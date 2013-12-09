@@ -3,7 +3,6 @@ package com.gngapps.yours.controller;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,15 +11,20 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gngapps.yours.databinding.json.request.CustoemrOrderJson;
 import com.gngapps.yours.entities.Customer;
+import com.gngapps.yours.entities.CustomerOrder;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.HotDogBread;
@@ -32,7 +36,6 @@ import com.gngapps.yours.entities.SandwichSauce;
 import com.gngapps.yours.entities.SandwichSausage;
 import com.gngapps.yours.entities.SandwichSpice;
 import com.gngapps.yours.entities.SandwichVegetable;
-import com.gngapps.yours.security.LoggedUsersContext;
 import com.gngapps.yours.service.DatabaseService;
 
 @Controller
@@ -42,15 +45,57 @@ public class YoursController {
 	private DatabaseService databaseService;
 
 	private static final Logger logger = LoggerFactory.getLogger(YoursController.class);
-    
-	private Pattern pattern = Pattern.compile("([a-zA-Z0-9._-]*[\\s]*)*");
 	
-
-	@RequestMapping("/customer-meals-page")
+	@RequestMapping("operator/customer-active-orders")
+	public ModelAndView customerActiveOrders(Principal principal, ModelAndView mav) {
+		try {
+			mav.setViewName("active-orders");
+			List<CustomerOrder> customerOrders = databaseService.getCustomerActiveOrders();
+			mav.addObject("customerOrders", customerOrders);
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+		}
+		return mav;
+	}
+	
+	@ResponseStatus(HttpStatus.OK)
+	@RequestMapping(value = "/process-purchase-customer-order", consumes = "application/json", method = RequestMethod.POST)
+	public ModelAndView processPurchaseCustomerOrder(ModelAndView mav, @RequestBody CustoemrOrderJson customerFoodsAndDrinks) {
+		databaseService.addNewCustomerMealOrder(customerFoodsAndDrinks);
+		mav.setViewName("customer-order-info");
+		return mav;
+	}
+    
+	@RequestMapping("operator/customer-meals")
 	public ModelAndView customerMeals(Principal principal, ModelAndView mav) {
+		mav.setViewName("customer-meals-list");
+		return mav;
+	}
+	
+	@RequestMapping("operator/find-customer-meals.ajax")
+	public ModelAndView findCustomerMeals(Principal principal, @RequestParam String username, ModelAndView mav) {
+		try {
+			if(username == null) {
+				throw new IllegalArgumentException("username is null");
+			}
+			mav.setViewName("customer-meal-list-ajax");
+			Map<String, Object> customerMeals = databaseService.getCustomerMeals(username);
+			if(!customerMeals.isEmpty()) {
+				mav.addObject("username", username);
+				mav.addObject("meals", customerMeals);
+			}
+			return mav;
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+		}
+		return mav;
+	}
+
+	@RequestMapping("/meals-list")
+	public ModelAndView mealsList(Principal principal, ModelAndView mav) {
 		Map<String, Object> customerMeals = databaseService.getCustomerMeals(principal.getName());
 		mav.addObject("meals", customerMeals);
-		mav.setViewName("customer-meals-v2");
+		mav.setViewName("meals-list");
 		return mav;
 	}
 	
@@ -78,7 +123,7 @@ public class YoursController {
     	mav.addObject("hotdogSausages", hotdogSausages);
     	List<HotDogSauce> hotdogSauces = databaseService.getHotdogSauces();
     	mav.addObject("hotdogSauces", hotdogSauces);
-    	mav.setViewName("food-components-list-v2");
+    	mav.setViewName("food-components-list");
     	return mav;
 	}
     

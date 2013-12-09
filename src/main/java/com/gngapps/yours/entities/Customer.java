@@ -29,6 +29,9 @@ public class Customer {
 	private String password;
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date birthday;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "customer_id")
+	private List<Address> addresses;
 	@OneToOne
 	private Role role;
 	@OneToMany(cascade = CascadeType.ALL)
@@ -79,6 +82,12 @@ public class Customer {
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
+	public List<Address> getAddresses() {
+		return addresses;
+	}
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
+	}
 	public Role getRole() {
 		return role;
 	}
@@ -109,11 +118,15 @@ public class Customer {
 	public void setHotdogs(List<CustomerHotdog> hotdogs) {
 		this.hotdogs = hotdogs;
 	}
+
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname + ", password="
-				+ password + ", birthday=" + birthday + ", role=" + role + ", sandwichs=" + sandwichs + ", salads=" + salads
-				+ ", drinks=" + drinks + ", hotdogs=" + hotdogs + "]";
+		return "Customer [id=" + id + ", username=" + username + ", firstname="
+				+ firstname + ", lastname=" + lastname + ", password="
+				+ password + ", birthday=" + birthday + ", addresses="
+				+ addresses + ", role=" + role + ", sandwichs=" + sandwichs
+				+ ", salads=" + salads + ", drinks=" + drinks + ", hotdogs="
+				+ hotdogs + "]";
 	}
 	
 }

@@ -2,7 +2,10 @@ package com.gngapps.yours.service.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +19,7 @@ import com.gngapps.yours.controller.YoursController;
 import com.gngapps.yours.dao.DataGetterDao;
 import com.gngapps.yours.dao.DataRemoverDao;
 import com.gngapps.yours.dao.DataSaverDao;
+import com.gngapps.yours.databinding.json.request.CustoemrOrderJson;
 import com.gngapps.yours.databinding.json.request.DrinkAddonIdWithAmountAndSizeId;
 import com.gngapps.yours.databinding.json.request.DrinkIdWithDrinkSizeAndPriceId;
 import com.gngapps.yours.databinding.json.request.DrinksJson;
@@ -31,7 +35,9 @@ import com.gngapps.yours.databinding.json.request.SandwichVegetableIdWithAmountA
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.CustomerDrink;
 import com.gngapps.yours.entities.CustomerHotdog;
+import com.gngapps.yours.entities.CustomerOrder;
 import com.gngapps.yours.entities.CustomerSalad;
+import com.gngapps.yours.entities.CustomerSandwich;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
@@ -739,10 +745,12 @@ public class DatabaseServiceImpl implements DatabaseService {
 	public Map<String, Object> getCustomerMeals(String customerUsername) {
 		Customer customer = dataGetterDao.findCustomerByUsername(customerUsername);
 		Map<String, Object> customerMeals = new LinkedHashMap<String, Object>();
-		customerMeals.put("sandwiches", customer.getSandwichs());
-		customerMeals.put("salads", customer.getSalads());
-		customerMeals.put("drinks", customer.getDrinks());
-		customerMeals.put("hotdogs", customer.getHotdogs());
+		if(customer != null) {
+			customerMeals.put("sandwiches", customer.getSandwichs());
+			customerMeals.put("salads", customer.getSalads());
+			customerMeals.put("drinks", customer.getDrinks());
+			customerMeals.put("hotdogs", customer.getHotdogs());
+		}
 		return customerMeals;
 	}
 
@@ -796,6 +804,60 @@ public class DatabaseServiceImpl implements DatabaseService {
 		} catch(Exception ex) {
 			logger.info(ex.getMessage());
 		}
+	}
+
+	@Override
+	@Transactional
+	public List<CustomerOrder> getCustomerActiveOrders() {
+		try {
+			return dataGetterDao.getCustomerActiveOrders();
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+		}
+		return Collections.emptyList();
+	}
+
+	@Override
+	@Transactional
+	public void addNewCustomerOrder(Customer customer, CustoemrOrderJson customerFoodsAndDrinks) {
+		List<CustomerSandwich> customerSandwichs = buildCustomerSandwichOrder(customerFoodsAndDrinks);
+		List<Integer> saladIds = customerFoodsAndDrinks.getSaladIds();
+		List<CustomerSalad> customerSalads = new LinkedList<CustomerSalad>();
+		for(Integer saladId : saladIds) {
+			CustomerSalad salad = dataGetterDao.findCustomerSaladById(saladId);
+			customerSalads.add(salad);
+		}
+		List<Integer> drinkIds = customerFoodsAndDrinks.getDrinkIds();
+		List<CustomerDrink> customerDrinks = new LinkedList<CustomerDrink>();
+		for(Integer drinkId : drinkIds) {
+			CustomerDrink drink = dataGetterDao.findCustomerDrinkById(drinkId);
+			customerDrinks.add(drink);
+		}
+		List<Integer> hotdogIds = customerFoodsAndDrinks.getHotdogIds();
+		List<CustomerHotdog> customerHotdogs = new LinkedList<CustomerHotdog>();
+		for(Integer hotdogId : hotdogIds) {
+			CustomerHotdog hotdog = dataGetterDao.findCustomerHotdogById(hotdogId);
+			customerHotdogs.add(hotdog);
+		}
+		CustomerOrder order = new CustomerOrder();
+		order.setActiveOrder(true);
+		order.setCustomer(customer);
+		order.setCustomerSandwichs(customerSandwichs);
+		order.setCustomerSalads(customerSalads);
+		order.setCustomerDrinks(customerDrinks);
+		order.setCustomerHotdogs(customerHotdogs);
+		order.setDate(new Date());
+		
+	}
+
+	private List<CustomerSandwich> buildCustomerSandwichOrder(CustoemrOrderJson customerFoodsAndDrinks) {
+		List<Integer> sandwichIds = customerFoodsAndDrinks.getSandwichIds();
+		List<CustomerSandwich> customerSandwichs = new LinkedList<CustomerSandwich>();
+		for(Integer sandwichId : sandwichIds) {
+			CustomerSandwich sandwich = dataGetterDao.findSandwichById(sandwichId);
+			customerSandwichs.add(sandwich);
+		}
+		return customerSandwichs;
 	}
 
 }
