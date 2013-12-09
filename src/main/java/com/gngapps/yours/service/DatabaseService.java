@@ -102,5 +102,5 @@ public interface DatabaseService {
 	void removeCustomerDrink(Integer customerDrinkId);
 	void removeCustomerHotdog(Integer customerHotdogId);
 	List<CustomerOrder> getCustomerActiveOrders();
-	void addNewCustomerOrder(Customer customer, CustoemrOrderJson customerFoodsAndDrinks);
+	void createCustomerOrder(String username, CustoemrOrderJson customerFoodsAndDrinks);
 }

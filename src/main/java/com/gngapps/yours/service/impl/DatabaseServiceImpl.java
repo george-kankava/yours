@@ -819,35 +819,39 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 	@Override
 	@Transactional
-	public void addNewCustomerOrder(Customer customer, CustoemrOrderJson customerFoodsAndDrinks) {
-		List<CustomerSandwich> customerSandwichs = buildCustomerSandwichOrder(customerFoodsAndDrinks);
-		List<Integer> saladIds = customerFoodsAndDrinks.getSaladIds();
-		List<CustomerSalad> customerSalads = new LinkedList<CustomerSalad>();
-		for(Integer saladId : saladIds) {
-			CustomerSalad salad = dataGetterDao.findCustomerSaladById(saladId);
-			customerSalads.add(salad);
+	public void createCustomerOrder(String username, CustoemrOrderJson customerFoodsAndDrinks) {
+		try {
+			List<CustomerSandwich> customerSandwichs = buildCustomerSandwichOrder(customerFoodsAndDrinks);
+			List<Integer> saladIds = customerFoodsAndDrinks.getSaladIds();
+			List<CustomerSalad> customerSalads = new LinkedList<CustomerSalad>();
+			Customer customer = findCustomerByUsername(username);
+			for(Integer saladId : saladIds) {
+				CustomerSalad salad = dataGetterDao.findCustomerSaladById(saladId);
+				customerSalads.add(salad);
+			}
+			List<Integer> drinkIds = customerFoodsAndDrinks.getDrinkIds();
+			List<CustomerDrink> customerDrinks = new LinkedList<CustomerDrink>();
+			for(Integer drinkId : drinkIds) {
+				CustomerDrink drink = dataGetterDao.findCustomerDrinkById(drinkId);
+				customerDrinks.add(drink);
+			}
+			List<Integer> hotdogIds = customerFoodsAndDrinks.getHotdogIds();
+			List<CustomerHotdog> customerHotdogs = new LinkedList<CustomerHotdog>();
+			for(Integer hotdogId : hotdogIds) {
+				CustomerHotdog hotdog = dataGetterDao.findCustomerHotdogById(hotdogId);
+				customerHotdogs.add(hotdog);
+			}
+			CustomerOrder order = new CustomerOrder();
+			order.setActiveOrder(true);
+			order.setCustomer(customer);
+			order.setCustomerSandwichs(customerSandwichs);
+			order.setCustomerSalads(customerSalads);
+			order.setCustomerDrinks(customerDrinks);
+			order.setCustomerHotdogs(customerHotdogs);
+			order.setDate(new Date());
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
 		}
-		List<Integer> drinkIds = customerFoodsAndDrinks.getDrinkIds();
-		List<CustomerDrink> customerDrinks = new LinkedList<CustomerDrink>();
-		for(Integer drinkId : drinkIds) {
-			CustomerDrink drink = dataGetterDao.findCustomerDrinkById(drinkId);
-			customerDrinks.add(drink);
-		}
-		List<Integer> hotdogIds = customerFoodsAndDrinks.getHotdogIds();
-		List<CustomerHotdog> customerHotdogs = new LinkedList<CustomerHotdog>();
-		for(Integer hotdogId : hotdogIds) {
-			CustomerHotdog hotdog = dataGetterDao.findCustomerHotdogById(hotdogId);
-			customerHotdogs.add(hotdog);
-		}
-		CustomerOrder order = new CustomerOrder();
-		order.setActiveOrder(true);
-		order.setCustomer(customer);
-		order.setCustomerSandwichs(customerSandwichs);
-		order.setCustomerSalads(customerSalads);
-		order.setCustomerDrinks(customerDrinks);
-		order.setCustomerHotdogs(customerHotdogs);
-		order.setDate(new Date());
-		
 	}
 
 	private List<CustomerSandwich> buildCustomerSandwichOrder(CustoemrOrderJson customerFoodsAndDrinks) {
