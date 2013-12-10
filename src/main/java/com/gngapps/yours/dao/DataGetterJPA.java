@@ -24,6 +24,7 @@ import com.gngapps.yours.entities.HotDogSausage;
 import com.gngapps.yours.entities.HotDogSausageAmountAndPrice;
 import com.gngapps.yours.entities.HotdogBreadSizeAndPrice;
 import com.gngapps.yours.entities.HotdogSauceAmountAndPrice;
+import com.gngapps.yours.entities.Phone;
 import com.gngapps.yours.entities.SaladIngredient;
 import com.gngapps.yours.entities.SaladIngredientAmountAndPrice;
 import com.gngapps.yours.entities.SandwichBread;
@@ -270,6 +271,11 @@ public class DataGetterJPA implements DataGetterDao {
 	@Override
 	public CustomerHotdog findCustomerHotdogById(Integer hotdogId) {
 		return em.find(CustomerHotdog.class, hotdogId);
+	}
+
+	@Override
+	public Phone findPhoneByPhoneNumber(String customerPhoneNumebr) {
+		return em.find(Phone.class, customerPhoneNumebr);
 	}
 	
 }

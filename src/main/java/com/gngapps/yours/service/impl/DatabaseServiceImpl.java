@@ -844,8 +844,8 @@ public class DatabaseServiceImpl implements DatabaseService {
 				customerHotdogs.add(hotdog);
 			}
 			String customerPhoneNumebr = customerFoodsAndDrinks.getCustomerPhoneNumber();
-			if(!customer.getPhoneNumbers().contains(customerPhoneNumebr)) {
-				Phone phone = new Phone();
+			Phone phone = dataGetterDao.findPhoneByPhoneNumber(customerPhoneNumebr);
+			if(customer.getPhoneNumbers().contains(phone)) {
 				phone.setCustomer(customer);
 				phone.setPhoneNumber(customerPhoneNumebr);
 				customer.getPhoneNumbers().add(phone);

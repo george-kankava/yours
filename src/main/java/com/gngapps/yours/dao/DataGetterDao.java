@@ -18,6 +18,7 @@ import com.gngapps.yours.entities.HotDogSausage;
 import com.gngapps.yours.entities.HotDogSausageAmountAndPrice;
 import com.gngapps.yours.entities.HotdogBreadSizeAndPrice;
 import com.gngapps.yours.entities.HotdogSauceAmountAndPrice;
+import com.gngapps.yours.entities.Phone;
 import com.gngapps.yours.entities.SaladIngredient;
 import com.gngapps.yours.entities.SaladIngredientAmountAndPrice;
 import com.gngapps.yours.entities.SandwichBread;
@@ -112,5 +113,7 @@ public interface DataGetterDao {
 	CustomerDrink findCustomerDrinkById(Integer drinkId);
 
 	CustomerHotdog findCustomerHotdogById(Integer hotdogId);
+
+	Phone findPhoneByPhoneNumber(String customerPhoneNumebr);
 
 }
