@@ -48,17 +48,43 @@
 			</ul>
 			<h3 class="text-muted">Yours.ge</h3>
 		</div>
+		<div class="modal fade" id="foodPurchaseModal" tabindex="-1" role="dialog" aria-labelledby="foodPurchaseModalTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="foodPurchaseModalTitle">Buy</h4>
+					</div>
+					<div class="modal-body">
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button id="mealsOrderButton" type="button" class="btn btn-primary">
+							Buy <span class="glyphicon glyphicon-shopping-cart"></span>
+						</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
 		<div class="row">
+			<!-- Modal -->
+			<!-- /.modal -->
 			<div class="col-lg-9">
 			<div class="logo-image-narrow"></div>
 			</div>
 			<div class="col-lg-3">
 			<div class="btn-group">
-				<button id="mealsOrderButton" type="button" class="btn btn-primary">Buy <span class="glyphicon glyphicon-shopping-cart"></span></button>
+				<!-- Button trigger modal -->
+				<button class="btn btn-primary" data-toggle="modal" data-target="#foodPurchaseModal">
+	  				Buy <span class="glyphicon glyphicon-shopping-cart"></span>
+				</button>
 				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 					<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
 				</button>
-				<ul id="customerOrdersList" class="dropdown-menu" role="menu">
+					<ul id="customerOrdersList" class="dropdown-menu" role="menu">
 				</ul>
 			</div>
 			</div>
@@ -462,27 +488,6 @@
 											}
 										});
 									});
-									$('#mealsOrderButton').click(function() {
-										if(foodAndDrinkInCartIds.sandwichIds.length == 0 &&
-											foodAndDrinkInCartIds.sandwichIds.length == 0 &&
-											foodAndDrinkInCartIds.drinkIds.length == 0 &&
-											foodAndDrinkInCartIds.hotdogIds == 0) {
-											alertify.error('Please choose at least one meal');
-											return;
-										}
-										var url = 'process-purchase-customer-order';
-										$.ajax({
-											url: url,
-											type: "POST",
-											contentType: "application/json",
-											data: JSON.stringify({
-												 
-													sandwichIds: foodAndDrinkInCartIds.sandwichIds, saladIds: foodAndDrinkInCartIds.saladIds,
-													drinkIds: foodAndDrinkInCartIds.drinkIds, hotdogIds: foodAndDrinkInCartIds.hotdogIds
-															
-											})
-										});
-									});
 									</script>
 								</c:forEach>
 							</div>
@@ -492,5 +497,27 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		$('#mealsOrderButton').click(function() {
+			if(foodAndDrinkInCartIds.sandwichIds.length == 0 &&
+				foodAndDrinkInCartIds.sandwichIds.length == 0 &&
+				foodAndDrinkInCartIds.drinkIds.length == 0 &&
+				foodAndDrinkInCartIds.hotdogIds == 0) {
+				alertify.error('Please choose at least one meal');
+				return;
+			}
+			var url = 'process-purchase-customer-order';
+			$.ajax({
+				url: url,
+				type: "POST",
+				contentType: "application/json",
+				data: JSON.stringify({
+						sandwichIds: foodAndDrinkInCartIds.sandwichIds, saladIds: foodAndDrinkInCartIds.saladIds,
+						drinkIds: foodAndDrinkInCartIds.drinkIds, hotdogIds: foodAndDrinkInCartIds.hotdogIds
+								
+				})
+			});
+		});
+	</script>
 </body>
 </html>

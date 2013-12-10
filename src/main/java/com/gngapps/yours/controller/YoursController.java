@@ -58,7 +58,7 @@ public class YoursController {
 		return mav;
 	}
 	
-	@ResponseStatus(HttpStatus.OK)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@RequestMapping(value = "/process-purchase-customer-order", consumes = "application/json", method = RequestMethod.POST)
 	public ModelAndView processPurchaseCustomerOrder(Principal principal, ModelAndView mav, @RequestBody CustoemrOrderJson customerFoodsAndDrinks) {
 		try {
