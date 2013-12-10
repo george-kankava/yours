@@ -843,20 +843,6 @@ public class DatabaseServiceImpl implements DatabaseService {
 				CustomerHotdog hotdog = dataGetterDao.findCustomerHotdogById(hotdogId);
 				customerHotdogs.add(hotdog);
 			}
-			String customerPhoneNumebr = customerFoodsAndDrinks.getCustomerPhoneNumber();
-			Phone phone = dataGetterDao.findPhoneByPhoneNumber(customerPhoneNumebr);
-			if(customer.getPhoneNumbers().contains(phone)) {
-				phone.setCustomer(customer);
-				phone.setPhoneNumber(customerPhoneNumebr);
-				customer.getPhoneNumbers().add(phone);
-			}
-			String customerShipmentAddress = customerFoodsAndDrinks.getCustomerShipmentAddress();
-			if(!customer.getAddresses().contains(customerShipmentAddress)) {
-				Address address = new Address();
-				address.setAddress(customerShipmentAddress);
-				address.setCustomer(customer);
-				customer.getAddresses().add(address);
-			}
 			CustomerOrder order = new CustomerOrder();
 			order.setActiveOrder(true);
 			order.setCustomer(customer);
@@ -865,8 +851,24 @@ public class DatabaseServiceImpl implements DatabaseService {
 			order.setCustomerDrinks(customerDrinks);
 			order.setCustomerHotdogs(customerHotdogs);
 			order.setDate(new Date());
-			order.setPhoneNumber(customerFoodsAndDrinks.getCustomerPhoneNumber());
-			order.setShipmentAddress(customerFoodsAndDrinks.getCustomerShipmentAddress());
+			String customerPhoneNumebr = customerFoodsAndDrinks.getCustomerPhoneNumber();
+			Phone phone = dataGetterDao.findPhoneByPhoneNumber(customerPhoneNumebr);
+			if(phone == null) {
+				phone = new Phone();
+				phone.setCustomer(customer);
+				phone.setPhoneNumber(customerPhoneNumebr);
+				customer.getPhoneNumbers().add(phone);
+			}
+			String customerShipmentAddress = customerFoodsAndDrinks.getCustomerShipmentAddress();
+			Address address = dataGetterDao.findAddressByShipmentAddress(customerShipmentAddress);
+			if(address == null) {
+				address = new Address();
+				address.setAddress(customerShipmentAddress);
+				address.setCustomer(customer);
+				customer.getAddresses().add(address);
+			}
+			order.setPhoneNumber(customerPhoneNumebr);
+			order.setShipmentAddress(customerShipmentAddress);
 			dataSaverDao.saveCustomerOrder(order);
 			
 		} catch(Exception ex) {

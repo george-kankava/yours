@@ -44,6 +44,7 @@
 			<ul class="nav nav-pills pull-right">
 				<li><a href="food-components-list"><spring:message code="yours.food.service.ingredients" text="Ingredient" /></a></li>
 				<li class="active"><a href="#"><spring:message code="yours.food.service.meals" text="Meals" /></a></li>
+				<li><a href="personal-data"><spring:message code="yours.food.service.personal.data" text="Meals" /></a></li>
 				<li><a href="j_spring_security_logout">Logout</a></li>
 			</ul>
 			<h3 class="text-muted">Yours.ge</h3>
@@ -616,6 +617,9 @@
 						customerPhoneNumber: customerPhoneNumber, 
 						customerShipmentAddress: customerShipmentAddress 
 				})
+			}).done(function() {
+				$('#foodPurchaseModal').modal('hide');
+				alertify.success('Your order has been added');
 			});
 		});
 	</script>

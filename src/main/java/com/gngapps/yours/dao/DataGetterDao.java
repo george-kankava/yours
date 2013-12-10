@@ -2,6 +2,7 @@ package com.gngapps.yours.dao;
 
 import java.util.List;
 
+import com.gngapps.yours.entities.Address;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.CustomerDrink;
 import com.gngapps.yours.entities.CustomerHotdog;
@@ -115,5 +116,7 @@ public interface DataGetterDao {
 	CustomerHotdog findCustomerHotdogById(Integer hotdogId);
 
 	Phone findPhoneByPhoneNumber(String customerPhoneNumebr);
+
+	Address findAddressByShipmentAddress(String customerShipmentAddress);
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
+import com.gngapps.yours.entities.Address;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.CustomerDrink;
 import com.gngapps.yours.entities.CustomerHotdog;
@@ -275,7 +276,24 @@ public class DataGetterJPA implements DataGetterDao {
 
 	@Override
 	public Phone findPhoneByPhoneNumber(String customerPhoneNumebr) {
-		return em.find(Phone.class, customerPhoneNumebr);
+		try {
+			String qlString = "FROM Phone p WHERE p.phoneNumber = :phoneNumber";
+			Phone phone = (Phone)em.createQuery(qlString).setParameter("phoneNumber", customerPhoneNumebr).getSingleResult();
+			return phone;
+		} catch(NoResultException ex) {
+			return null;
+		}
+	}
+
+	@Override
+	public Address findAddressByShipmentAddress(String customerShipmentAddress) {
+		try {
+			String qlString = "FROM Address a WHERE a.address = :address";
+			Address address = (Address)em.createQuery(qlString).setParameter("address", customerShipmentAddress).getSingleResult();
+			return address;
+		} catch(NoResultException ex) {
+			return null;
+		}
 	}
 	
 }
