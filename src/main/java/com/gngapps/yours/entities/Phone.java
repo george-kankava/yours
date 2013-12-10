@@ -7,12 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Address {
+public class Phone {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String address;
+	private String phoneNumber;
 	@ManyToOne
 	private Customer customer;
 	public Integer getId() {
@@ -21,11 +21,11 @@ public class Address {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getAddress() {
-		return address;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 	public Customer getCustomer() {
 		return customer;
@@ -35,7 +35,7 @@ public class Address {
 	}
 	@Override
 	public String toString() {
-		return "Address [id=" + id + ", address=" + address + ", customer=" + customer + "]";
+		return "Phone [id=" + id + ", phoneNumber=" + phoneNumber + ", customer=" + customer + "]";
 	}
 	
 }

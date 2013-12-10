@@ -40,6 +40,14 @@
 	}
 }
 
+.logo-image-small {
+		width: 100px;
+		min-height: 50px;
+		background-image: url(../img/yours-small.gif);
+		background-repeat: no-repeat;
+		margin-left: 20px;
+	}
+
 td {
 	width: 50%;
 }

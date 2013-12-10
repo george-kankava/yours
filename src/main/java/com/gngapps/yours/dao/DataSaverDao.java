@@ -3,6 +3,7 @@ package com.gngapps.yours.dao;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.CustomerDrink;
 import com.gngapps.yours.entities.CustomerHotdog;
+import com.gngapps.yours.entities.CustomerOrder;
 import com.gngapps.yours.entities.CustomerSalad;
 import com.gngapps.yours.entities.CustomerSandwich;
 import com.gngapps.yours.entities.Drink;
@@ -59,4 +60,5 @@ public interface DataSaverDao {
 	void saveCustomerSalad(CustomerSalad customerSalad);
 	void saveCustomerDrink(CustomerDrink customerDrink);
 	void saveCustomerHotdog(CustomerHotdog customerHotdog);
+	void saveCustomerOrder(CustomerOrder order);
 }

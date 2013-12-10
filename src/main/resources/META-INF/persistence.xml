@@ -44,6 +44,7 @@
 		<class>com.gngapps.yours.entities.CustomerSalad</class>
 		<class>com.gngapps.yours.entities.CustomerOrder</class>
 		<class>com.gngapps.yours.entities.Address</class>
+		<class>com.gngapps.yours.entities.Phone</class>
 	</persistence-unit>
 
 </persistence>

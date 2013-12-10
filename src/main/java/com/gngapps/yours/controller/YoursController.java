@@ -99,7 +99,9 @@ public class YoursController {
 	@RequestMapping("/meals-list")
 	public ModelAndView mealsList(Principal principal, ModelAndView mav) {
 		Map<String, Object> customerMeals = databaseService.getCustomerMeals(principal.getName());
+		Customer customer = databaseService.findCustomerByUsername(principal.getName());
 		mav.addObject("meals", customerMeals);
+		mav.addObject("customer", customer);
 		mav.setViewName("meals-list");
 		return mav;
 	}

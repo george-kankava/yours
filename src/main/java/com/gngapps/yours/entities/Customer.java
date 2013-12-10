@@ -32,6 +32,9 @@ public class Customer {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_id")
 	private List<Address> addresses;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "customer_id")
+	private List<Phone> phoneNumbers;
 	@OneToOne
 	private Role role;
 	@OneToMany(cascade = CascadeType.ALL)
@@ -46,6 +49,7 @@ public class Customer {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_id")
 	private List<CustomerHotdog> hotdogs;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -88,6 +92,12 @@ public class Customer {
 	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
 	}
+	public List<Phone> getPhoneNumbers() {
+		return phoneNumbers;
+	}
+	public void setPhoneNumbers(List<Phone> phoneNumbers) {
+		this.phoneNumbers = phoneNumbers;
+	}
 	public Role getRole() {
 		return role;
 	}
@@ -118,15 +128,14 @@ public class Customer {
 	public void setHotdogs(List<CustomerHotdog> hotdogs) {
 		this.hotdogs = hotdogs;
 	}
-
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", username=" + username + ", firstname="
 				+ firstname + ", lastname=" + lastname + ", password="
 				+ password + ", birthday=" + birthday + ", addresses="
-				+ addresses + ", role=" + role + ", sandwichs=" + sandwichs
-				+ ", salads=" + salads + ", drinks=" + drinks + ", hotdogs="
-				+ hotdogs + "]";
+				+ addresses + ", phoneNumbers=" + phoneNumbers + ", role="
+				+ role + ", sandwichs=" + sandwichs + ", salads=" + salads
+				+ ", drinks=" + drinks + ", hotdogs=" + hotdogs + "]";
 	}
 	
 }

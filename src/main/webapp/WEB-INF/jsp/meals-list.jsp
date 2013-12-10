@@ -56,7 +56,61 @@
 						<h4 class="modal-title" id="foodPurchaseModalTitle">Buy</h4>
 					</div>
 					<div class="modal-body">
-						
+						<div class="logo-image-small"></div>
+						<div class="radio">
+							<p class="lead"> 
+								Please Enter or Choose Phone Number
+							</p>
+							<div class="row">
+								<div class="col-md-8">
+								<label>
+									<input id="customerTelephoneInputRadio" type="radio" name="customerTelephoneNumber">
+									<input id="customerTelephoneInput" type="text" class="form-control" disabled>
+								</label>
+								</div>
+							</div>
+						</div>
+						<div class="radio">
+							<div class="row">
+								<div class="col-md-8">
+									<label>
+										<input id="customerTelephoneSelectRadio" type="radio" name="customerTelephoneNumber" checked>
+										<select id="customerTelephoneSelect" class="form-control">
+											<c:forEach items="${customer.phoneNumbers }" var="phoneNumber">
+												<option value="${phoneNumber.phoneNumber }">${phoneNumber.phoneNumber }</option>
+											</c:forEach>
+										</select>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="radio">
+							<p class="lead"> 
+								Please Enter or Choose Shipment Address
+							</p>
+							<div class="row">
+								<div class="col-md-8">
+								<label>
+									<input id="customerShipmentInputRadio" type="radio" name="customerShipmentAddress">
+									<input id="customerShipmentInput" type="text" class="form-control" disabled>
+								</label>
+								</div>
+							</div>
+						</div>
+						<div class="radio">
+							<div class="row">
+								<div class="col-md-8">
+									<label>
+										<input id="customerShipmentSelectRadio" type="radio" name="customerShipmentAddress" checked>
+										<select id="customerShipmentSelect" class="form-control">
+											<c:forEach items="${customer.addresses }" var="address">
+												<option value="${address.address }">${address.address }</option>
+											</c:forEach>
+										</select>
+									</label>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -349,41 +403,41 @@
 										</c:forEach>
 									</table>
 									<script type="text/javascript">
-									$('#drinkOrderButtion${customerDrink.id }').click(function(event) {
-										if(event.currentTarget.className.indexOf('active') != -1) {
-											$('#orderListDrinkItemDivider${customerDrink.id}').remove();
-											$('#orderListDrinkItem${customerDrink.id}').remove();
-											var elementIndex = foodAndDrinkInCartIds.drinkIds.indexOf('${customerDrink.id}');
-											foodAndDrinkInCartIds.drinkIds.splice(elementIndex, 1);
-										} else {
-											$('#customerOrdersList').append(
-												$('<li id="orderListDrinkItemDivider${customerDrink.id}">').addClass('divider')		
-											).append(
-												$('<li id="orderListDrinkItem${customerDrink.id}">').append($('<span>').attr('style', 'margin-left:5px;').text('Drink - ${customerDrink.id}'))		
-											);
-											foodAndDrinkInCartIds.drinkIds.push('${customerDrink.id }');
-										}
-										
-									});
-										$("#drinkRemoveButtion${customerDrink.id}").click(function() {
-											alertify.confirm("Do you really want to remove this drink?", function(e) {
-												if (e) {
-													var url = 'remove-customer-drink';
-													$.ajax({
-														url : url,
-														data : {
-															customerDrinkId : '${customerDrink.id}'
+										$('#drinkOrderButtion${customerDrink.id }').click(function(event) {
+											if(event.currentTarget.className.indexOf('active') != -1) {
+												$('#orderListDrinkItemDivider${customerDrink.id}').remove();
+												$('#orderListDrinkItem${customerDrink.id}').remove();
+												var elementIndex = foodAndDrinkInCartIds.drinkIds.indexOf('${customerDrink.id}');
+												foodAndDrinkInCartIds.drinkIds.splice(elementIndex, 1);
+											} else {
+												$('#customerOrdersList').append(
+													$('<li id="orderListDrinkItemDivider${customerDrink.id}">').addClass('divider')		
+												).append(
+													$('<li id="orderListDrinkItem${customerDrink.id}">').append($('<span>').attr('style', 'margin-left:5px;').text('Drink - ${customerDrink.id}'))		
+												);
+												foodAndDrinkInCartIds.drinkIds.push('${customerDrink.id }');
+											}
+											
+										});
+											$("#drinkRemoveButtion${customerDrink.id}").click(function() {
+												alertify.confirm("Do you really want to remove this drink?", function(e) {
+													if (e) {
+														var url = 'remove-customer-drink';
+														$.ajax({
+															url : url,
+															data : {
+																customerDrinkId : '${customerDrink.id}'
+															}
+														}).done(
+															function() {
+																$('#drinkTitle${customerDrink.id }').remove();
+																$('#drink${customerDrink.id }').remove();
+																$('#drinkAddon${customerDrink.id }').remove();
+																alertify.success("Drink has been removed");
+															});
 														}
-													}).done(
-														function() {
-															$('#drinkTitle${customerDrink.id }').remove();
-															$('#drink${customerDrink.id }').remove();
-															$('#drinkAddon${customerDrink.id }').remove();
-															alertify.success("Drink has been removed");
-														});
-													}
+													});
 												});
-											});
 									</script>
 								</c:forEach>
 							</div>
@@ -452,42 +506,42 @@
 										</c:forEach>
 									</table>
 									<script type="text/javascript">
-									$('#hotdogOrderButtion${customerHotdog.id }').click(function(event) {
-										if(event.currentTarget.className.indexOf('active') != -1) {
-											$('#orderListHotdogItemDivider${customerHotdog.id}').remove();
-											$('#orderListHotdogItem${customerHotdog.id}').remove();
-											var elementIndex = foodAndDrinkInCartIds.hotdogIds.indexOf('${customerHotdog.id}');
-											foodAndDrinkInCartIds.hotdogIds.splice(elementIndex, 1);
-										} else {
-											$('#customerOrdersList').append(
-												$('<li id="orderListHotdogItemDivider${customerHotdog.id}">').addClass('divider')		
-											).append(
-												$('<li id="orderListHotdogItem${customerHotdog.id}">').append($('<span>').attr('style', 'margin-left:5px;').text('Hotdog - ${customerHotdog.id}'))		
-											);
-											foodAndDrinkInCartIds.hotdogIds.push('${customerHotdog.id }');
-										}
-										
-									});
-									$("#hotdogRemoveButtion${customerHotdog.id}").click(
-										function() {
-											alertify.confirm("Do you really want to remove this hotdog?",
-												function(e) {
-													if (e) {
-														var url = 'remove-customer-hotdog';
-														$.ajax({
-															url : url,
-															data : {
-																customerHotdogId : '${customerHotdog.id}'
-														}}).done(function() {
-															$('#hotdogTitle${customerHotdog.id }').remove();
-															$('#hotdogBread${customerHotdog.id }').remove();
-															$('#hotdogSausage${customerHotdog.id }').remove();
-															$('#hotdogSauce${customerHotdog.id }').remove();
-															alertify.success("Hotdog has been removed");
-												});
+										$('#hotdogOrderButtion${customerHotdog.id }').click(function(event) {
+											if(event.currentTarget.className.indexOf('active') != -1) {
+												$('#orderListHotdogItemDivider${customerHotdog.id}').remove();
+												$('#orderListHotdogItem${customerHotdog.id}').remove();
+												var elementIndex = foodAndDrinkInCartIds.hotdogIds.indexOf('${customerHotdog.id}');
+												foodAndDrinkInCartIds.hotdogIds.splice(elementIndex, 1);
+											} else {
+												$('#customerOrdersList').append(
+													$('<li id="orderListHotdogItemDivider${customerHotdog.id}">').addClass('divider')		
+												).append(
+													$('<li id="orderListHotdogItem${customerHotdog.id}">').append($('<span>').attr('style', 'margin-left:5px;').text('Hotdog - ${customerHotdog.id}'))		
+												);
+												foodAndDrinkInCartIds.hotdogIds.push('${customerHotdog.id }');
 											}
+											
 										});
-									});
+										$("#hotdogRemoveButtion${customerHotdog.id}").click(
+											function() {
+												alertify.confirm("Do you really want to remove this hotdog?",
+													function(e) {
+														if (e) {
+															var url = 'remove-customer-hotdog';
+															$.ajax({
+																url : url,
+																data : {
+																	customerHotdogId : '${customerHotdog.id}'
+															}}).done(function() {
+																$('#hotdogTitle${customerHotdog.id }').remove();
+																$('#hotdogBread${customerHotdog.id }').remove();
+																$('#hotdogSausage${customerHotdog.id }').remove();
+																$('#hotdogSauce${customerHotdog.id }').remove();
+																alertify.success("Hotdog has been removed");
+													});
+												}
+											});
+										});
 									</script>
 								</c:forEach>
 							</div>
@@ -498,6 +552,24 @@
 		</div>
 	</div>
 	<script>
+		$('input[name=customerTelephoneNumber]').change(function(event) {
+			if(event.target.id === 'customerTelephoneSelectRadio') {
+				$('#customerTelephoneSelect').removeAttr('disabled');
+				$('#customerTelephoneInput').attr('disabled', 'disabled');
+			} else if(event.target.id === 'customerTelephoneInputRadio') {
+				$('#customerTelephoneInput').removeAttr('disabled');
+				$('#customerTelephoneSelect').attr('disabled', 'disabled');
+			}
+		});
+		$('input[name=customerShipmentAddress]').change(function(event) {
+			if(event.target.id === 'customerShipmentSelectRadio') {
+				$('#customerShipmentSelect').removeAttr('disabled');
+				$('#customerShipmentInput').attr('disabled', 'disabled');
+			} else if(event.target.id === 'customerShipmentInputRadio') {
+				$('#customerShipmentInput').removeAttr('disabled');
+				$('#customerShipmentSelect').attr('disabled', 'disabled');
+			}
+		});
 		$('#mealsOrderButton').click(function() {
 			if(foodAndDrinkInCartIds.sandwichIds.length == 0 &&
 				foodAndDrinkInCartIds.sandwichIds.length == 0 &&
@@ -507,14 +579,42 @@
 				return;
 			}
 			var url = 'process-purchase-customer-order';
+			var customerPhoneNumber = '';
+			var customerShipmentAddress = '';
+			if($('input[name=customerTelephoneNumber]:radio:checked').attr('id') === 'customerTelephoneInputRadio') {
+				customerPhoneNumber = $('#customerTelephoneInput').val();
+			} else if($('input[name=customerTelephoneNumber]:radio:checked').attr('id') === 'customerTelephoneSelectRadio') {
+				customerPhoneNumber = $('#customerTelephoneSelect').val();
+			}
+			if($('input[name=customerShipmentAddress]:radio:checked').attr('id') === 'customerShipmentInputRadio') {
+				customerShipmentAddress = $('#customerShipmentInput').val();
+			} else if($('input[name=customerShipmentAddress]:radio:checked').attr('id') === 'customerShipmentSelectRadio') {
+				customerShipmentAddress = $('#customerShipmentSelect').val();
+			}
+			if(customerPhoneNumber === '' || customerPhoneNumber === null) {
+				alertify.error('Please Enter Phone Number');
+				return;
+			}
+			var reg = new RegExp('^\\d+$');
+			if(!reg.test(customerPhoneNumber)) {
+				alertify.error('Please enter valid phone number');
+				return;
+			}
+			if(customerShipmentAddress === '' || customerShipmentAddress === null) {
+				alertify.error('Please Enter Shipment Address');
+				return;
+			}
 			$.ajax({
 				url: url,
 				type: "POST",
 				contentType: "application/json",
 				data: JSON.stringify({
-						sandwichIds: foodAndDrinkInCartIds.sandwichIds, saladIds: foodAndDrinkInCartIds.saladIds,
-						drinkIds: foodAndDrinkInCartIds.drinkIds, hotdogIds: foodAndDrinkInCartIds.hotdogIds
-								
+						sandwichIds: foodAndDrinkInCartIds.sandwichIds, 
+						saladIds: foodAndDrinkInCartIds.saladIds,
+						drinkIds: foodAndDrinkInCartIds.drinkIds, 
+						hotdogIds: foodAndDrinkInCartIds.hotdogIds,
+						customerPhoneNumber: customerPhoneNumber, 
+						customerShipmentAddress: customerShipmentAddress 
 				})
 			});
 		});

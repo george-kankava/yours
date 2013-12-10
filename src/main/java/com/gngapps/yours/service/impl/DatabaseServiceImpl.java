@@ -32,6 +32,7 @@ import com.gngapps.yours.databinding.json.request.SandwichSauceIdWithAmountAndPr
 import com.gngapps.yours.databinding.json.request.SandwichSausageIdWithAmountAndPriceId;
 import com.gngapps.yours.databinding.json.request.SandwichSpiceIdWithAmountAndPriceId;
 import com.gngapps.yours.databinding.json.request.SandwichVegetableIdWithAmountAndPriceId;
+import com.gngapps.yours.entities.Address;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.CustomerDrink;
 import com.gngapps.yours.entities.CustomerHotdog;
@@ -51,6 +52,7 @@ import com.gngapps.yours.entities.HotDogSausage;
 import com.gngapps.yours.entities.HotDogSausageAmountAndPrice;
 import com.gngapps.yours.entities.HotdogBreadSizeAndPrice;
 import com.gngapps.yours.entities.HotdogSauceAmountAndPrice;
+import com.gngapps.yours.entities.Phone;
 import com.gngapps.yours.entities.SaladIngredient;
 import com.gngapps.yours.entities.SaladIngredientAmountAndPrice;
 import com.gngapps.yours.entities.SaladIngredientWithAmountAndPrice;
@@ -841,6 +843,20 @@ public class DatabaseServiceImpl implements DatabaseService {
 				CustomerHotdog hotdog = dataGetterDao.findCustomerHotdogById(hotdogId);
 				customerHotdogs.add(hotdog);
 			}
+			String customerPhoneNumebr = customerFoodsAndDrinks.getCustomerPhoneNumber();
+			if(!customer.getPhoneNumbers().contains(customerPhoneNumebr)) {
+				Phone phone = new Phone();
+				phone.setCustomer(customer);
+				phone.setPhoneNumber(customerPhoneNumebr);
+				customer.getPhoneNumbers().add(phone);
+			}
+			String customerShipmentAddress = customerFoodsAndDrinks.getCustomerShipmentAddress();
+			if(!customer.getAddresses().contains(customerShipmentAddress)) {
+				Address address = new Address();
+				address.setAddress(customerShipmentAddress);
+				address.setCustomer(customer);
+				customer.getAddresses().add(address);
+			}
 			CustomerOrder order = new CustomerOrder();
 			order.setActiveOrder(true);
 			order.setCustomer(customer);
@@ -849,6 +865,10 @@ public class DatabaseServiceImpl implements DatabaseService {
 			order.setCustomerDrinks(customerDrinks);
 			order.setCustomerHotdogs(customerHotdogs);
 			order.setDate(new Date());
+			order.setPhoneNumber(customerFoodsAndDrinks.getCustomerPhoneNumber());
+			order.setShipmentAddress(customerFoodsAndDrinks.getCustomerShipmentAddress());
+			dataSaverDao.saveCustomerOrder(order);
+			
 		} catch(Exception ex) {
 			logger.info(ex.getMessage());
 		}
