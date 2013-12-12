@@ -54,4 +54,7 @@ public interface DataRemoverDao {
 
 	void removeCustomerHotdog(Integer customerHotdogId);
 
+	void removeCustomerAddress(Integer customerAddressId);
+
+	void removeCustomerPhone(Integer customerPhoneId);
 }

@@ -886,4 +886,22 @@ public class DatabaseServiceImpl implements DatabaseService {
 		return customerSandwichs;
 	}
 
+	@Override
+	@Transactional
+	public void removeCustomerAddress(Integer customerAddressId) {
+		dataRemoverDao.removeCustomerAddress(customerAddressId);
+	}
+	
+	@Override
+	@Transactional
+	public void removeCustomerPhone(Integer customerPhoneId) {
+		dataRemoverDao.removeCustomerPhone(customerPhoneId);
+	}
+
+	@Override
+	@Transactional
+	public List<CustomerOrder> getActiveOrders() {
+		return dataGetterDao.getCustomerActiveOrders();
+	}
+
 }

@@ -45,14 +45,9 @@
   	</script>
 
     <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Ingredients</a></li>
-          <li><a href="meals-list"><spring:message code="yours.food.service.meals" text="Meals" /></a></li>
-          <li><a href="j_spring_security_logout">Logout</a></li>
-        </ul>
-        <h3 class="text-muted">Yours.ge</h3>
-      </div>
+		<jsp:include page="include/header.jsp">
+			<jsp:param name="pageName" value="food-components-list"/>
+		</jsp:include>
       
       <div class="logo-image-narrow"></div>
 

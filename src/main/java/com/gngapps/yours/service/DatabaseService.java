@@ -103,4 +103,7 @@ public interface DatabaseService {
 	void removeCustomerHotdog(Integer customerHotdogId);
 	List<CustomerOrder> getCustomerActiveOrders();
 	void createCustomerOrder(String username, CustoemrOrderJson customerFoodsAndDrinks);
+	void removeCustomerAddress(Integer customerAddressId);
+	void removeCustomerPhone(Integer customerPhoneId);
+	List<CustomerOrder> getActiveOrders();
 }

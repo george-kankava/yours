@@ -57,9 +57,11 @@
 		<url-pattern>/admin/add-hotdog-ingredient-sausage-form</url-pattern>
 		<url-pattern>/admin/add-hotdog-ingredient-sauce-form</url-pattern>
 		<url-pattern>/operator/find-customer-meals.ajax</url-pattern>
+		<url-pattern>/operator/operator-active-orders</url-pattern>
 		<url-pattern>/food-components-list</url-pattern>
 		<url-pattern>/customer-meals-page</url-pattern>
 		<url-pattern>/meals-list</url-pattern>
+		<url-pattern>/customer-info</url-pattern>
 	</filter-mapping>
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
