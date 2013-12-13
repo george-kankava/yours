@@ -46,6 +46,56 @@ public class YoursController {
 
 	private static final Logger logger = LoggerFactory.getLogger(YoursController.class);
 	
+	@RequestMapping("operator/operator-active-orders")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public ModelAndView operatorActiveOrders(ModelAndView mav) {
+		try {
+			mav.setViewName("operator-active-orders");
+			List<CustomerOrder> activeOrders = databaseService.getActiveOrders();
+			mav.addObject(activeOrders);
+			return mav;
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+			mav.setViewName("customer-error-page");
+			return mav;
+		}
+	}
+	
+	@RequestMapping("remove-customer-phone")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void removeCustomerPhone(@RequestParam Integer customerPhoneId, ModelAndView mav) {
+		try {
+			databaseService.removeCustomerPhone(customerPhoneId);
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+		}
+	}
+	
+	@RequestMapping("remove-customer-address")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void removeCustomerAddress(@RequestParam Integer customerAddressId, ModelAndView mav) {
+		try {
+			databaseService.removeCustomerAddress(customerAddressId);
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+		}
+	}
+	
+	@RequestMapping("customer-info")
+	public ModelAndView customerPersonalInfo(Principal principal, ModelAndView mav) {
+		try {
+			mav.setViewName("customer-info");
+			String username = principal.getName();
+			Customer customer = databaseService.findCustomerByUsername(username);
+			mav.addObject(customer);
+			return mav;
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+			mav.setViewName("customer-error-page");
+			return mav;
+		}
+	}
+	
 	@RequestMapping("operator/customer-active-orders")
 	public ModelAndView customerActiveOrders(Principal principal, ModelAndView mav) {
 		try {
