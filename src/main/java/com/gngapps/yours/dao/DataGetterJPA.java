@@ -250,7 +250,7 @@ public class DataGetterJPA implements DataGetterDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<CustomerOrder> getCustomerActiveOrders() {
-		return em.createQuery("FROM CustomerOrder co WHERE co.activeOrder := activeOrder").setParameter("activeOrder", true).getResultList();
+		return em.createQuery("FROM CustomerOrder co WHERE co.activeOrder = :activeOrder").setParameter("activeOrder", true).getResultList();
 	}
 
 	@Override

@@ -49,7 +49,7 @@ public class YoursController {
 	@RequestMapping("operator/customer-active-orders")
 	public ModelAndView customerActiveOrders(Principal principal, ModelAndView mav) {
 		try {
-			mav.setViewName("active-orders");
+			mav.setViewName("customer-active-orders");
 			List<CustomerOrder> customerOrders = databaseService.getCustomerActiveOrders();
 			mav.addObject("customerOrders", customerOrders);
 		} catch(Exception ex) {

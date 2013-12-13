@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC>
 <html>
@@ -42,7 +43,7 @@
 			<c:forEach items="${customerOrders }" var="customerOrder">
 				<div class="col-md-12"> 
 					<div class="alert alert-success">
-						${customerOrder.shipmentAddress } - ${customerOrder.phoneNumber }
+						#${customerOrder.id } - ${customerOrder.customer.username } - <fmt:formatDate type="time" value="${customerOrder.date}" /> - ${customerOrder.shipmentAddress } - ${customerOrder.phoneNumber } <a href="#">View Order</a>  
 					</div>
 				</div>
 			</c:forEach>
