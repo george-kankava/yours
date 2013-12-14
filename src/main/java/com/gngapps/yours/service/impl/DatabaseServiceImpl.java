@@ -533,7 +533,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 		sandwichEntity.setSandwichBreadSizeAndPrice(sizeAndPrice);
 		sandwichEntity.setSandwichSausages(sandwichSausageWithAmountAndPrices);
 		sandwichEntity.setSandwichVegetables(sandwichVegetableWithAmountAndPrices);
-		sandwichEntity.setSandwichSauce(sandwichSauceWithAmountAndPrices);
+		sandwichEntity.setSandwichSauces(sandwichSauceWithAmountAndPrices);
 		sandwichEntity.setSandwichSpices(sandwichSpiceAmountAndPrices);
 	}
 

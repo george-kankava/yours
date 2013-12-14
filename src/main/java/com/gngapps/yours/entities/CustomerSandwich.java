@@ -28,7 +28,7 @@ public class CustomerSandwich {
 	private List<SandwichVegetableWithAmountAndPrice> sandwichVegetables;
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "sandwich_id")
-	private List<SandwichSauceWithAmountAndPrice> sandwichSauce;
+	private List<SandwichSauceWithAmountAndPrice> sandwichSauces;
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "sandwich_id")
 	private List<SandwichSpiceWithAmountAndPrice> sandwichSpices;
@@ -68,11 +68,11 @@ public class CustomerSandwich {
 			List<SandwichVegetableWithAmountAndPrice> sandwichVegetables) {
 		this.sandwichVegetables = sandwichVegetables;
 	}
-	public List<SandwichSauceWithAmountAndPrice> getSandwichSauce() {
-		return sandwichSauce;
+	public List<SandwichSauceWithAmountAndPrice> getSandwichSauces() {
+		return sandwichSauces;
 	}
-	public void setSandwichSauce(List<SandwichSauceWithAmountAndPrice> sandwichSauce) {
-		this.sandwichSauce = sandwichSauce;
+	public void setSandwichSauces(List<SandwichSauceWithAmountAndPrice> sandwichSauce) {
+		this.sandwichSauces = sandwichSauce;
 	}
 	public List<SandwichSpiceWithAmountAndPrice> getSandwichSpices() {
 		return sandwichSpices;
@@ -91,7 +91,7 @@ public class CustomerSandwich {
 	public String toString() {
 		return "Sandwich [id=" + id + ", sandwichBread=" + sandwichBread + ", sandwichBreadSizeAndPrice=" + sandwichBreadSizeAndPrice
 				+ ", sandwichSausages=" + sandwichSausages + ", sandwichVegetables=" + sandwichVegetables
-				+ ", sandwichSauce=" + sandwichSauce + ", sandwichSpices=" + sandwichSpices + ", customer=" + customer + "]";
+				+ ", sandwichSauces=" + sandwichSauces + ", sandwichSpices=" + sandwichSpices + ", customer=" + customer + "]";
 	}
 	
 }

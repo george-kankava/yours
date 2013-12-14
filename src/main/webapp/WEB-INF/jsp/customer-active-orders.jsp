@@ -43,9 +43,144 @@
 			<c:forEach items="${customerOrders }" var="customerOrder">
 				<div class="col-md-12"> 
 					<div class="alert alert-success">
-						#${customerOrder.id } - ${customerOrder.customer.username } - <fmt:formatDate type="time" value="${customerOrder.date}" /> - ${customerOrder.shipmentAddress } - ${customerOrder.phoneNumber } <a href="#">View Order</a>  
+						#${customerOrder.id } - ${customerOrder.customer.username } - <fmt:formatDate type="time" value="${customerOrder.date}" /> - ${customerOrder.shipmentAddress } - ${customerOrder.phoneNumber } <a data-toggle="modal" data-target="#myModal${customerOrder.id}" href="#">View Order</a>  
 					</div>
 				</div>
+				<!-- Modal -->
+				<div class="modal fade" id="myModal${customerOrder.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">Order Ingredients</h4>
+							</div>
+							<div class="modal-body">
+								<c:forEach items="${customerOrder.customerSandwichs }" var="customerSandwich">
+										<div class="row">
+											<div class="col-lg-12">
+												<p class="lead">Sandwich - ${customerSandwich.id }</p>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-lg-7">
+												${customerSandwich.sandwichBread.nameGeo }
+											</div>
+											<div class="col-lg-5">
+												${customerSandwich.sandwichBreadSizeAndPrice.size }
+											</div>
+										</div>
+										<c:forEach items="${customerSandwich.sandwichSausages }" var="sandwichSausageWithAmountAndPrice">
+											<div class="row">
+												<div class="col-lg-7"> ${sandwichSausageWithAmountAndPrice.sandwichSausage.nameGeo }</div>
+												<div class="col-lg-5"> ${sandwichSausageWithAmountAndPrice.amountAndPrice.portion }</div>
+											</div>
+										</c:forEach>
+										<c:forEach items="${customerSandwich.sandwichVegetables }" var="sandwichVegetableWithAmountAndPrice">
+											<div class="row">
+												<div class="col-lg-7"> ${sandwichVegetableWithAmountAndPrice.sandwichVegetable.nameGeo }</div>
+												<div class="col-lg-5"> ${sandwichVegetableWithAmountAndPrice.sandwichVegetableAmountAndPrice.portion }</div>
+											</div>
+										</c:forEach>
+										<c:forEach items="${customerSandwich.sandwichSauces }" var="sandwichSauceWithAmountAndPrice">
+											<div class="row">
+												<div class="col-lg-7"> ${sandwichSauceWithAmountAndPrice.sandwichSauce.nameGeo }</div>
+												<div class="col-lg-5"> ${sandwichSauceWithAmountAndPrice.sandwichSauceAmountAndPrice.portion }</div>
+											</div>
+										</c:forEach>
+										<c:forEach items="${customerSandwich.sandwichSpices }" var="sandwichSpicesWithAmountAndPrice">
+											<div class="row">
+												<div class="col-lg-7"> ${sandwichSpicesWithAmountAndPrice.sandwichSpice.nameGeo }</div>
+												<div class="col-lg-5"> ${sandwichSpicesWithAmountAndPrice.sandwichSpiceAmountAndPrice.portion }</div>
+											</div>
+										</c:forEach>
+								</c:forEach>
+								<c:forEach items="${customerOrder.customerSalads }" var="customerSalad">
+									<div class="row">
+										<div class="col-lg-12">
+											<p class="lead">Salad - ${customerSalad.id }</p>
+										</div>
+									</div>
+									<c:forEach items="${customerSalad.ingredientWithAmountAndPrices }" var="ingredientWithAmountAndPrice">
+										<div class="row">
+											<div class="col-lg-7">
+												${ingredientWithAmountAndPrice.saladIngredient.nameGeo }
+											</div>
+											<div class="col-lg-5">
+												${ingredientWithAmountAndPrice.amountAndPrice.amount }
+											</div>
+										</div>
+									</c:forEach>
+								</c:forEach>
+								<c:forEach items="${customerOrder.customerDrinks }" var="customerDrink">
+									<div class="row">
+										<div class="col-lg-12">
+											<p class="lead">Drinks - ${customerDrink.id } <span class="glyphicon glyphicon-glass"></span></p>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-7">
+											${customerDrink.drinkWithSizeAndPrice.drink.nameGeo }
+										</div>
+										<div class="col-lg-5">
+											${customerDrink.drinkWithSizeAndPrice.sizeAndPrice.size }
+										</div>
+									</div>
+									<code>add-ons</code>
+									<c:forEach items="${customerDrink.addonWithAmountAndPrices }" var="addonWithAmountAndPrice">
+										<div class="row">
+											<div class="col-lg-7">
+												${addonWithAmountAndPrice.drinkAddOn.nameGeo }
+											</div>
+											<div class="col-lg-5">
+												${addonWithAmountAndPrice.addOnAmountAndPrice.amount }
+											</div>
+										</div>
+									</c:forEach>
+								</c:forEach>
+								<c:forEach items="${customerOrder.customerHotdogs }" var="customerHotdog">
+									<div class="row">
+										<div class="col-lg-12">
+											<p class="lead">Hotdog - ${customerHotdog.id }</p>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-7">
+											${customerHotdog.bread.nameGeo }
+										</div>
+										<div class="col-lg-5">
+											${customerHotdog.sizeAndPrice.size }
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-7">
+											${customerHotdog.sausage.nameGeo }
+										</div>
+										<div class="col-lg-5">
+											${customerHotdog.amountAndPrice.portion }
+										</div>
+									</div>
+									<c:forEach items="${customerHotdog.amountAndPrices }" var="hotDogSauceWithAmountAndPrice">
+										<div class="row">
+											<div class="col-lg-7">
+												${hotDogSauceWithAmountAndPrice.sauce.nameGeo }
+											</div>
+											<div class="col-lg-5">
+												${hotDogSauceWithAmountAndPrice.amountAndPrice.amount }
+											</div>
+										</div>
+									</c:forEach>
+								</c:forEach>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary">Save changes</button>
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+				<!-- /.modal -->
 			</c:forEach>
 		</div>
 	</div>

@@ -110,15 +110,12 @@ public class YoursController {
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@RequestMapping(value = "/process-purchase-customer-order", consumes = "application/json", method = RequestMethod.POST)
-	public ModelAndView processPurchaseCustomerOrder(Principal principal, ModelAndView mav, @RequestBody CustoemrOrderJson customerFoodsAndDrinks) {
+	public void processPurchaseCustomerOrder(Principal principal, @RequestBody CustoemrOrderJson customerFoodsAndDrinks) {
 		try {
-		databaseService.createCustomerOrder(principal.getName(), customerFoodsAndDrinks);
-		mav.setViewName("customer-order-info");
+			databaseService.createCustomerOrder(principal.getName(), customerFoodsAndDrinks);
 		} catch(Exception ex) {
 			logger.info(ex.getMessage());
 		}
-		return mav;
-		
 	}
     
 	@RequestMapping("operator/customer-meals")
