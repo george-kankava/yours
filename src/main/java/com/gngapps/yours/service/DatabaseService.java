@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.servlet.ModelAndView;
+
 import com.gngapps.yours.databinding.json.request.CustoemrOrderJson;
 import com.gngapps.yours.databinding.json.request.DrinksJson;
 import com.gngapps.yours.databinding.json.request.HotdogJson;
@@ -101,9 +103,13 @@ public interface DatabaseService {
 	void removeCustomerSalad(Integer customerSaladId);
 	void removeCustomerDrink(Integer customerDrinkId);
 	void removeCustomerHotdog(Integer customerHotdogId);
-	List<CustomerOrder> getCustomerActiveOrders();
+	List<CustomerOrder> getCustomerActiveOrders(int start, int end);
 	void createCustomerOrder(String username, CustoemrOrderJson customerFoodsAndDrinks);
 	void removeCustomerAddress(Integer customerAddressId);
 	void removeCustomerPhone(Integer customerPhoneId);
-	List<CustomerOrder> getActiveOrders();
+	void changeCustomerOrderActiveStatus(Integer customerOrderId, boolean b);
+	Long getActiveOrdersPagesCount();
+	List<CustomerOrder> getCustomerOrderListByPageNumber(Integer pageNumber);
+	Long getActiveCustomerOrdersCount();
+	void countAndAssemblePaginationBar(ModelAndView mav, Integer paginationIndex);
 }

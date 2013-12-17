@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gngapps.yours.AppConstants;
 import com.gngapps.yours.databinding.json.request.CustoemrOrderJson;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.CustomerOrder;
@@ -46,19 +47,50 @@ public class YoursController {
 
 	private static final Logger logger = LoggerFactory.getLogger(YoursController.class);
 	
-	@RequestMapping("operator/operator-active-orders")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ModelAndView operatorActiveOrders(ModelAndView mav) {
+	
+	@RequestMapping("/operator/customer-order-pagination.ajax")
+	public ModelAndView customerOrdersList(ModelAndView mav, @RequestParam Integer pageNumber) {
 		try {
-			mav.setViewName("operator-active-orders");
-			List<CustomerOrder> activeOrders = databaseService.getActiveOrders();
-			mav.addObject(activeOrders);
-			return mav;
+			mav.setViewName("customer-active-orders-ajax-response");
+			List<CustomerOrder> customerOrders = databaseService.getCustomerOrderListByPageNumber(pageNumber);
+			Integer paginationIndex = pageNumber / AppConstants.CUSTOMER_ORDER_PAGES_PER_PAGE;
+			databaseService.countAndAssemblePaginationBar(mav, paginationIndex);
+			mav.addObject("pageNumber", pageNumber);
+			mav.addObject("customerOrders", customerOrders);
+			mav.addObject("paginationPagesAmount", AppConstants.CUSTOMER_ORDER_PAGES_PER_PAGE);
+		}catch(Exception ex) {
+			logger.info(ex.getMessage());
+			mav.setViewName("customer-error-page");
+		}
+		return mav;
+	}
+
+	@RequestMapping("operator/customer-active-orders")
+	public ModelAndView customerActiveOrders(Principal principal, ModelAndView mav) {
+		try {
+			mav.setViewName("customer-active-orders");
+			List<CustomerOrder> activeOrders = databaseService.getCustomerActiveOrders(AppConstants.ACTIVE_ORDERS_PAGING_START_POSITION, AppConstants.ACTIVE_ORDERS_AMOUNT_PER_PAGE);
+			Long pagesCount = databaseService.getActiveOrdersPagesCount();
+			mav.addObject("startIndex", AppConstants.ACTIVE_ORDERS_INITIAL_START_INDEX);
+			if(pagesCount > AppConstants.CUSTOMER_ORDER_PAGES_PER_PAGE) {
+				mav.addObject("endIndex", AppConstants.CUSTOMER_ORDER_PAGES_PER_PAGE);
+			} else {
+				mav.addObject("endIndex", pagesCount);
+				mav.addObject("lastPage", Boolean.TRUE);
+			}
+			mav.addObject("customerOrders", activeOrders);
+			mav.addObject("pageNumber", AppConstants.ACTIVE_ORDERS_INITIAL_PAGE_NUMBER);
 		} catch(Exception ex) {
 			logger.info(ex.getMessage());
 			mav.setViewName("customer-error-page");
-			return mav;
 		}
+		return mav;
+	}
+	
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@RequestMapping("operator/customer-order-delivered")
+	public void customerOrderDelivered(@RequestParam Integer customerOrderId) {
+		databaseService.changeCustomerOrderActiveStatus(customerOrderId, false);
 	}
 	
 	@RequestMapping("remove-customer-phone")
@@ -94,18 +126,6 @@ public class YoursController {
 			mav.setViewName("customer-error-page");
 			return mav;
 		}
-	}
-	
-	@RequestMapping("operator/customer-active-orders")
-	public ModelAndView customerActiveOrders(Principal principal, ModelAndView mav) {
-		try {
-			mav.setViewName("customer-active-orders");
-			List<CustomerOrder> customerOrders = databaseService.getCustomerActiveOrders();
-			mav.addObject("customerOrders", customerOrders);
-		} catch(Exception ex) {
-			logger.info(ex.getMessage());
-		}
-		return mav;
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)

@@ -105,7 +105,7 @@ public interface DataGetterDao {
 
 	Customer findCustomerById(Integer customerId);
 
-	List<CustomerOrder> getCustomerActiveOrders();
+	List<CustomerOrder> getCustomerActiveOrders(int start, int end);
 
 	CustomerSandwich findSandwichById(Integer sandwichId);
 
@@ -118,5 +118,9 @@ public interface DataGetterDao {
 	Phone findPhoneByPhoneNumber(String customerPhoneNumebr);
 
 	Address findAddressByShipmentAddress(String customerShipmentAddress);
+
+	CustomerOrder findcustomerOrderById(Integer customerOrderId);
+	
+	Long countActiveCustomerOrders();
 
 }

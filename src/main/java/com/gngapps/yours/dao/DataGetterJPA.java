@@ -249,9 +249,9 @@ public class DataGetterJPA implements DataGetterDao {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<CustomerOrder> getCustomerActiveOrders() {
-		String query = "FROM CustomerOrder co WHERE co.activeOrder = :activeOrder";
-		return em.createQuery(query).setParameter("activeOrder", true).getResultList();
+	public List<CustomerOrder> getCustomerActiveOrders(int start, int end) {
+		String query = "FROM CustomerOrder co WHERE co.activeOrder = :activeOrder ORDER BY co.date ASC";
+		return em.createQuery(query).setParameter("activeOrder", true).setFirstResult(start).setMaxResults(end).getResultList();
 	}
 
 	@Override
@@ -295,6 +295,16 @@ public class DataGetterJPA implements DataGetterDao {
 		} catch(NoResultException ex) {
 			return null;
 		}
+	}
+
+	@Override
+	public CustomerOrder findcustomerOrderById(Integer customerOrderId) {
+		return em.find(CustomerOrder.class, customerOrderId);
+	}
+	
+	public Long countActiveCustomerOrders() {
+		String string = "SELECT COUNT(o) FROM CustomerOrder o WHERE o.activeOrder = :activeOrder";
+		return (Long)em.createQuery(string).setParameter("activeOrder", true).getSingleResult();
 	}
 	
 }

@@ -14,7 +14,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.gngapps.yours.AppConstants;
 import com.gngapps.yours.controller.YoursController;
 import com.gngapps.yours.dao.DataGetterDao;
 import com.gngapps.yours.dao.DataRemoverDao;
@@ -810,13 +812,14 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 	@Override
 	@Transactional
-	public List<CustomerOrder> getCustomerActiveOrders() {
+	public List<CustomerOrder> getCustomerActiveOrders(int start, int end) {
 		try {
-			return dataGetterDao.getCustomerActiveOrders();
+			List<CustomerOrder> customerOrders = dataGetterDao.getCustomerActiveOrders(start, end);
+			return customerOrders;
 		} catch(Exception ex) {
 			logger.info(ex.getMessage());
+			return Collections.emptyList();
 		}
-		return Collections.emptyList();
 	}
 
 	@Override
@@ -900,8 +903,54 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 	@Override
 	@Transactional
-	public List<CustomerOrder> getActiveOrders() {
-		return dataGetterDao.getCustomerActiveOrders();
+	public void changeCustomerOrderActiveStatus(Integer customerOrderId, boolean active) {
+		CustomerOrder order = dataGetterDao.findcustomerOrderById(customerOrderId);
+		order.setActiveOrder(active);
+	}
+
+	@Override
+	@Transactional
+	public Long getActiveOrdersPagesCount() {
+		Long activeOrdersCount = dataGetterDao.countActiveCustomerOrders();
+		Long activeOrdersPagesCount = activeOrdersCount % AppConstants.ACTIVE_ORDERS_AMOUNT_PER_PAGE; 
+		if(activeOrdersPagesCount == 0) {
+			return activeOrdersCount / AppConstants.ACTIVE_ORDERS_AMOUNT_PER_PAGE;
+		} 
+		return activeOrdersCount / AppConstants.ACTIVE_ORDERS_AMOUNT_PER_PAGE + 1;
+	}
+
+	@Override
+	public List<CustomerOrder> getCustomerOrderListByPageNumber(Integer pageNumber) {
+		Integer start = AppConstants.ACTIVE_ORDERS_AMOUNT_PER_PAGE * pageNumber - AppConstants.ACTIVE_ORDERS_AMOUNT_PER_PAGE;
+		List<CustomerOrder> customerOrders = getCustomerActiveOrders(start,  AppConstants.ACTIVE_ORDERS_AMOUNT_PER_PAGE);
+		return customerOrders;
+	}
+
+	@Override
+	public Long getActiveCustomerOrdersCount() {
+		return dataGetterDao.countActiveCustomerOrders();
+	}
+
+	@Override
+	public void countAndAssemblePaginationBar(ModelAndView mav, Integer paginationIndex) {
+		Long pagesCount = getActiveOrdersPagesCount();
+		if(paginationIndex == 0) {
+			mav.addObject("startIndex", AppConstants.ACTIVE_ORDERS_INITIAL_START_INDEX);
+			if(pagesCount > AppConstants.CUSTOMER_ORDER_PAGES_PER_PAGE) {
+				mav.addObject("endIndex", AppConstants.CUSTOMER_ORDER_PAGES_PER_PAGE);
+			} else {
+				mav.addObject("endIndex", pagesCount);
+				mav.addObject("lastPage", Boolean.TRUE);
+			}
+		} else {
+			mav.addObject("startIndex", paginationIndex * AppConstants.CUSTOMER_ORDER_PAGES_PER_PAGE);
+			if(pagesCount > ((paginationIndex + AppConstants.ACTIVE_ORDERS_PAGINATION_INDEX_ADDITIONAL_ONE) * AppConstants.CUSTOMER_ORDER_PAGES_PER_PAGE)) {
+				mav.addObject("endIndex", (paginationIndex + AppConstants.ACTIVE_ORDERS_INITIAL_START_INDEX) * AppConstants.CUSTOMER_ORDER_PAGES_PER_PAGE);
+			} else {
+				mav.addObject("endIndex", pagesCount);
+				mav.addObject("lastPage", Boolean.TRUE);
+			}
+		}
 	}
 
 }

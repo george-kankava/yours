@@ -57,6 +57,7 @@
 		<url-pattern>/admin/add-hotdog-ingredient-sausage-form</url-pattern>
 		<url-pattern>/admin/add-hotdog-ingredient-sauce-form</url-pattern>
 		<url-pattern>/operator/find-customer-meals.ajax</url-pattern>
+		<url-pattern>/operator/customer-order-pagination.ajax</url-pattern>
 		<url-pattern>/operator/operator-active-orders</url-pattern>
 		<url-pattern>/operator/customer-active-orders</url-pattern>
 		<url-pattern>/food-components-list</url-pattern>
