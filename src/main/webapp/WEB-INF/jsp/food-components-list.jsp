@@ -71,7 +71,17 @@
 							<tr>
 								<td>
 									<input type="radio" name="sandwichBread" id="${sandwichBread.id }"/>
-									<label>${sandwichBread.nameGeo }</label>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<label>${sandwichBread.nameGeo }</label>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<label>${sandwichBread.nameEng }</label>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<label>${sandwichBread.nameRus }</label>
+										</c:when>
+									</c:choose>
 								</td>
 								<td>
 									<select disabled class="form-control" id="sandwichBreadSizeAndPrice${sandwichBread.id }">

@@ -8,6 +8,9 @@
 		<li><a href="j_spring_security_logout">Logout</a></li>
 	</ul>
 	<h3 class="text-muted">Yours.ge</h3>
+	<span><a href="?language=ka"><img src="resources/ico/georgia_flag_32.png"></a></span>
+	<span><a href="?language=en"><img src="resources/ico/usa_flag_32.png"></a></span>
+	<span><a href="?language=ru"><img src="resources/ico/russia_flag_32.png"></a></span>
 	<c:choose>
 		<c:when test="${param.pageName eq 'customer-info'}">
 			<script>

@@ -2,6 +2,7 @@ package com.gngapps.yours.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gngapps.yours.AppConstants;
@@ -45,6 +47,9 @@ public class YoursController {
 	@Autowired
 	private DatabaseService databaseService;
 
+	@Autowired
+	private LocaleResolver localeResolver;
+	
 	private static final Logger logger = LoggerFactory.getLogger(YoursController.class);
 	
 	
@@ -174,7 +179,7 @@ public class YoursController {
 	}
 	
     @RequestMapping(value = "/food-components-list")
-	public ModelAndView foodComponentsList(ModelAndView mav) {
+	public ModelAndView foodComponentsList(HttpServletRequest request, ModelAndView mav) {
     	List<SandwichBread> sandwichBreads = databaseService.getSandwichBreads();
     	mav.addObject("sandwichBreads", sandwichBreads);
     	List<SandwichSausage> sandwichSausages = databaseService.getSandwichSausages();
@@ -196,6 +201,8 @@ public class YoursController {
     	List<HotDogSausage> hotdogSausages = databaseService.getHotdogSausages();
     	mav.addObject("hotdogSausages", hotdogSausages);
     	List<HotDogSauce> hotdogSauces = databaseService.getHotdogSauces();
+    	Locale locale = localeResolver.resolveLocale(request);
+    	mav.addObject("locale", locale.getLanguage());
     	mav.addObject("hotdogSauces", hotdogSauces);
     	mav.setViewName("food-components-list");
     	return mav;
