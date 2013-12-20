@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -144,7 +144,7 @@
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> Sandwiches </a>
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> <spring:message code="yours.food.service.meals.list.sandwiches.title" text="Sandwiches" /></a>
 							</h4>
 						</div>
 						<div id="collapseOne" class="panel-collapse collapse">
