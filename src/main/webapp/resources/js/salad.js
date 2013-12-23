@@ -25,6 +25,6 @@ $( "#saladSaveButton" ).click(function() {
 						}
 					)
 			}).done(function(response) {
-				alertify.success("Ajax salad succeeded");		
+				alertify.success(response.saladSavedMessage);		
 			});
 		});

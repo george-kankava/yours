@@ -45,7 +45,7 @@ $( "#sandwichSaveButton" ).click(function() {
 			$.ajax({
 				url: url,
 				type: "POST",
-				contentType: "application/json",
+				contentType: "application/json;charset=UTF-8",
 				data:
 					JSON.stringify(
 						{	sandwichBread: {sandwichBreadId: sandwichBreadId, sandwichBreadSizeAndPriceId: sandwichBreadSizeAndPriceId},
@@ -56,6 +56,6 @@ $( "#sandwichSaveButton" ).click(function() {
 						}
 					)
 			}).done(function(response) {
-				alertify.success("Ajax succeeded");		
+				alertify.success(response.sandwichSavedMessage);		
 			});
 		});

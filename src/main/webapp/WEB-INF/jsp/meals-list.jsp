@@ -54,7 +54,7 @@
 						<div class="logo-image-small"></div>
 						<div class="radio">
 							<p class="lead"> 
-								Please Enter or Choose Phone Number
+								<spring:message code="yours.food.service.meals.list.order.modal.phone.number.title" text="Please Enter or Choose Phone Number" />
 							</p>
 							<div class="row">
 								<div class="col-md-8">
@@ -81,7 +81,7 @@
 						</div>
 						<div class="radio">
 							<p class="lead"> 
-								Please Enter or Choose Shipment Address
+								<spring:message code="yours.food.service.meals.list.order.modal.shipment.address.title" text="Please Enter or Choose Shipment Address" />
 							</p>
 							<div class="row">
 								<div class="col-md-8">
@@ -108,9 +108,9 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="yours.food.service.meals.list.order.modal.cancel" text="Cancel" /></button>
 						<button id="mealsOrderButton" type="button" class="btn btn-primary">
-							Buy <span class="glyphicon glyphicon-shopping-cart"></span>
+							<spring:message text="Buy" code="yours.food.service.meals.list.order.modal.buy" /> <span class="glyphicon glyphicon-shopping-cart"></span>
 						</button>
 					</div>
 				</div>
@@ -128,10 +128,10 @@
 			<div class="btn-group">
 				<!-- Button trigger modal -->
 				<button class="btn btn-primary" data-toggle="modal" data-target="#foodPurchaseModal">
-	  				Buy <span class="glyphicon glyphicon-shopping-cart"></span>
+	  				<spring:message code="yours.food.service.meals.list.buy.button.title" text="" /> <span class="glyphicon glyphicon-shopping-cart"></span>
 				</button>
 				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-					<span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+					<span class="caret"></span> <span class="sr-only"></span>
 				</button>
 					<ul id="customerOrdersList" class="dropdown-menu" role="menu">
 				</ul>
@@ -151,7 +151,7 @@
 							<div class="panel-body">
 								<c:forEach items="${meals['sandwiches']}" var="customerSandwich">
 									<div class="alert alert-success" id="sandwichTitle${customerSandwich.id}">
-										Sandwich - ${customerSandwich.id}
+										<spring:message text="Sandwich" code="yours.food.service.meals.list.sandwich" /> - ${customerSandwich.id}
 										<button style="margin-left: 5px" id="sandwichOrderButtion${customerSandwich.id }" type="button" class="btn btn-info" data-toggle="button">
 											<spring:message code="yours.food.service.customer.meals.order" text="Add to Cart" />
 										</button>
@@ -168,7 +168,17 @@
 											<tr>
 										</thead>
 										<tr>
-											<td>${customerSandwich.sandwichBread.nameGeo }</td>
+											<c:choose>
+												<c:when test="${locale eq 'ka' }">
+													<td>${customerSandwich.sandwichBread.nameGeo }</td>
+												</c:when>
+												<c:when test="${locale eq 'en' }">
+													<td>${customerSandwich.sandwichBread.nameEng }</td>
+												</c:when>
+												<c:when test="${locale eq 'ru' }">
+													<td>${customerSandwich.sandwichBread.nameRus }</td>
+												</c:when>
+											</c:choose>
 											<td>${customerSandwich.sandwichBreadSizeAndPrice.size }</td>
 											<td>${customerSandwich.sandwichBreadSizeAndPrice.price }</td>
 										</tr>
@@ -183,7 +193,17 @@
 										</thead>
 										<c:forEach items="${customerSandwich.sandwichSausages }" var="sandwichSausage">
 											<tr>
-												<td>${sandwichSausage.sandwichSausage.nameGeo }</td>
+												<c:choose>
+													<c:when test="${locale eq 'ka' }">
+														<td>${sandwichSausage.sandwichSausage.nameGeo }</td>
+													</c:when>
+													<c:when test="${locale eq 'en' }">
+														<td>${sandwichSausage.sandwichSausage.nameEng }</td>
+													</c:when>
+													<c:when test="${locale eq 'ru' }">
+														<td>${sandwichSausage.sandwichSausage.nameRus }</td>
+													</c:when>
+												</c:choose>
 												<td>${sandwichSausage.amountAndPrice.portion }</td>
 												<td>${sandwichSausage.amountAndPrice.price }</td>
 											</tr>
@@ -199,7 +219,17 @@
 										</thead>
 										<c:forEach items="${customerSandwich.sandwichVegetables }" var="vegetableWithAmountAndPrice">
 											<tr>
-												<td>${vegetableWithAmountAndPrice.sandwichVegetable.nameGeo }</td>
+												<c:choose>
+													<c:when test="${locale eq 'ka' }">
+														<td>${vegetableWithAmountAndPrice.sandwichVegetable.nameGeo }</td>
+													</c:when>
+													<c:when test="${locale eq 'en' }">
+														<td>${vegetableWithAmountAndPrice.sandwichVegetable.nameEng }</td>
+													</c:when>
+													<c:when test="${locale eq 'ru' }">
+														<td>${vegetableWithAmountAndPrice.sandwichVegetable.nameRus }</td>
+													</c:when>
+												</c:choose>
 												<td>${vegetableWithAmountAndPrice.sandwichVegetableAmountAndPrice.portion }</td>
 												<td>${vegetableWithAmountAndPrice.sandwichVegetableAmountAndPrice.price }</td>
 											</tr>
@@ -213,7 +243,17 @@
 										</tr>
 										<c:forEach items="${customerSandwich.sandwichSauces }" var="sauceWithAmountAndPrice">
 											<tr>
-												<td>${sauceWithAmountAndPrice.sandwichSauce.nameGeo }</td>
+												<c:choose>
+													<c:when test="${locale eq 'ka' }">
+														<td>${sauceWithAmountAndPrice.sandwichSauce.nameGeo }</td>
+													</c:when>
+													<c:when test="${locale eq 'en' }">
+														<td>${sauceWithAmountAndPrice.sandwichSauce.nameEng }</td>
+													</c:when>
+													<c:when test="${locale eq 'ru' }">
+														<td>${sauceWithAmountAndPrice.sandwichSauce.nameRus }</td>
+													</c:when>
+												</c:choose>
 												<td>${sauceWithAmountAndPrice.sandwichSauceAmountAndPrice.portion }</td>
 												<td>${sauceWithAmountAndPrice.sandwichSauceAmountAndPrice.price }</td>
 											</tr>
@@ -227,7 +267,17 @@
 										</tr>
 										<c:forEach items="${customerSandwich.sandwichSpices }" var="spiceWithAmountAndPrice">
 											<tr>
-												<td>${spiceWithAmountAndPrice.sandwichSpice.nameGeo }</td>
+												<c:choose>
+													<c:when test="${locale eq 'ka' }">
+														<td>${spiceWithAmountAndPrice.sandwichSpice.nameGeo }</td>
+													</c:when>
+													<c:when test="${locale eq 'en' }">
+														<td>${spiceWithAmountAndPrice.sandwichSpice.nameEng }</td>
+													</c:when>
+													<c:when test="${locale eq 'ru' }">
+														<td>${spiceWithAmountAndPrice.sandwichSpice.nameRus }</td>
+													</c:when>
+												</c:choose>
 												<td>${spiceWithAmountAndPrice.sandwichSpiceAmountAndPrice.portion }</td>
 												<td>${spiceWithAmountAndPrice.sandwichSpiceAmountAndPrice.price }</td>
 											</tr>
@@ -241,17 +291,18 @@
 												var elementIndex = foodAndDrinkInCartIds.sandwichIds.indexOf('${customerSandwich.id}');
 												foodAndDrinkInCartIds.sandwichIds.splice(elementIndex, 1);
 											} else {
+												var sandwichName = '<spring:message code="yours.food.service.meals.list.sandwich" text="Sandwich" />';
 												$('#customerOrdersList').append(
 													$('<li id="orderListSandwichItemDivider${customerSandwich.id}">').addClass('divider')		
 												).append(
-													$('<li id="orderListSandwichItem${customerSandwich.id}">').append($('<span>').attr('style', 'margin-left:5px;').text('Sandwich - ${customerSandwich.id}'))		
+													$('<li id="orderListSandwichItem${customerSandwich.id}">').append($('<span>').attr('style', 'margin-left:5px;').text(sandwichName + ' - ${customerSandwich.id}'))		
 												);
 												foodAndDrinkInCartIds.sandwichIds.push('${customerSandwich.id}');
 											}
 										});
 										$("#sandwichRemoveButtion${customerSandwich.id}").click(
 											function() {
-												alertify.confirm("Do you really want to remove this sandwich?", function(e) {
+												alertify.confirm('<spring:message code="yours.food.service.meals.list.alertify.remove.sandwich.message" text="Do you really want to remove this sandwich?" />', function(e) {
 													if (e) {
 														var url = 'remove-customer-sandwich';
 														$.ajax({
@@ -266,7 +317,7 @@
 															$('#sandwichVegetable${customerSandwich.id }').remove();
 															$('#sandwichSauce${customerSandwich.id }').remove();
 															$('#sandwichSpice${customerSandwich.id }').remove();
-															alertify.success("Sandwich has been removed");
+															alertify.success('<spring:message code="yours.food.service.meals.list.alertify.sandwich.removed.message" text="Sandwich has been removed." />');
 														});
 													}
 												});
@@ -279,14 +330,14 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> Salads </a>
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> <spring:message code="yours.food.service.meals.list.salads.title" text="Salads" /> </a>
 							</h4>
 						</div>
 						<div id="collapseTwo" class="panel-collapse collapse">
 							<div class="panel-body">
 								<c:forEach items="${meals['salads']}" var="customerSalad">
 									<div class="alert alert-success" id="saladTitle${customerSalad.id}">
-										<spring:message code="yours.food.service.ingredients.salad" text="Salad" /> - ${customerSalad.id}
+										<spring:message code="yours.food.service.meals.list.salad" text="Salad" /> - ${customerSalad.id}
 										<button id="saladOrderButtion${customerSalad.id }" type="button" class="btn btn-info" data-toggle="button">
 											<spring:message code="yours.food.service.customer.meals.order" text="Add to Cart" />
 										</button>
@@ -304,7 +355,17 @@
 										</thead>
 										<c:forEach items="${customerSalad.ingredientWithAmountAndPrices }" var="ingredientsWithAmountAndPrices">
 											<tr>
-												<td>${ingredientsWithAmountAndPrices.saladIngredient.nameGeo }</td>
+												<c:choose>
+													<c:when test="${locale eq 'ka' }">
+														<td>${ingredientsWithAmountAndPrices.saladIngredient.nameGeo }</td>
+													</c:when>
+													<c:when test="${locale eq 'en' }">
+														<td>${ingredientsWithAmountAndPrices.saladIngredient.nameEng }</td>
+													</c:when>
+													<c:when test="${locale eq 'ru' }">
+														<td>${ingredientsWithAmountAndPrices.saladIngredient.nameRus }</td>
+													</c:when>
+												</c:choose>
 												<td>${ingredientsWithAmountAndPrices.amountAndPrice.amount }</td>
 												<td>${ingredientsWithAmountAndPrices.amountAndPrice.price }</td>
 											</tr>
@@ -318,16 +379,17 @@
 												var elementIndex = foodAndDrinkInCartIds.saladIds.indexOf('${customerSalad.id}');
 												foodAndDrinkInCartIds.saladIds.splice(elementIndex, 1);
 											} else {
+												var saladName = '<spring:message code="yours.food.service.meals.list.salad" text="Salad" />';
 												$('#customerOrdersList').append(
 													$('<li id="orderListSaladItemDivider${customerSalad.id}">').addClass('divider')		
 												).append(
-													$('<li id="orderListSaladItem${customerSalad.id}">').append($('<span>').attr('style', 'margin-left:5px;').text('Salad - ${customerSalad.id}'))		
+													$('<li id="orderListSaladItem${customerSalad.id}">').append($('<span>').attr('style', 'margin-left:5px;').text(saladName + ' - ${customerSalad.id}'))		
 												);
 												foodAndDrinkInCartIds.saladIds.push('${customerSalad.id }');
 											}
 										});
 										$("#saladRemoveButtion${customerSalad.id}").click(function() {
-											alertify.confirm("Do you really want to remove this salad?",
+											alertify.confirm('<spring:message code="yours.food.service.meals.list.alertify.remove.salad.message" text="Do you really want to remove this salad?" />',
 											function(e) {
 												if (e) {
 													var url = 'remove-customer-salad';
@@ -339,7 +401,7 @@
 														}).done(function() {
 															$('#saladTitle${customerSalad.id }').remove();
 															$('#saladIngredients${customerSalad.id }').remove();
-															alertify.success("Salad has been removed");
+															alertify.success('<spring:message code="yours.food.service.meals.list.alertify.salad.removed.message" text="Salad has been removed." />');
 														});
 													}
 												});
@@ -352,14 +414,14 @@
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"> Drinks </a>
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"> <spring:message code="yours.food.service.meals.list.drinks.title" text="Drinks" /> </a>
 							</h4>
 						</div>
 						<div id="collapseThree" class="panel-collapse collapse">
 							<div class="panel-body">
 								<c:forEach items="${meals['drinks']}" var="customerDrink">
 									<div class="alert alert-success" id="drinkTitle${customerDrink.id}">
-										<spring:message code="yours.food.service.ingredients.drink" text="Drink" /> - ${customerDrink.id}
+										<spring:message code="yours.food.service.meals.list.drink" text="Drink" /> - ${customerDrink.id}
 										<button id="drinkOrderButtion${customerDrink.id }" type="button" class="btn btn-info" data-toggle="button">
 											<spring:message code="yours.food.service.customer.meals.order" text="Add to Cart" />
 										</button>
@@ -376,7 +438,17 @@
 											<tr>
 										</thead>
 										<tr>
-											<td>${customerDrink.drinkWithSizeAndPrice.drink.nameGeo }</td>
+											<c:choose>
+												<c:when test="${locale eq 'ka' }">
+													<td>${customerDrink.drinkWithSizeAndPrice.drink.nameGeo }</td>
+												</c:when>
+												<c:when test="${locale eq 'en' }">
+													<td>${customerDrink.drinkWithSizeAndPrice.drink.nameEng }</td>
+												</c:when>
+												<c:when test="${locale eq 'ru' }">
+													<td>${customerDrink.drinkWithSizeAndPrice.drink.nameRus }</td>
+												</c:when>
+											</c:choose>
 											<td>${customerDrink.drinkWithSizeAndPrice.sizeAndPrice.size }</td>
 											<td>${customerDrink.drinkWithSizeAndPrice.sizeAndPrice.price }</td>
 										</tr>
@@ -390,8 +462,18 @@
 											</tr>
 										</thead>
 										<c:forEach items="${customerDrink.addonWithAmountAndPrices }" var="addonWithAmountAndPrice">
-											<tr>
-												<td>${addonWithAmountAndPrice.drinkAddOn.nameGeo }</td>
+											<tr>	
+												<c:choose>
+													<c:when test="${locale eq 'ka' }">
+														<td>${addonWithAmountAndPrice.drinkAddOn.nameGeo }</td>
+													</c:when>
+													<c:when test="${locale eq 'en' }">
+														<td>${addonWithAmountAndPrice.drinkAddOn.nameEng }</td>
+													</c:when>
+													<c:when test="${locale eq 'ru' }">
+														<td>${addonWithAmountAndPrice.drinkAddOn.nameRus }</td>
+													</c:when>
+												</c:choose>
 												<td>${addonWithAmountAndPrice.addOnAmountAndPrice.amount }</td>
 												<td>${addonWithAmountAndPrice.addOnAmountAndPrice.price }</td>
 											</tr>
@@ -405,17 +487,18 @@
 												var elementIndex = foodAndDrinkInCartIds.drinkIds.indexOf('${customerDrink.id}');
 												foodAndDrinkInCartIds.drinkIds.splice(elementIndex, 1);
 											} else {
+												var drinkName = '<spring:message code="yours.food.service.meals.list.drink" text="Drink" />';
 												$('#customerOrdersList').append(
 													$('<li id="orderListDrinkItemDivider${customerDrink.id}">').addClass('divider')		
 												).append(
-													$('<li id="orderListDrinkItem${customerDrink.id}">').append($('<span>').attr('style', 'margin-left:5px;').text('Drink - ${customerDrink.id}'))		
+													$('<li id="orderListDrinkItem${customerDrink.id}">').append($('<span>').attr('style', 'margin-left:5px;').text(drinkName + ' - ${customerDrink.id}'))		
 												);
 												foodAndDrinkInCartIds.drinkIds.push('${customerDrink.id }');
 											}
 											
 										});
 											$("#drinkRemoveButtion${customerDrink.id}").click(function() {
-												alertify.confirm("Do you really want to remove this drink?", function(e) {
+												alertify.confirm('<spring:message code="yours.food.service.meals.list.alertify.remove.drink.message" text="Do you really want to remove this drink?" />', function(e) {
 													if (e) {
 														var url = 'remove-customer-drink';
 														$.ajax({
@@ -428,7 +511,7 @@
 																$('#drinkTitle${customerDrink.id }').remove();
 																$('#drink${customerDrink.id }').remove();
 																$('#drinkAddon${customerDrink.id }').remove();
-																alertify.success("Drink has been removed");
+																alertify.success('<spring:message code="yours.food.service.meals.list.alertify.drink.removed.message" text="Drink has been removed." />');
 															});
 														}
 													});
@@ -441,14 +524,14 @@
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"> Hotdogs </a>
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"> <spring:message code="yours.food.service.meals.list.hotdogs.title" text="Hotdogs" /> </a>
 							</h4>
 						</div>
 						<div id="collapseFour" class="panel-collapse collapse">
 							<div class="panel-body">
 								<c:forEach items="${meals['hotdogs']}" var="customerHotdog">
 									<div class="alert alert-success" id="hotdogTitle${customerHotdog.id}">
-										<spring:message code="yours.food.service.ingredients.hotdog" text="Hotdog" /> - ${customerHotdog.id}
+										<spring:message code="yours.food.service.meals.list.hotdog" text="Hotdog" /> - ${customerHotdog.id}
 										<button id="hotdogOrderButtion${customerHotdog.id }" type="button" class="btn btn-info" data-toggle="button">
 											<spring:message code="yours.food.service.customer.meals.order" text="Add to Cart" />
 										</button>
@@ -465,7 +548,17 @@
 											<tr>
 										</thead>
 										<tr>
-											<td>${customerHotdog.bread.nameGeo }</td>
+											<c:choose>
+												<c:when test="${locale eq 'ka' }">
+													<td>${customerHotdog.bread.nameGeo }</td>
+												</c:when>
+												<c:when test="${locale eq 'en' }">
+													<td>${customerHotdog.bread.nameEng }</td>
+												</c:when>
+												<c:when test="${locale eq 'ru' }">
+													<td>${customerHotdog.bread.nameRus }</td>
+												</c:when>
+											</c:choose>
 											<td>${customerHotdog.sizeAndPrice.size }</td>
 											<td>${customerHotdog.sizeAndPrice.price }</td>
 										</tr>
@@ -479,7 +572,17 @@
 											</tr>
 										</thead>
 										<tr>
-											<td>${customerHotdog.sausage.nameGeo }</td>
+											<c:choose>
+												<c:when test="${locale eq 'ka' }">
+													<td>${customerHotdog.sausage.nameGeo }</td>
+												</c:when>
+												<c:when test="${locale eq 'en' }">
+													<td>${customerHotdog.sausage.nameEng }</td>
+												</c:when>
+												<c:when test="${locale eq 'ru' }">
+													<td>${customerHotdog.sausage.nameRus }</td>
+												</c:when>
+											</c:choose>
 											<td>${addonWithAmountAndPrice.amountAndPrice.portion }</td>
 											<td>${addonWithAmountAndPrice.amountAndPrice.price }</td>
 										</tr>
@@ -494,7 +597,17 @@
 										</thead>
 										<c:forEach items="${customerHotdog.amountAndPrices }" var="sauceWithAmountAndPrice">
 											<tr>
-												<td>${sauceWithAmountAndPrice.sauce.nameGeo }</td>
+												<c:choose>
+													<c:when test="${locale eq 'ka' }">
+														<td>${sauceWithAmountAndPrice.sauce.nameGeo }</td>
+													</c:when>
+													<c:when test="${locale eq 'en' }">
+														<td>${sauceWithAmountAndPrice.sauce.nameEng }</td>
+													</c:when>
+													<c:when test="${locale eq 'ru' }">
+														<td>${sauceWithAmountAndPrice.sauce.nameRus }</td>
+													</c:when>
+												</c:choose>
 												<td>${sauceWithAmountAndPrice.amountAndPrice.amount }</td>
 												<td>${sauceWithAmountAndPrice.amountAndPrice.price }</td>
 											</tr>
@@ -508,10 +621,11 @@
 												var elementIndex = foodAndDrinkInCartIds.hotdogIds.indexOf('${customerHotdog.id}');
 												foodAndDrinkInCartIds.hotdogIds.splice(elementIndex, 1);
 											} else {
+												var hotdogName = '<spring:message code="yours.food.service.meals.list.hotdog" />';
 												$('#customerOrdersList').append(
 													$('<li id="orderListHotdogItemDivider${customerHotdog.id}">').addClass('divider')		
 												).append(
-													$('<li id="orderListHotdogItem${customerHotdog.id}">').append($('<span>').attr('style', 'margin-left:5px;').text('Hotdog - ${customerHotdog.id}'))		
+													$('<li id="orderListHotdogItem${customerHotdog.id}">').append($('<span>').attr('style', 'margin-left:5px;').text(hotdogName + ' - ${customerHotdog.id}'))		
 												);
 												foodAndDrinkInCartIds.hotdogIds.push('${customerHotdog.id }');
 											}
@@ -519,7 +633,7 @@
 										});
 										$("#hotdogRemoveButtion${customerHotdog.id}").click(
 											function() {
-												alertify.confirm("Do you really want to remove this hotdog?",
+												alertify.confirm('<spring:message code="yours.food.service.meals.list.alertify.remove.hotdog.message" text="Do you really want to remove this hotdog?" />',
 													function(e) {
 														if (e) {
 															var url = 'remove-customer-hotdog';
@@ -532,7 +646,7 @@
 																$('#hotdogBread${customerHotdog.id }').remove();
 																$('#hotdogSausage${customerHotdog.id }').remove();
 																$('#hotdogSauce${customerHotdog.id }').remove();
-																alertify.success("Hotdog has been removed");
+																alertify.success('<spring:message code="yours.food.service.meals.list.alertify.hotdog.removed.message" text="Hotdog has been removed." />');
 															});
 														}
 													});
@@ -570,7 +684,7 @@
 				foodAndDrinkInCartIds.sandwichIds.length == 0 &&
 				foodAndDrinkInCartIds.drinkIds.length == 0 &&
 				foodAndDrinkInCartIds.hotdogIds == 0) {
-				alertify.error('Please choose at least one meal');
+				alertify.error('<spring:message code="yours.food.service.meals.list.alertify.meal.choose.message" text="Please choose at least one meal" />');
 				return;
 			}
 			var url = 'process-purchase-customer-order';
@@ -587,16 +701,16 @@
 				customerShipmentAddress = $('#customerShipmentSelect').val();
 			}
 			if(customerPhoneNumber === '' || customerPhoneNumber === null) {
-				alertify.error('Please Enter Phone Number');
+				alertify.error('<spring:message code="yours.food.service.meals.list.alertify.enter.phone.number.message" text="Please Enter Phone Number" />');
 				return;
 			}
 			var reg = new RegExp('^\\d+$');
 			if(!reg.test(customerPhoneNumber)) {
-				alertify.error('Please enter valid phone number');
+				alertify.error('<spring:message code="yours.food.service.meals.list.alertify.enter.valid.phone.number.message" text="Please enter valid phone number." />');
 				return;
 			}
 			if(customerShipmentAddress === '' || customerShipmentAddress === null) {
-				alertify.error('Please Enter Shipment Address');
+				alertify.error('<spring:message code="yours.food.service.meals.list.alertify.enter.shipment.address.message" text="Please Enter Shipment Address" />');
 				return;
 			}
 			$.ajax({
@@ -609,13 +723,23 @@
 						drinkIds: foodAndDrinkInCartIds.drinkIds, 
 						hotdogIds: foodAndDrinkInCartIds.hotdogIds,
 						customerPhoneNumber: customerPhoneNumber, 
-						customerShipmentAddress: customerShipmentAddress 
+						customerShipmentAddress: toUnicode(customerShipmentAddress) 
 				})
 			}).done(function() {
 				$('#foodPurchaseModal').modal('hide');
-				alertify.success('Your order has been added');
+				alertify.success('< spring:message code="yours.food.service.meals.list.alertify.order.added.message" text="Your order has been added." />');
 			});
 		});
+		
+		function toUnicode(theString) {
+			  var unicodeString = '';
+			  for (var i=0; i < theString.length; i++) {
+			    var theUnicode = theString.charCodeAt(i).toString(10);
+			    theUnicode = '&#' + theUnicode + ';';
+			    unicodeString += theUnicode;
+			  }
+			  return unicodeString;
+		}
 	</script>
 </body>
 </html>

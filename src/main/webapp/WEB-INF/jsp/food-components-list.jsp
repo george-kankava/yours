@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -52,10 +52,10 @@
       <div class="logo-image-narrow"></div>
 
 		<ul class="nav nav-tabs" id="foodComponentsTab">
-			<li class="active"><a href="#sandwich" data-toggle="tab">Sandwich</a></li>
-			<li><a href="#salad" data-toggle="tab">Salad</a></li>
-			<li><a href="#drinks" data-toggle="tab">Drinks</a></li>
-			<li><a href="#hotdog" data-toggle="tab">Hotdog</a></li>
+			<li class="active"><a href="#sandwich" data-toggle="tab"><spring:message code="yours.food.service.food.componenet.list.sandwich.tab.title" text="Sandwich"/></a></li>
+			<li><a href="#salad" data-toggle="tab"><spring:message code="yours.food.service.food.componenet.list.salad.tab.title" text="Salad"/></a></li>
+			<li><a href="#drinks" data-toggle="tab"><spring:message code="yours.food.service.food.componenet.list.drink.tab.title" text="Drink"/></a></li>
+			<li><a href="#hotdog" data-toggle="tab"><spring:message code="yours.food.service.food.componenet.list.hotdog.tab.title" text="hotdog"/></a></li>
 		</ul>
 		
 		<div class="tab-content">
@@ -64,7 +64,7 @@
 						<thead>
 							<tr>
 								<th><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
-								<th>Price: <span class="badge" id="sandwichPrice">0.00</span></th>
+								<th><spring:message code="yours.food.ingredient.price" text="Price" />: <span class="badge" id="sandwichPrice">0.00</span></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichBreads }" var="sandwichBread">
@@ -117,7 +117,18 @@
 							<tr>
 								<td>
 										<input name="sandwichSausage" type="checkbox" id="${sandwichSausage.id }">
-										<label>${sandwichSausage.nameGeo }</label>
+										<c:choose>
+											<c:when test="${locale eq 'ka' }">
+												<label>${sandwichSausage.nameGeo }</label>										
+											</c:when>
+											<c:when test="${locale eq 'en' }">
+												<label>${sandwichSausage.nameEng }</label>
+											</c:when>
+											<c:when test="${locale eq 'ru' }">
+												<label>${sandwichSausage.nameRus }</label>
+											</c:when>
+										</c:choose>
+										
 								</td>
 								<td>
 									<select disabled class="form-control" id="sandwichSausageAmountAndPrice${sandwichSausage.id }">
@@ -153,7 +164,17 @@
 							<tr>
 								<td>
 									<input name="sandwichVegetable"  id="${sandwichVegetable.id }" type="checkbox">
-									<label>${sandwichVegetable.nameGeo }</label>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<label>${sandwichVegetable.nameGeo }</label>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<label>${sandwichVegetable.nameEng }</label>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<label>${sandwichVegetable.nameRus }</label>
+										</c:when>
+									</c:choose>
 								</td>
 								<td>
 									<select disabled class="form-control" id="sandwichVegetableAmountAndPrice${sandwichVegetable.id }">
@@ -189,7 +210,17 @@
 							<tr>
 								<td>
 									<input name="sandwichSauce"  id="${sandwichSauce.id }" type="checkbox">
-									<label>${sandwichSauce.nameGeo }</label>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<label>${sandwichSauce.nameGeo }</label>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<label>${sandwichSauce.nameEng }</label>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<label>${sandwichSauce.nameRus }</label>
+										</c:when>
+									</c:choose>
 								</td>
 								<td>
 									<select disabled class="form-control" id="sandwichSauceAmountAndPrice${sandwichSauce.id }">
@@ -225,7 +256,17 @@
 							<tr>
 								<td>
 									<input name="sandwichSpice" type="checkbox" id="${sandwichSpice.id }">
-									<label>${sandwichSpice.nameGeo }</label>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<label>${sandwichSpice.nameGeo }</label>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<label>${sandwichSpice.nameEng }</label>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<label>${sandwichSpice.nameRus }</label>
+										</c:when>
+									</c:choose>
 								</td>
 								<td>
 									<select disabled class="form-control" id="sandwichSpiceAmountAndPrice${sandwichSpice.id }">
@@ -252,14 +293,14 @@
 						</c:forEach>
 					</table>
 					<div class="col-md-offset-5" style="margin-top:14px;">
-							<button id="sandwichSaveButton" type="button" class="btn btn-success">Save</button>
+							<button id="sandwichSaveButton" type="button" class="btn btn-success"><spring:message code="yours.food.service.food.componenet.list.hotdog.save.button" text="Save" /></button>
 					</div>
 			</div>
 			<div class="tab-pane" id="salad">
 				<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>Salad Ingredients</th>
+								<th><spring:message code="yours.food.service.salad.ingredients" text="Salad Ingredients" /></th>
 								<th>Price:  <span id="saladPrice" class="label label-success" style="font-size:14px">0.00</span></th>
 							</tr>
 						</thead>
@@ -267,7 +308,17 @@
 							<tr>
 								<td>
 									<input type="checkbox" name="saladIngredient" id="${saladIngredient.id }"/>
-									<label>${saladIngredient.nameGeo }</label>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<label>${saladIngredient.nameGeo }</label>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<label>${saladIngredient.nameEng }</label>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<label>${saladIngredient.nameRus }</label>
+										</c:when>
+									</c:choose>
 								</td>
 								<td>
 									<select disabled class="form-control" id="saladIngredientAmountAndPrice${saladIngredient.id }">
@@ -294,7 +345,7 @@
 						</c:forEach>
 					</table>
 					<div class="col-md-offset-5" style="margin-top:14px;">
-						<button id="saladSaveButton" type="button" class="btn btn-success">Save</button>
+						<button id="saladSaveButton" type="button" class="btn btn-success"><spring:message code="yours.food.service.food.componenet.list.hotdog.save.button" text="Save" /></button>
 					</div>
 			</div>
 			<div class="tab-pane" id="drinks">
@@ -309,7 +360,17 @@
 							<tr>
 								<td>
 									<input type="radio" name="drink" id="${drink.id }"/>
-									<label>${drink.nameGeo }</label>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<label>${drink.nameGeo }</label>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<label>${drink.nameEng }</label>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<label>${drink.nameRus }</label>
+										</c:when>
+									</c:choose>
 								</td>
 								<td>
 									<select disabled class="form-control" id="drinkSizeAndPrices${drink.id }">
@@ -338,7 +399,7 @@
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th colspan="2">Drink Add-ons</th>
+								<th colspan="2"><spring:message code="yours.food.service.food.components.list.drink.addon.title" text="Drink Addon"/></th>
 							</tr>
 						</thead>
 						<c:forEach items="${drinkAddOns }" var="drinkAddOn">
@@ -346,7 +407,17 @@
 								<td>
 									<div>
 										<input name="drinkAddOn" type="checkbox" id="${drinkAddOn.id }">
-										<label>${drinkAddOn.nameGeo }</label>
+										<c:choose>
+											<c:when test="${locale eq 'ka' }">
+												<label>${drinkAddOn.nameGeo }</label>										
+											</c:when>
+											<c:when test="${locale eq 'en' }">
+												<label>${drinkAddOn.nameEng }</label>
+											</c:when>
+											<c:when test="${locale eq 'ru' }">
+												<label>${drinkAddOn.nameRus }</label>
+											</c:when>
+										</c:choose>
 									</div>
 								</td>
 								<td>
@@ -374,7 +445,7 @@
 						</c:forEach>
 					</table>
 					<div class="col-md-offset-5" style="margin-top:14px;">
-						<button id="drinkSaveButton" type="button" class="btn btn-success">Save</button>
+						<button id="drinkSaveButton" type="button" class="btn btn-success"><spring:message code="yours.food.service.food.componenet.list.hotdog.save.button" text="Save" /></button>
 					</div>
 			</div>
 			<div class="tab-pane" id="hotdog">
@@ -389,7 +460,17 @@
 							<tr>
 								<td>
 									<input type="radio" name="hotdogBread" id="${hotdogBread.id }"/>
-									<label>${hotdogBread.nameGeo }</label>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<label>${hotdogBread.nameGeo }</label>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<label>${hotdogBread.nameEng }</label>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<label>${hotdogBread.nameRus }</label>
+										</c:when>
+									</c:choose>
 								</td>
 								<td>
 									<select disabled class="form-control" id="hotdogBreadSizeAndPrices${hotdogBread.id }">
@@ -426,7 +507,17 @@
 								<td>
 									<div>
 										<input name="hotdogSausages" type="radio" id="${hotdogSausage.id }">
-										<label>${hotdogSausage.nameGeo }</label>
+										<c:choose>
+											<c:when test="${locale eq 'ka' }">
+												<label>${hotdogSausage.nameGeo }</label>										
+											</c:when>
+											<c:when test="${locale eq 'en' }">
+												<label>${hotdogSausage.nameEng }</label>
+											</c:when>
+											<c:when test="${locale eq 'ru' }">
+												<label>${hotdogSausage.nameRus }</label>
+											</c:when>
+										</c:choose>
 									</div>
 								</td>
 								<td>
@@ -463,7 +554,17 @@
 							<tr>
 								<td>
 									<input name="hotdogSauces"  id="${hotdogSauce.id }" type="checkbox">
-									<label>${hotdogSauce.nameGeo }</label>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<label>${hotdogSauce.nameGeo }</label>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<label>${hotdogSauce.nameEng }</label>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<label>${hotdogSauce.nameRus }</label>
+										</c:when>
+									</c:choose>
 								</td>
 								<td>
 									<select disabled class="form-control" id="hotdogSauceAmountAndPrice${hotdogSauce.id }">
@@ -490,7 +591,7 @@
 						</c:forEach>
 					</table>
 					<div class="col-md-offset-5" style="margin-top:14px;">
-						<button id="hotdogSaveButton" type="button" class="btn btn-success">Save</button>
+						<button id="hotdogSaveButton" type="button" class="btn btn-success"><spring:message code="yours.food.service.food.componenet.list.hotdog.save.button" text="Save" /></button>
 					</div>
 			</div>
 		</div>

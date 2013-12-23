@@ -169,9 +169,11 @@ public class YoursController {
 	}
 
 	@RequestMapping("/meals-list")
-	public ModelAndView mealsList(Principal principal, ModelAndView mav) {
+	public ModelAndView mealsList(HttpServletRequest request, Principal principal, ModelAndView mav) {
 		Map<String, Object> customerMeals = databaseService.getCustomerMeals(principal.getName());
 		Customer customer = databaseService.findCustomerByUsername(principal.getName());
+		Locale locale = localeResolver.resolveLocale(request);
+    	mav.addObject("locale", locale.getLanguage());
 		mav.addObject("meals", customerMeals);
 		mav.addObject("customer", customer);
 		mav.setViewName("meals-list");

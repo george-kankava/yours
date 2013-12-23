@@ -3,10 +3,14 @@ package com.gngapps.yours.controller;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gngapps.yours.databinding.json.request.DrinkAddonRequestJson;
@@ -31,14 +36,30 @@ public class DrinksController {
 
 	@Autowired
 	private DatabaseService databaseService;
+	
+	@Autowired
+	private LocaleResolver localeResolver;
+	
+	@Autowired
+	private MessageSource messageSource;
 
 	private static final Logger logger = LoggerFactory.getLogger(DrinksController.class);
 	
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(value = "/process-add-drink", consumes = "application/json", method = RequestMethod.POST)
-	public void processAddDrinks(Principal principal, @RequestBody DrinksJson drink) {
-    	String username = principal.getName();
-    	databaseService.saveCustomerDrink(drink, username);
+	public String processAddDrinks(HttpServletRequest request, Principal principal, @RequestBody DrinksJson drink) {
+    	try {
+    		String username = principal.getName();
+        	databaseService.saveCustomerDrink(drink, username);
+			Locale locale = localeResolver.resolveLocale(request);
+			String drinkSavedMessage = messageSource.getMessage("yours.food.service.food.componenet.list.drink.saved", null, locale);
+			return "{\"drinkSavedMessage\" : \"" + drinkSavedMessage + "\"}";
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+			Locale locale = localeResolver.resolveLocale(request);
+			String serverError = messageSource.getMessage("yours.food.service.ajax.server.error", null, locale);
+			return "{\"drinkSavedMessage\" : \"" + serverError + "\"}";
+		}
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

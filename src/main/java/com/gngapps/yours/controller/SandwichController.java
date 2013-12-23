@@ -3,10 +3,14 @@ package com.gngapps.yours.controller;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gngapps.yours.databinding.json.request.SandwichJson;
@@ -37,14 +42,31 @@ public class SandwichController {
 		
 	@Autowired
 	private DatabaseService databaseService;
+	
+	@Autowired
+	private LocaleResolver localeResolver;
+	
+	@Autowired
+	private MessageSource messageSource;
 
 	private static final Logger logger = LoggerFactory.getLogger(SandwichController.class);
 
-	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = "/process-add-sandwich", consumes = "application/json", method = RequestMethod.POST)
-	public void processAddSandwich(Principal principal, @RequestBody SandwichJson sandwich) {
-		String username = principal.getName();
-		databaseService.saveCustomerSandwich(sandwich, username);
+	@ResponseBody
+	@RequestMapping(value = "/process-add-sandwich", consumes = "application/json", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)
+	public String processAddSandwich(HttpServletRequest request, Principal principal, @RequestBody SandwichJson sandwich) {
+		try {
+			String username = principal.getName();
+			databaseService.saveCustomerSandwich(sandwich, username);
+			Locale locale = localeResolver.resolveLocale(request);
+			String sandwichSavedMessage = messageSource.getMessage("yours.food.service.food.componenet.list.sandwich.saved", null, locale);
+			return "{\"sandwichSavedMessage\" : \"" + sandwichSavedMessage + "\"}";
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+			Locale locale = localeResolver.resolveLocale(request);
+			String serverError = messageSource.getMessage("yours.food.service.ajax.server.error", null, locale);
+			return "{\"sandwichSavedMessage\" : \"" + serverError + "\"}";
+		}
+		
 	}
 	
 	@RequestMapping("/remove-customer-sandwich")

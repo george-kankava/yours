@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -105,7 +105,7 @@
 				}
 			}).done(function() {
 				$("#customerAddressesSelect option[value=" + $('#customerAddressesSelect').val() + "]").remove();
-				alertify.success("Address Successfully Removed");
+				alertify.success('<spring:message code="yours.food.service.customer.info.alertify.message.address.removed" text="Address Successfully Removed" />');
 			});
 		});
 		$('#customerPhoneRemoveButton').click(function() {
@@ -120,7 +120,7 @@
 				}
 			}).done(function() {
 				$("#customerPhoneNumbersSelect option[value=" + $('#customerPhoneNumbersSelect').val() + "]").remove();
-				alertify.success("Phone Number Successfully Removed");
+				alertify.success('<spring:message code="yours.food.service.customer.info.alertify.message.phone.number.removed" text="Phone Number Successfully Removed" />');
 			});
 		});
 	</script>
