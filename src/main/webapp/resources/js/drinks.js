@@ -27,6 +27,6 @@ $( "#drinkSaveButton" ).click(function() {
 						}
 					)
 			}).done(function(response) {
-				alertify.success("Ajax succeeded");		
+				alertify.success(response.drinkSavedMessage);		
 			});
 		});

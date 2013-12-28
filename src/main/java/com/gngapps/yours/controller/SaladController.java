@@ -42,8 +42,8 @@ public class SaladController {
 
 	private static final Logger logger = LoggerFactory.getLogger(SaladController.class);
     
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-    @RequestMapping(value = "/process-add-salad", consumes = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+    @RequestMapping(value = "/process-add-salad", consumes = "application/json",  produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)
 	public String processAddSalad(HttpServletRequest request, Principal principal, @RequestBody SaladJson salad) {
 		try {
 			String username = principal.getName();

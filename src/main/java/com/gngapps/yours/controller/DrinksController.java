@@ -45,8 +45,8 @@ public class DrinksController {
 
 	private static final Logger logger = LoggerFactory.getLogger(DrinksController.class);
 	
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @RequestMapping(value = "/process-add-drink", consumes = "application/json", method = RequestMethod.POST)
+    @ResponseBody
+    @RequestMapping(value = "/process-add-drink", consumes = "application/json", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)
 	public String processAddDrinks(HttpServletRequest request, Principal principal, @RequestBody DrinksJson drink) {
     	try {
     		String username = principal.getName();

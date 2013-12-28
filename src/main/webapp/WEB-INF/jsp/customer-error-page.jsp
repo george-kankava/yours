@@ -12,7 +12,7 @@
 <link rel="shortcut icon" href="../resources/ico/yours-sml-logo.gif" />
 
 <title>
-	<spring:message code="yours.food.service.active.orders.title" text="Active Orders" />
+	<spring:message code="yours.food.service.error.page.title" text="Error Page" />
 </title>
 
 <!-- Bootstrap core CSS -->

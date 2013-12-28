@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -39,9 +39,8 @@
 	<div class="container">
 		<div class="header">
 			<ul class="nav nav-pills pull-right">
-				<li class="active"><a href="#">Ingredients</a></li>
-				<li><a href="customer-meals-page"><spring:message code="yours.food.service.meals" text="Meals" /></a></li>
-				<li><a href="j_spring_security_logout">Logout</a></li>
+				<li class="active"><a href="#">Active Orders</a></li>
+				<li><a href="../j_spring_security_logout">Logout</a></li>
 			</ul>
 			<h3 class="text-muted">Yours.ge</h3>
 		</div>

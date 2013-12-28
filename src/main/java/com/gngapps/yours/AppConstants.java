@@ -13,4 +13,15 @@ public interface AppConstants {
 	Integer ACTIVE_ORDERS_INITIAL_PAGE_NUMBER = 1;
 	// value that needs to be added to paginationIndex when dividing page number on CUSTOMER_ORDER_PAGES_PER_PAGE to calculate end value/number of the pagination 
 	Integer ACTIVE_ORDERS_PAGINATION_INDEX_ADDITIONAL_ONE = 1;
+
+	// application roles
+	String ROLE_ADMIN = "ROLE_ADMIN";
+	String ROLE_CUSTOMER = "ROLE_CUSTOMER";
+	String ROLE_DESK_ORDERS_OPERATOR = "ROLE_DESK_ORDERS_OPERATOR";
+	String ROLE_ONLINE_ORDERS_OPERATOR = "ROLE_ONLINE_ORDERS_OPERATOR";
+	// Landing pages
+	String ADMIN_LANDING_PAGE = "admin/add-food-components";
+	String ONILE_ORDERS_OPERATOR_LANDING_PAGE = "operator/customer-active-orders";
+	String DESK_ORDERS_OPERATOR_LANDING_PAGE = "operator/customer-meals";
+	String CUSTOMER_LANDING_PAGE = "meals-list";
 }

@@ -28,7 +28,7 @@
 	<div class="container">
 		<div class="jumbotron">
 			<div class="row">
-				<div class="col-md-4 col-md-offset-4">
+				<div class="col-md-4 col-md-offset-5">
 					<h1>Yours</h1>
 					<p>Food Service for your.</p>
 				</div>

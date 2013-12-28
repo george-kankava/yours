@@ -66,7 +66,7 @@
 									<th><spring:message code="yours.food.ingredients.amount" text="Amount" /></th>
 									<th><spring:message code="yours.food.ingredient.price" text="Price" /></th>
 								</tr>
-								<c:forEach items="${customerSandwich.sandwichSauce }" var="sauceWithAmountAndPrice">
+								<c:forEach items="${customerSandwich.sandwichSauces }" var="sauceWithAmountAndPrice">
 									<tr>
 										<td>${sauceWithAmountAndPrice.sandwichSauce.nameGeo }</td>
 										<td>${sauceWithAmountAndPrice.sandwichSauceAmountAndPrice.portion }</td>
