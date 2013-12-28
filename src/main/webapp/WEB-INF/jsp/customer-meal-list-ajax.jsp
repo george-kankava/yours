@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="row">
@@ -5,16 +6,23 @@
 		<c:choose>
 			<c:when test="${!empty meals }">
 				<div class="panel panel-success">
-					<div class="panel-heading">
-						<h3 class="panel-title">${username }</h3>
-					</div>
 					<div class="panel-body">
+						<div class="alert alert-success">Sandwiches</div>
 						<c:forEach items="${meals['sandwiches']}" var="customerSandwich">
 							<blockquote>
-								<span class="glyphicon glyphicon-cutlery"></span>
-								<p>Sandwich - ${customerSandwich.id}</p>
+								<div class="row">
+									<div class="col-lg-1">
+										<span class="glyphicon glyphicon-cutlery"></span>
+									</div>
+									<div class="col-lg-10">
+										<p>Sandwich - ${customerSandwich.id}</p>
+									</div>
+									<div class="col-lg-1">
+										<input type="checkbox" value="">
+									</div>
+								</div>
 							</blockquote>
-							<table class="table">
+							<%-- <table class="table">
 								<thead>
 									<tr>
 										<th><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
@@ -87,10 +95,24 @@
 										<td>${spiceWithAmountAndPrice.sandwichSpiceAmountAndPrice.price }</td>
 									</tr>
 								</c:forEach>
-							</table>
+							</table> --%>
 						</c:forEach>
+						<div class="alert alert-info">Salads</div>
 						<c:forEach items="${meals['salads']}" var="customerSalad">
-									<table class="table table-bordered" id="customerSalad${customerSalad.id }">
+							<blockquote>
+								<div class="row">
+									<div class="col-lg-1">
+										<span class="glyphicon glyphicon-cutlery"></span>
+									</div>
+									<div class="col-lg-10">
+										<p>Salad - ${customerSalad.id}</p>
+									</div>
+									<div class="col-lg-1">
+										<input type="checkbox" value="">
+									</div>
+								</div>
+							</blockquote>
+									<%-- <table class="table" id="customerSalad${customerSalad.id }">
 											<thead>
 												<tr class="success">
 												<th colspan="2"><strong><spring:message code="yours.food.service.ingredients.salad" text="Salad" /> - ${customerSalad.id}</strong></th>
@@ -109,7 +131,7 @@
 													<td>${ingredientsWithAmountAndPrices.amountAndPrice.price }</td>
 												</tr>
 											</c:forEach>
-									</table>
+									</table> --%>
 									<script type="text/javascript">
 										$( "#saladRemoveButtion${customerSalad.id}" ).click(function() {
 											alertify.confirm("Do you really want to remove this salad?", function (e) {
@@ -129,14 +151,22 @@
 										});
 									</script>
 								</c:forEach>
+						<div class="alert alert-warning">Drinks</div>
 						<c:forEach items="${meals['drinks']}" var="customerDrink">
 							<blockquote>
-								<span class="glyphicon glyphicon-cutlery"></span>
-								<p>
-									<spring:message code="yours.food.service.ingredients.drink" text="Drink" /> - ${customerDrink.id}
-								</p>
+								<div class="row">
+									<div class="col-lg-1">
+										<span class="glyphicon glyphicon-glass"></span>
+									</div>
+									<div class="col-lg-10">
+										<p><spring:message code="yours.food.service.ingredients.drink" text="Drink" /> - ${customerDrink.id}</p>
+									</div>
+									<div class="col-lg-1">
+										<input type="checkbox" value="">
+									</div>
+								</div>
 							</blockquote>
-							<table class="table">
+							<%-- <table class="table">
 								<thead>
 									<tr>
 										<th><spring:message code="yours.food.service.drink.name" text="Drink Name" /></th>
@@ -165,16 +195,24 @@
 										<td>${addonWithAmountAndPrice.addOnAmountAndPrice.price }</td>
 									</tr>
 								</c:forEach>
-							</table>
+							</table> --%>
 						</c:forEach>
+						<div class="alert alert-danger">Hotdogs</div>
 						<c:forEach items="${meals['hotdogs']}" var="customerHotdog">
 							<blockquote>
-								<span class="glyphicon glyphicon-cutlery"></span>
-								<p>
-									<spring:message code="yours.food.service.ingredients.hotdog" text="Hotdog" /> - ${customerHotdog.id}
-								</p>
+								<div class="row">
+									<div class="col-lg-1">
+										<span class="glyphicon glyphicon-cutlery"></span>
+									</div>
+									<div class="col-lg-10">
+										<p><spring:message code="yours.food.service.ingredients.hotdog" text="Hotdog" /> - ${customerHotdog.id}</p>
+									</div>
+									<div class="col-lg-1">
+										<input type="checkbox" value="">
+									</div>
+								</div>
 							</blockquote>
-							<table class="table" id="customerHotdog${customerHotdog.id }">
+							<%-- <table class="table" id="customerHotdog${customerHotdog.id }">
 								<thead>
 									<tr>
 										<th><spring:message code="yours.food.service.ingredients.bread" text="Bread" /></th>
@@ -217,8 +255,13 @@
 										<td>${sauceWithAmountAndPrice.amountAndPrice.price }</td>
 									</tr>
 								</c:forEach>
-							</table>
+							</table> --%>
 						</c:forEach>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-lg-offset-5">
+						<button type="button" class="btn btn-warning"><spring:message code="yours.food.service.customer.meal.list.ajax.order.button.text" text="Order" /> <span class="glyphicon glyphicon-ok-circle"></span></button>
 					</div>
 				</div>
 			</c:when>
