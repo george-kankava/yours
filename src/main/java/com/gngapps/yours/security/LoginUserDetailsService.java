@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import com.gngapps.yours.AppConstants;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.service.DatabaseService;
 
@@ -47,11 +48,17 @@ public class LoginUserDetailsService implements UserDetailsService {
 		List<String> roles = new ArrayList<String>();
 		
 		if (role.intValue() == 1) {
-			roles.add("ROLE_USER");
-			roles.add("ROLE_ADMIN");
+			roles.add(AppConstants.ROLE_ADMIN);
+			roles.add(AppConstants.ROLE_DESK_ORDERS_OPERATOR);
+			roles.add(AppConstants.ROLE_ONLINE_ORDERS_OPERATOR);
+			roles.add(AppConstants.ROLE_CUSTOMER);
 			
 		} else if (role.intValue() == 2) {
-			roles.add("ROLE_USER");
+			roles.add(AppConstants.ROLE_DESK_ORDERS_OPERATOR);
+		} else if (role.intValue() == 3) {
+			roles.add(AppConstants.ROLE_ONLINE_ORDERS_OPERATOR);
+		} else if (role.intValue() == 4) {
+			roles.add(AppConstants.ROLE_CUSTOMER);
 		}
 		
 		return roles;

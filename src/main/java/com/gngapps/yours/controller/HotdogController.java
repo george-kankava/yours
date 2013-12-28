@@ -45,8 +45,8 @@ public class HotdogController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HotdogController.class);
 	
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-    @RequestMapping(value = "/process-add-hotdog", consumes = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+    @RequestMapping(value = "/process-add-hotdog", consumes = "application/json", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)
 	public String processAddHotdog(HttpServletRequest request, Principal principal, @RequestBody HotdogJson hotdog) {
     	try {
     		String username = principal.getName();

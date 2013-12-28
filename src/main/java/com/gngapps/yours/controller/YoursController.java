@@ -69,6 +69,28 @@ public class YoursController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping("/denied")
+	public ModelAndView accessDenied(ModelAndView mav) {
+		try {
+			mav.setViewName("access-denied");
+		}catch(Exception ex) {
+			logger.info(ex.getMessage());
+			mav.setViewName("customer-error-page");
+		}
+		return mav;
+	}
+	
+	@RequestMapping("/failure")
+	public ModelAndView fail(ModelAndView mav) {
+		try {
+			mav.setViewName("failure");
+		}catch(Exception ex) {
+			logger.info(ex.getMessage());
+			mav.setViewName("customer-error-page");
+		}
+		return mav;
+	}
 
 	@RequestMapping("operator/customer-active-orders")
 	public ModelAndView customerActiveOrders(Principal principal, ModelAndView mav) {
@@ -210,9 +232,9 @@ public class YoursController {
     	return mav;
 	}
     
-    @RequestMapping(value = "/index.html")
+    @RequestMapping("/index.html")
 	public String indexPage(ModelAndView mav, HttpSession session) {
-    	return "redirect:/food-components-list";
+    	return "redirect:/meals-list";
 	}
     
     
