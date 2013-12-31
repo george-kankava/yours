@@ -1,14 +1,26 @@
 package com.gngapps.yours.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 import java.security.Principal;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.xobject.PDJpeg;
+import org.apache.pdfbox.pdmodel.graphics.xobject.PDXObjectImage;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +32,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gngapps.yours.AppConstants;
 import com.gngapps.yours.databinding.json.request.CustoemrOrderJson;
+import com.gngapps.yours.databinding.json.request.CustomerMealsJson;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.CustomerOrder;
+import com.gngapps.yours.entities.CustomerSalad;
+import com.gngapps.yours.entities.CustomerSandwich;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.HotDogBread;
@@ -50,8 +66,35 @@ public class YoursController {
 	@Autowired
 	private LocaleResolver localeResolver;
 	
+	@Autowired
+	private ObjectMapper mapper;
+	
 	private static final Logger logger = LoggerFactory.getLogger(YoursController.class);
 	
+	@RequestMapping(value = "/operator/process-customer-meals-desk-order", method = RequestMethod.GET)
+	public ModelAndView processCustomerMealsDeskOrder(HttpServletResponse response, @RequestParam String customerMealsJson, ModelAndView mav) {
+		try {
+			mav.setViewName("customer-order-list");
+			CustomerMealsJson meals = mapper.readValue(customerMealsJson, CustomerMealsJson.class);
+			List<Integer> sandwichIds = meals.getSandwichIds();
+			List<CustomerSandwich> customerSandwiches = databaseService.getSandwichesByIds(sandwichIds);
+			List<Integer> saladIds = meals.getSaladIds();
+			List<CustomerSalad> customerSalads = databaseService.getSaladsByIds(saladIds);
+			List<Integer> drinkIds = meals.getDrinkIds();
+			List<CustomerSalad> customerDrinks = databaseService.getDrinksByIds(drinkIds);
+			List<Integer> hotdogIds = meals.getHotdogIds();
+			List<CustomerSalad> customerHotdog = databaseService.getHotdogByIds(hotdogIds);
+			mav.addObject("customerSandwiches", customerSandwiches);
+			mav.addObject("customerSalads", customerSalads);
+			mav.addObject("customerDrinks", customerDrinks);
+			mav.addObject("customerHotdogs", customerHotdog);
+			return mav;
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+			mav.setViewName("customer-error-page");
+			return mav;
+		}
+	}
 	
 	@RequestMapping("/operator/customer-order-pagination.ajax")
 	public ModelAndView customerOrdersList(ModelAndView mav, @RequestParam Integer pageNumber) {

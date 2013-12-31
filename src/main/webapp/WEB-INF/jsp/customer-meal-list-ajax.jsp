@@ -18,7 +18,7 @@
 										<p>Sandwich - ${customerSandwich.id}</p>
 									</div>
 									<div class="col-lg-1">
-										<input type="checkbox" value="">
+										<input type="checkbox" name="sandwiches" id="${customerSandwich.id}"/>
 									</div>
 								</div>
 							</blockquote>
@@ -108,7 +108,7 @@
 										<p>Salad - ${customerSalad.id}</p>
 									</div>
 									<div class="col-lg-1">
-										<input type="checkbox" value="">
+										<input type="checkbox" name="salads" id="${customerSalad.id}"/>
 									</div>
 								</div>
 							</blockquote>
@@ -162,7 +162,7 @@
 										<p><spring:message code="yours.food.service.ingredients.drink" text="Drink" /> - ${customerDrink.id}</p>
 									</div>
 									<div class="col-lg-1">
-										<input type="checkbox" value="">
+										<input type="checkbox" name="drinks" id="${customerDrink.id}"/>
 									</div>
 								</div>
 							</blockquote>
@@ -208,7 +208,7 @@
 										<p><spring:message code="yours.food.service.ingredients.hotdog" text="Hotdog" /> - ${customerHotdog.id}</p>
 									</div>
 									<div class="col-lg-1">
-										<input type="checkbox" value="">
+										<input type="checkbox" name="hotdogs" id="${customerHotdog.id}"/>
 									</div>
 								</div>
 							</blockquote>
@@ -261,7 +261,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-lg-offset-5">
-						<button type="button" class="btn btn-warning"><spring:message code="yours.food.service.customer.meal.list.ajax.order.button.text" text="Order" /> <span class="glyphicon glyphicon-ok-circle"></span></button>
+						<a id="customerMealsOrderButton" target="_blank" href="process-customer-meals-desk-order" class="btn btn-warning"><spring:message code="yours.food.service.customer.meal.list.ajax.order.button.text" text="Order" /> <span class="glyphicon glyphicon-ok-circle"></span></a>
 					</div>
 				</div>
 			</c:when>
@@ -274,3 +274,60 @@
 
 	</div>
 </div>
+<script>
+	$(document).ready(function(){
+	  $('input').iCheck({
+	    checkboxClass: 'icheckbox_flat-red',
+	    radioClass: 'iradio_flat-red'
+	  });
+	});
+	$('#customerMealsOrderButton').click(function() {
+		var sandwiches = new Array();
+		$.each($('input[name=sandwiches]:checkbox:checked'), function(index, value) {
+			var sandwichId =  value.id;
+			sandwiches.push(sandwichId);
+		});
+		
+		var salads = new Array();
+		$.each($('input[name=salads]:checkbox:checked'), function(index, value) {
+			var saladId =  value.id;
+			salads.push(saladId);
+		});
+		
+		var drinks = new Array();
+		$.each($('input[name=drinks]:checkbox:checked'), function(index, value) {
+			var drinkId =  value.id;
+			drinks.push(drinkId);
+		});
+		
+		var hotdogs = new Array();
+		$.each($('input[name=hotdogs]:checkbox:checked'), function(index, value) {
+			var hotdogId =  value.id;
+			hotdogs.push(hotdogId);
+		});
+		var dataJson = JSON.stringify(
+				{	sandwichIds: sandwiches,
+					saladIds: salads,
+					drinkIds: drinks,
+					hotdogIds: hotdogs,
+				}
+		);
+ 		var url = 'process-customer-meals-desk-order';
+		window.open(url + "?customerMealsJson=" + dataJson, '_blank');
+		/* $.ajax({
+			url: url,
+			type: "POST",
+			contentType: "application/json;charset=UTF-8",
+			data:
+				JSON.stringify(
+					{	sandwichIds: sandwiches,
+						saladIds: salads,
+						drinkIds: drinks,
+						hotdogIds: hotdogs,
+					}
+				)
+		}).done(function(response) {
+			
+		}); */
+	});
+</script>

@@ -33,24 +33,27 @@
 <body>
 	<div class="container">
 		<div class="header">
-			<ul class="nav nav-pills pull-right">
-				<li class="active"><a href="customer-meals-page">Customer Meals</a></li>
-				<li><a href="../j_spring_security_logout">Logout</a></li>
-			</ul>
 			<h3 class="text-muted">Yours.ge</h3>
 		</div>
 		<div class="logo-image-narrow"></div>
-		<div class="row">
-			<spring:message code="yours.food.service.operator.page.customer.username" text="Customer Username" var="inputPlaceholder" />
-			<div class="col-lg-9">
-				<input class="form-control input-lg" id="customerUsername" type="text" placeholder="${inputPlaceholder }" />
+		<c:forEach var="customerSandwich" items="${customerSandwiches }">
+			<div class="row">
+			<div class="col-lg-6">
+				Bread Name
 			</div>
-			<div class="col-lg-3">
-				<button type="button" id="customerMealsFindButton" class="btn btn-success btn-lg">
-  					<spring:message code="yours.food.service.operator.find.button.title" text="Find Meals" /> <span class="glyphicon glyphicon-th-list"></span>
-				</button>
+			<div class="col-lg-6">
+				Bread Size
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				${customerSandwich.sandwichBread.nameGeo }
+			</div>
+			<div class="col-lg-6">
+				${customerSandwich.sandwichBreadSizeAndPrice.size }
+			</div>
+		</div>			
+		</c:forEach>
 		<div id="mealsContentResult" style="margin-top: 15px">
 		</div>
 	</div>
@@ -58,25 +61,5 @@
 	<script src="../resources/js/bootstrap.min.js"></script>
 	<script src="../resources/js/jquery.icheck.js"></script>
 	<script src="../resources/js/alertify.min.js"></script>
-	<script>
-		$('#customerMealsFindButton').click(function() {
-			getCustomerMeals();
-		});
-		$('#customerUsername').bind('keypress', function(e) {
-			var code = e.keyCode || e.which;
-			if(code == 13) {
-				getCustomerMeals();
-			}
-		});
-		
-		function getCustomerMeals() {
-			var customerUsername =  $('#customerUsername').val();
-			$.get( "find-customer-meals.ajax", { username: customerUsername} )
-			.done(function(result) {
-				$('#mealsContentResult').empty();
-				$('#mealsContentResult').append(result);
-			});
-		}
-	</script>
 </body>
 </html>

@@ -306,5 +306,33 @@ public class DataGetterJPA implements DataGetterDao {
 		String string = "SELECT COUNT(o) FROM CustomerOrder o WHERE o.activeOrder = :activeOrder";
 		return (Long)em.createQuery(string).setParameter("activeOrder", true).getSingleResult();
 	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<CustomerSandwich> getSandwichesByIds(List<Integer> sandwichIds) {
+		String query = "FROM CustomerSandwich cSandwich WHERE cSandwich.id IN (:sandwichIds)";
+		return em.createQuery(query).setParameter("sandwichIds", sandwichIds).getResultList();
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<CustomerSalad> getSaladsByIds(List<Integer> saladIds) {
+		String query = "FROM CustomerSalad cSalad WHERE cSalad.id IN (:saladIds)";
+		return em.createQuery(query).setParameter("saladIds", saladIds).getResultList();
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<CustomerSalad> getDrinksByIds(List<Integer> drinkIds) {
+		String query = "FROM CustomerDrink cDrink WHERE cDrink.id IN (:drinkIds)";
+		return em.createQuery(query).setParameter("drinkIds", drinkIds).getResultList();
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<CustomerSalad> getHotdogsByIds(List<Integer> hotdogIds) {
+		String query = "FROM CustomerHotdog cHotdog WHERE cHotdog.id IN (:hotdogIds)";
+		return em.createQuery(query).setParameter("hotdogIds", hotdogIds).getResultList();
+	}
 	
 }

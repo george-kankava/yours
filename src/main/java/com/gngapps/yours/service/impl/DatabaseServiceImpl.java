@@ -953,4 +953,36 @@ public class DatabaseServiceImpl implements DatabaseService {
 		}
 	}
 
+	@Override
+	public List<CustomerSandwich> getSandwichesByIds(List<Integer> sandwichIds) {
+		if(!sandwichIds.isEmpty()) {
+			return dataGetterDao.getSandwichesByIds(sandwichIds);
+		}
+		return Collections.emptyList();
+	}
+
+	@Override
+	public List<CustomerSalad> getSaladsByIds(List<Integer> saladIds) {
+		if(!saladIds.isEmpty()) {
+			return dataGetterDao.getSaladsByIds(saladIds);
+		}
+		return Collections.emptyList();
+	}
+
+	@Override
+	public List<CustomerSalad> getDrinksByIds(List<Integer> drinkIds) {
+		if(!drinkIds.isEmpty()) {
+			return dataGetterDao.getDrinksByIds(drinkIds);
+		}
+		return Collections.emptyList();
+	}
+
+	@Override
+	public List<CustomerSalad> getHotdogByIds(List<Integer> hotdogIds) {
+		if(!hotdogIds.isEmpty()) {
+			return dataGetterDao.getHotdogsByIds(hotdogIds);
+		}
+		return Collections.emptyList();
+	}
+
 }

@@ -617,7 +617,7 @@
 	<script src="resources/js/drinks.js"></script>
 	<script src="resources/js/hotdog.js"></script>
 	<script src="resources/js/alertify.min.js"></script>
-	<script src="resources/js//jquery.icheck.js"></script>
+	<script src="resources/js/jquery.icheck.js"></script>
 	<script src="resources/js/yours.js"></script>
 </body>
 </html>

@@ -60,6 +60,7 @@
 		<url-pattern>/operator/customer-order-pagination.ajax</url-pattern>
 		<url-pattern>/operator/operator-active-orders</url-pattern>
 		<url-pattern>/operator/customer-active-orders</url-pattern>
+		<url-pattern>/operator/process-customer-meals-desk-order</url-pattern>
 		<url-pattern>/food-components-list</url-pattern>
 		<url-pattern>/customer-meals-page</url-pattern>
 		<url-pattern>/meals-list</url-pattern>

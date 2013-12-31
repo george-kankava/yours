@@ -13,6 +13,8 @@ import com.gngapps.yours.databinding.json.request.SaladJson;
 import com.gngapps.yours.databinding.json.request.SandwichJson;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.CustomerOrder;
+import com.gngapps.yours.entities.CustomerSalad;
+import com.gngapps.yours.entities.CustomerSandwich;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
@@ -112,4 +114,8 @@ public interface DatabaseService {
 	List<CustomerOrder> getCustomerOrderListByPageNumber(Integer pageNumber);
 	Long getActiveCustomerOrdersCount();
 	void countAndAssemblePaginationBar(ModelAndView mav, Integer paginationIndex);
+	List<CustomerSandwich> getSandwichesByIds(List<Integer> sandwichIds);
+	List<CustomerSalad> getSaladsByIds(List<Integer> saladIds);
+	List<CustomerSalad> getDrinksByIds(List<Integer> drinkIds);
+	List<CustomerSalad> getHotdogByIds(List<Integer> hotdogIds);
 }

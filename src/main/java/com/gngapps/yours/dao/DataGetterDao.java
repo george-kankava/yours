@@ -123,4 +123,12 @@ public interface DataGetterDao {
 	
 	Long countActiveCustomerOrders();
 
+	List<CustomerSandwich> getSandwichesByIds(List<Integer> sandwichIds);
+
+	List<CustomerSalad> getSaladsByIds(List<Integer> saladIds);
+
+	List<CustomerSalad> getDrinksByIds(List<Integer> drinkIds);
+
+	List<CustomerSalad> getHotdogsByIds(List<Integer> hotdogIds);
+
 }

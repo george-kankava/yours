@@ -20,6 +20,14 @@
     </properties>
 
     <dependencies>
+    	
+    	<!-- pdfbox dependency -->
+    	<dependency>
+		  <groupId>org.apache.pdfbox</groupId>
+		  <artifactId>pdfbox</artifactId>
+		  <version>1.8.3</version>
+		</dependency>
+		
         <!-- Servlet Dependencies -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -32,6 +40,13 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+
+		<!-- Commons Lang -->                
+        <dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
                 
         <!-- Commons Collection -->
         <dependency>
