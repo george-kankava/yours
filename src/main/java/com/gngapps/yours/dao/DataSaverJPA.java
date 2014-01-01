@@ -1,7 +1,5 @@
 package com.gngapps.yours.dao;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -12,6 +10,7 @@ import com.gngapps.yours.entities.CustomerDrink;
 import com.gngapps.yours.entities.CustomerHotdog;
 import com.gngapps.yours.entities.CustomerOrder;
 import com.gngapps.yours.entities.CustomerSalad;
+import com.gngapps.yours.entities.CustomerSandwich;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
@@ -25,8 +24,6 @@ import com.gngapps.yours.entities.HotdogSauceAmountAndPrice;
 import com.gngapps.yours.entities.Role;
 import com.gngapps.yours.entities.SaladIngredient;
 import com.gngapps.yours.entities.SaladIngredientAmountAndPrice;
-import com.gngapps.yours.entities.SaladIngredientWithAmountAndPrice;
-import com.gngapps.yours.entities.CustomerSandwich;
 import com.gngapps.yours.entities.SandwichBread;
 import com.gngapps.yours.entities.SandwichBreadSizeAndPrice;
 import com.gngapps.yours.entities.SandwichSauce;

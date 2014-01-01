@@ -24,4 +24,9 @@ public interface AppConstants {
 	String ONILE_ORDERS_OPERATOR_LANDING_PAGE = "operator/customer-active-orders";
 	String DESK_ORDERS_OPERATOR_LANDING_PAGE = "operator/customer-meals";
 	String CUSTOMER_LANDING_PAGE = "meals-list";
+	Integer CUSTOMER_GENERATOR_MAX_NUMBER = 100000;
+	String FOUR_ZEROS = "0000";
+	String THREE_ZEROS = "000";
+	String TWO_ZEROS = "00";
+	String ONE_ZERO = "0";
 }

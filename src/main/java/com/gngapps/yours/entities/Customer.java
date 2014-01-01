@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.UniqueConstraint;
+import javax.validation.Constraint;
 import javax.validation.constraints.Pattern;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,9 +23,11 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	@Pattern(regexp = "[a-zA-Z0-9,.-_]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}", message = "Please Enter Valid Email")
 	@Column(unique = true)
 	private String username;
+	@Pattern(regexp = "[a-zA-Z0-9,.-_]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}", message = "Please Enter Valid Email")
+	@Column(unique = true)
+	private String email;
 	private String firstname;
 	private String lastname;
 	private String password;
@@ -61,6 +65,12 @@ public class Customer {
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getFirstname() {
 		return firstname;
@@ -130,7 +140,7 @@ public class Customer {
 	}
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", username=" + username + ", firstname="
+		return "Customer [id=" + id + ", username=" + email + ", firstname="
 				+ firstname + ", lastname=" + lastname + ", password="
 				+ password + ", birthday=" + birthday + ", addresses="
 				+ addresses + ", phoneNumbers=" + phoneNumbers + ", role="

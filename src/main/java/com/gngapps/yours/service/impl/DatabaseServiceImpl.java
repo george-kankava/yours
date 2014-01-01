@@ -8,7 +8,11 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
+import javax.persistence.PersistenceException;
+
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +90,9 @@ public class DatabaseServiceImpl implements DatabaseService {
 	@Autowired
 	private DataRemoverDao dataRemoverDao;
 	
+	@Autowired
+	private DatabaseServiceHelper databaseServiceHelper;
+	
 	private static final Logger logger = LoggerFactory.getLogger(YoursController.class);
 	
 	@Override
@@ -96,9 +103,19 @@ public class DatabaseServiceImpl implements DatabaseService {
 	@Override
 	@Transactional
 	public Customer registerCustomer(Customer customer) {
-		return dataSaverDao.saveCustomer(customer);
+		try {
+			String customerUsername = databaseServiceHelper.generateUniqueCustomerUsername(customer);
+			while(dataGetterDao.findCustomerByUsername(customerUsername) != null) {
+				customerUsername = databaseServiceHelper.generateUniqueCustomerUsername(customer);
+			}
+			customer.setUsername(customerUsername);
+			return dataSaverDao.saveCustomer(customer);
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+			return customer;
+		}
 	}
-	
+
 	@Override
 	@Transactional
 	public SandwichBread addNewSandwichBreadType(SandwichBread sandwichBread) {

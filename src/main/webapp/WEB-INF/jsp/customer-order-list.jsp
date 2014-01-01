@@ -52,11 +52,11 @@
 			<div class="horizontal-line"></div>
 			<div class="row">
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></h5>
+					<h5><span class="bold"><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></span></h5>
 					
 				</div>
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.ingredients.size" text="Size" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.ingredients.size" text="Size" /></span></h5>
 				</div>
 			</div>
 			<div class="row">
@@ -79,10 +79,10 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></h5>
+					<h5><span class="bold"><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></span></h5>
 				</div>
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.ingredients.amount" text="Amount" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.ingredients.amount" text="Amount" /></span></h5>
 				</div>
 			</div>
 			<c:forEach items="${customerSandwich.sandwichSausages }" var="sandwichSausage">
@@ -135,10 +135,10 @@
 			</c:forEach>
 			<div class="row">
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.ingredient.sauce" text="Sauce" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.ingredient.sauce" text="Sauce" /></span></h5>
 				</div>
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.ingredients.amount" text="Amount" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.ingredients.amount" text="Amount" /></span></h5>
 				</div>
 			</div>
 			<c:forEach items="${customerSandwich.sandwichSauces }" var="sandwichSauce">
@@ -163,10 +163,10 @@
 			</c:forEach>
 			<div class="row">
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.ingredient.spice" text="Spice" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.ingredient.spice" text="Spice" /></span></h5>
 				</div>
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.ingredients.amount" text="Amount" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.ingredients.amount" text="Amount" /></span></h5>
 				</div>
 			</div>
 			<c:forEach items="${customerSandwich.sandwichSpices }" var="sandwichSpice">
@@ -207,10 +207,10 @@
 			<div class="horizontal-line"></div>
 			<div class="row">
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.service.ingredient" text="Ingredient" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.service.ingredient" text="Ingredient" /></span></h5>
 				</div>
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.ingredients.amount" text="Amount" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.ingredients.amount" text="Amount" /></span></h5>
 				</div>
 			</div>
 			<c:forEach items="${customerSalad.ingredientWithAmountAndPrices }" var="ingredientWithAmountAndPrice">
@@ -251,10 +251,10 @@
 			<div class="horizontal-line"></div>
 			<div class="row">
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.service.drink" text="Drink" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.service.drink" text="Drink" /></span></h5>
 				</div>
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.ingredients.size" text="Size" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.ingredients.size" text="Size" /></span></h5>
 				</div>
 			</div>
 			<div class="row">
@@ -277,10 +277,10 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.service.drink.addon.name" text="Add-on Name" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.service.drink.addon.name" text="Add-on Name" /></span></h5>
 				</div>
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.ingredients.amount" text="Amount" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.ingredients.amount" text="Amount" /></span></h5>
 				</div>
 			</div>
 			<c:forEach items="${customerDrink.addonWithAmountAndPrices }" var="addonWithAmountAndPrice">
@@ -321,10 +321,10 @@
 			<div class="horizontal-line"></div>
 			<div class="row">
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></h5>
+					<h5><span class="bold"><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></span></h5>
 				</div>
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.ingredients.size" text="Size" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.ingredients.size" text="Size" /></span></h5>
 				</div>
 			</div>
 			<div class="row">
@@ -347,10 +347,10 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.service.ingredients.hotdog.sausage" text="Sausage" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.service.ingredients.hotdog.sausage" text="Sausage" /></span></h5>
 				</div>
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.ingredients.amount" text="Amount" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.ingredients.amount" text="Amount" /></span></h5>
 				</div>
 			</div>
 			<div class="row">
@@ -373,10 +373,10 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.service.ingredients.hotdog.sauce" text="Sauce" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.service.ingredients.hotdog.sauce" text="Sauce" /></span></h5>
 				</div>
 				<div class="col-lg-6">
-					<h5><spring:message code="yours.food.ingredients.amount" text="Amount" /></h5>
+					<h5><span class="bold"><spring:message code="yours.food.ingredients.amount" text="Amount" /></span></h5>
 				</div>
 			</div>
 			<c:forEach items="${customerHotdog.amountAndPrices }" var="sauceAmountAndPrice">
