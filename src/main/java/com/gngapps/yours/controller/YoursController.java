@@ -72,7 +72,7 @@ public class YoursController {
 	private static final Logger logger = LoggerFactory.getLogger(YoursController.class);
 	
 	@RequestMapping(value = "/operator/process-customer-meals-desk-order", method = RequestMethod.GET)
-	public ModelAndView processCustomerMealsDeskOrder(HttpServletResponse response, @RequestParam String customerMealsJson, ModelAndView mav) {
+	public ModelAndView processCustomerMealsDeskOrder(HttpServletRequest request, HttpServletResponse response, @RequestParam String customerMealsJson, ModelAndView mav) {
 		try {
 			mav.setViewName("customer-order-list");
 			CustomerMealsJson meals = mapper.readValue(customerMealsJson, CustomerMealsJson.class);
@@ -84,6 +84,8 @@ public class YoursController {
 			List<CustomerSalad> customerDrinks = databaseService.getDrinksByIds(drinkIds);
 			List<Integer> hotdogIds = meals.getHotdogIds();
 			List<CustomerSalad> customerHotdog = databaseService.getHotdogByIds(hotdogIds);
+			Locale locale = localeResolver.resolveLocale(request);
+	    	mav.addObject("locale", locale.getLanguage());
 			mav.addObject("customerSandwiches", customerSandwiches);
 			mav.addObject("customerSalads", customerSalads);
 			mav.addObject("customerDrinks", customerDrinks);
