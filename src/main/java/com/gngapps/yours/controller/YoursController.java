@@ -1,8 +1,7 @@
 package com.gngapps.yours.controller;
 
-import java.io.ByteArrayOutputStream;
-import java.nio.ByteBuffer;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -12,27 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.graphics.xobject.PDJpeg;
-import org.apache.pdfbox.pdmodel.graphics.xobject.PDXObjectImage;
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gngapps.yours.AppConstants;
 import com.gngapps.yours.databinding.json.request.CustoemrOrderJson;
 import com.gngapps.yours.databinding.json.request.CustomerMealsJson;
+import com.gngapps.yours.entities.ChangePasswordToken;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.CustomerOrder;
 import com.gngapps.yours.entities.CustomerSalad;
@@ -55,7 +49,11 @@ import com.gngapps.yours.entities.SandwichSauce;
 import com.gngapps.yours.entities.SandwichSausage;
 import com.gngapps.yours.entities.SandwichSpice;
 import com.gngapps.yours.entities.SandwichVegetable;
+import com.gngapps.yours.forms.CustomerChangePasswordEmail;
+import com.gngapps.yours.forms.CustomerChangePasswordPasswordsForm;
 import com.gngapps.yours.service.DatabaseService;
+import com.gngapps.yours.service.impl.YoursHelper;
+import com.gngapps.yours.service.mail.MailService;
 
 @Controller
 public class YoursController {
@@ -69,7 +67,16 @@ public class YoursController {
 	@Autowired
 	private ObjectMapper mapper;
 	
+	@Autowired
+	private MailService mailService;
+	
+	@Autowired
+	private YoursHelper helper;
+	
 	private static final Logger logger = LoggerFactory.getLogger(YoursController.class);
+	
+	@Autowired
+	private MessageSource messageSource;
 	
 	@RequestMapping(value = "/operator/process-customer-meals-desk-order", method = RequestMethod.GET)
 	public ModelAndView processCustomerMealsDeskOrder(HttpServletRequest request, HttpServletResponse response, @RequestParam String customerMealsJson, ModelAndView mav) {
@@ -190,7 +197,7 @@ public class YoursController {
 		try {
 			mav.setViewName("customer-info");
 			String username = principal.getName();
-			Customer customer = databaseService.findCustomerByUsername(username);
+			Customer customer = databaseService.findCustomerByEmail(username);
 			mav.addObject(customer);
 			return mav;
 		} catch(Exception ex) {
@@ -238,7 +245,7 @@ public class YoursController {
 	@RequestMapping("/meals-list")
 	public ModelAndView mealsList(HttpServletRequest request, Principal principal, ModelAndView mav) {
 		Map<String, Object> customerMeals = databaseService.getCustomerMeals(principal.getName());
-		Customer customer = databaseService.findCustomerByUsername(principal.getName());
+		Customer customer = databaseService.findCustomerByEmail(principal.getName());
 		Locale locale = localeResolver.resolveLocale(request);
     	mav.addObject("locale", locale.getLanguage());
 		mav.addObject("meals", customerMeals);
@@ -278,15 +285,112 @@ public class YoursController {
 	}
     
     @RequestMapping("/index.html")
-	public String indexPage(ModelAndView mav, HttpSession session) {
+	public String indexPage() {
     	return "redirect:/meals-list";
 	}
     
     
     @RequestMapping(value = "/signin")
-	public String signin(ModelAndView mav, HttpSession session) {
+	public String signin() {
     	return "signin";
 	}
+    
+    @RequestMapping("/change-password-step-1")
+	public String changePasswordStep1(@ModelAttribute("customerPasswordReset") Customer customer) {
+    	return "change-password-email-form";
+	}
+    
+
+    @RequestMapping("/change-password-step-2")
+    public ModelAndView changePasswordStep2(HttpServletRequest request,  @ModelAttribute("customerPasswordReset") @Valid CustomerChangePasswordEmail customerResetPasswordForm, ModelAndView mav, BindingResult result) {
+    	try {
+    		if(result.hasErrors()) {
+        		String errorMessageCode = result.getFieldError("email").getDefaultMessage();
+            	Locale locale = localeResolver.resolveLocale(request);
+        		String errorMessage = messageSource.getMessage(errorMessageCode, null, locale);
+        		mav.setViewName("change-password-email-form");
+        		mav.addObject("errorMessage", errorMessage);
+        		return mav;
+        	}
+    		Locale locale = localeResolver.resolveLocale(request);
+    		Customer customer = databaseService.findCustomerByEmail(customerResetPasswordForm.getEmail());
+    		if(customer == null) {
+    			String customerNotFoundMessage = messageSource.getMessage("yours.food.service.customer.not.found.message", null, locale);
+    			mav.setViewName("change-password-email-form");
+    			mav.addObject("errorMessage", customerNotFoundMessage);
+    		}
+    		String changePasswordToken = helper.generateCustomerPasswordChangeToken(customer);
+    		while(databaseService.getPasswordChangeToken(changePasswordToken) != null) {
+    			changePasswordToken = helper.generateCustomerPasswordChangeToken(customer);
+    		}
+    		databaseService.saveChangePasswordToken(customer, changePasswordToken, new Date());
+    		mailService.sendCustomerChangePasswordLink(customer, changePasswordToken, locale);
+    		String message = messageSource.getMessage("yours.food.service.change.password.mail.sent.message", null, locale);
+    		mav.addObject("message", message);
+    		mav.setViewName("signin");
+    		return mav;
+    	} catch(Exception ex) {
+    		logger.info(ex.getMessage());
+    		mav.setViewName("customer-error-page");
+    		return mav;
+    	}
+    }
+    
+    @RequestMapping("/change-password-step-3/{changePasswordToken}")
+	public ModelAndView changePasswordStep3(HttpServletRequest request, @PathVariable String changePasswordToken, ModelAndView mav) {
+    	try {
+    		Locale locale = localeResolver.resolveLocale(request);
+    		mav.setViewName("signin");
+    		ChangePasswordToken token = databaseService.getPasswordChangeToken(changePasswordToken);
+    		if(token == null) {
+    			String errorMessage = messageSource.getMessage("yours.food.service.change.password.token.not.found", null, locale);
+    			mav.setViewName("change-password-email-form");
+    			mav.addObject("errorMessage", errorMessage);
+    			return mav;
+    		}
+    		long tokenValidityPeriodInMillies = token.getTimestamp().getTime() + AppConstants.ONE_HOUR_IN_MILLIES;
+    		long currentTimeInMillies = System.currentTimeMillis();
+    		if(tokenValidityPeriodInMillies > currentTimeInMillies) {
+    			mav.addObject("token", token.getToken());
+    			mav.setViewName("change-password-passwords-form");
+    			return mav;
+    		} else {
+	    		String errorMessage = messageSource.getMessage("yours.food.service.change.password.time.expired", null, locale);
+	    		mav.setViewName("change-password-email-form");
+	    		mav.addObject("errorMessage", errorMessage);
+	        	return mav;
+    		}
+    	} catch(Exception ex) {
+    		logger.info(ex.getMessage());
+    		mav.setViewName("customer-error-page");
+    		return mav;
+    	}
+	}
+    
+    @RequestMapping("/change-password-step-4")
+    public ModelAndView changePasswordStep4(HttpServletRequest request, @RequestParam String changePasswordToken, ModelAndView mav, @ModelAttribute("customerChangePasswordPasswordsForm") CustomerChangePasswordPasswordsForm passwordsForm) {
+    	try {
+    		if(changePasswordToken == null) {
+    			throw new IllegalArgumentException("password change token is null");
+    		}
+    		Locale locale = localeResolver.resolveLocale(request);
+    		if(!StringUtils.equals(passwordsForm.getPassword(), passwordsForm.getConfirmPassword())) {
+    			String errorMessage = messageSource.getMessage("yours.food.service.change.password.password.not.match.message", null, locale);
+    			mav.addObject("errorMessage", errorMessage);
+    			mav.addObject("token", changePasswordToken);
+    			mav.setViewName("change-password-passwords-form");
+    		}
+    		databaseService.changeCustomerPasswordAndRemovePasswordChangeToken(changePasswordToken, passwordsForm.getPassword());
+    		String message = messageSource.getMessage("yours.food.service.customer.change.password.has.changed.message", null, locale);
+    		mav.addObject("message", message);
+    		mav.setViewName("signin");
+    		return mav;
+    	} catch(Exception ex) {
+    		logger.info(ex.getMessage());
+    		mav.setViewName("customer-error-page");
+    		return mav;
+    	}
+    }
     
     @RequestMapping(value = "/register-user")
 	public String register(@ModelAttribute("customer") Customer customer, BindingResult result) {
@@ -294,11 +398,13 @@ public class YoursController {
 	}
     
     @RequestMapping(value = "/process-register-user", method = RequestMethod.POST)
-	public String processRegister(ModelAndView mav, HttpServletRequest request, HttpSession session, @ModelAttribute @Valid Customer customer, BindingResult result) {
+	public String processRegister(HttpServletRequest request, HttpSession session, @ModelAttribute @Valid Customer customer, ModelAndView mav, BindingResult result) {
     	if(result.hasErrors()) {
     		return "register-user";
     	}
     	databaseService.registerCustomer(customer);
+    	Locale locale = localeResolver.resolveLocale(request);
+    	mailService.sendCustomerRegistrationMail(customer, locale);
     	return "signin";
 	}
     

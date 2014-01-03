@@ -6,6 +6,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import com.gngapps.yours.entities.Address;
+import com.gngapps.yours.entities.ChangePasswordToken;
 import com.gngapps.yours.entities.CustomerDrink;
 import com.gngapps.yours.entities.CustomerHotdog;
 import com.gngapps.yours.entities.CustomerSalad;
@@ -206,5 +207,10 @@ public class DataRemoverJPA implements DataRemoverDao {
 	public void removeCustomerPhone(Integer customerPhoneId) {
 		Phone phone = em.find(Phone.class, customerPhoneId);
 		em.remove(phone);
+	}
+
+	@Override
+	public void removeCustomerPasswordChangeToken(ChangePasswordToken token) {
+		em.remove(em.merge(token));
 	}
 }

@@ -1,5 +1,7 @@
 package com.gngapps.yours.dao;
 
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -21,6 +23,7 @@ import com.gngapps.yours.entities.HotDogSausage;
 import com.gngapps.yours.entities.HotDogSausageAmountAndPrice;
 import com.gngapps.yours.entities.HotdogBreadSizeAndPrice;
 import com.gngapps.yours.entities.HotdogSauceAmountAndPrice;
+import com.gngapps.yours.entities.ChangePasswordToken;
 import com.gngapps.yours.entities.Role;
 import com.gngapps.yours.entities.SaladIngredient;
 import com.gngapps.yours.entities.SaladIngredientAmountAndPrice;
@@ -306,6 +309,15 @@ public class DataSaverJPA implements DataSaverDao {
 			em.merge(order);
 		} else {
 			em.persist(order);
+		}
+	}
+
+	@Override
+	public void saveChangePasswordToken(ChangePasswordToken passwordToken) {
+		if(passwordToken.getId() != null) {
+			em.merge(passwordToken);
+		} else {
+			em.persist(passwordToken);
 		}
 	}
 

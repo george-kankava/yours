@@ -12,6 +12,10 @@
 		<intercept-url pattern="/signin" access="permitAll" />
 		<intercept-url pattern="/register-user" access="permitAll" />
 		<intercept-url pattern="/process-register-user" access="permitAll"/>
+		<intercept-url pattern="/change-password-step-1" access="permitAll"/>
+		<intercept-url pattern="/change-password-step-2" access="permitAll"/>
+		<intercept-url pattern="/change-password-step-3/**" access="permitAll"/>
+		<intercept-url pattern="/change-password-step-4" access="permitAll"/>
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/operator/customer-meals" access="hasRole('ROLE_DESK_ORDERS_OPERATOR')" />
 		<intercept-url pattern="/operator/process-customer-meals-desk-order" access="hasRole('ROLE_DESK_ORDERS_OPERATOR')" />

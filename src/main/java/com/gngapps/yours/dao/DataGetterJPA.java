@@ -6,9 +6,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.gngapps.yours.controller.YoursController;
 import com.gngapps.yours.entities.Address;
+import com.gngapps.yours.entities.ChangePasswordToken;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.CustomerDrink;
 import com.gngapps.yours.entities.CustomerHotdog;
@@ -45,10 +49,12 @@ public class DataGetterJPA implements DataGetterDao {
 	@PersistenceContext
 	private EntityManager em;
 	
+	private static final Logger logger = LoggerFactory.getLogger(DataGetterDao.class);
+	
 	@Override
-	public Customer findCustomerByUsername(String username) {
+	public Customer findCustomerByEmail(String email) {
 		try {
-			return (Customer)em.createQuery("FROM Customer c WHERE c.username = :username").setParameter("username", username).getSingleResult();
+			return (Customer)em.createQuery("FROM Customer c WHERE c.email = :email").setParameter("email", email).getSingleResult();
 		} catch(NoResultException e) {
 			return null;
 		}
@@ -333,6 +339,17 @@ public class DataGetterJPA implements DataGetterDao {
 	public List<CustomerSalad> getHotdogsByIds(List<Integer> hotdogIds) {
 		String query = "FROM CustomerHotdog cHotdog WHERE cHotdog.id IN (:hotdogIds)";
 		return em.createQuery(query).setParameter("hotdogIds", hotdogIds).getResultList();
+	}
+
+	@Override
+	public ChangePasswordToken findPasswordChangeTokenByToken(String token) {
+		try {
+		String string = "FROM ChangePasswordToken token WHERE token = :token";
+		return (ChangePasswordToken)em.createQuery(string).setParameter("token", token).getSingleResult();
+		} catch(NoResultException ex) {
+			logger.info(ex.getMessage());
+			return null;
+		}
 	}
 	
 }

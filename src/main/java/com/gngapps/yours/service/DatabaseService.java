@@ -1,6 +1,7 @@
 package com.gngapps.yours.service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import com.gngapps.yours.databinding.json.request.DrinksJson;
 import com.gngapps.yours.databinding.json.request.HotdogJson;
 import com.gngapps.yours.databinding.json.request.SaladJson;
 import com.gngapps.yours.databinding.json.request.SandwichJson;
+import com.gngapps.yours.entities.ChangePasswordToken;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.CustomerOrder;
 import com.gngapps.yours.entities.CustomerSalad;
@@ -39,7 +41,7 @@ import com.gngapps.yours.entities.SandwichVegetable;
 import com.gngapps.yours.entities.SandwichVegetableAmountAndPrice;
 
 public interface DatabaseService {
-	Customer findCustomerByUsername(String username);
+	Customer findCustomerByEmail(String username);
 	Customer registerCustomer(Customer customer);
 	SandwichBread addNewSandwichBreadType(SandwichBread sandwichBread);
 	List<SandwichBread> getSandwichBreads();
@@ -118,4 +120,7 @@ public interface DatabaseService {
 	List<CustomerSalad> getSaladsByIds(List<Integer> saladIds);
 	List<CustomerSalad> getDrinksByIds(List<Integer> drinkIds);
 	List<CustomerSalad> getHotdogByIds(List<Integer> hotdogIds);
+	void saveChangePasswordToken(Customer customer, String token, Date timestamp);
+	ChangePasswordToken getPasswordChangeToken(String changePasswordToken);
+	void changeCustomerPasswordAndRemovePasswordChangeToken(String changePasswordToken, String password);
 }

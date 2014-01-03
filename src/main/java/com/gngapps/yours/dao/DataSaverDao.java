@@ -1,5 +1,6 @@
 package com.gngapps.yours.dao;
 
+import com.gngapps.yours.entities.ChangePasswordToken;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.CustomerDrink;
 import com.gngapps.yours.entities.CustomerHotdog;
@@ -61,4 +62,5 @@ public interface DataSaverDao {
 	void saveCustomerDrink(CustomerDrink customerDrink);
 	void saveCustomerHotdog(CustomerHotdog customerHotdog);
 	void saveCustomerOrder(CustomerOrder order);
+	void saveChangePasswordToken(ChangePasswordToken passwordToken);
 }

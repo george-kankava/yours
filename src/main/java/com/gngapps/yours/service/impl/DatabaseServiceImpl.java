@@ -8,11 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
-import javax.persistence.PersistenceException;
-
-import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gngapps.yours.AppConstants;
-import com.gngapps.yours.controller.YoursController;
 import com.gngapps.yours.dao.DataGetterDao;
 import com.gngapps.yours.dao.DataRemoverDao;
 import com.gngapps.yours.dao.DataSaverDao;
@@ -39,6 +34,7 @@ import com.gngapps.yours.databinding.json.request.SandwichSausageIdWithAmountAnd
 import com.gngapps.yours.databinding.json.request.SandwichSpiceIdWithAmountAndPriceId;
 import com.gngapps.yours.databinding.json.request.SandwichVegetableIdWithAmountAndPriceId;
 import com.gngapps.yours.entities.Address;
+import com.gngapps.yours.entities.ChangePasswordToken;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.CustomerDrink;
 import com.gngapps.yours.entities.CustomerHotdog;
@@ -91,22 +87,22 @@ public class DatabaseServiceImpl implements DatabaseService {
 	private DataRemoverDao dataRemoverDao;
 	
 	@Autowired
-	private DatabaseServiceHelper databaseServiceHelper;
+	private YoursHelper yoursHelper;
 	
-	private static final Logger logger = LoggerFactory.getLogger(YoursController.class);
+	private static final Logger logger = LoggerFactory.getLogger(DatabaseService.class);
 	
 	@Override
-	public Customer findCustomerByUsername(String username) {
-		return dataGetterDao.findCustomerByUsername(username);
+	public Customer findCustomerByEmail(String email) {
+		return dataGetterDao.findCustomerByEmail(email);
 	}
 	
 	@Override
 	@Transactional
 	public Customer registerCustomer(Customer customer) {
 		try {
-			String customerUsername = databaseServiceHelper.generateUniqueCustomerUsername(customer);
-			while(dataGetterDao.findCustomerByUsername(customerUsername) != null) {
-				customerUsername = databaseServiceHelper.generateUniqueCustomerUsername(customer);
+			String customerUsername = yoursHelper.generateUniqueCustomerUsername(customer);
+			while(dataGetterDao.findCustomerByEmail(customerUsername) != null) {
+				customerUsername = yoursHelper.generateUniqueCustomerUsername(customer);
 			}
 			customer.setUsername(customerUsername);
 			return dataSaverDao.saveCustomer(customer);
@@ -507,7 +503,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 			}
 			SandwichBread sandwichBread = dataGetterDao.findSandwichBreadById(sandwichBreadId);
 			SandwichBreadSizeAndPrice sizeAndPrice = dataGetterDao.findSandwichBreadSizeAndPriceId(sandwichBreadSizeAndPriceId);
-			Customer customer = findCustomerByUsername(username);
+			Customer customer = findCustomerByEmail(username);
 			List<SandwichSausageIdWithAmountAndPriceId> sandwichSausages = sandwich.getSandwichSausages().getSandwichSausages();
 			List<SandwichSausageWithAmountAndPrice> sandwichSausageWithAmountAndPrices = new ArrayList<SandwichSausageWithAmountAndPrice>();
 			fillSandwichSausageWithAmountAndPriceList(sandwichSausages, sandwichSausageWithAmountAndPrices);
@@ -640,7 +636,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 	@Transactional
 	public void saveCustomerSalad(SaladJson salad, String username) {
 		try {
-			Customer customer = findCustomerByUsername(username);
+			Customer customer = findCustomerByEmail(username);
 			CustomerSalad customerSalad = new CustomerSalad();
 			List<SaladIngredientIdWithAmountAndPriceId> saladIngredientIdWithAmountAndPriceIds = salad.getSaladIngredients().getSaladIngredients();
 			List<SaladIngredientWithAmountAndPrice> saladIngredientWithAmountAndPrices = new ArrayList<SaladIngredientWithAmountAndPrice>();
@@ -692,7 +688,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 				addonWithAmountAndPrice.setAddOnAmountAndPrice(addOnAmountAndPrice);
 				drinkAddonWithAmountAndPrices.add(addonWithAmountAndPrice);
 			}
-			Customer customer = findCustomerByUsername(username);
+			Customer customer = findCustomerByEmail(username);
 			CustomerDrink customerDrink = new CustomerDrink();
 			customerDrink.setCustomer(customer);
 			customerDrink.setDrinkWithSizeAndPrice(drinkWithSizeAndPrice);
@@ -748,7 +744,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 				withAmountAndPrice.setAmountAndPrice(sauceAmountAndPrice);
 				sauceWithAmountAndPrices.add(withAmountAndPrice);
 			}
-			Customer customer = findCustomerByUsername(username);
+			Customer customer = findCustomerByEmail(username);
 			CustomerHotdog customerHotdog = new CustomerHotdog();
 			customerHotdog.setCustomer(customer);
 			customerHotdog.setBread(bread);
@@ -764,7 +760,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 	@Override
 	public Map<String, Object> getCustomerMeals(String customerUsername) {
-		Customer customer = dataGetterDao.findCustomerByUsername(customerUsername);
+		Customer customer = dataGetterDao.findCustomerByEmail(customerUsername);
 		Map<String, Object> customerMeals = new LinkedHashMap<String, Object>();
 		if(customer != null) {
 			customerMeals.put("sandwiches", customer.getSandwichs());
@@ -846,7 +842,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 			List<CustomerSandwich> customerSandwichs = buildCustomerSandwichOrder(customerFoodsAndDrinks);
 			List<Integer> saladIds = customerFoodsAndDrinks.getSaladIds();
 			List<CustomerSalad> customerSalads = new LinkedList<CustomerSalad>();
-			Customer customer = findCustomerByUsername(username);
+			Customer customer = findCustomerByEmail(username);
 			for(Integer saladId : saladIds) {
 				CustomerSalad salad = dataGetterDao.findCustomerSaladById(saladId);
 				customerSalads.add(salad);
@@ -1000,6 +996,34 @@ public class DatabaseServiceImpl implements DatabaseService {
 			return dataGetterDao.getHotdogsByIds(hotdogIds);
 		}
 		return Collections.emptyList();
+	}
+
+	@Override
+	@Transactional
+	public void saveChangePasswordToken(Customer customer, String token, Date timestamp) {
+		ChangePasswordToken passwordToken = new ChangePasswordToken();
+		passwordToken.setCustomer(customer);
+		passwordToken.setTimestamp(timestamp);
+		passwordToken.setToken(token);
+		dataSaverDao.saveChangePasswordToken(passwordToken);
+	}
+
+	@Override
+	@Transactional
+	public ChangePasswordToken getPasswordChangeToken(String token) {
+		return dataGetterDao.findPasswordChangeTokenByToken(token);
+	}
+
+	@Override
+	@Transactional
+	public void changeCustomerPasswordAndRemovePasswordChangeToken(String changePasswordToken, String password) {
+		ChangePasswordToken token = dataGetterDao.findPasswordChangeTokenByToken(changePasswordToken);
+		if(token == null) {
+			throw new IllegalArgumentException("token entity with specified token: \"" + changePasswordToken + "\" was not found");
+		}
+		Customer customer = token.getCustomer();
+		customer.setPassword(password);
+		dataRemoverDao.removeCustomerPasswordChangeToken(token);
 	}
 
 }

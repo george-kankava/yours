@@ -22,10 +22,10 @@ public class LoginUserDetailsService implements UserDetailsService {
 	private DatabaseService service;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Customer customer = service.findCustomerByUsername(username);
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		Customer customer = service.findCustomerByEmail(email);
 		Collection<? extends GrantedAuthority> roles = getAuthorities(customer.getRole().getRole());
-		User user = new User(customer.getUsername(), customer.getPassword(), roles);
+		User user = new User(customer.getEmail(), customer.getPassword(), roles);
 		return user;
 	}
 

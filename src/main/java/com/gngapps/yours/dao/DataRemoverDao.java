@@ -1,5 +1,7 @@
 package com.gngapps.yours.dao;
 
+import com.gngapps.yours.entities.ChangePasswordToken;
+
 
 public interface DataRemoverDao {
 	void removeSandwichBreadSizeAndPrice(Integer sandwichBreadSizeAndPrice);
@@ -57,4 +59,6 @@ public interface DataRemoverDao {
 	void removeCustomerAddress(Integer customerAddressId);
 
 	void removeCustomerPhone(Integer customerPhoneId);
+
+	void removeCustomerPasswordChangeToken(ChangePasswordToken token);
 }

@@ -45,6 +45,7 @@
 		<class>com.gngapps.yours.entities.CustomerOrder</class>
 		<class>com.gngapps.yours.entities.Address</class>
 		<class>com.gngapps.yours.entities.Phone</class>
+		<class>com.gngapps.yours.entities.ChangePasswordToken</class>
 	</persistence-unit>
 
 </persistence>

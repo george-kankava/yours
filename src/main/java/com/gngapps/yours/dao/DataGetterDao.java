@@ -3,6 +3,7 @@ package com.gngapps.yours.dao;
 import java.util.List;
 
 import com.gngapps.yours.entities.Address;
+import com.gngapps.yours.entities.ChangePasswordToken;
 import com.gngapps.yours.entities.Customer;
 import com.gngapps.yours.entities.CustomerDrink;
 import com.gngapps.yours.entities.CustomerHotdog;
@@ -35,7 +36,7 @@ import com.gngapps.yours.entities.SandwichVegetableAmountAndPrice;
 
 public interface DataGetterDao {
 	
-	Customer findCustomerByUsername(String username);
+	Customer findCustomerByEmail(String username);
 
 	List<SandwichBread> getSandwichBreads();
 
@@ -130,5 +131,7 @@ public interface DataGetterDao {
 	List<CustomerSalad> getDrinksByIds(List<Integer> drinkIds);
 
 	List<CustomerSalad> getHotdogsByIds(List<Integer> hotdogIds);
+
+	ChangePasswordToken findPasswordChangeTokenByToken(String token);
 
 }

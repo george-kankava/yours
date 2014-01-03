@@ -131,7 +131,7 @@
 					<div class="col-lg-6">
 						${sandwichVegetable.sandwichVegetableAmountAndPrice.portion }
 					</div>
-				</div>			
+				</div>
 			</c:forEach>
 			<div class="row">
 				<div class="col-lg-6">
