@@ -5,11 +5,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  	<style>
-  		.selecter {
-  		
-  		}
-  	</style>
   	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="description" content="Food Service" />
@@ -69,7 +64,7 @@
 						</thead>
 						<c:forEach items="${sandwichBreads }" var="sandwichBread">
 							<tr>
-								<td>
+								<td class="td-50-percent">
 									<input type="radio" name="sandwichBread" id="${sandwichBread.id }"/>
 									<c:choose>
 										<c:when test="${locale eq 'ka' }">
@@ -83,7 +78,7 @@
 										</c:when>
 									</c:choose>
 								</td>
-								<td>
+								<td class="td-50-percent">
 									<select disabled class="form-control" id="sandwichBreadSizeAndPrice${sandwichBread.id }">
 										<c:forEach items="${sandwichBread.sandwichBreadSizeAndPrices }" var="sizeAndPrice">
 											<option ingredient-price="${sizeAndPrice.price }" value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
@@ -115,7 +110,7 @@
 						</thead>
 						<c:forEach items="${sandwichSausages }" var="sandwichSausage">
 							<tr>
-								<td>
+								<td class="td-50-percent">
 										<input name="sandwichSausage" type="checkbox" id="${sandwichSausage.id }">
 										<c:choose>
 											<c:when test="${locale eq 'ka' }">
@@ -130,7 +125,7 @@
 										</c:choose>
 										
 								</td>
-								<td>
+								<td class="td-50-percent">
 									<select disabled class="form-control" id="sandwichSausageAmountAndPrice${sandwichSausage.id }">
 										<c:forEach items="${sandwichSausage.sausageAmountAndPrices }" var="amountAndPrice">
 											<option ingredient-price="${amountAndPrice.price }" value="${amountAndPrice.id}">${amountAndPrice.portion}</option>
@@ -162,7 +157,7 @@
 						</thead>
 						<c:forEach items="${sandwichVegetables }" var="sandwichVegetable">
 							<tr>
-								<td>
+								<td class="td-50-percent">
 									<input name="sandwichVegetable"  id="${sandwichVegetable.id }" type="checkbox">
 									<c:choose>
 										<c:when test="${locale eq 'ka' }">
@@ -176,7 +171,7 @@
 										</c:when>
 									</c:choose>
 								</td>
-								<td>
+								<td class="td-50-percent">
 									<select disabled class="form-control" id="sandwichVegetableAmountAndPrice${sandwichVegetable.id }">
 										<c:forEach items="${sandwichVegetable.vegetableAmountAndPrices }" var="amountAndPrice">
 											<option ingredient-price="${amountAndPrice.price }" value="${amountAndPrice.id}">${amountAndPrice.portion}</option>
@@ -208,7 +203,7 @@
 						</thead>
 						<c:forEach items="${sandwichSauces }" var="sandwichSauce">
 							<tr>
-								<td>
+								<td class="td-50-percent">
 									<input name="sandwichSauce"  id="${sandwichSauce.id }" type="checkbox">
 									<c:choose>
 										<c:when test="${locale eq 'ka' }">
@@ -222,7 +217,7 @@
 										</c:when>
 									</c:choose>
 								</td>
-								<td>
+								<td class="td-50-percent">
 									<select disabled class="form-control" id="sandwichSauceAmountAndPrice${sandwichSauce.id }">
 										<c:forEach items="${sandwichSauce.sauceAmountAndPrices}" var="amountAndPrice">
 											<option ingredient-price="${amountAndPrice.price }" value="${amountAndPrice.id}">${amountAndPrice.portion}</option>
@@ -254,7 +249,7 @@
 						</thead>
 						<c:forEach items="${sandwichSpices }" var="sandwichSpice">
 							<tr>
-								<td>
+								<td class="td-50-percent">
 									<input name="sandwichSpice" type="checkbox" id="${sandwichSpice.id }">
 									<c:choose>
 										<c:when test="${locale eq 'ka' }">
@@ -268,7 +263,7 @@
 										</c:when>
 									</c:choose>
 								</td>
-								<td>
+								<td class="td-50-percent">
 									<select disabled class="form-control" id="sandwichSpiceAmountAndPrice${sandwichSpice.id }">
 										<c:forEach items="${sandwichSpice.spiceAmountAndPrice}" var="amountAndPrice">
 											<option ingredient-price="${amountAndPrice.price }" value="${amountAndPrice.id}">${amountAndPrice.portion}</option>
@@ -301,12 +296,12 @@
 						<thead>
 							<tr>
 								<th><spring:message code="yours.food.service.salad.ingredients" text="Salad Ingredients" /></th>
-								<th>Price:  <span id="saladPrice" class="label label-success" style="font-size:14px">0.00</span></th>
+								<th><spring:message code="yours.food.ingredient.price" text="Price" />: <span class="badge" id="saladPrice">0.00</span></th>
 							</tr>
 						</thead>
 						<c:forEach items="${saladIngredients }" var="saladIngredient">
 							<tr>
-								<td>
+								<td class="td-50-percent">
 									<input type="checkbox" name="saladIngredient" id="${saladIngredient.id }"/>
 									<c:choose>
 										<c:when test="${locale eq 'ka' }">
@@ -320,7 +315,7 @@
 										</c:when>
 									</c:choose>
 								</td>
-								<td>
+								<td class="td-50-percent">
 									<select disabled class="form-control" id="saladIngredientAmountAndPrice${saladIngredient.id }">
 										<c:forEach items="${saladIngredient.saladIngredientAmountAndPrices }" var="amountAndPrice">
 											<option ingredient-price="${amountAndPrice.price }" value="${amountAndPrice.id}">${amountAndPrice.amount}</option>
@@ -353,12 +348,12 @@
 						<thead>
 							<tr>
 								<th><spring:message code="yours.list.heading.drinks" text="Drinks" /></th>
-								<th>Price: <span id="drinkPrice" class="label label-primary" style="font-size: 14px" >0.00</span></th>
+								<th><spring:message code="yours.food.ingredient.price" text="Price" />: <span class="badge" id="drinkPrice">0.00</span></th>
 							</tr>
 						</thead>
 						<c:forEach items="${drinks }" var="drink">
 							<tr>
-								<td>
+								<td class="td-50-percent">
 									<input type="radio" name="drink" id="${drink.id }"/>
 									<c:choose>
 										<c:when test="${locale eq 'ka' }">
@@ -372,7 +367,7 @@
 										</c:when>
 									</c:choose>
 								</td>
-								<td>
+								<td class="td-50-percent">
 									<select disabled class="form-control" id="drinkSizeAndPrices${drink.id }">
 										<c:forEach items="${drink.drinkSizeAndPrices }" var="sizeAndPrice">
 											<option ingredient-price="${sizeAndPrice.price }" value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
@@ -396,53 +391,7 @@
 							</script>
 						</c:forEach>
 					</table>
-					<table class="table table-bordered table-striped">
-						<thead>
-							<tr>
-								<th colspan="2"><spring:message code="yours.food.service.food.components.list.drink.addon.title" text="Drink Addon"/></th>
-							</tr>
-						</thead>
-						<c:forEach items="${drinkAddOns }" var="drinkAddOn">
-							<tr>
-								<td>
-									<div>
-										<input name="drinkAddOn" type="checkbox" id="${drinkAddOn.id }">
-										<c:choose>
-											<c:when test="${locale eq 'ka' }">
-												<label>${drinkAddOn.nameGeo }</label>										
-											</c:when>
-											<c:when test="${locale eq 'en' }">
-												<label>${drinkAddOn.nameEng }</label>
-											</c:when>
-											<c:when test="${locale eq 'ru' }">
-												<label>${drinkAddOn.nameRus }</label>
-											</c:when>
-										</c:choose>
-									</div>
-								</td>
-								<td>
-									<select disabled class="form-control" id="drinkAddOnAmountAndPrices${drinkAddOn.id }">
-										<c:forEach items="${drinkAddOn.drinkAddOnAmountAndPrices }" var="sizeAndPrice">
-											<option ingredient-price="${sizeAndPrice.price }" value="${sizeAndPrice.id}">${sizeAndPrice.amount}</option>
-										</c:forEach>
-									</select>
-								</td>
-							</tr>
-							<script>
-							(function () {
-						    	var previousPrice = null;
-
-						    	$("#drinkAddOnAmountAndPrices${drinkAddOn.id }").mousedown(function () {
-						    		previousPrice = $(this.options[this.selectedIndex]).attr('ingredient-price');
-						    	}).change(function() {
-						    		drinkPrice -= parseFloat(previousPrice);
-									var price = $(this.options[this.selectedIndex]).attr('ingredient-price');
-									drinkPrice += parseFloat(price);
-									$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
-						    	});
-							})();
-							</script>
-						</c:forEach>
+					<table id="drink-addon-table" class="table table-bordered table-striped">
 					</table>
 					<div class="col-md-offset-5" style="margin-top:14px;">
 						<button id="drinkSaveButton" type="button" class="btn btn-success"><spring:message code="yours.food.service.food.componenet.list.hotdog.save.button" text="Save" /></button>
@@ -453,12 +402,12 @@
 						<thead>
 							<tr>
 								<th><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
-								<th>Price: <span id="hotdogPrice" class="label label-primary" style="font-size: 14px">0.00</span> </th>
+								<th><spring:message code="yours.food.ingredient.price" text="Price" />: <span class="badge" id="hotdogPrice">0.00</span></th>
 							</tr>
 						</thead>
 						<c:forEach items="${hotdogBreads}" var="hotdogBread">
 							<tr>
-								<td>
+								<td class="td-50-percent">
 									<input type="radio" name="hotdogBread" id="${hotdogBread.id }"/>
 									<c:choose>
 										<c:when test="${locale eq 'ka' }">
@@ -472,7 +421,7 @@
 										</c:when>
 									</c:choose>
 								</td>
-								<td>
+								<td class="td-50-percent">
 									<select disabled class="form-control" id="hotdogBreadSizeAndPrices${hotdogBread.id }">
 										<c:forEach items="${hotdogBread.hotdogBreadSizeAndPrices }" var="sizeAndPrice">
 											<option ingredient-price="${sizeAndPrice.price }" value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
@@ -504,7 +453,7 @@
 						</thead>
 						<c:forEach items="${hotdogSausages}" var="hotdogSausage">
 							<tr>
-								<td>
+								<td class="td-50-percent">
 									<div>
 										<input name="hotdogSausages" type="radio" id="${hotdogSausage.id }">
 										<c:choose>
@@ -520,7 +469,7 @@
 										</c:choose>
 									</div>
 								</td>
-								<td>
+								<td class="td-50-percent">
 									<select disabled class="form-control" id="hotDogSausageAmountAndPrice${hotdogSausage.id }">
 										<c:forEach items="${hotdogSausage.hotDogSausageAmountAndPrice }" var="amountAndPrice">
 											<option ingredient-price="${amountAndPrice.price }" value="${amountAndPrice.id}">${amountAndPrice.portion}</option>
@@ -552,7 +501,7 @@
 						</thead>
 						<c:forEach items="${hotdogSauces}" var="hotdogSauce">
 							<tr>
-								<td>
+								<td class="td-50-percent">
 									<input name="hotdogSauces"  id="${hotdogSauce.id }" type="checkbox">
 									<c:choose>
 										<c:when test="${locale eq 'ka' }">
@@ -566,7 +515,7 @@
 										</c:when>
 									</c:choose>
 								</td>
-								<td>
+								<td class="td-50-percent">
 									<select disabled class="form-control" id="hotdogSauceAmountAndPrice${hotdogSauce.id }">
 										<c:forEach items="${hotdogSauce.hotdogSauceAmountAndPrice}" var="amountAndPrice">
 											<option ingredient-price="${amountAndPrice.price }" value="${amountAndPrice.id}">${amountAndPrice.amount}</option>
@@ -599,10 +548,11 @@
       <div class="row marketing">
         <div class="col-lg-12">
           
-      </div>
+      	</div>
 
       <div class="footer">
-        <p>&copy; Company 2013</p>
+       	<div class="pull-left">&copy; Company 2013</div>
+        <div class="pull-right">Created by GNG Apps</div>
       </div>
 	  </div>
     </div> <!-- /container -->

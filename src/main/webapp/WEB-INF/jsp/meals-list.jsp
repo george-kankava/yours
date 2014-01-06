@@ -659,6 +659,16 @@
 				</div>
 			</div>
 		</div>
+		<div class="row marketing">
+	        <div class="col-lg-12">
+	          
+	      	</div>
+	
+	      <div class="footer">
+	       	<div class="pull-left">&copy; Company 2013</div>
+	        <div class="pull-right">Created by GNG Apps</div>
+	      </div>
+		</div>
 	</div>
 	<script>
 		$('input[name=customerTelephoneNumber]').change(function(event) {

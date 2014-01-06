@@ -701,7 +701,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 	@Override
 	@Transactional
-	public void addNewDrinkAddOn(String nameGeo, String nameRus, String nameEng, String descriptionGeo, String descriptionEng, String descriptionRus, Integer drinkId) {
+	public DrinkAddOn addNewDrinkAddOn(String nameGeo, String nameRus, String nameEng, String descriptionGeo, String descriptionEng, String descriptionRus, Integer drinkId) {
 		Drink drink = dataGetterDao.findDrinkById(drinkId);
 		DrinkAddOn addOn = new DrinkAddOn();
 		addOn.setNameEng(nameEng);
@@ -711,7 +711,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 		addOn.setDescriptionGeo(descriptionGeo);
 		addOn.setDescriptionRus(descriptionRus);
 		addOn.setDrink(drink);
-		dataSaverDao.saveDrinkAddOn(addOn);
+		return dataSaverDao.saveDrinkAddOn(addOn);
 	}
 
 	@Override
@@ -1024,6 +1024,17 @@ public class DatabaseServiceImpl implements DatabaseService {
 		Customer customer = token.getCustomer();
 		customer.setPassword(password);
 		dataRemoverDao.removeCustomerPasswordChangeToken(token);
+	}
+
+	@Override
+	@Transactional
+	public void removeCustomerPasswordChangeToken(ChangePasswordToken token) {
+		dataRemoverDao.removeCustomerPasswordChangeToken(token);
+	}
+
+	@Override
+	public Drink findDrinkById(Integer drinkId) {
+		return dataGetterDao.findDrinkById(drinkId);
 	}
 
 }

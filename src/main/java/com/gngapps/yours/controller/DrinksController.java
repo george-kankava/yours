@@ -122,8 +122,7 @@ public class DrinksController {
     @RequestMapping(value = "admin/process-add-drink-add-on-form", method = RequestMethod.POST, consumes = {"application/json"})
     @ResponseStatus(HttpStatus.OK)
 	public ModelAndView processAddDrinkAddOnForm(ModelAndView mav, @RequestBody DrinkAddonRequestJson drinkAddonJson, BindingResult result) {
-    	DrinkAddOn drinkAddOn = new DrinkAddOn();
-    	databaseService.addNewDrinkAddOn(drinkAddonJson.getNameGeo(), drinkAddonJson.getNameRus(), drinkAddonJson.getNameEng(), 
+    	DrinkAddOn drinkAddOn = databaseService.addNewDrinkAddOn(drinkAddonJson.getNameGeo(), drinkAddonJson.getNameRus(), drinkAddonJson.getNameEng(), 
     			drinkAddonJson.getDescriptionEng(), drinkAddonJson.getDescriptionEng(), drinkAddonJson.getDescriptionRus(), drinkAddonJson.getDrinkId());
     	mav.addObject("drinkAddOn", drinkAddOn);
     	mav.setViewName("add-drink-add-on-response");

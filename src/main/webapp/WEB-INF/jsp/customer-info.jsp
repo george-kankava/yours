@@ -40,25 +40,24 @@
 		<div class="row">
 			<div class="logo-image-narrow"></div>
 		</div>
-		<div class="row">
-			<table class="table">
-				<thead>
-		          <tr>
-		            <th><spring:message code="yours.food.service.customer.info.customer.firstname" text="First Name" /></th>
-		            <th><spring:message code="yours.food.service.customer.info.customer.lastname" text="Last Name" /></th>
-		          </tr>
-		        </thead>
-		        <tbody>
-		        	<tr>
-		        		<td>${customer.firstname }</td>
-		        		<td>${customer.lastname }</td>
-		        	</tr>
-		        </tbody>
-			</table>
-		</div>
-		<div class="row">
+		<div class="row margin-top-15px">
 			<div class="col-lg-12">
-				<code><spring:message code="yours.food.service.customer.info.customer.birthday" text="Birthday" /></code>: <fmt:formatDate pattern="dd-MM-yyyy"  value="${customer.birthday }" />
+				<code><spring:message code="yours.food.service.customer.info.customer.firstname" text="First Name" />:</code> ${customer.firstname }
+			</div>
+		</div>
+		<div class="row margin-top-15px">
+			<div class="col-lg-12">
+				<code><spring:message code="yours.food.service.customer.info.customer.lastname" text="Last Name" />:</code> ${customer.lastname }
+			</div>
+		</div>
+		<div class="row margin-top-15px">
+			<div class="col-lg-12">
+				<code><spring:message code="yours.food.service.customer.info.customer.username" text="Username" />:</code> ${customer.username }
+			</div>
+		</div>
+		<div class="row margin-top-15px">
+			<div class="col-lg-12">
+				<code><spring:message code="yours.food.service.customer.info.customer.birthday" text="Birthday" />:</code> <fmt:formatDate pattern="dd-MM-yyyy"  value="${customer.birthday }" />
 			</div>
 		</div>
 		<div class="row margin-top-20px">
@@ -90,6 +89,16 @@
 			<div class="col-lg-2">
 				<button id="customerPhoneRemoveButton" type="button" class="btn btn-danger"><spring:message text="Remove" code="yours.food.service.customer.info.remove.button.title"/></button>
 			</div>
+		</div>
+		<div class="row marketing">
+	        <div class="col-lg-12">
+	          
+	      	</div>
+	
+	      <div class="footer">
+	       	<div class="pull-left">&copy; Company 2013</div>
+	        <div class="pull-right">Created by GNG Apps</div>
+	      </div>
 		</div>
 	</div>
 	<script>

@@ -100,7 +100,7 @@ public interface DatabaseService {
 	void saveCustomerSandwich(SandwichJson sandwich, String username);
 	void saveCustomerSalad(SaladJson salad, String username);
 	void saveCustomerDrink(DrinksJson drink, String username);
-	void addNewDrinkAddOn(String nameGeo, String nameRus, String nameEng, String descriptionGeo, String descriptionEng, String descriptionRus, Integer drinkId);
+	DrinkAddOn addNewDrinkAddOn(String nameGeo, String nameRus, String nameEng, String descriptionGeo, String descriptionEng, String descriptionRus, Integer drinkId);
 	void saveCustomerHotdog(HotdogJson hotdog, String username);
 	Map<String, Object> getCustomerMeals(String customerUsername);
 	void removeCustomerSandwich(Integer customerSandwichId);
@@ -123,4 +123,6 @@ public interface DatabaseService {
 	void saveChangePasswordToken(Customer customer, String token, Date timestamp);
 	ChangePasswordToken getPasswordChangeToken(String changePasswordToken);
 	void changeCustomerPasswordAndRemovePasswordChangeToken(String changePasswordToken, String password);
+	void removeCustomerPasswordChangeToken(ChangePasswordToken token);
+	Drink findDrinkById(Integer drinkId);
 }

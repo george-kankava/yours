@@ -49,7 +49,7 @@ public interface DataSaverDao {
 	void saveSaladIngredientAmountAndPrice(SaladIngredientAmountAndPrice saladIngredientAmountAndPrice);
 	void SaveDrink(Drink drink);
 	void saveDrinkSizeAndPrice(DrinkSizeAndPrice drinkSizeAndPrice);
-	void saveDrinkAddOn(DrinkAddOn drinkAddOn);
+	DrinkAddOn saveDrinkAddOn(DrinkAddOn drinkAddOn);
 	void saveDrinkAddOnAmountAndPrice(DrinkAddOnAmountAndPrice amountAndPrice);
 	void saveHotdogBread(HotDogBread hotdogBread);
 	void saveHotdogBreadSizeAndPrice(HotdogBreadSizeAndPrice sizeAndPrice);

@@ -196,12 +196,13 @@ public class DataSaverJPA implements DataSaverDao {
 	}
 
 	@Override
-	public void saveDrinkAddOn(DrinkAddOn drinkAddOn) {
+	public DrinkAddOn saveDrinkAddOn(DrinkAddOn drinkAddOn) {
 		if(drinkAddOn.getId() != null) {
 			em.merge(drinkAddOn);
 		} else {
 			em.persist(drinkAddOn);
 		}
+		return drinkAddOn;
  	}
 
 	@Override

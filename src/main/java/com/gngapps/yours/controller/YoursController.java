@@ -77,6 +77,22 @@ public class YoursController {
 	
 	@Autowired
 	private MessageSource messageSource;
+
+	
+	@RequestMapping(value = "/get-drink-addons.ajax")
+	public ModelAndView getDrinkAddons(HttpServletRequest request, @RequestParam Integer drinkId, ModelAndView mav) {
+		try {
+			mav.setViewName("food-components-list-drink-addons-ajax");
+			Drink drink = databaseService.findDrinkById(drinkId);
+			List<DrinkAddOn> drinkAddOns = drink.getDrinkAddOns();
+			mav.addObject("drinkAddOns", drinkAddOns);
+			Locale locale = localeResolver.resolveLocale(request);
+	    	mav.addObject("locale", locale.getLanguage());
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+		}
+		return mav;
+	}
 	
 	@RequestMapping(value = "/operator/process-customer-meals-desk-order", method = RequestMethod.GET)
 	public ModelAndView processCustomerMealsDeskOrder(HttpServletRequest request, HttpServletResponse response, @RequestParam String customerMealsJson, ModelAndView mav) {
@@ -296,13 +312,13 @@ public class YoursController {
 	}
     
     @RequestMapping("/change-password-step-1")
-	public String changePasswordStep1(@ModelAttribute("customerPasswordReset") Customer customer) {
+	public String changePasswordStep1(@ModelAttribute("customerChangePassword") Customer customer) {
     	return "change-password-email-form";
 	}
     
 
     @RequestMapping("/change-password-step-2")
-    public ModelAndView changePasswordStep2(HttpServletRequest request,  @ModelAttribute("customerPasswordReset") @Valid CustomerChangePasswordEmail customerResetPasswordForm, ModelAndView mav, BindingResult result) {
+    public ModelAndView changePasswordStep2(HttpServletRequest request,  @ModelAttribute("customerChangePassword") @Valid CustomerChangePasswordEmail customerResetPasswordForm, ModelAndView mav, BindingResult result) {
     	try {
     		if(result.hasErrors()) {
         		String errorMessageCode = result.getFieldError("email").getDefaultMessage();
@@ -337,7 +353,9 @@ public class YoursController {
     }
     
     @RequestMapping("/change-password-step-3/{changePasswordToken}")
-	public ModelAndView changePasswordStep3(HttpServletRequest request, @PathVariable String changePasswordToken, ModelAndView mav) {
+	public ModelAndView changePasswordStep3(HttpServletRequest request, @PathVariable String changePasswordToken, ModelAndView mav, 
+			@ModelAttribute("customerChangePasswordPasswordsForm") CustomerChangePasswordPasswordsForm passwordsForm, 
+			@ModelAttribute("customerChangePassword") CustomerChangePasswordEmail customerResetPasswordForm) {
     	try {
     		Locale locale = localeResolver.resolveLocale(request);
     		mav.setViewName("signin");
@@ -351,10 +369,11 @@ public class YoursController {
     		long tokenValidityPeriodInMillies = token.getTimestamp().getTime() + AppConstants.ONE_HOUR_IN_MILLIES;
     		long currentTimeInMillies = System.currentTimeMillis();
     		if(tokenValidityPeriodInMillies > currentTimeInMillies) {
-    			mav.addObject("token", token.getToken());
+    			passwordsForm.setToken(token.getToken());
     			mav.setViewName("change-password-passwords-form");
     			return mav;
     		} else {
+    			databaseService.removeCustomerPasswordChangeToken(token);
 	    		String errorMessage = messageSource.getMessage("yours.food.service.change.password.time.expired", null, locale);
 	    		mav.setViewName("change-password-email-form");
 	    		mav.addObject("errorMessage", errorMessage);
@@ -367,20 +386,22 @@ public class YoursController {
     	}
 	}
     
-    @RequestMapping("/change-password-step-4")
-    public ModelAndView changePasswordStep4(HttpServletRequest request, @RequestParam String changePasswordToken, ModelAndView mav, @ModelAttribute("customerChangePasswordPasswordsForm") CustomerChangePasswordPasswordsForm passwordsForm) {
+    @RequestMapping(value = "/change-password-step-4", method = RequestMethod.POST)
+    public ModelAndView changePasswordStep4(HttpServletRequest request, ModelAndView mav, @ModelAttribute("customerChangePasswordPasswordsForm") CustomerChangePasswordPasswordsForm passwordsForm, BindingResult result) {
     	try {
-    		if(changePasswordToken == null) {
+    		if(passwordsForm.getToken() == null || passwordsForm.getToken().equals("")) {
     			throw new IllegalArgumentException("password change token is null");
     		}
     		Locale locale = localeResolver.resolveLocale(request);
     		if(!StringUtils.equals(passwordsForm.getPassword(), passwordsForm.getConfirmPassword())) {
+    			passwordsForm.setPassword("");
+    			passwordsForm.setConfirmPassword("");
     			String errorMessage = messageSource.getMessage("yours.food.service.change.password.password.not.match.message", null, locale);
     			mav.addObject("errorMessage", errorMessage);
-    			mav.addObject("token", changePasswordToken);
     			mav.setViewName("change-password-passwords-form");
+    			return mav;
     		}
-    		databaseService.changeCustomerPasswordAndRemovePasswordChangeToken(changePasswordToken, passwordsForm.getPassword());
+    		databaseService.changeCustomerPasswordAndRemovePasswordChangeToken(passwordsForm.getToken(), passwordsForm.getPassword());
     		String message = messageSource.getMessage("yours.food.service.customer.change.password.has.changed.message", null, locale);
     		mav.addObject("message", message);
     		mav.setViewName("signin");
@@ -411,6 +432,12 @@ public class YoursController {
     @RequestMapping(value = "admin/add-food-components")
 	public ModelAndView addFoodComponents(ModelAndView mav) {
     	mav.setViewName("add-food-components");
+    	return mav;
+	}
+    
+    @RequestMapping(value = "customer-error-page")
+	public ModelAndView customerErrorPage(ModelAndView mav) {
+    	mav.setViewName("customer-error-page");
     	return mav;
 	}
     

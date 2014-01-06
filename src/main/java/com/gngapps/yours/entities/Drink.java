@@ -25,6 +25,9 @@ public class Drink {
 	@JoinColumn(name = "drink_id")
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<DrinkSizeAndPrice> drinkSizeAndPrices;
+	@JoinColumn(name = "drink_id")
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<DrinkAddOn> drinkAddOns;
 	
 	public Integer getId() {
 		return id;
@@ -74,12 +77,16 @@ public class Drink {
 	public void setDrinkSizeAndPrices(List<DrinkSizeAndPrice> drinkSizeAndPrices) {
 		this.drinkSizeAndPrices = drinkSizeAndPrices;
 	}
+	public List<DrinkAddOn> getDrinkAddOns() {
+		return drinkAddOns;
+	}
+	public void setDrinkAddOns(List<DrinkAddOn> drinkAddOns) {
+		this.drinkAddOns = drinkAddOns;
+	}
 	@Override
 	public String toString() {
 		return "Drinks [id=" + id + ", nameGeo=" + nameGeo + ", nameEng=" + nameEng + ", nameRus=" + nameRus + ", descriptionGeo=" + descriptionGeo + 
 				", descriptionEng=" + descriptionEng + ", descriptionRus=" + descriptionRus + ", drinkSizeAndPrices=" + drinkSizeAndPrices + "]";
 	}
-	
-	
 	
 }

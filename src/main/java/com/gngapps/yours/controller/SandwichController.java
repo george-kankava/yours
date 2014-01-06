@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,7 +89,7 @@ public class SandwichController {
 	}
     
     @RequestMapping(value = "admin/process-add-sandwich-bread-form", method = RequestMethod.POST, consumes = {"application/json"})
-	public ModelAndView processAddSandwichBreadForm(ModelAndView mav, @RequestBody SandwichBread sandwichBread) {
+	public ModelAndView processAddSandwichBreadForm(ModelAndView mav, @RequestBody @Valid SandwichBread sandwichBread) {
     	databaseService.addNewSandwichBreadType(sandwichBread);
     	mav.addObject("sandwichBread", sandwichBread);
     	mav.setViewName("add-sandwich-bread-response");

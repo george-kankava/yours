@@ -31,6 +31,9 @@
 		<div class="jumbotron">
 			<div class="row">
 				<div class="col-md-4 col-md-offset-5">
+				<span><a href="?language=ka"><img src="resources/ico/georgia_flag_32.png"></a></span>
+				<span><a href="?language=en"><img src="resources/ico/usa_flag_32.png"></a></span>
+				<span><a href="?language=ru"><img src="resources/ico/russia_flag_32.png"></a></span>
 					<h1>Yours</h1>
 					<p>Food Service for your.</p>
 				</div>

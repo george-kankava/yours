@@ -344,8 +344,8 @@ public class DataGetterJPA implements DataGetterDao {
 	@Override
 	public ChangePasswordToken findPasswordChangeTokenByToken(String token) {
 		try {
-		String string = "FROM ChangePasswordToken token WHERE token = :token";
-		return (ChangePasswordToken)em.createQuery(string).setParameter("token", token).getSingleResult();
+			String string = "FROM ChangePasswordToken token WHERE token.token = :token";
+			return (ChangePasswordToken)em.createQuery(string).setParameter("token", token).getSingleResult();
 		} catch(NoResultException ex) {
 			logger.info(ex.getMessage());
 			return null;

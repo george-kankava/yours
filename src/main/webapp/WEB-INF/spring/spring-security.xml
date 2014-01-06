@@ -9,6 +9,7 @@
 	<http pattern="/resources/**" security="none" />
 	<http pattern="/images/**" security="none" />
 	<http use-expressions="true" >
+		<intercept-url pattern="/resources/**" access="permitAll"/>
 		<intercept-url pattern="/signin" access="permitAll" />
 		<intercept-url pattern="/register-user" access="permitAll" />
 		<intercept-url pattern="/process-register-user" access="permitAll"/>

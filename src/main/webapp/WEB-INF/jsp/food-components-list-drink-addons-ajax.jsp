@@ -1,0 +1,77 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<thead>
+	<tr>
+		<th colspan="2"><spring:message code="yours.food.service.food.components.list.drink.addon.title" text="Drink Addon"/></th>
+	</tr>
+</thead>
+<c:forEach items="${drinkAddOns }" var="drinkAddOn">
+	<tr>
+		<td class="td-50-percent">
+			<div>
+				<input name="drinkAddOn" type="checkbox" id="${drinkAddOn.id }">
+				<c:choose>
+					<c:when test="${locale eq 'ka' }">
+						<label>${drinkAddOn.nameGeo }</label>										
+					</c:when>
+					<c:when test="${locale eq 'en' }">
+						<label>${drinkAddOn.nameEng }</label>
+					</c:when>
+					<c:when test="${locale eq 'ru' }">
+						<label>${drinkAddOn.nameRus }</label>
+					</c:when>
+				</c:choose>
+			</div>
+		</td>
+		<td class="td-50-percent">
+			<select disabled class="form-control" id="drinkAddOnAmountAndPrice${drinkAddOn.id }">
+				<c:forEach items="${drinkAddOn.drinkAddOnAmountAndPrices }" var="sizeAndPrice">
+					<option ingredient-price="${sizeAndPrice.price }" value="${sizeAndPrice.id}">${sizeAndPrice.amount}</option>
+				</c:forEach>
+			</select>
+		</td>
+	</tr>
+	<script>
+	(function () {
+    	var previousPrice = null;
+
+    	$("#drinkAddOnAmountAndPrice${drinkAddOn.id }").mousedown(function () {
+    		previousPrice = $(this.options[this.selectedIndex]).attr('ingredient-price');
+    	}).change(function() {
+    		drinkPrice -= parseFloat(previousPrice);
+			var price = $(this.options[this.selectedIndex]).attr('ingredient-price');
+			drinkPrice += parseFloat(price);
+			$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
+    	});
+	})();
+	$('input[name="drinkAddOn"]').each(function(){
+	    var self = $(this),
+	      label = self.next(),
+	      label_text = label.text();
+
+	    label.remove();
+	    self.iCheck({
+	      checkboxClass: 'icheckbox_line-blue',
+	      radioClass: 'iradio_line-blue',
+	      insert: '<div class="icheck_line-icon"></div>' + label_text
+	    });
+	  });
+	$('input[name="drinkAddOn"]').on('ifChecked', function(event){
+		var ingredientName = $(event.target.outerHTML).attr('name');
+		var selectElement = $('#' + ingredientName + 'AmountAndPrice' + event.target.id);
+		$(selectElement).removeAttr('disabled');
+		var price = $('#' + ingredientName + 'AmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+		drinkPrice += parseFloat(price);
+		$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
+	});
+	$('input[name="drinkAddOn"]').on('ifUnchecked', function(event){
+		var ingredientName = $(event.target.outerHTML).attr('name');
+		var selectElement = $('#' + ingredientName + 'AmountAndPrice' + event.target.id);
+		$(selectElement).attr('disabled', 'disabled');
+		var price = $('#' + ingredientName + 'AmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+		drinkPrice -= parseFloat(price);
+		$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
+	});
+	</script>
+</c:forEach>

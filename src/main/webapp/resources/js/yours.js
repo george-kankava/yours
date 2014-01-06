@@ -57,12 +57,10 @@ $('input').on('ifChecked', function(event){
 		var price = $('#' + ingredientName + 'SizeAndPrices' + event.target.id + " :selected").attr('ingredient-price');
 		drinkPrice += parseFloat(price);
 		$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
-	} else if(ingredientName === 'drinkAddOn') {
-		var selectElement = $('#' + ingredientName + 'AmountAndPrices' + event.target.id);
-		$(selectElement).removeAttr('disabled');
-		var price = $('#' + ingredientName + 'AmountAndPrices' + event.target.id + " :selected").attr('ingredient-price');
-		drinkPrice += parseFloat(price);
-		$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
+		$.get('get-drink-addons.ajax', {drinkId : event.target.id}).done(function(response) {
+			$('#drink-addon-table').empty();
+			$('#drink-addon-table').append(response);
+		});
 	} else if(ingredientName === 'hotdogBread') {
 		var selectElement = $('#hotdogBreadSizeAndPrices' + event.target.id);
 		$(selectElement).removeAttr('disabled');
@@ -124,14 +122,7 @@ $('input').on('ifUnchecked', function(event){
 	} else if(ingredientName === 'drink') {
 		var selectElement = $('#' + ingredientName + 'SizeAndPrices' + event.target.id);
 		$(selectElement).attr('disabled', 'disabled');
-		var price = $('#' + ingredientName + 'SizeAndPrices' + event.target.id + " :selected").attr('ingredient-price');
-		drinkPrice -= parseFloat(price);
-		$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
-	} else if(ingredientName === 'drinkAddOn') {
-		var selectElement = $('#' + ingredientName + 'AmountAndPrices' + event.target.id);
-		$(selectElement).attr('disabled', 'disabled');
-		var price = $('#' + ingredientName + 'AmountAndPrices' + event.target.id + " :selected").attr('ingredient-price');
-		drinkPrice -= parseFloat(price);
+		drinkPrice = parseFloat(0);
 		$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
 	} if(ingredientName === 'hotdogBread') {
 		var selectElement = $('#hotdogBreadSizeAndPrices' + event.target.id);

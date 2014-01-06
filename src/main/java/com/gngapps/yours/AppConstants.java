@@ -30,4 +30,5 @@ public interface AppConstants {
 	String TWO_ZEROS = "00";
 	String ONE_ZERO = "0";
 	long ONE_HOUR_IN_MILLIES = 60 * 60 * 1000;
+	String DIGEST_ALGORITHM_SHA = "SHA";
 }

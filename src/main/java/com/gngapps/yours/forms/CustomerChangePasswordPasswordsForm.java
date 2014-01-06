@@ -4,6 +4,7 @@ public class CustomerChangePasswordPasswordsForm {
 
 	private String password;
 	private String confirmPassword;
+	private String token;
 	
 	public String getPassword() {
 		return password;
@@ -17,9 +18,14 @@ public class CustomerChangePasswordPasswordsForm {
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
 	@Override
 	public String toString() {
 		return "CustomerChangePasswordPasswordsForm [password=" + password + ", confirmPassword=" + confirmPassword + "]";
 	}
-	
 }

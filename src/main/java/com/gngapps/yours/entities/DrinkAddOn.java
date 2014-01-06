@@ -27,7 +27,6 @@ public class DrinkAddOn {
 	@JoinColumn(name = "drink_addon_id")
 	private List<DrinkAddOnAmountAndPrice> drinkAddOnAmountAndPrices;
 	@ManyToOne
-	@JoinColumn(name = "drink_id")
 	private Drink drink;
 	
 	public Integer getId() {

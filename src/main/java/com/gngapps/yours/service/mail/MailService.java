@@ -33,7 +33,7 @@ public class MailService {
 	public void sendCustomerChangePasswordLink(Customer customer, String changePasswordToken, Locale locale) {
 		String subject = messageSource.getMessage("yours.food.service.customer.change.password.email.subject", null, locale);
 		String passworChangeUrl = messageSource.getMessage("yours.food.service.customer.change.password.url", new Object[] {changePasswordToken}, locale);
-		String content = messageSource.getMessage("yours.food.service.customer.change.password.email.content", new Object[] {passworChangeUrl}, locale);
+		String content = messageSource.getMessage("yours.food.service.customer.change.password.email.content", new Object[] {passworChangeUrl, passworChangeUrl}, locale);
 		sendMail(customer.getEmail(), subject, content);
 	}
 	
@@ -51,6 +51,7 @@ public class MailService {
 		}
 
 	}
+	
 	
 	private void sendMailServerMail(String to, String subject, String content) {
 
@@ -80,10 +81,10 @@ public class MailService {
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
 			// Set Subject: header field
-			message.setSubject(subject);
+			message.setSubject(subject, "UTF-8");
 
 			// Send the actual HTML message, as big as you like
-			message.setContent("<h1>" + content + "</h1>", "text/html");
+			message.setContent(content, "text/html;charset=UTF-8");
 
 			// Send message
 			Transport.send(message);
@@ -116,7 +117,7 @@ public class MailService {
 			message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(to));
 			message.setSubject(subject);
-			message.setContent(content, "text/html");
+			message.setContent(content, "text/html;charset=UTF-8");
  
 			Transport.send(message);
 			logger.info("Email sent to user : " + to + " successfully");

@@ -1,6 +1,7 @@
 package com.gngapps.yours.service.impl;
 
 import java.util.Random;
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
@@ -38,12 +39,7 @@ public class YoursHelper {
 	}
 
 	public String generateCustomerPasswordChangeToken(Customer customer) {
-		Random random = new Random();
-		Integer randomInt = random.nextInt(AppConstants.CUSTOMER_GENERATOR_MAX_NUMBER);
-		StringBuilder changePasswordToken = new StringBuilder();
-		String customerFistnameFirstInitial = customer.getFirstname().substring(0, 1).toLowerCase();
-		String customerLastnameFirstInitial = customer.getLastname().substring(0, 1).toLowerCase();
-		changePasswordToken.append(customerFistnameFirstInitial).append(randomInt).append(customerLastnameFirstInitial);
-		return changePasswordToken.toString();
+		String token = UUID.randomUUID().toString();
+		return token;
 	}
 }

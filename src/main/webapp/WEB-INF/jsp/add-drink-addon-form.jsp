@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -42,6 +43,7 @@
 	<table class="table table-bordered table-drink-add-ons">
 			<thead>
 				<tr>
+					<th><spring:message code="yours.food.service.admin.add.drink.addon.drink.name" text="Drink Name" /></th>
 					<th>Add-On Name</th>
 					<th>Add-On Desc</th>
 					<th colspan="3">Amount And Price</th>
@@ -51,6 +53,9 @@
 			<tbody>
 				<c:forEach items="${drinkAddOns }" var="drinkAddOn">
 					<tr class="drink-add-on-${drinkAddOn.id }">
+						<td>
+							<code>${drinkAddOn.drink.nameGeo }</code>
+						</td>
 						<td>
 							<select class="form-control">
 								<option>${drinkAddOn.nameGeo }</option>
