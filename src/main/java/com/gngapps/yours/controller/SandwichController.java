@@ -54,11 +54,16 @@ public class SandwichController {
 
 	@ResponseBody
 	@RequestMapping(value = "/process-add-sandwich", consumes = "application/json", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)
-	public String processAddSandwich(HttpServletRequest request, Principal principal, @RequestBody SandwichJson sandwich) {
+	public String processAddSandwich(HttpServletRequest request, Principal principal, @RequestBody @Valid SandwichJson sandwich, BindingResult result) {
 		try {
+			Locale locale = localeResolver.resolveLocale(request);
+			if(result.hasErrors()) {
+				String messageCode = result.getFieldError().getDefaultMessage();
+				String errMessage = messageSource.getMessage(messageCode, null, locale);
+				return "{\"sandwichErrorMessage\" : \"" + errMessage + "\"}";
+			}
 			String username = principal.getName();
 			databaseService.saveCustomerSandwich(sandwich, username);
-			Locale locale = localeResolver.resolveLocale(request);
 			String sandwichSavedMessage = messageSource.getMessage("yours.food.service.food.componenet.list.sandwich.saved", null, locale);
 			return "{\"sandwichSavedMessage\" : \"" + sandwichSavedMessage + "\"}";
 		} catch(Exception ex) {

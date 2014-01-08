@@ -57,13 +57,13 @@
 		<url-pattern>/admin/add-hotdog-ingredient-sausage-form</url-pattern>
 		<url-pattern>/admin/add-hotdog-ingredient-sauce-form</url-pattern>
 		<url-pattern>/operator/find-customer-meals.ajax</url-pattern>
-		<url-pattern>/operator/customer-order-pagination.ajax</url-pattern>
+		<url-pattern>/operator/operator-customer-order-pagination.ajax</url-pattern>
 		<url-pattern>/operator/operator-active-orders</url-pattern>
-		<url-pattern>/operator/customer-active-orders</url-pattern>
-		<url-pattern>/operator/process-customer-meals-desk-order</url-pattern>
+		<url-pattern>/operator/operator-customer-active-orders</url-pattern>
+		<url-pattern>/operator/operator-process-customer-meals-desk-order</url-pattern>
 		<url-pattern>/food-components-list</url-pattern>
 		<url-pattern>/customer-meals-page</url-pattern>
-		<url-pattern>/meals-list</url-pattern>
+		<url-pattern>/customer-meals-list</url-pattern>
 		<url-pattern>/customer-info</url-pattern>
 		<url-pattern>/get-drink-addons.ajax</url-pattern>
 	</filter-mapping>
@@ -81,6 +81,14 @@
 	</error-page>
 	<error-page>
 		<error-code>400</error-code>
+		<location>/customer-error-page</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/customer-error-page</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
 		<location>/customer-error-page</location>
 	</error-page>
 	<welcome-file-list>

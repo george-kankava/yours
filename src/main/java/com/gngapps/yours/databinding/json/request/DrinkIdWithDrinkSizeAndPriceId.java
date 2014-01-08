@@ -1,7 +1,11 @@
 package com.gngapps.yours.databinding.json.request;
 
+import javax.validation.constraints.NotNull;
+
 public class DrinkIdWithDrinkSizeAndPriceId {
+	@NotNull(message = "yours.food.service.drink.null.message")
 	private Integer drinkId;
+	@NotNull(message = "yours.food.service.drink.null.message")
 	private Integer drinkSizeAndPriceId;
 	
 	public Integer getDrinkId() {

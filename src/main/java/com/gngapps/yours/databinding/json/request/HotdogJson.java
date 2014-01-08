@@ -2,8 +2,12 @@ package com.gngapps.yours.databinding.json.request;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 public class HotdogJson {
+	@Valid
 	private HotdogBreadJson hotdogBread;
+	@Valid
 	private HotdogSausageJson hotdogSausage;
 	private List<HotdogSauceJson> hotdogSauces;
 	

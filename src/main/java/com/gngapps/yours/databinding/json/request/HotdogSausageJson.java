@@ -1,7 +1,11 @@
 package com.gngapps.yours.databinding.json.request;
 
+import javax.validation.constraints.NotNull;
+
 public class HotdogSausageJson {
+	@NotNull(message = "yours.food.service.hotdog.sausage.null.message")
 	private Integer hotdogSausageId;
+	@NotNull(message = "yours.food.service.hotdog.sausage.null.message")
 	private Integer hotdogSausageAmountAndPriceId;
 	
 	public Integer getHotdogSausageId() {

@@ -42,4 +42,8 @@ public class YoursHelper {
 		String token = UUID.randomUUID().toString();
 		return token;
 	}
+	
+	public String emptyJson() {
+		return "{}";
+	}
 }

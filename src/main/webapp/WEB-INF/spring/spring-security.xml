@@ -18,12 +18,13 @@
 		<intercept-url pattern="/change-password-step-3/**" access="permitAll"/>
 		<intercept-url pattern="/change-password-step-4" access="permitAll"/>
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/operator/customer-meals" access="hasRole('ROLE_DESK_ORDERS_OPERATOR')" />
-		<intercept-url pattern="/operator/process-customer-meals-desk-order" access="hasRole('ROLE_DESK_ORDERS_OPERATOR')" />
+		<intercept-url pattern="/operator/operator-customer-meals" access="hasRole('ROLE_DESK_ORDERS_OPERATOR')" />
+		<intercept-url pattern="/operator/operator-customer-meals-list-ajax" access="hasRole('ROLE_DESK_ORDERS_OPERATOR')" />
+		<intercept-url pattern="/operator/operator-process-customer-meals-desk-order" access="hasRole('ROLE_DESK_ORDERS_OPERATOR')" />
 		<intercept-url pattern="/operator/find-customer-meals.ajax" access="hasRole('ROLE_DESK_ORDERS_OPERATOR')" />
-		<intercept-url pattern="/operator/customer-active-orders" access="hasRole('ROLE_ONLINE_ORDERS_OPERATOR')" />
+		<intercept-url pattern="/operator/operator-customer-active-orders" access="hasRole('ROLE_ONLINE_ORDERS_OPERATOR')" />
 		<intercept-url pattern="/**" access="hasRole('ROLE_CUSTOMER')" />
-		<form-login login-page="/signin" default-target-url="/meals-list" authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-url="/failure"/>
+		<form-login login-page="/signin" default-target-url="/customer-meals-list" authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-url="/failure"/>
 		<access-denied-handler error-page="/denied"/>
 		<logout/>
 	</http>

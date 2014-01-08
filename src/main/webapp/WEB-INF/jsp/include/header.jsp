@@ -3,7 +3,7 @@
 <div class="header">
 	<ul class="nav nav-pills pull-right">
 		<li id="food-components-list"><a href="food-components-list"><spring:message code="yours.food.service.ingredients" text="Ingredient" /></a></li>
-		<li id="meals-list"><a href="meals-list"><spring:message code="yours.food.service.meals" text="Meals" /></a></li>
+		<li id="meals-list"><a href="customer-meals-list"><spring:message code="yours.food.service.meals" text="Meals" /></a></li>
 		<li id="customer-info"><a href="customer-info"><spring:message code="yours.food.service.personal.data" text="Personal Data" /></a></li>
 		<li><a href="j_spring_security_logout"><spring:message code="yours.food.service.header.logout" text="Logout" /></a></li>
 	</ul>

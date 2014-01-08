@@ -1,7 +1,10 @@
 package com.gngapps.yours.databinding.json.request;
 
+import javax.validation.Valid;
+
 public class SaladJson {
 	
+	@Valid
 	private SaladIngredientJson saladIngredients;
 
 	public SaladIngredientJson getSaladIngredients() {

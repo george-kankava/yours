@@ -20,14 +20,7 @@
     </properties>
 
     <dependencies>
-    	
-    	<!-- pdfbox dependency -->
-    	<dependency>
-		  <groupId>org.apache.pdfbox</groupId>
-		  <artifactId>pdfbox</artifactId>
-		  <version>1.8.3</version>
-		</dependency>
-		
+
         <!-- Servlet Dependencies -->
         <dependency>
             <groupId>javax.servlet</groupId>

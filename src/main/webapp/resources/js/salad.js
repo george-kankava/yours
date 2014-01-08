@@ -25,6 +25,11 @@ $( "#saladSaveButton" ).click(function() {
 						}
 					)
 			}).done(function(response) {
-				alertify.success(response.saladSavedMessage);		
+				if(response.saladSavedMessage != undefined) {
+					alertify.success(response.saladSavedMessage);
+				}
+				if(response.saladErrorMessage != undefined) {
+					alertify.error(response.saladErrorMessage);
+				}
 			});
 		});

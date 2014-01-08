@@ -21,8 +21,8 @@ public interface AppConstants {
 	String ROLE_ONLINE_ORDERS_OPERATOR = "ROLE_ONLINE_ORDERS_OPERATOR";
 	// Landing pages
 	String ADMIN_LANDING_PAGE = "admin/add-food-components";
-	String ONILE_ORDERS_OPERATOR_LANDING_PAGE = "operator/customer-active-orders";
-	String DESK_ORDERS_OPERATOR_LANDING_PAGE = "operator/customer-meals";
+	String ONILE_ORDERS_OPERATOR_LANDING_PAGE = "operator/operator-customer-active-orders";
+	String DESK_ORDERS_OPERATOR_LANDING_PAGE = "operator/operator-customer-meals";
 	String CUSTOMER_LANDING_PAGE = "meals-list";
 	Integer CUSTOMER_GENERATOR_MAX_NUMBER = 100000;
 	String FOUR_ZEROS = "0000";

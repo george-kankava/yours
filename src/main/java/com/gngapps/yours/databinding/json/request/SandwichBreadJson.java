@@ -1,7 +1,11 @@
 package com.gngapps.yours.databinding.json.request;
 
+import javax.validation.constraints.NotNull;
+
 public class SandwichBreadJson {
+	@NotNull(message = "yours.food.service.sandwich.bread.null.message")
 	private Integer sandwichBreadId;
+	@NotNull(message = "yours.food.service.sandwich.bread.null.message")
 	private Integer sandwichBreadSizeAndPriceId;
 	
 	public Integer getSandwichBreadId() {

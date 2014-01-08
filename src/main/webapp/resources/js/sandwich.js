@@ -7,7 +7,7 @@ $( "#sandwichSaveButton" ).click(function() {
 			var sandwichBreadSizeAndPriceId = $('#sandwichBreadSizeAndPrice' + sandwichBreadId).val();
 			
 			var sandwichSausageAndSandwichSausageAmountAndPriceIds = new Array();
-			$.each($('input[name=sandwichSausages]:checkbox:checked'), function(index, value) {
+			$.each($('input[name=sandwichSausage]:checkbox:checked'), function(index, value) {
 				var sandwichSausageWithAmountAndPrice = new Object();
 				var sandwichSausageId =  value.id;
 				sandwichSausageWithAmountAndPrice.sandwichSausageId = sandwichSausageId;
@@ -56,6 +56,11 @@ $( "#sandwichSaveButton" ).click(function() {
 						}
 					)
 			}).done(function(response) {
-				alertify.success(response.sandwichSavedMessage);		
+				if(response.sandwichSavedMessage != undefined) {
+					alertify.success(response.sandwichSavedMessage);	
+				}
+				if(response.sandwichErrorMessage != undefined) {
+					alertify.error(response.sandwichErrorMessage);	
+				}
 			});
 		});

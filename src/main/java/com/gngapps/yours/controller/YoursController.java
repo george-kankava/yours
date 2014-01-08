@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -49,6 +50,7 @@ import com.gngapps.yours.entities.SandwichSauce;
 import com.gngapps.yours.entities.SandwichSausage;
 import com.gngapps.yours.entities.SandwichSpice;
 import com.gngapps.yours.entities.SandwichVegetable;
+import com.gngapps.yours.exceptions.PhoneAlreadyInUseException;
 import com.gngapps.yours.forms.CustomerChangePasswordEmail;
 import com.gngapps.yours.forms.CustomerChangePasswordPasswordsForm;
 import com.gngapps.yours.service.DatabaseService;
@@ -94,10 +96,10 @@ public class YoursController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/operator/process-customer-meals-desk-order", method = RequestMethod.GET)
+	@RequestMapping(value = "/operator/operator-process-customer-meals-desk-order", method = RequestMethod.GET)
 	public ModelAndView processCustomerMealsDeskOrder(HttpServletRequest request, HttpServletResponse response, @RequestParam String customerMealsJson, ModelAndView mav) {
 		try {
-			mav.setViewName("customer-order-list");
+			mav.setViewName("operator-customer-order-list");
 			CustomerMealsJson meals = mapper.readValue(customerMealsJson, CustomerMealsJson.class);
 			List<Integer> sandwichIds = meals.getSandwichIds();
 			List<CustomerSandwich> customerSandwiches = databaseService.getSandwichesByIds(sandwichIds);
@@ -121,10 +123,10 @@ public class YoursController {
 		}
 	}
 	
-	@RequestMapping("/operator/customer-order-pagination.ajax")
+	@RequestMapping("/operator/operator-customer-order-pagination.ajax")
 	public ModelAndView customerOrdersList(ModelAndView mav, @RequestParam Integer pageNumber) {
 		try {
-			mav.setViewName("customer-active-orders-ajax-response");
+			mav.setViewName("operator-customer-active-orders-ajax-response");
 			List<CustomerOrder> customerOrders = databaseService.getCustomerOrderListByPageNumber(pageNumber);
 			Integer paginationIndex = pageNumber / AppConstants.CUSTOMER_ORDER_PAGES_PER_PAGE;
 			databaseService.countAndAssemblePaginationBar(mav, paginationIndex);
@@ -160,10 +162,10 @@ public class YoursController {
 		return mav;
 	}
 
-	@RequestMapping("operator/customer-active-orders")
+	@RequestMapping("operator/operator-customer-active-orders")
 	public ModelAndView customerActiveOrders(Principal principal, ModelAndView mav) {
 		try {
-			mav.setViewName("customer-active-orders");
+			mav.setViewName("operator-customer-active-orders");
 			List<CustomerOrder> activeOrders = databaseService.getCustomerActiveOrders(AppConstants.ACTIVE_ORDERS_PAGING_START_POSITION, AppConstants.ACTIVE_ORDERS_AMOUNT_PER_PAGE);
 			Long pagesCount = databaseService.getActiveOrdersPagesCount();
 			mav.addObject("startIndex", AppConstants.ACTIVE_ORDERS_INITIAL_START_INDEX);
@@ -222,20 +224,29 @@ public class YoursController {
 			return mav;
 		}
 	}
-	
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@RequestMapping(value = "/process-purchase-customer-order", consumes = "application/json", method = RequestMethod.POST)
-	public void processPurchaseCustomerOrder(Principal principal, @RequestBody CustoemrOrderJson customerFoodsAndDrinks) {
+
+	@ResponseBody
+	@RequestMapping(value = "/process-purchase-customer-order", consumes = "application/json", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)
+	public String processPurchaseCustomerOrder(HttpServletRequest request, Principal principal, @RequestBody CustoemrOrderJson customerFoodsAndDrinks) {
 		try {
 			databaseService.createCustomerOrder(principal.getName(), customerFoodsAndDrinks);
+			return helper.emptyJson();
+		} catch(PhoneAlreadyInUseException ex) {
+			logger.info(ex.getMessage());
+			Locale locale = localeResolver.resolveLocale(request);
+			String errorMessage = messageSource.getMessage("yours.food.service.phone.already.in.use.exception.message", null, locale);
+			return "{\"errorMessage\" : \"" + errorMessage + "\"}";
 		} catch(Exception ex) {
 			logger.info(ex.getMessage());
+			Locale locale = localeResolver.resolveLocale(request);
+			String errorMessage = messageSource.getMessage("yours.food.service.customer.meal.order.exception.message", null, locale);
+			return "{\"errorMessage\" : \"" + errorMessage + "\"}";
 		}
 	}
-    
-	@RequestMapping("operator/customer-meals")
+
+	@RequestMapping("operator/operator-customer-meals")
 	public ModelAndView customerMeals(Principal principal, ModelAndView mav) {
-		mav.setViewName("customer-meals-list");
+		mav.setViewName("operator-customer-meals-list");
 		return mav;
 	}
 	
@@ -245,7 +256,7 @@ public class YoursController {
 			if(username == null) {
 				throw new IllegalArgumentException("username is null");
 			}
-			mav.setViewName("customer-meal-list-ajax");
+			mav.setViewName("operator-customer-meal-list-ajax");
 			Map<String, Object> customerMeals = databaseService.getCustomerMeals(username);
 			if(!customerMeals.isEmpty()) {
 				mav.addObject("username", username);
@@ -258,16 +269,22 @@ public class YoursController {
 		return mav;
 	}
 
-	@RequestMapping("/meals-list")
+	@RequestMapping("/customer-meals-list")
 	public ModelAndView mealsList(HttpServletRequest request, Principal principal, ModelAndView mav) {
-		Map<String, Object> customerMeals = databaseService.getCustomerMeals(principal.getName());
-		Customer customer = databaseService.findCustomerByEmail(principal.getName());
-		Locale locale = localeResolver.resolveLocale(request);
-    	mav.addObject("locale", locale.getLanguage());
-		mav.addObject("meals", customerMeals);
-		mav.addObject("customer", customer);
-		mav.setViewName("meals-list");
-		return mav;
+		try {
+			Map<String, Object> customerMeals = databaseService.getCustomerMeals(principal.getName());
+			Customer customer = databaseService.findCustomerByEmail(principal.getName());
+			Locale locale = localeResolver.resolveLocale(request);
+	    	mav.addObject("locale", locale.getLanguage());
+			mav.addObject("meals", customerMeals);
+			mav.addObject("customer", customer);
+			mav.setViewName("customer-meals-list");
+			return mav;
+		} catch(Exception ex) {
+			mav.setViewName("customer-error-page");
+			logger.info(ex.getMessage());
+			return mav;
+		}
 	}
 	
     @RequestMapping(value = "/food-components-list")
@@ -302,7 +319,7 @@ public class YoursController {
     
     @RequestMapping("/index.html")
 	public String indexPage() {
-    	return "redirect:/meals-list";
+    	return "redirect:/customer-meals-list";
 	}
     
     

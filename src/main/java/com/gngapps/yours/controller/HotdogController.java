@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,11 +48,16 @@ public class HotdogController {
 	
 	@ResponseBody
     @RequestMapping(value = "/process-add-hotdog", consumes = "application/json", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)
-	public String processAddHotdog(HttpServletRequest request, Principal principal, @RequestBody HotdogJson hotdog) {
+	public String processAddHotdog(HttpServletRequest request, Principal principal, @Valid @RequestBody HotdogJson hotdog, BindingResult result) {
     	try {
+    		Locale locale = localeResolver.resolveLocale(request);
+			if(result.hasErrors()) {
+				String messageCode = result.getFieldError().getDefaultMessage();
+				String errMessage = messageSource.getMessage(messageCode, null, locale);
+				return "{\"hotdogErrorMessage\" : \"" + errMessage + "\"}";
+			}
     		String username = principal.getName();
         	databaseService.saveCustomerHotdog(hotdog, username);
-			Locale locale = localeResolver.resolveLocale(request);
 			String hotdogSavedMessage = messageSource.getMessage("yours.food.service.food.componenet.list.hotdog.saved", null, locale);
 			return "{\"hotdogSavedMessage\" : \"" + hotdogSavedMessage + "\"}";
 		} catch(Exception ex) {

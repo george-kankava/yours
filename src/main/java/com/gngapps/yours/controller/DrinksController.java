@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,11 +48,16 @@ public class DrinksController {
 	
     @ResponseBody
     @RequestMapping(value = "/process-add-drink", consumes = "application/json", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)
-	public String processAddDrinks(HttpServletRequest request, Principal principal, @RequestBody DrinksJson drink) {
+	public String processAddDrinks(HttpServletRequest request, Principal principal, @RequestBody @Valid DrinksJson drink, BindingResult result) {
     	try {
+    		Locale locale = localeResolver.resolveLocale(request);
+			if(result.hasErrors()) {
+				String messageCode = result.getFieldError().getDefaultMessage();
+				String errMessage = messageSource.getMessage(messageCode, null, locale);
+				return "{\"drinkErrorMessage\" : \"" + errMessage + "\"}";
+			}
     		String username = principal.getName();
         	databaseService.saveCustomerDrink(drink, username);
-			Locale locale = localeResolver.resolveLocale(request);
 			String drinkSavedMessage = messageSource.getMessage("yours.food.service.food.componenet.list.drink.saved", null, locale);
 			return "{\"drinkSavedMessage\" : \"" + drinkSavedMessage + "\"}";
 		} catch(Exception ex) {

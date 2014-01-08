@@ -1,7 +1,12 @@
 package com.gngapps.yours.databinding.json.request;
 
+import javax.validation.Valid;
+
+
 public class SandwichJson {
+	@Valid
 	private SandwichBreadJson sandwichBread;
+	@Valid
 	private SandwichSausageJson sandwichSausages;
 	private SandwichVegetableJson sandwichVegetables;
 	private SandwichSauceJson sandwichSauces;

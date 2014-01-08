@@ -72,6 +72,7 @@ import com.gngapps.yours.entities.SandwichSpiceWithAmountAndPrice;
 import com.gngapps.yours.entities.SandwichVegetable;
 import com.gngapps.yours.entities.SandwichVegetableAmountAndPrice;
 import com.gngapps.yours.entities.SandwichVegetableWithAmountAndPrice;
+import com.gngapps.yours.exceptions.PhoneAlreadyInUseException;
 import com.gngapps.yours.service.DatabaseService;
 
 @Service("databaseService")
@@ -837,7 +838,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 	@Override
 	@Transactional
-	public void createCustomerOrder(String username, CustoemrOrderJson customerFoodsAndDrinks) {
+	public void createCustomerOrder(String username, CustoemrOrderJson customerFoodsAndDrinks) throws PhoneAlreadyInUseException {
 		try {
 			List<CustomerSandwich> customerSandwichs = buildCustomerSandwichOrder(customerFoodsAndDrinks);
 			List<Integer> saladIds = customerFoodsAndDrinks.getSaladIds();
@@ -874,6 +875,9 @@ public class DatabaseServiceImpl implements DatabaseService {
 				phone.setCustomer(customer);
 				phone.setPhoneNumber(customerPhoneNumebr);
 				customer.getPhoneNumbers().add(phone);
+			} 
+			if(!phone.getCustomer().getId().equals(customer.getId())) {
+				throw new PhoneAlreadyInUseException("This phone number is already in use by other user : " + phone.getPhoneNumber());
 			}
 			String customerShipmentAddress = customerFoodsAndDrinks.getCustomerShipmentAddress();
 			Address address = dataGetterDao.findAddressByShipmentAddress(customerShipmentAddress);
@@ -887,6 +891,9 @@ public class DatabaseServiceImpl implements DatabaseService {
 			order.setShipmentAddress(customerShipmentAddress);
 			dataSaverDao.saveCustomerOrder(order);
 			
+		} catch(PhoneAlreadyInUseException ex) {
+			logger.info(ex.getMessage());
+			throw new PhoneAlreadyInUseException(ex.getMessage());
 		} catch(Exception ex) {
 			logger.info(ex.getMessage());
 		}

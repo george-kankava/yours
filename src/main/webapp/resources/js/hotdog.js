@@ -32,7 +32,12 @@ $( "#hotdogSaveButton" ).click(function() {
 						}
 					)
 			}).done(function(response) {
-				alertify.success(response.hotdogSavedMessage);		
+				if(response.hotdogSavedMessage != undefined) {
+					alertify.success(response.hotdogSavedMessage);
+				}
+				if(response.hotdogErrorMessage != undefined) {
+					alertify.error(response.hotdogErrorMessage);
+				}
 			});
 		});/**
  * 

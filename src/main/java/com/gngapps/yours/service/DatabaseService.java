@@ -39,6 +39,7 @@ import com.gngapps.yours.entities.SandwichSpice;
 import com.gngapps.yours.entities.SandwichSpiceAmountAndPrice;
 import com.gngapps.yours.entities.SandwichVegetable;
 import com.gngapps.yours.entities.SandwichVegetableAmountAndPrice;
+import com.gngapps.yours.exceptions.PhoneAlreadyInUseException;
 
 public interface DatabaseService {
 	Customer findCustomerByEmail(String username);
@@ -108,7 +109,7 @@ public interface DatabaseService {
 	void removeCustomerDrink(Integer customerDrinkId);
 	void removeCustomerHotdog(Integer customerHotdogId);
 	List<CustomerOrder> getCustomerActiveOrders(int start, int end);
-	void createCustomerOrder(String username, CustoemrOrderJson customerFoodsAndDrinks);
+	void createCustomerOrder(String username, CustoemrOrderJson customerFoodsAndDrinks) throws PhoneAlreadyInUseException;
 	void removeCustomerAddress(Integer customerAddressId);
 	void removeCustomerPhone(Integer customerPhoneId);
 	void changeCustomerOrderActiveStatus(Integer customerOrderId, boolean b);

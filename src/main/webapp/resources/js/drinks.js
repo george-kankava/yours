@@ -11,7 +11,7 @@ $( "#drinkSaveButton" ).click(function() {
 				var drinkAddonWithAmountAndPrice = new Object();
 				var drinkAddonId =  value.id;
 				drinkAddonWithAmountAndPrice.drinkAddonId = drinkAddonId;
-				drinkAddonWithAmountAndPrice.drinkAddonAmountAndPriceId = $('#drinkAddOnAmountAndPrices' + drinkAddonId).val();
+				drinkAddonWithAmountAndPrice.drinkAddonAmountAndPriceId = $('#drinkAddOnAmountAndPrice' + drinkAddonId).val();
 				drinkAddonWithAmountAndPriceIds.push(drinkAddonWithAmountAndPrice);
 			});
 			
@@ -27,6 +27,11 @@ $( "#drinkSaveButton" ).click(function() {
 						}
 					)
 			}).done(function(response) {
-				alertify.success(response.drinkSavedMessage);		
+				if(response.drinkSavedMessage != undefined) {
+					alertify.success(response.drinkSavedMessage);
+				}
+				if(response.drinkErrorMessage != undefined) {
+					alertify.error(response.drinkErrorMessage);
+				}
 			});
 		});

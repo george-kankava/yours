@@ -216,7 +216,7 @@
 								<li><a id="customerOrdersPaginationPrevious" href="#">&laquo;</a></li>
 								<script>
 									$('#customerOrdersPaginationPrevious').click(function() {
-										$.get( "customer-order-pagination.ajax", { pageNumber: '${startIndex - 1}'} )
+										$.get( "operator-customer-order-pagination.ajax", { pageNumber: '${startIndex - 1}'} )
 										.done(function(result) {
 											$('#customerOrdersList').empty();
 											$('#customerOrdersList').append(result);
@@ -239,7 +239,7 @@
 							</c:choose>
 							<script>
 								$('#customerOrdersPagination${loop.index}').click(function() {
-									$.get( "customer-order-pagination.ajax", { pageNumber: '${loop.index}'} )
+									$.get( "operator-customer-order-pagination.ajax", { pageNumber: '${loop.index}'} )
 									.done(function(result) {
 										$('#customerOrdersList').empty();
 										$('#customerOrdersList').append(result);
@@ -255,7 +255,7 @@
 										<li class="disabled"><a href="#">&raquo;</a></li>
 										<script>
 											$('#customerOrdersPagination${endIndex }').click(function() {
-												$.get( "customer-order-pagination.ajax", { pageNumber: '${endIndex}'} )
+												$.get( "operator-customer-order-pagination.ajax", { pageNumber: '${endIndex}'} )
 												.done(function(result) {
 													$('#customerOrdersList').empty();
 													$('#customerOrdersList').append(result);
@@ -268,7 +268,7 @@
 										<li class="disabled" ><a href="#">&raquo;</a></li>
 										<script>
 											$('#customerOrdersPagination${endIndex }').click(function() {
-												$.get( "customer-order-pagination.ajax", { pageNumber: '${endIndex}'} )
+												$.get( "operator-customer-order-pagination.ajax", { pageNumber: '${endIndex}'} )
 												.done(function(result) {
 													$('#customerOrdersList').empty();
 													$('#customerOrdersList').append(result);
@@ -282,7 +282,7 @@
 								<li><a id="customerOrdersPaginationNext" href="#">&raquo;</a></li>		
 								<script>
 									$('#customerOrdersPaginationNext').click(function() {
-										$.get( "customer-order-pagination.ajax", { pageNumber: '${endIndex}'} )
+										$.get( "operator-customer-order-pagination.ajax", { pageNumber: '${endIndex}'} )
 										.done(function(result) {
 											$('#customerOrdersList').empty();
 											$('#customerOrdersList').append(result);
@@ -296,7 +296,7 @@
 			</div>
 			<script>
 				$('#customerOrdersPagination${endIndex }').click(function() {
-					$.get( "customer-order-pagination.ajax", { pageNumber: '${endIndex }'} )
+					$.get( "operator-customer-order-pagination.ajax", { pageNumber: '${endIndex }'} )
 					.done(function(result) {
 						$('#customerOrdersList').empty();
 						$('#customerOrdersList').append(result);

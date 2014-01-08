@@ -261,7 +261,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12 col-lg-offset-5">
-						<a id="customerMealsOrderButton" target="_blank" href="process-customer-meals-desk-order" class="btn btn-warning"><spring:message code="yours.food.service.customer.meal.list.ajax.order.button.text" text="Order" /> <span class="glyphicon glyphicon-ok-circle"></span></a>
+						<a id="customerMealsOrderButton" target="_blank" class="btn btn-warning"><spring:message code="yours.food.service.customer.meal.list.ajax.order.button.text" text="Order" /> <span class="glyphicon glyphicon-ok-circle"></span></a>
 					</div>
 				</div>
 			</c:when>
@@ -312,7 +312,7 @@
 					hotdogIds: hotdogs,
 				}
 		);
- 		var url = 'process-customer-meals-desk-order';
+ 		var url = 'operator-process-customer-meals-desk-order';
 		window.open(url + "?customerMealsJson=" + dataJson, '_blank');
 		/* $.ajax({
 			url: url,

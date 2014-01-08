@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,11 +45,16 @@ public class SaladController {
     
 	@ResponseBody
     @RequestMapping(value = "/process-add-salad", consumes = "application/json",  produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)
-	public String processAddSalad(HttpServletRequest request, Principal principal, @RequestBody SaladJson salad) {
+	public String processAddSalad(HttpServletRequest request, Principal principal, @RequestBody @Valid SaladJson salad, BindingResult result) {
 		try {
+			Locale locale = localeResolver.resolveLocale(request);
+			if(result.hasErrors()) {
+				String messageCode = result.getFieldError().getDefaultMessage();
+				String errMessage = messageSource.getMessage(messageCode, null, locale);
+				return "{\"saladErrorMessage\" : \"" + errMessage + "\"}";
+			}
 			String username = principal.getName();
 	    	databaseService.saveCustomerSalad(salad, username);
-	    	Locale locale = localeResolver.resolveLocale(request);
 	    	String saladSavedMessage = messageSource.getMessage("yours.food.service.food.componenet.list.salad.saved", null, locale);
 	    	return "{\"saladSavedMessage\" : \"" + saladSavedMessage + "\"}";
 		} catch(Exception ex) {
