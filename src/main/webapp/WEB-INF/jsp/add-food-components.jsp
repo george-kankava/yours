@@ -66,7 +66,7 @@
 				<div class="btn-group">
   					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><spring:message code="yours.food.ingredient.component"></spring:message><span class="caret"></span></button>
   					<ul class="dropdown-menu" role="menu">
-    					<li><a class="salad-ingredient" href="#"><spring:message code="yours.food.service.ingredient"></spring:message></a></li>
+    					<li><a class="salad-ingredient" href="#"><spring:message code="yours.food.service.ingredients"></spring:message></a></li>
   					</ul>
 				</div>
 			</div>
