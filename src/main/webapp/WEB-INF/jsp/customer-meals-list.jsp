@@ -10,7 +10,7 @@
 <meta name="author" content="GNG Apps" />
 <link rel="shortcut icon" href="resources/ico/yours-sml-logo.gif" />
 
-<title><spring:message code="" text="Customer Meals" /></title>
+<title><spring:message code="yours.food.service.ingredients" text="Ingredients" /></title>
 <!-- Bootstrap core CSS -->
 <link href="resources/css/bootstrap.css" rel="stylesheet" />
 
@@ -48,7 +48,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="foodPurchaseModalTitle">Buy</h4>
+						<h4 class="modal-title" id="foodPurchaseModalTitle"><spring:message code="yours.food.service.meals.list.order.modal.buy" text="Buy"/></h4>
 					</div>
 					<div class="modal-body">
 						<div class="logo-image-small"></div>

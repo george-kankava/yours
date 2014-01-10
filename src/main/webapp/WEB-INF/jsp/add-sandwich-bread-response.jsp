@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <tr class="sandwich-bread-${sandwichBread.id }">
 	<td><select class="form-control">
@@ -20,38 +21,32 @@
 	<td>
 		<button
 			id="sandwich-bread-size-and-price-select-item-remove-${sandwichBread.id }"
-			type="button" class="btn btn-warning">Remove</button>
+			type="button" class="btn btn-warning"><spring:message code="yours.food.service.remove.button.title"></spring:message></button>
 	</td>
-	<td><a data-toggle="modal" href="#myModal-${sandwichBread.id}"
-		class="btn btn-success">Add</a> <!-- Modal -->
-		<div class="modal fade" id="myModal-${sandwichBread.id}" tabindex="-1"
-			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<td><a data-toggle="modal" href="#myModal-${sandwichBread.id}" class="btn btn-success"><spring:message code="yours.food.service.add.button.title"></spring:message></a> <!-- Modal -->
+		<div class="modal fade" id="myModal-${sandwichBread.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Add</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title"><spring:message code="yours.food.service.add.button.title"></spring:message></h4>
 					</div>
 					<div class="modal-body">
-						<input type="hidden" id="sandwichBreadId-${sandwichBread.id}"
-							name="sandwichBreadId" value="${sandwichBread.id}">
+						<input type="hidden" id="sandwichBreadId-${sandwichBread.id}" name="sandwichBreadId" value="${sandwichBread.id}">
 						<div class="form-group">
-							<label for="sandwichSausageSize">Size</label> <input type="text"
-								class="form-control" id="sandwichBreadSize-${sandwichBread.id}"
-								name="size" placeholder="Enter Size">
+							<label for="sandwichSausageSize"><spring:message code="yours.food.ingredients.size"></spring:message></label>
+							<spring:message var="enterSize"  code="yours.food.service.admin.enter.size.title"></spring:message>
+							<input type="text" class="form-control" id="sandwichBreadSize-${sandwichBread.id}" name="size" placeholder="${enterSize }">
 						</div>
 						<div class="form-group">
-							<label for="sandwichSausagePrice">Price</label> <input
-								type="text" class="form-control"
-								id="sandwichBreadPrice-${sandwichBread.id}" name="price"
-								placeholder="Enter Price">
+							<label for="sandwichSausagePrice"><spring:message code="yours.food.ingredient.price"></spring:message></label>
+							<spring:message var="enterPrice" code="yours.food.service.admin.enter.price.title"></spring:message> 
+							<input type="text" class="form-control" id="sandwichBreadPrice-${sandwichBread.id}" name="price" placeholder="${enterPrice }">
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" id="my-modal-${sandwichBread.id}"
-							class="btn btn-primary">Add</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="yours.food.service.close.button.title"></spring:message></button>
+						<button type="button" id="my-modal-${sandwichBread.id}" class="btn btn-primary"><spring:message code="yours.food.service.add.button.title"></spring:message></button>
 					</div>
 				</div>
 				<!-- /.modal-content -->
@@ -59,8 +54,7 @@
 			<!-- /.modal-dialog -->
 		</div>
 		<!-- /.modal --></td>
-	<td><button id="sandwich-bread-remove-btn-${sandwichBread.id }"
-			type="button" class="btn btn-danger">Remove</button></td>
+	<td><button id="sandwich-bread-remove-btn-${sandwichBread.id }" type="button" class="btn btn-danger"><spring:message code="yours.food.service.remove.button.title"></spring:message></button></td>
 </tr>
 <script>
 $('#my-modal-${sandwichBread.id}').click(function() {
@@ -75,11 +69,11 @@ $('#my-modal-${sandwichBread.id}').click(function() {
 	}).done(function(sandwichBreadSizeAndPrice) {
 		$('#sandwich-bread-size-and-price-${sandwichBread.id}').append('<option value=' + sandwichBreadSizeAndPrice.id + ' selected="selected">' + sandwichBreadSizeAndPrice.size + ' - ' + parseFloat(Math.round(sandwichBreadSizeAndPrice.price * 100) / 100).toFixed(2) + '</option>');
 		$('#myModal-${sandwichBread.id}').modal('hide');
-		alertify.success("Data has been saved");
+		alertify.success('<spring:message code="yours.food.service.admin.data.saved.message" />');
 	});
 });
 $('#sandwich-bread-size-and-price-select-item-remove-${sandwichBread.id }').click(function() {
-	alertify.confirm("Do you really want to remove this entry?", function (e) {
+	alertify.confirm('<spring:message code="yours.food.service.admin.remove.entry.message" />', function (e) {
 		if (e) {
 			var url = 'remove-sandwich-bread-size-and-price';
 			$.ajax({
@@ -89,13 +83,13 @@ $('#sandwich-bread-size-and-price-select-item-remove-${sandwichBread.id }').clic
 				}
 			}).done(function() {
 				$("#sandwich-bread-size-and-price-${sandwichBread.id} option[value=" + $('#sandwich-bread-size-and-price-${sandwichBread.id}').val() + "]").remove();
-				alertify.error("Data has been removed");
+				alertify.error('<spring:message code="yours.food.service.admin.data.removed.message" />');
 			});			
 		}
 	});
 });
 $('#sandwich-bread-remove-btn-${sandwichBread.id }').click(function() {
-	alertify.confirm("Do you really want to remove this entry?", function (e) {
+	alertify.confirm('<spring:message code="yours.food.service.admin.remove.entry.message" />', function (e) {
 	    if (e) {
 	    	var url = 'remove-sandwich-bread';
 			$.ajax({
@@ -103,7 +97,7 @@ $('#sandwich-bread-remove-btn-${sandwichBread.id }').click(function() {
 				data: {sandwichBreadId: '${sandwichBread.id}'}
 			}).done(function() {
 				$('.sandwich-bread-${sandwichBread.id }').remove();
-				alertify.error("Data has been removed");
+				alertify.error('<spring:message code="yours.food.service.admin.data.removed.message" />');
 			});			    	
 	    } 
 	});

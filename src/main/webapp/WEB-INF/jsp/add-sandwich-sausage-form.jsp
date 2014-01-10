@@ -7,25 +7,31 @@
 <div class="col-md-3">
 		<table class="table table-bordered">
 			<tr>
-				<td><input type="text" class="form-control" id="sausageTypeGeo" placeholder="Sausage Type Geo"></input></td>
+				<spring:message code="yours.food.service.admin.add.food.components.sausage.type.geo" var="sausageTypeGeo"></spring:message>
+				<td><input type="text" class="form-control" id="sausageTypeGeo" placeholder="${sausageTypeGeo }"></input></td>
 			</tr>
 			<tr>
-				<td><input type="text" class="form-control" id="sausageTypeEng" placeholder="Sausage Type Eng"></input></td>
+				<spring:message code="yours.food.service.admin.add.food.components.sausage.type.eng" var="sausageTypeEng"></spring:message>
+				<td><input type="text" class="form-control" id="sausageTypeEng" placeholder="${sausageTypeEng }"></input></td>
 			</tr>
 			<tr>
-				<td><input type="text" class="form-control" id="sausageTypeRus" placeholder="Sausage Type Rus"></td>
+				<spring:message code="yours.food.service.admin.add.food.components.sausage.type.rus" var="sausageTypeRus"></spring:message>
+				<td><input type="text" class="form-control" id="sausageTypeRus" placeholder="${sausageTypeRus }"></td>
 			</tr>
 			<tr>
-				<td><input type="text" class="form-control" id="sausageDescGeo" placeholder="Sausage Desc Geo"></td>
+				<spring:message code="yours.food.service.admin.add.food.components.sausage.desc.geo" var="sausageDescGeo"></spring:message>
+				<td><input type="text" class="form-control" id="sausageDescGeo" placeholder="${sausageDescGeo }"></td>
 			</tr>
 			<tr>
-				<td><input type="text" class="form-control" id="sausageDescEng" placeholder="Sausage Desc Eng"></td>
+				<spring:message code="yours.food.service.admin.add.food.components.sausage.desc.eng" var="sausageDescEng"></spring:message>
+				<td><input type="text" class="form-control" id="sausageDescEng" placeholder="${sausageDescEng }"></td>
 			</tr>
 			<tr>
-				<td><input type="text" class="form-control" id="sausageDescRus" placeholder="Sausage Desc Rus"></td>
+				<spring:message code="yours.food.service.admin.add.food.components.sausage.desc.rus" var="sausageDescRus"></spring:message>
+				<td><input type="text" class="form-control" id="sausageDescRus" placeholder="${sausageDescRus }"></td>
 			</tr>
 			<tr>
-				<td><button type="button" id="sandwich-sausage-add-btn" class="btn btn-default">Add</button></td>
+				<td><button type="button" id="sandwich-sausage-add-btn" class="btn btn-default"><spring:message code="yours.food.service.add.button.title"></spring:message></button></td>
 			</tr>
 		</table>
 </div>
@@ -33,10 +39,10 @@
 		<table class="table table-bordered table-sandwich-sausages">
 			<thead>
 				<tr>
-					<th>Sausage Type</th>
-					<th>Sausage Desc</th>
-					<th colspan="3">Amount And Price</th>
-					<th>Remove</th>
+					<th><spring:message code="yours.food.service.admin.sandwich.sausage.type"></spring:message></th>
+					<th><spring:message code="yours.food.service.admin.sandwich.sausage.desc"></spring:message></th>
+					<th colspan="3"><spring:message code="yours.food.service.admin.sandwich.amount.and.price"></spring:message></th>
+					<th><spring:message code="yours.food.service.remove.button.title"></spring:message></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -64,37 +70,39 @@
 							</select>
 						</td>
 						<td>
-							<button id="sandwich-sausage-amount-and-price-select-item-remove-${sandwichSausage.id }" type="button" class="btn btn-warning">Remove</button>
+							<button id="sandwich-sausage-amount-and-price-select-item-remove-${sandwichSausage.id }" type="button" class="btn btn-warning"><spring:message code="yours.food.service.remove.button.title"></spring:message></button>
 						</td>
-						<td><a data-toggle="modal" href="#myModal-${sandwichSausage.id }" class="btn btn-success">Add</a>
+						<td><a data-toggle="modal" href="#myModal-${sandwichSausage.id }" class="btn btn-success"><spring:message code="yours.food.service.add.button.title"></spring:message></a>
 							 <!-- Modal -->
  							 <div class="modal fade" id="myModal-${sandwichSausage.id }" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     							<div class="modal-dialog">
       								<div class="modal-content">
         								<div class="modal-header">
           									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          									<h4 class="modal-title">Add</h4>
+          									<h4 class="modal-title"><spring:message code="yours.food.service.add.button.title"></spring:message></h4>
         								</div>
         									<div class="modal-body">
         										<input type="hidden" id="sandwichSausageId-${sandwichSausage.id }" name="sandwichSausageId" value="${sandwichSausage.id}">
   												<div class="form-group">
-    												<label for="sandwichSausageAmount-${sandwichSausage.id }">Amount</label>
-    												<input type="text" class="form-control" id="sandwichSausageAmount-${sandwichSausage.id }" placeholder="Enter Amount">
+    												<label for="sandwichSausageAmount-${sandwichSausage.id }"><spring:message code="yours.food.ingredients.amount"></spring:message></label>
+    												<spring:message var="enterAmount"  code="yours.food.service.admin.enter.amount.title"></spring:message>
+    												<input type="text" class="form-control" id="sandwichSausageAmount-${sandwichSausage.id }" placeholder="${enterAmount }">
   												</div>
   												<div class="form-group">
-    												<label for="sandwichSausagePrice-${sandwichSausage.id }">Price</label>
-    												<input type="text" class="form-control" id="sandwichSausagePrice-${sandwichSausage.id }" placeholder="Enter Price">
+    												<label for="sandwichSausagePrice-${sandwichSausage.id }"><spring:message code="yours.food.ingredient.price"></spring:message></label>
+    												<spring:message var="enterPrice" code="yours.food.service.admin.enter.price.title"></spring:message>
+    												<input type="text" class="form-control" id="sandwichSausagePrice-${sandwichSausage.id }" placeholder="${enterPrice }">
   												</div>		
         									</div>
         									<div class="modal-footer">	
-          										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          										<button id="my-modal-${sandwichSausage.id}" type="button" class="btn btn-primary">Add</button>
+          										<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="yours.food.service.close.button.title"></spring:message></button>
+          										<button id="my-modal-${sandwichSausage.id}" type="button" class="btn btn-primary"><spring:message code="yours.food.service.add.button.title"></spring:message></button>
         									</div>
 								</div><!-- /.modal-content -->
     						</div><!-- /.modal-dialog -->
   						</div><!-- /.modal -->						
 						</td>
-						<td><button id="sandwich-sausage-remove-btn-${sandwichSausage.id }" type="button" class="btn btn-danger">Remove</button></td>
+						<td><button id="sandwich-sausage-remove-btn-${sandwichSausage.id }" type="button" class="btn btn-danger"><spring:message code="yours.food.service.remove.button.title"></spring:message></button></td>
 					</tr>
 			</c:forEach>
 			</tbody>
@@ -123,7 +131,7 @@
 			$('#sausageDescEng').val('');
 			$('#sausageDescRus').val('');
 			$('.table-sandwich-sausages > tbody:last').append(response);
-			alertify.success("Data has been saved");			
+			alertify.success('<spring:message code="yours.food.service.admin.data.saved.message" />');			
 		});
 	});
 	<c:forEach items="${sandwichSausages }" var="sandwichSausage">
@@ -139,11 +147,11 @@
 			}).done(function(sandwichSausageAmountAndPrice) {
 				$('#sandwich-sausage-amount-and-price-${sandwichSausage.id}').append('<option value=' + sandwichSausageAmountAndPrice.id + ' selected="selected">' + sandwichSausageAmountAndPrice.portion + ' - ' + parseFloat(Math.round(sandwichSausageAmountAndPrice.price * 100) / 100).toFixed(2) + '</option>');
 				$('#myModal-${sandwichSausage.id}').modal('hide');
-				alertify.success("Data has been saved");
+				alertify.success('<spring:message code="yours.food.service.admin.data.saved.message" />');
 			});
 		});
 		$('#sandwich-sausage-amount-and-price-select-item-remove-${sandwichSausage.id }').click(function() {
-			alertify.confirm("Do you really want to remove this entry?", function (e) {
+			alertify.confirm('<spring:message code="yours.food.service.admin.remove.entry.message" />', function (e) {
 				if (e) {
 					var url = 'remove-sandwich-sausage-amount-and-price';
 					$.ajax({
@@ -153,13 +161,13 @@
 						}
 					}).done(function() {
 						$("#sandwich-sausage-amount-and-price-${sandwichSausage.id} option[value=" + $('#sandwich-sausage-amount-and-price-${sandwichSausage.id}').val() + "]").remove();
-						alertify.error("Data has been removed");
+						alertify.error('<spring:message code="yours.food.service.admin.data.removed.message" />');
 					});			
 				}
 			});
 		});
 		$('#sandwich-sausage-remove-btn-${sandwichSausage.id }').click(function() {
-			alertify.confirm("Do you really want to remove this entry?", function (e) {
+			alertify.confirm('<spring:message code="yours.food.service.admin.remove.entry.message" />', function (e) {
 			    if (e) {
 			    	var url = 'remove-sandwich-sausage';
 					$.ajax({
@@ -167,7 +175,7 @@
 						data: {sandwichSausageId: '${sandwichSausage.id}'}
 					}).done(function() {
 						$('.sandwich-sausage-${sandwichSausage.id }').remove();
-						alertify.error("Data has been removed");
+						alertify.error('<spring:message code="yours.food.service.admin.data.removed.message" />');
 					});			    	
 			    } 
 			});

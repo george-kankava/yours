@@ -11,7 +11,7 @@
 	<meta name="author" content="GNG Apps" />
 	<link rel="shortcut icon" href="resources/ico/yours-sml-logo.gif" />
 	
-	<title>Yours Food Service</title>
+	<title><spring:message code="Ingredients" text="yours.food.service.food.components.list.title" /></title>
 	
 	<!-- Bootstrap core CSS -->
 	<link href="resources/css/bootstrap.css" rel="stylesheet" />

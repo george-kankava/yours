@@ -3,21 +3,24 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <h5>
-	<span style="margin-left: 35px">Vegetables</span>
+	<span style="margin-left: 35px"><spring:message code="yours.list.heading.sandwich.sublist.vegetables" /></span>
 </h5>
 <div class="col-md-3">
 		<table class="table table-bordered">
 			<tr>
-				<td><input type="text" class="form-control" id="vegetableGeo" placeholder="Vegetable Geo" /></td>
+				<spring:message code="yours.food.service.admin.vegetable.type.geo" var="vegetableGeo"></spring:message>
+				<td><input type="text" class="form-control" id="vegetableGeo" placeholder="${vegetableGeo }" /></td>
 			</tr>
 			<tr>
-				<td><input type="text" class="form-control" id="vegetableEng" placeholder="Vegetable Eng" /></td>
+				<spring:message code="yours.food.service.admin.vegetable.type.eng" var="vegetableEng"></spring:message>
+				<td><input type="text" class="form-control" id="vegetableEng" placeholder="${vegetableEng }" /></td>
 			</tr>
 			<tr>
-				<td><input type="text" class="form-control" id="vegetableRus" placeholder="Vegetable Rus" /></td>
+				<spring:message code="yours.food.service.admin.vegetable.type.rus" var="vegetableRus"></spring:message>
+				<td><input type="text" class="form-control" id="vegetableRus" placeholder="${vegetableRus }" /></td>
 			</tr>
 			<tr>
-				<td><button type="button" id="sandwich-vegetable-add-btn" class="btn btn-default">Add</button></td>
+				<td><button type="button" id="sandwich-vegetable-add-btn" class="btn btn-default"><spring:message code="yours.food.service.add.button.title"></spring:message></button></td>
 			</tr>
 		</table>
 </div>
@@ -25,9 +28,9 @@
 		<table class="table table-bordered table-sandwich-vegetables">
 			<thead>
 				<tr>
-					<th>Vegetable</th>
-					<th colspan="3">Amount And Price</th>
-					<th>Remove</th>
+					<th><spring:message code="yours.food.ingredient.vegetable" /></th>
+					<th colspan="3"><spring:message code="yours.food.service.admin.sandwich.amount.and.price" /></th>
+					<th><spring:message code="yours.food.service.remove.button.title"></spring:message></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -48,37 +51,39 @@
 							</select>
 						</td>
 						<td>
-							<button id="sandwich-vegetable-amount-and-price-select-item-remove-${sandwichVegetable.id }" type="button" class="btn btn-warning">Remove</button>
+							<button id="sandwich-vegetable-amount-and-price-select-item-remove-${sandwichVegetable.id }" type="button" class="btn btn-warning"><spring:message code="yours.food.service.remove.button.title"></spring:message></button>
 						</td>
-						<td><a data-toggle="modal" href="#myModal-${sandwichVegetable.id}" class="btn btn-success">Add</a>
+						<td><a data-toggle="modal" href="#myModal-${sandwichVegetable.id}" class="btn btn-success"><spring:message code="yours.food.service.add.button.title"></spring:message></a>
 							<!-- Modal -->
   							<div class="modal fade" id="myModal-${sandwichVegetable.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     							<div class="modal-dialog">
       								<div class="modal-content">
         								<div class="modal-header">
           									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          									<h4 class="modal-title">Add</h4>
+          									<h4 class="modal-title"><spring:message code="yours.food.service.add.button.title"></spring:message></h4>
         								</div>
         									<div class="modal-body">
         											<input type="hidden" id="sandwichVegetableId-${sandwichVegetable.id }" name="sandwichVegetableId" value="${sandwichVegetable.id}">
   													<div class="form-group">
-    													<label for="sandwichVegetableAmount-${sandwichVegetable.id }">Amount</label>
-    													<input type="text" class="form-control" id="sandwichVegetableAmount-${sandwichVegetable.id }" name="amount" placeholder="Enter Amount">
+    													<label for="sandwichVegetableAmount-${sandwichVegetable.id }"><spring:message code="yours.food.ingredients.amount"></spring:message></label>
+    													<spring:message var="enterAmount"  code="yours.food.service.admin.enter.amount.title"></spring:message>
+    													<input type="text" class="form-control" id="sandwichVegetableAmount-${sandwichVegetable.id }" name="amount" placeholder="${enterAmount }">
 													</div>
   													<div class="form-group">
-    													<label for="sandwichVegetablePrice-${sandwichVegetable.id }">Price</label>
-    													<input type="text" class="form-control" id="sandwichVegetablePrice-${sandwichVegetable.id }" name="price" placeholder="Enter Price">
+    													<label for="sandwichVegetablePrice-${sandwichVegetable.id }"><spring:message code="yours.food.ingredient.price"></spring:message></label>
+    													<spring:message var="enterPrice" code="yours.food.service.admin.enter.price.title"></spring:message>
+    													<input type="text" class="form-control" id="sandwichVegetablePrice-${sandwichVegetable.id }" name="price" placeholder="${enterPrice }">
   													</div>
         									</div>
         									<div class="modal-footer">
-          										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          										<button id="my-modal-${sandwichVegetable.id }" type="submit" class="btn btn-primary">Add</button>
+          										<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="yours.food.service.close.button.title"></spring:message></button>
+          										<button id="my-modal-${sandwichVegetable.id }" type="submit" class="btn btn-primary"><spring:message code="yours.food.service.add.button.title"></spring:message></button>
         									</div>
       								</div><!-- /.modal-content -->
     							</div><!-- /.modal-dialog -->
   							</div><!-- /.modal -->
 						</td>
-						<td><button id="sandwich-vegetable-remove-btn-${sandwichVegetable.id }" type="button" class="btn btn-danger">Remove</button></td>
+						<td><button id="sandwich-vegetable-remove-btn-${sandwichVegetable.id }" type="button" class="btn btn-danger"><spring:message code="yours.food.service.remove.button.title"></spring:message></button></td>
 					</tr>
 			</c:forEach>
 			</tbody>
@@ -101,7 +106,7 @@
 			$('#vegetableEng').val('');
 			$('#vegetableRus').val('');
 			$('.table-sandwich-vegetables > tbody:last').append(response);
-			alertify.success("Data has been saved");
+			alertify.success('<spring:message code="yours.food.service.admin.data.saved.message" />');
 		});
 	});
 	<c:forEach items="${sandwichVegetables }" var="sandwichVegetable">
@@ -117,11 +122,11 @@
 			}).done(function(sandwichVegetableAmountAndPrice) {
 				$('#sandwich-vegetable-amount-and-price-${sandwichVegetable.id}').append('<option value=' + sandwichVegetableAmountAndPrice.id + ' selected="selected">' + sandwichVegetableAmountAndPrice.portion + ' - ' + parseFloat(Math.round(sandwichVegetableAmountAndPrice.price * 100) / 100).toFixed(2) + '</option>');
 				$('#myModal-${sandwichVegetable.id}').modal('hide');
-				alertify.success("Data has been saved");
+				alertify.success('<spring:message code="yours.food.service.admin.data.saved.message" />');
 			});
 		});
 		$('#sandwich-vegetable-amount-and-price-select-item-remove-${sandwichVegetable.id }').click(function() {
-			alertify.confirm("Do you really want to remove this entry?", function (e) {
+			alertify.confirm('<spring:message code="yours.food.service.admin.remove.entry.message" />', function (e) {
 				if (e) {
 					var url = 'remove-sandwich-vegetable-amount-and-price';
 					$.ajax({
@@ -131,13 +136,13 @@
 						}
 					}).done(function() {
 						$("#sandwich-vegetable-amount-and-price-${sandwichVegetable.id} option[value=" + $('#sandwich-vegetable-amount-and-price-${sandwichVegetable.id}').val() + "]").remove();
-						alertify.error("Data has been removed");
+						alertify.error('<spring:message code="yours.food.service.admin.data.removed.message" />');
 					});
 				}
 			});
 		});
 		$('#sandwich-vegetable-remove-btn-${sandwichVegetable.id }').click(function() {
-			alertify.confirm("Do you really want to remove this entry?", function (e) {
+			alertify.confirm('<spring:message code="yours.food.service.admin.remove.entry.message" />', function (e) {
 			    if (e) {
 			    	var url = 'remove-sandwich-vegetable';
 					$.ajax({
@@ -145,7 +150,7 @@
 						data: {sandwichVegetableId: '${sandwichVegetable.id}'}
 					}).done(function() {
 						$('.sandwich-vegetable-${sandwichVegetable.id }').remove();
-						alertify.error("Data has been removed");
+						alertify.error('<spring:message code="yours.food.service.admin.data.removed.message" />');
 					});			    	
 			    } 
 			});

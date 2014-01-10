@@ -11,7 +11,7 @@
 <meta name="author" content="GNG Apps" />
 <link rel="shortcut icon" href="../resources/ico/yours-sml-logo.gif" />
 
-<title>Add Components</title>
+<title><spring:message code="yours.food.service.admin.add.food.components.title"></spring:message></title>
 
 <!-- Bootstrap core CSS -->
 <link href="../resources/css/bootstrap.css" rel="stylesheet" />
@@ -32,10 +32,13 @@
 	<div class="container">
 		<div class="header">
 			<ul class="nav nav-pills pull-right">
-				<li class="active"><a href="#">Add Components</a></li>
-				<li><a href="../j_spring_security_logout">Logout</a></li>
+				<li class="active"><a href="#"><spring:message code="yours.food.service.admin.add.food.components.title"></spring:message></a></li>
+				<li><a href="../j_spring_security_logout"><spring:message code="yours.food.service.header.logout"></spring:message></a></li>
 			</ul>
-			<h3 class="text-muted">Yours.ge - Online Food Service</h3>
+			<h3 class="text-muted"><spring:message code="yours.food.service.header.text"></spring:message></h3>
+			<span><a href="?language=ka"><img src="../resources/ico/georgia_flag_32.png"></a></span>
+			<span><a href="?language=en"><img src="../resources/ico/usa_flag_32.png"></a></span>
+			<span><a href="?language=ru"><img src="../resources/ico/russia_flag_32.png"></a></span>
 		</div>
 		<div class="logo-image"></div>
 		<div class="row">
@@ -45,13 +48,13 @@
 				</h4>
 				<!-- Single button -->
 				<div class="btn-group">
-  					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Component <span class="caret"></span></button>
+  					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><spring:message code="yours.food.ingredient.component"></spring:message> <span class="caret"></span></button>
   					<ul class="dropdown-menu" role="menu">
-    					<li><a class="sandwich-ingredients-bread" href="#">Bread</a></li>
-    					<li><a class="sandwich-ingredients-sausage" href="#">Sausage</a></li>
-    					<li><a class="sandwich-ingredients-vegetables" href="#">Vegetables</a></li>
-    					<li><a class="sandwich-ingredients-sauce" href="#">Sauce</a></li>
-    					<li><a class="sandwich-ingredients-spice" href="#">Spice</a></li>
+    					<li><a class="sandwich-ingredients-bread" href="#"><spring:message code="yours.food.service.ingredients.bread"></spring:message></a></li>
+    					<li><a class="sandwich-ingredients-sausage" href="#"><spring:message code="yours.food.service.ingredients.hotdog.sausage"></spring:message></a></li>
+    					<li><a class="sandwich-ingredients-vegetables" href="#"><spring:message code="yours.food.ingredient.vegetable"></spring:message></a></li>
+    					<li><a class="sandwich-ingredients-sauce" href="#"><spring:message code="yours.food.ingredient.sauce"></spring:message></a></li>
+    					<li><a class="sandwich-ingredients-spice" href="#"><spring:message code="yours.food.ingredient.spice"></spring:message></a></li>
   					</ul>
 				</div>
 			</div>
@@ -61,9 +64,9 @@
 				</h4>
 				<!-- Single button -->
 				<div class="btn-group">
-  					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Component <span class="caret"></span></button>
+  					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><spring:message code="yours.food.ingredient.component"></spring:message><span class="caret"></span></button>
   					<ul class="dropdown-menu" role="menu">
-    					<li><a class="salad-ingredient" href="#">Ingredient</a></li>
+    					<li><a class="salad-ingredient" href="#"><spring:message code="yours.food.service.ingredient"></spring:message></a></li>
   					</ul>
 				</div>
 			</div>
@@ -73,24 +76,24 @@
 				</h4>
 				<!-- Single button -->
 				<div class="btn-group">
-  					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Component <span class="caret"></span></button>
+  					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><spring:message code="yours.food.ingredient.component"></spring:message> <span class="caret"></span></button>
   					<ul class="dropdown-menu" role="menu">
-    					<li><a class="drink" href="#">Drink</a></li>
-    					<li><a class="drink-addon" href="#">Add-On</a></li>
+    					<li><a class="drink" href="#"><spring:message code="yours.food.service.ingredients.drink"></spring:message></a></li>
+    					<li><a class="drink-addon" href="#"><spring:message code="yours.food.service.ingredients.drink.addon"></spring:message></a></li>
   					</ul>
 				</div>
 			</div>
 			<div class="col-md-3">
 				<h4>
-					<span style="margin-left: 15px">Hot Dog</span>
+					<span style="margin-left: 15px"><spring:message code="yours.food.service.meals.list.hotdog"></spring:message></span>
 				</h4>
 				<!-- Single button -->
 				<div class="btn-group">
-  					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Component <span class="caret"></span></button>
+  					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><spring:message code="yours.food.ingredient.component"></spring:message><span class="caret"></span></button>
   					<ul class="dropdown-menu" role="menu">
-    					<li><a class="hotdog-ingredient-bread" href="#">Bread</a></li>
-    					<li><a class="hotdog-ingredient-sausage" href="#">Sausage</a></li>
-    					<li><a class="hotdog-ingredient-sauce" href="#">Sauce</a></li>
+    					<li><a class="hotdog-ingredient-bread" href="#"><spring:message code="yours.food.service.ingredients.bread"></spring:message></a></li>
+    					<li><a class="hotdog-ingredient-sausage" href="#"><spring:message code="yours.food.service.ingredients.hotdog.sausage"></spring:message></a></li>
+    					<li><a class="hotdog-ingredient-sauce" href="#"><spring:message code="yours.food.service.ingredients.hotdog.sauce"></spring:message></a></li>
   					</ul>
 				</div>
 			</div>
