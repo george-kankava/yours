@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.UniqueConstraint;
-import javax.validation.Constraint;
 import javax.validation.constraints.Pattern;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,7 +23,7 @@ public class Customer {
 	private Integer id;
 	@Column(unique = true)
 	private String username;
-	@Pattern(regexp = "[a-zA-Z0-9,.-_]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}", message = "Please Enter Valid Email")
+	@Pattern(regexp = "[a-zA-Z0-9,.-_]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}", message = "yours.food.service.enter.valid.email.message")
 	@Column(unique = true)
 	private String email;
 	private String firstname;

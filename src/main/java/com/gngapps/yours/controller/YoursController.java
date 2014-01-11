@@ -436,14 +436,19 @@ public class YoursController {
 	}
     
     @RequestMapping(value = "/process-register-user", method = RequestMethod.POST)
-	public String processRegister(HttpServletRequest request, HttpSession session, @ModelAttribute @Valid Customer customer, ModelAndView mav, BindingResult result) {
+	public ModelAndView processRegister(HttpServletRequest request, HttpSession session, @ModelAttribute @Valid Customer customer, ModelAndView mav, BindingResult result) {
+    	Locale locale = localeResolver.resolveLocale(request);
     	if(result.hasErrors()) {
-    		return "register-user";
+    		String errorMessageCode = result.getFieldError().getDefaultMessage();
+    		String errorMessage = messageSource.getMessage(errorMessageCode, null, locale);
+    		mav.setViewName("register-user");
+    		mav.addObject(errorMessage);
+    		return mav;
     	}
     	databaseService.registerCustomer(customer);
-    	Locale locale = localeResolver.resolveLocale(request);
     	mailService.sendCustomerRegistrationMail(customer, locale);
-    	return "signin";
+    	mav.setViewName("signin");
+    	return mav;
 	}
     
     @RequestMapping(value = "admin/add-food-components")
