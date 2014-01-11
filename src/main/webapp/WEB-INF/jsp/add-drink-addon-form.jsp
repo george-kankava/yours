@@ -17,25 +17,31 @@
 				</td>
 			</tr>
 			<tr>
-				<td><input type="text" class="form-control" id="addonNameGeo" placeholder="Add-On Name Geo" /></td>
+				<spring:message code="yours.food.service.admin.add.food.components.drink.addon.type.geo" var="drinkAddonTypeGeo"></spring:message>
+				<td><input type="text" class="form-control" id="addonNameGeo" placeholder="${drinkAddonTypeGeo }" /></td>
 			</tr>
 			<tr>
-				<td><input type="text" class="form-control" id="addonNameEng" placeholder="Add-On Name Eng" /></td>
+				<spring:message code="yours.food.service.admin.add.food.components.drink.addon.type.eng" var="drinkAddonTypeEng"></spring:message>
+				<td><input type="text" class="form-control" id="addonNameEng" placeholder="${drinkAddonTypeEng }" /></td>
 			</tr>
 			<tr>
-				<td><input type="text" class="form-control" id="addonNameRus" placeholder="Add-On Name Rus" /></td>
+				<spring:message code="yours.food.service.admin.add.food.components.drink.addon.type.rus" var="drinkAddonTypeRus"></spring:message>
+				<td><input type="text" class="form-control" id="addonNameRus" placeholder="${drinkAddonTypeRus }" /></td>
 			</tr>
 			<tr>
-				<td><input type="text" class="form-control" id="addonDescGeo" placeholder="Add-On Desc Geo" /></td>
+				<spring:message code="yours.food.service.admin.add.food.components.drink.addon.desc.geo" var="drinkAddonDescGeo"></spring:message>
+				<td><input type="text" class="form-control" id="addonDescGeo" placeholder="${drinkAddonDescGeo }" /></td>
 			</tr>
 			<tr>
-				<td><input type="text" class="form-control" id="addonDescEng" placeholder="Add-On Desc Eng" /></td>
+				<spring:message code="yours.food.service.admin.add.food.components.drink.addon.desc.eng" var="drinkAddonDescEng"></spring:message>
+				<td><input type="text" class="form-control" id="addonDescEng" placeholder="${drinkAddonDescEng }" /></td>
 			</tr>
 			<tr>
-				<td><input type="text" class="form-control" id="addonDescRus" placeholder="Add-On Desc Rus" /></td>
+				<spring:message code="yours.food.service.admin.add.food.components.drink.addon.desc.rus" var="drinkAddonDescRus"></spring:message>
+				<td><input type="text" class="form-control" id="addonDescRus" placeholder="${drinkAddonDescRus }" /></td>
 			</tr>
 			<tr>
-				<td><button type="submit" id="drink-add-on-add-btn" class="btn btn-default">Add</button></td>
+				<td><button type="submit" id="drink-add-on-add-btn" class="btn btn-default"><spring:message code="yours.food.service.add.button.title"></spring:message></button></td>
 			</tr>
 		</table>
 </div>
@@ -43,11 +49,11 @@
 	<table class="table table-bordered table-drink-add-ons">
 			<thead>
 				<tr>
-					<th><spring:message code="yours.food.service.admin.add.drink.addon.drink.name" text="Drink Name" /></th>
-					<th>Add-On Name</th>
-					<th>Add-On Desc</th>
-					<th colspan="3">Amount And Price</th>
-					<th>Remove</th>
+					<th><spring:message code="yours.food.service.admin.drink.type"></spring:message></th>
+					<th><spring:message code="yours.food.service.admin.drink.addon.type"></spring:message></th>
+					<th><spring:message code="yours.food.service.admin.drink.addon.desc"></spring:message></th>
+					<th colspan="3"><spring:message code="yours.food.service.remove.button.title"></spring:message></th>
+					<th><spring:message code="yours.food.service.remove.button.title"></spring:message></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -78,39 +84,41 @@
 							</select>
 						</td>
 						<td>
-							<button id="drink-add-on-amount-and-price-select-item-remove-${drinkAddOn.id }" type="button" class="btn btn-warning">Remove</button>
+							<button id="drink-add-on-amount-and-price-select-item-remove-${drinkAddOn.id }" type="button" class="btn btn-warning"><spring:message code="yours.food.service.remove.button.title"></spring:message></button>
 						</td>
-						<td><a data-toggle="modal" href="#myModal-${drinkAddOn.id}" class="btn btn-success">Add</a>
+						<td><a data-toggle="modal" href="#myModal-${drinkAddOn.id}" class="btn btn-success"><spring:message code="yours.food.service.add.button.title"></spring:message></a>
 							<!-- Modal -->
   							<div class="modal fade" id="myModal-${drinkAddOn.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     							<div class="modal-dialog">
       								<div class="modal-content">
         								<div class="modal-header">
           									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          									<h4 class="modal-title">Add</h4>
+          									<h4 class="modal-title"><spring:message code="yours.food.service.add.button.title"></spring:message></h4>
         								</div>
         								<form class="form-inline" role="form">
         									<div class="modal-body">
         											<input type="hidden" id="drinkAddOnId-${drinkAddOn.id}" value="${drinkAddOn.id}">
   													<div class="form-group">
-    													<label for="drinkAddOnAmount-${drinkAddOn.id }">Amount</label>
-    													<input type="text" class="form-control" id="drinkAddOnAmount-${drinkAddOn.id}" placeholder="Enter Amount">
+    													<label for="drinkAddOnAmount-${drinkAddOn.id }"><spring:message code="yours.food.ingredients.amount"></spring:message></label>
+    													<spring:message var="enterAmount"  code="yours.food.service.admin.enter.amount.title"></spring:message>
+    													<input type="text" class="form-control" id="drinkAddOnAmount-${drinkAddOn.id}" placeholder="${enterAmount }">
 													</div>
   													<div class="form-group">
-    													<label for="drinkAddOnPrice-${drinkAddOn.id }">Price</label>
-    													<input type="text" class="form-control" id="drinkAddOnPrice-${drinkAddOn.id}" placeholder="Enter Price">
+    													<label for="drinkAddOnPrice-${drinkAddOn.id }"><spring:message code="yours.food.ingredient.price"></spring:message></label>
+    													<spring:message var="enterPrice" code="yours.food.service.admin.enter.price.title"></spring:message>
+    													<input type="text" class="form-control" id="drinkAddOnPrice-${drinkAddOn.id}" placeholder="${enterPrice }">
   													</div>
         									</div>
         									<div class="modal-footer">
           										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          										<button type="button" id="my-modal-${drinkAddOn.id}"  class="btn btn-primary">Add</button>
+          										<button type="button" id="my-modal-${drinkAddOn.id}"  class="btn btn-primary"><spring:message code="yours.food.service.add.button.title"></spring:message></button>
         									</div>
         								</form>
       								</div><!-- /.modal-content -->
     							</div><!-- /.modal-dialog -->
   							</div><!-- /.modal -->
 						</td>
-						<td><button id="drink-add-on-remove-btn-${drinkAddOn.id }" type="button" class="btn btn-danger">Remove</button></td>
+						<td><button id="drink-add-on-remove-btn-${drinkAddOn.id }" type="button" class="btn btn-danger"><spring:message code="yours.food.service.remove.button.title"></spring:message></button></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -140,7 +148,7 @@
 			$('#addonDescEng').val('');
 			$('#addonDescRus').val('');
 			$('.table-drink-add-ons > tbody:last').append(response);
-			alertify.success("Data has been saved");			
+			alertify.success('<spring:message code="yours.food.service.admin.data.saved.message" />');			
 		});
 	});
 	<c:forEach items="${drinkAddOns }" var="drinkAddOn">
@@ -156,10 +164,11 @@
 			}).done(function(drinkAddOnAmountAndPrice) {
 				$('#drink-add-on-amount-and-price-${drinkAddOn.id}').append('<option value=' + drinkAddOnAmountAndPrice.id + ' selected="selected" >' + drinkAddOnAmountAndPrice.amount + ' - ' + parseFloat(Math.round(drinkAddOnAmountAndPrice.price * 100) / 100).toFixed(2) + '</option>');
 				$('#myModal-${drinkAddOn.id}').modal('hide');
+				'<spring:message code="yours.food.service.admin.data.saved.message" />'
 			});
 		});
 		$('#drink-add-on-amount-and-price-select-item-remove-${drinkAddOn.id }').click(function() {
-			alertify.confirm("Do you really want to remove this entry?", function (e) {
+			alertify.confirm('<spring:message code="yours.food.service.admin.remove.entry.message" />', function (e) {
 				if (e) {
 					var url = 'remove-drink-add-on-amount-and-price';
 					$.ajax({
@@ -169,13 +178,13 @@
 						}
 					}).done(function() {
 						$("#drink-add-on-amount-and-price-${drinkAddOn.id} option[value=" + $('#drink-add-on-amount-and-price-${drinkAddOn.id}').val() + "]").remove();
-						alertify.error("Data has been removed");
+						alertify.error('<spring:message code="yours.food.service.admin.data.removed.message" />');
 					});			
 				}
 			});
 		});
 		$('#drink-add-on-remove-btn-${drinkAddOn.id }').click(function() {
-			alertify.confirm("Do you really want to remove this entry?", function (e) {
+			alertify.confirm('<spring:message code="yours.food.service.admin.remove.entry.message" />', function (e) {
 			    if (e) {
 			    	var url = 'remove-drink-add-on';
 					$.ajax({
@@ -183,7 +192,7 @@
 						data: {drinkAddOnId: '${drinkAddOn.id}'}
 					}).done(function() {
 						$('.drink-add-on-${drinkAddOn.id }').remove();
-						alertify.error("Data has been removed");
+						alertify.error('<spring:message code="yours.food.service.admin.data.removed.message" />');
 					});			    	
 			    } 
 			});
