@@ -10,14 +10,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="shortcut icon" href="resources/ico/yours-sml-logo.gif">
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<link rel="shortcut icon" href="${contextPath }/resources/ico/yours-sml-logo.gif">
 <title>Yours Signin</title>
 
 <!-- Bootstrap core CSS -->
-<link href="resources/css/bootstrap.css" rel="stylesheet" />
+<link href="${contextPath }/resources/css/bootstrap.css" rel="stylesheet" />
 
 <!-- Custom styles for this template -->
-<link href="resources/css/form.css" rel="stylesheet" />
+<link href="${contextPath }/resources/css/form.css" rel="stylesheet" />
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
       <script src="../../assets/js/html5shiv.js"></script>
@@ -26,14 +27,13 @@
 </head>
 
 <body>
-
 	<div class="container">
 		<div class="jumbotron">
 			<div class="row">
 				<div class="col-md-4 col-md-offset-5">
-				<span><a href="?language=ka"><img src="resources/ico/georgia_flag_32.png"></a></span>
-				<span><a href="?language=en"><img src="resources/ico/usa_flag_32.png"></a></span>
-				<span><a href="?language=ru"><img src="resources/ico/russia_flag_32.png"></a></span>
+				<span><a href="?language=ka"><img src="${contextPath }/resources/ico/georgia_flag_32.png"></a></span>
+				<span><a href="?language=en"><img src="${contextPath }/resources/ico/usa_flag_32.png"></a></span>
+				<span><a href="?language=ru"><img src="${contextPath }/resources/ico/russia_flag_32.png"></a></span>
 					<h1>Yours</h1>
 					<p>Food Service for your.</p>
 				</div>

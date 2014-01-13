@@ -49,8 +49,8 @@ public class CustomerOrder implements Serializable {
 	private List<CustomerDrink> customerDrinks;	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "CustomerHotdogOrders",
-			joinColumns = {@JoinColumn(name = "customer_hotdog_id", referencedColumnName = "id")},
-			inverseJoinColumns = {@JoinColumn(name = "customer_sandwich_id", referencedColumnName = "id")})
+			joinColumns = {@JoinColumn(name = "customer_order_id", referencedColumnName = "id")},
+			inverseJoinColumns = {@JoinColumn(name = "customer_hotdog_id", referencedColumnName = "id")})
 	private List<CustomerHotdog> customerHotdogs;
 	private String shipmentAddress;
 	private String phoneNumber;

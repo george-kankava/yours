@@ -2,22 +2,24 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="shortcut icon" href="resources/ico/yours-sml-logo.gif">
-<title>Registration</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+	<link rel="shortcut icon" href="${contextPath }/resources/ico/yours-sml-logo.gif">
+	<title>Registration</title>
 
-<!-- Bootstrap core CSS -->
-<link href="resources/css/bootstrap.css" rel="stylesheet">
-
-<!-- Custom styles for this template -->
-<link href="resources/css/form.css" rel="stylesheet">
-<link rel="stylesheet" href="resources/css/jquery-ui.css" />
+	<!-- Bootstrap core CSS -->
+	<link href="${contextPath }/resources/css/bootstrap.css" rel="stylesheet">
+	
+	<!-- Custom styles for this template -->
+	<link href="${contextPath }/resources/css/form.css" rel="stylesheet">
+	<link rel="stylesheet" href="${contextPath }/resources/css/jquery-ui.css" />
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
       <script src="../../assets/js/html5shiv.js"></script>
@@ -26,7 +28,6 @@
 </head>
 
 <body>
-
 	<div class="container">
 		<div class="jumbotron">
 			<div class="row">
@@ -35,7 +36,7 @@
 					<p>Food Service for your.</p>
 				</div>
 			</div>
-			<form:form commandName="customer" class="form-signin" method="post" action="process-register-user">
+			<form:form commandName="customer" class="form-signin" method="post" action="${contextPath }/process-register-user">
 				<h2 class="form-signin-heading"><spring:message code="yours.food.service.registration.title" text="Please Register"></spring:message></h2>
 				<form:errors path="email" element="div" class="error" />
 				<spring:message code="yours.food.service.email.title" text="Email" var="emailPlaceholderText"/>
@@ -59,8 +60,8 @@
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="resources/js/jquery-2.0.3.min.js"></script>
-	<script src="resources/js/jquery-ui.js"></script>
+	<script src="${contextPath }/resources/js/jquery-2.0.3.min.js"></script>
+	<script src="${contextPath }/resources/js/jquery-ui.js"></script>
 	 <script>
   	$(function() {
     	$( ".datepicker" ).datepicker({
