@@ -34,8 +34,8 @@
 	<div class="container">
 		<div class="header">
 			<ul class="nav nav-pills pull-right">
-				<li class="active"><a href="customer-meals-page">Customer Meals</a></li>
-				<li><a href="../j_spring_security_logout">Logout</a></li>
+				<li class="active"><a href="customer-meals-page"><spring:message code="yours.food.service.operator.customer.meals" ></spring:message></a></li>
+				<li><a href="../j_spring_security_logout"><spring:message code="yours.food.service.header.logout"></spring:message></a></li>
 			</ul>
 			<h3 class="text-muted">Yours.ge</h3>
 		</div>

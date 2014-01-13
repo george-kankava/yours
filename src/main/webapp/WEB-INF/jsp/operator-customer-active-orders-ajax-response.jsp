@@ -15,7 +15,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="customerOrderModalLabel${customerOrder.id}">Order Ingredients</h4>
+					<h4 class="modal-title" id="customerOrderModalLabel${customerOrder.id}"><spring:message code="yours.food.service.order.ingredients" /></h4>
 				</div>
 				<div class="modal-body">
 					<c:forEach items="${customerOrder.customerSandwichs }" var="customerSandwich">
@@ -56,7 +56,7 @@
 					<c:forEach items="${customerOrder.customerSalads }" var="customerSalad">
 						<div class="row">
 							<div class="col-lg-12">
-								<p class="lead">Salad - ${customerSalad.id }</p>
+								<p class="lead"><spring:message code="yours.food.service.salad.ingredients" /> - ${customerSalad.id }</p>
 							</div>
 						</div>
 						<c:forEach items="${customerSalad.ingredientWithAmountAndPrices }" var="ingredientWithAmountAndPrice">
@@ -71,7 +71,7 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<p class="lead">
-									Drinks - ${customerDrink.id } <span class="glyphicon glyphicon-glass"></span>
+									<spring:message code="yours.food.service.meals.list.drinks.title"></spring:message> - ${customerDrink.id } <span class="glyphicon glyphicon-glass"></span>
 								</p>
 							</div>
 						</div>
@@ -90,7 +90,7 @@
 					<c:forEach items="${customerOrder.customerHotdogs }" var="customerHotdog">
 						<div class="row">
 							<div class="col-lg-12">
-								<p class="lead">Hotdog - ${customerHotdog.id }</p>
+								<p class="lead"><spring:message code="yours.food.service.ingredients.hotdog"></spring:message> - ${customerHotdog.id }</p>
 							</div>
 						</div>
 						<div class="row">
@@ -111,13 +111,13 @@
 					</c:forEach>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="yours.food.service.close.button.title"></spring:message></button>
 					<button id="orederDeliveredButton${customerOrder.id }" type="button" class="btn btn-primary">
 						<spring:message code="yours.food.service.operator.customer.order.delivered.button" text="Delivered" />
 					</button>
 					<script>
 						$('#orederDeliveredButton${customerOrder.id }').click(function() {
-							alertify.confirm("Are you sure?", function (e) {
+							alertify.confirm('<spring:message code="yours.food.service.are.you.sure.message" />', function (e) {
 								if (e) {											
 									var url = 'customer-order-delivered';
 									$.ajax({

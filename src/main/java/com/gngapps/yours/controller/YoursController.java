@@ -163,12 +163,14 @@ public class YoursController {
 	}
 
 	@RequestMapping("operator/operator-customer-active-orders")
-	public ModelAndView customerActiveOrders(Principal principal, ModelAndView mav) {
+	public ModelAndView customerActiveOrders(HttpServletRequest request, Principal principal, ModelAndView mav) {
 		try {
+			Locale locale = localeResolver.resolveLocale(request);
 			mav.setViewName("operator-customer-active-orders");
 			List<CustomerOrder> activeOrders = databaseService.getCustomerActiveOrders(AppConstants.ACTIVE_ORDERS_PAGING_START_POSITION, AppConstants.ACTIVE_ORDERS_AMOUNT_PER_PAGE);
 			Long pagesCount = databaseService.getActiveOrdersPagesCount();
 			mav.addObject("startIndex", AppConstants.ACTIVE_ORDERS_INITIAL_START_INDEX);
+			mav.addObject("locale", locale);
 			if(pagesCount > AppConstants.CUSTOMER_ORDER_PAGES_PER_PAGE) {
 				mav.addObject("endIndex", AppConstants.CUSTOMER_ORDER_PAGES_PER_PAGE);
 			} else {

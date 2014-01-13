@@ -39,8 +39,8 @@
 	<div class="container">
 		<div class="header">
 			<ul class="nav nav-pills pull-right">
-				<li class="active"><a href="#">Active Orders</a></li>
-				<li><a href="../j_spring_security_logout">Logout</a></li>
+				<li class="active"><a href="#"><spring:message code="yours.food.service.active.orders.title"></spring:message></a></li>
+				<li><a href="../j_spring_security_logout"><spring:message code="yours.food.service.header.logout"></spring:message></a></li>
 			</ul>
 			<h3 class="text-muted">Yours.ge</h3>
 		</div>
@@ -50,7 +50,7 @@
 				<c:forEach items="${customerOrders }" var="customerOrder">
 					<div class="col-md-12"> 
 						<div id="customerOrdersListItem${customerOrder.id }" class="alert alert-success">
-							#${customerOrder.id } - ${customerOrder.customer.username } - <fmt:formatDate type="time" value="${customerOrder.date}" /> - ${customerOrder.shipmentAddress } - ${customerOrder.phoneNumber } <a data-toggle="modal" data-target="#customerOrderModal${customerOrder.id}" href="#">View Order</a>  
+							#${customerOrder.id } - ${customerOrder.customer.username } - <fmt:formatDate type="time" value="${customerOrder.date}" /> - ${customerOrder.shipmentAddress } - ${customerOrder.phoneNumber } <a data-toggle="modal" data-target="#customerOrderModal${customerOrder.id}" href="#"><spring:message code="yours.food.service.view.order"></spring:message></a>  
 						</div>
 					</div>
 					<!-- Modal -->
@@ -59,13 +59,13 @@
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title" id="customerOrderModalLabel${customerOrder.id}">Order Ingredients</h4>
+									<h4 class="modal-title" id="customerOrderModalLabel${customerOrder.id}"><spring:message code="yours.food.service.order.ingredients" /></h4>
 								</div>
 								<div class="modal-body">
 									<c:forEach items="${customerOrder.customerSandwichs }" var="customerSandwich">
 											<div class="row">
 												<div class="col-lg-12">
-													<p class="lead">Sandwich - ${customerSandwich.id }</p>
+													<p class="lead"><spring:message code="yours.food.service.ingredients.sandwich"></spring:message> - ${customerSandwich.id }</p>
 												</div>
 											</div>
 											<div class="row">
@@ -104,7 +104,7 @@
 									<c:forEach items="${customerOrder.customerSalads }" var="customerSalad">
 										<div class="row">
 											<div class="col-lg-12">
-												<p class="lead">Salad - ${customerSalad.id }</p>
+												<p class="lead"><spring:message code="yours.list.heading.salad"></spring:message> - ${customerSalad.id }</p>
 											</div>
 										</div>
 										<c:forEach items="${customerSalad.ingredientWithAmountAndPrices }" var="ingredientWithAmountAndPrice">
@@ -179,7 +179,7 @@
 									</c:forEach>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="yours.food.service.close.button.title"></spring:message></button>
 									<button id="orederDeliveredButton${customerOrder.id }" type="button" class="btn btn-primary"><spring:message code="yours.food.service.operator.customer.order.delivered.button" text="Delivered"/></button>
 									<script>
 										$('#orederDeliveredButton${customerOrder.id }').click(function() {
