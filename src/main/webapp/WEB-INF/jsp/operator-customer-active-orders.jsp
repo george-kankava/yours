@@ -297,7 +297,7 @@
 									<button id="orederDeliveredButton${customerOrder.id }" type="button" class="btn btn-primary"><spring:message code="yours.food.service.operator.customer.order.delivered.button" text="Delivered"/></button>
 									<script>
 										$('#orederDeliveredButton${customerOrder.id }').click(function() {
-											alertify.confirm("Are you sure?", function (e) {
+											alertify.confirm('<spring:message code="yours.food.service.are.you.sure.message" />', function (e) {
 												if (e) {											
 													var url = 'customer-order-delivered';
 													$.ajax({

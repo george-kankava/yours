@@ -124,9 +124,11 @@ public class YoursController {
 	}
 	
 	@RequestMapping("/operator/operator-customer-order-pagination.ajax")
-	public ModelAndView customerOrdersList(ModelAndView mav, @RequestParam Integer pageNumber) {
+	public ModelAndView customerOrdersList(HttpServletRequest request, ModelAndView mav, @RequestParam Integer pageNumber) {
 		try {
+			Locale locale = localeResolver.resolveLocale(request);
 			mav.setViewName("operator-customer-active-orders-ajax-response");
+			mav.addObject("locale", locale);
 			List<CustomerOrder> customerOrders = databaseService.getCustomerOrderListByPageNumber(pageNumber);
 			Integer paginationIndex = pageNumber / AppConstants.CUSTOMER_ORDER_PAGES_PER_PAGE;
 			databaseService.countAndAssemblePaginationBar(mav, paginationIndex);

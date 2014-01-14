@@ -22,6 +22,7 @@
 		<intercept-url pattern="/operator/operator-customer-meals-list-ajax" access="hasRole('ROLE_DESK_ORDERS_OPERATOR')" />
 		<intercept-url pattern="/operator/operator-process-customer-meals-desk-order" access="hasRole('ROLE_DESK_ORDERS_OPERATOR')" />
 		<intercept-url pattern="/operator/find-customer-meals.ajax" access="hasRole('ROLE_DESK_ORDERS_OPERATOR')" />
+		<intercept-url pattern="/operator/operator-customer-order-pagination.ajax" access="hasRole('ROLE_ONLINE_ORDERS_OPERATOR')" />
 		<intercept-url pattern="/operator/operator-customer-active-orders" access="hasRole('ROLE_ONLINE_ORDERS_OPERATOR')" />
 		<intercept-url pattern="/**" access="hasRole('ROLE_CUSTOMER')" />
 		<form-login login-page="/signin" default-target-url="/customer-meals-list" authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-url="/failure"/>

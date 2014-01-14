@@ -11,7 +11,7 @@
 	<meta name="author" content="GNG Apps" />
 	<link rel="shortcut icon" href="resources/ico/yours-sml-logo.gif" />
 	
-	<title><spring:message code="Ingredients" text="yours.food.service.food.components.list.title" /></title>
+	<title><spring:message code="yours.food.service.food.components.list.title" text="Food Components" /></title>
 	
 	<!-- Bootstrap core CSS -->
 	<link href="resources/css/bootstrap.css" rel="stylesheet" />
@@ -24,6 +24,7 @@
 	<link href="resources/css/alertify.default.css" rel="stylesheet" />
 	<link href="resources/css/alertify.bootstrap.css" rel="stylesheet" />
 	<script src="resources/js/jquery-2.0.3.min.js"></script>
+	<script src="resources/js/bootstrap.min.js"></script>
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	      <script src="resources/assets/js/html5shiv.js"></script>
@@ -58,13 +59,33 @@
 				<table class="table table-bordered">
 						<thead>
 							<tr>
+								<th></th>
 								<th><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
 								<th><spring:message code="yours.food.ingredient.price" text="Price" />: <span class="badge" id="sandwichPrice">0.00</span></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichBreads }" var="sandwichBread">
 							<tr>
-								<td class="td-50-percent">
+								<td style="width: 5%;">
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-default" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left" data-content="${sandwichBread.descriptionGeo }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+										    </button>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-default" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left" data-content="${sandwichBread.descriptionEng }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-default" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left" data-content="${sandwichBread.descriptionRus }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+									</c:choose>
+								</td>
+								<td style="width: 55%;">
 									<input type="radio" name="sandwichBread" id="${sandwichBread.id }"/>
 									<c:choose>
 										<c:when test="${locale eq 'ka' }">
@@ -78,7 +99,7 @@
 										</c:when>
 									</c:choose>
 								</td>
-								<td class="td-50-percent">
+								<td class="" style="width: 40%;">
 									<select disabled class="form-control" id="sandwichBreadSizeAndPrice${sandwichBread.id }">
 										<c:forEach items="${sandwichBread.sandwichBreadSizeAndPrices }" var="sizeAndPrice">
 											<option ingredient-price="${sizeAndPrice.price }" value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
@@ -87,18 +108,19 @@
 								</td>
 							</tr>
 							<script>
-							(function () {
-						    	var previousPrice = null;
-
-						    	$("#sandwichBreadSizeAndPrice${sandwichBread.id }").mousedown(function () {
-						    		previousPrice = $(this.options[this.selectedIndex]).attr('ingredient-price');
-						    	}).change(function() {
-									sandwichPrice -= parseFloat(previousPrice);
-									var price = $(this.options[this.selectedIndex]).attr('ingredient-price');
-									sandwichPrice += parseFloat(price);
-									$('#sandwichPrice').text(parseFloat(Math.round(sandwichPrice * 100) / 100).toFixed(2));
-						    	});
-							})();
+								$('#sandwichBreadPopover${sandwichBread.id}').popover();
+								(function () {
+							    	var previousPrice = null;
+	
+							    	$("#sandwichBreadSizeAndPrice${sandwichBread.id }").mousedown(function () {
+							    		previousPrice = $(this.options[this.selectedIndex]).attr('ingredient-price');
+							    	}).change(function() {
+										sandwichPrice -= parseFloat(previousPrice);
+										var price = $(this.options[this.selectedIndex]).attr('ingredient-price');
+										sandwichPrice += parseFloat(price);
+										$('#sandwichPrice').text(parseFloat(Math.round(sandwichPrice * 100) / 100).toFixed(2));
+							    	});
+								})();
 						</script>
 						</c:forEach>
 					</table>
@@ -556,12 +578,6 @@
       </div>
 	  </div>
     </div> <!-- /container -->
-	
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	<script src="resources/js/bootstrap.min.js"></script>
 	<script src="resources/js/sandwich.js"></script>
 	<script src="resources/js/salad.js"></script>
 	<script src="resources/js/drinks.js"></script>
