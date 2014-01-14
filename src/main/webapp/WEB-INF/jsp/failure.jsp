@@ -37,8 +37,8 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="jumbotron">
-					<h1>Login Failure Please try again</h1>
-					<p>Login Failure Please try again</p>
+					<h1><spring:message code="yours.food.service.login.failure.message"></spring:message></h1>
+					<p><spring:message code="yours.food.service.login.failure.message"></spring:message></p>
 				</div>
 			</div>
 		</div>
