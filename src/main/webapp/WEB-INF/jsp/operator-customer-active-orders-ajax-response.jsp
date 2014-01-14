@@ -3,10 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="row">
 <c:forEach items="${customerOrders }" var="customerOrder">
-	<div class="col-md-12">
-		<div id="customerOrdersListItem${customerOrder.id }" class="alert alert-success">#${customerOrder.id } - ${customerOrder.customer.username } -
-			<fmt:formatDate type="time" value="${customerOrder.date}" /> - ${customerOrder.shipmentAddress } - ${customerOrder.phoneNumber } 
-				<a data-toggle="modal" data-target="#customerOrderModal${customerOrder.id}" href="#">View Order</a>
+	<div class="col-md-12"> 
+		<div id="customerOrdersListItem${customerOrder.id }" class="alert alert-success">
+			#${customerOrder.id } - ${customerOrder.customer.username } - <fmt:formatDate type="time" value="${customerOrder.date}" /> - ${customerOrder.shipmentAddress } - ${customerOrder.phoneNumber } <a data-toggle="modal" data-target="#customerOrderModal${customerOrder.id}" href="#"><spring:message code="yours.food.service.view.order"></spring:message></a>  
 		</div>
 	</div>
 	<!-- Modal -->
@@ -19,105 +18,237 @@
 				</div>
 				<div class="modal-body">
 					<c:forEach items="${customerOrder.customerSandwichs }" var="customerSandwich">
-						<div class="row">
-							<div class="col-lg-12">
-								<p class="lead">Sandwich - ${customerSandwich.id }</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-7"> ${customerSandwich.sandwichBread.nameGeo }</div>
-							<div class="col-lg-5"> ${customerSandwich.sandwichBreadSizeAndPrice.size }</div>
-						</div>
-						<c:forEach items="${customerSandwich.sandwichSausages }" var="sandwichSausageWithAmountAndPrice">
 							<div class="row">
-								<div class="col-lg-7"> ${sandwichSausageWithAmountAndPrice.sandwichSausage.nameGeo }</div>
-								<div class="col-lg-5"> ${sandwichSausageWithAmountAndPrice.amountAndPrice.portion }</div>
+								<div class="col-lg-12">
+									<p class="lead"><spring:message code="yours.food.service.ingredients.sandwich"></spring:message> - ${customerSandwich.id }</p>
+								</div>
 							</div>
-						</c:forEach>
-						<c:forEach items="${customerSandwich.sandwichVegetables }" var="sandwichVegetableWithAmountAndPrice">
 							<div class="row">
-								<div class="col-lg-7"> ${sandwichVegetableWithAmountAndPrice.sandwichVegetable.nameGeo }</div>
-								<div class="col-lg-5"> ${sandwichVegetableWithAmountAndPrice.sandwichVegetableAmountAndPrice.portion }</div>
+								<div class="col-lg-7">
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											${customerSandwich.sandwichBread.nameGeo }
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											${customerSandwich.sandwichBread.nameEng }
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											${customerSandwich.sandwichBread.nameRus }
+										</c:when>
+									</c:choose>
+								</div>
+								<div class="col-lg-5">
+									${customerSandwich.sandwichBreadSizeAndPrice.size }
+								</div>
 							</div>
-						</c:forEach>
-						<c:forEach items="${customerSandwich.sandwichSauces }" var="sandwichSauceWithAmountAndPrice">
-							<div class="row">
-								<div class="col-lg-7"> ${sandwichSauceWithAmountAndPrice.sandwichSauce.nameGeo }</div>
-								<div class="col-lg-5"> ${sandwichSauceWithAmountAndPrice.sandwichSauceAmountAndPrice.portion }</div>
-							</div>
-						</c:forEach>
-						<c:forEach items="${customerSandwich.sandwichSpices }" var="sandwichSpicesWithAmountAndPrice">
-							<div class="row">
-								<div class="col-lg-7"> ${sandwichSpicesWithAmountAndPrice.sandwichSpice.nameGeo }</div>
-								<div class="col-lg-5"> ${sandwichSpicesWithAmountAndPrice.sandwichSpiceAmountAndPrice.portion }</div>
-							</div>
-						</c:forEach>
+							<c:forEach items="${customerSandwich.sandwichSausages }" var="sandwichSausageWithAmountAndPrice">
+								<div class="row">
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<div class="col-lg-7"> ${sandwichSausageWithAmountAndPrice.sandwichSausage.nameGeo }</div>
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<div class="col-lg-7"> ${sandwichSausageWithAmountAndPrice.sandwichSausage.nameEng }</div>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<div class="col-lg-7"> ${sandwichSausageWithAmountAndPrice.sandwichSausage.nameRus }</div>
+										</c:when>
+									</c:choose>
+									<div class="col-lg-5"> ${sandwichSausageWithAmountAndPrice.amountAndPrice.portion }</div>
+								</div>
+							</c:forEach>
+							<c:forEach items="${customerSandwich.sandwichVegetables }" var="sandwichVegetableWithAmountAndPrice">
+								<div class="row">
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<div class="col-lg-7"> ${sandwichVegetableWithAmountAndPrice.sandwichVegetable.nameGeo }</div>
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<div class="col-lg-7"> ${sandwichVegetableWithAmountAndPrice.sandwichVegetable.nameEng }</div>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<div class="col-lg-7"> ${sandwichVegetableWithAmountAndPrice.sandwichVegetable.nameRus }</div>
+										</c:when>
+									</c:choose>
+									<div class="col-lg-5"> ${sandwichVegetableWithAmountAndPrice.sandwichVegetableAmountAndPrice.portion }</div>
+								</div>
+							</c:forEach>
+							<c:forEach items="${customerSandwich.sandwichSauces }" var="sandwichSauceWithAmountAndPrice">
+								<div class="row">
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<div class="col-lg-7"> ${sandwichSauceWithAmountAndPrice.sandwichSauce.nameGeo }</div>
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<div class="col-lg-7"> ${sandwichSauceWithAmountAndPrice.sandwichSauce.nameEng }</div>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<div class="col-lg-7"> ${sandwichSauceWithAmountAndPrice.sandwichSauce.nameRus }</div>
+										</c:when>
+									</c:choose>
+									<div class="col-lg-5"> ${sandwichSauceWithAmountAndPrice.sandwichSauceAmountAndPrice.portion }</div>
+								</div>
+							</c:forEach>
+							<c:forEach items="${customerSandwich.sandwichSpices }" var="sandwichSpicesWithAmountAndPrice">
+								<div class="row">
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<div class="col-lg-7"> ${sandwichSpicesWithAmountAndPrice.sandwichSpice.nameGeo }</div>
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<div class="col-lg-7"> ${sandwichSpicesWithAmountAndPrice.sandwichSpice.nameEng }</div>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<div class="col-lg-7"> ${sandwichSpicesWithAmountAndPrice.sandwichSpice.nameRus }</div>
+										</c:when>
+									</c:choose>
+									<div class="col-lg-5"> ${sandwichSpicesWithAmountAndPrice.sandwichSpiceAmountAndPrice.portion }</div>
+								</div>
+							</c:forEach>
 					</c:forEach>
 					<c:forEach items="${customerOrder.customerSalads }" var="customerSalad">
 						<div class="row">
 							<div class="col-lg-12">
-								<p class="lead"><spring:message code="yours.food.service.salad.ingredients" /> - ${customerSalad.id }</p>
+								<p class="lead"><spring:message code="yours.list.heading.salad"></spring:message> - ${customerSalad.id }</p>
 							</div>
 						</div>
 						<c:forEach items="${customerSalad.ingredientWithAmountAndPrices }" var="ingredientWithAmountAndPrice">
 							<div class="row">
-								<div class="col-lg-7"> ${ingredientWithAmountAndPrice.saladIngredient.nameGeo }</div>
-								<div class="col-lg-5"> ${ingredientWithAmountAndPrice.amountAndPrice.amount }</div>
+								<div class="col-lg-7">
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											${ingredientWithAmountAndPrice.saladIngredient.nameGeo }
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											${ingredientWithAmountAndPrice.saladIngredient.nameEng }
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											${ingredientWithAmountAndPrice.saladIngredient.nameRus }
+										</c:when>
+									</c:choose>
+								</div>
+								<div class="col-lg-5">
+									${ingredientWithAmountAndPrice.amountAndPrice.amount }
+								</div>
 							</div>
 						</c:forEach>
 					</c:forEach>
-					<c:forEach items="${customerOrder.customerDrinks }"
-						var="customerDrink">
+					<c:forEach items="${customerOrder.customerDrinks }" var="customerDrink">
 						<div class="row">
 							<div class="col-lg-12">
-								<p class="lead">
-									<spring:message code="yours.food.service.meals.list.drinks.title"></spring:message> - ${customerDrink.id } <span class="glyphicon glyphicon-glass"></span>
-								</p>
+								<p class="lead">Drinks - ${customerDrink.id } <span class="glyphicon glyphicon-glass"></span></p>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-lg-7"> ${customerDrink.drinkWithSizeAndPrice.drink.nameGeo }</div>
-							<div class="col-lg-5"> ${customerDrink.drinkWithSizeAndPrice.sizeAndPrice.size }</div>
+							<div class="col-lg-7">
+								<c:choose>
+									<c:when test="${locale eq 'ka' }">
+										${customerDrink.drinkWithSizeAndPrice.drink.nameGeo }
+									</c:when>
+									<c:when test="${locale eq 'en' }">
+										${customerDrink.drinkWithSizeAndPrice.drink.nameEng }
+									</c:when>
+									<c:when test="${locale eq 'ru' }">
+										${customerDrink.drinkWithSizeAndPrice.drink.nameRus }
+									</c:when>
+								</c:choose>
+							</div>
+							<div class="col-lg-5">
+								${customerDrink.drinkWithSizeAndPrice.sizeAndPrice.size }
+							</div>
 						</div>
 						<code>add-ons</code>
 						<c:forEach items="${customerDrink.addonWithAmountAndPrices }" var="addonWithAmountAndPrice">
 							<div class="row">
-								<div class="col-lg-7"> ${addonWithAmountAndPrice.drinkAddOn.nameGeo }</div>
-								<div class="col-lg-5"> ${addonWithAmountAndPrice.addOnAmountAndPrice.amount }</div>
+								<div class="col-lg-7">
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											${addonWithAmountAndPrice.drinkAddOn.nameGeo }
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											${addonWithAmountAndPrice.drinkAddOn.nameEng }
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											${addonWithAmountAndPrice.drinkAddOn.nameRus }
+										</c:when>
+									</c:choose>
+								</div>
+								<div class="col-lg-5">
+									${addonWithAmountAndPrice.addOnAmountAndPrice.amount }
+								</div>
 							</div>
 						</c:forEach>
 					</c:forEach>
 					<c:forEach items="${customerOrder.customerHotdogs }" var="customerHotdog">
 						<div class="row">
 							<div class="col-lg-12">
-								<p class="lead"><spring:message code="yours.food.service.ingredients.hotdog"></spring:message> - ${customerHotdog.id }</p>
+								<p class="lead">Hotdog - ${customerHotdog.id }</p>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-lg-7">${customerHotdog.bread.nameGeo }</div>
-							<div class="col-lg-5">${customerHotdog.sizeAndPrice.size }
+							<div class="col-lg-7">
+								<c:choose>
+									<c:when test="${locale eq 'ka' }">
+										${customerHotdog.bread.nameGeo }
+									</c:when>
+									<c:when test="${locale eq 'en' }">
+										${customerHotdog.bread.nameEng }
+									</c:when>
+									<c:when test="${locale eq 'ru' }">
+										${customerHotdog.bread.nameRus }
+									</c:when>
+								</c:choose>
+							</div>
+							<div class="col-lg-5">
+								${customerHotdog.sizeAndPrice.size }
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-lg-7">${customerHotdog.sausage.nameGeo }</div>
-							<div class="col-lg-5">${customerHotdog.amountAndPrice.portion }</div>
+							<div class="col-lg-7">
+								<c:choose>
+									<c:when test="${locale eq 'ka' }">
+										${customerHotdog.sausage.nameGeo }
+									</c:when>
+									<c:when test="${locale eq 'en' }">
+										${customerHotdog.sausage.nameEng }
+									</c:when>
+									<c:when test="${locale eq 'ru' }">
+										${customerHotdog.sausage.nameRus }
+									</c:when>
+								</c:choose>
+							</div>
+							<div class="col-lg-5">
+								${customerHotdog.amountAndPrice.portion }
+							</div>
 						</div>
 						<c:forEach items="${customerHotdog.amountAndPrices }" var="hotDogSauceWithAmountAndPrice">
 							<div class="row">
-								<div class="col-lg-7"> ${hotDogSauceWithAmountAndPrice.sauce.nameGeo }</div>
-								<div class="col-lg-5"> ${hotDogSauceWithAmountAndPrice.amountAndPrice.amount }</div>
+								<div class="col-lg-7">
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											${hotDogSauceWithAmountAndPrice.sauce.nameGeo }
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											${hotDogSauceWithAmountAndPrice.sauce.nameEng }
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											${hotDogSauceWithAmountAndPrice.sauce.nameRus }
+										</c:when>
+									</c:choose>
+								</div>
+								<div class="col-lg-5">
+									${hotDogSauceWithAmountAndPrice.amountAndPrice.amount }
+								</div>
 							</div>
 						</c:forEach>
 					</c:forEach>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="yours.food.service.close.button.title"></spring:message></button>
-					<button id="orederDeliveredButton${customerOrder.id }" type="button" class="btn btn-primary">
-						<spring:message code="yours.food.service.operator.customer.order.delivered.button" text="Delivered" />
-					</button>
+					<button id="orederDeliveredButton${customerOrder.id }" type="button" class="btn btn-primary"><spring:message code="yours.food.service.operator.customer.order.delivered.button" text="Delivered"/></button>
 					<script>
 						$('#orederDeliveredButton${customerOrder.id }').click(function() {
-							alertify.confirm('<spring:message code="yours.food.service.are.you.sure.message" />', function (e) {
+							alertify.confirm("Are you sure?", function (e) {
 								if (e) {											
 									var url = 'customer-order-delivered';
 									$.ajax({

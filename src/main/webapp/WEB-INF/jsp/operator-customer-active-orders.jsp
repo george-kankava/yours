@@ -36,6 +36,7 @@
 	<![endif]-->
 </head>
 <body>
+	<c:set var="contextPath" value="${pageContext.request.contextPath }"></c:set>
 	<div class="container">
 		<div class="header">
 			<ul class="nav nav-pills pull-right">
@@ -43,6 +44,9 @@
 				<li><a href="../j_spring_security_logout"><spring:message code="yours.food.service.header.logout"></spring:message></a></li>
 			</ul>
 			<h3 class="text-muted">Yours.ge</h3>
+			<span><a href="?language=ka"><img src="${contextPath }/resources/ico/georgia_flag_32.png"></a></span>
+			<span><a href="?language=en"><img src="${contextPath }/resources/ico/usa_flag_32.png"></a></span>
+			<span><a href="?language=ru"><img src="${contextPath }/resources/ico/russia_flag_32.png"></a></span>
 		</div>
 		<div class="logo-image-narrow"></div>
 		<div id="customerOrdersList">
@@ -70,7 +74,17 @@
 											</div>
 											<div class="row">
 												<div class="col-lg-7">
-													${customerSandwich.sandwichBread.nameGeo }
+													<c:choose>
+														<c:when test="${locale eq 'ka' }">
+															${customerSandwich.sandwichBread.nameGeo }
+														</c:when>
+														<c:when test="${locale eq 'en' }">
+															${customerSandwich.sandwichBread.nameEng }
+														</c:when>
+														<c:when test="${locale eq 'ru' }">
+															${customerSandwich.sandwichBread.nameRus }
+														</c:when>
+													</c:choose>
 												</div>
 												<div class="col-lg-5">
 													${customerSandwich.sandwichBreadSizeAndPrice.size }
@@ -78,25 +92,65 @@
 											</div>
 											<c:forEach items="${customerSandwich.sandwichSausages }" var="sandwichSausageWithAmountAndPrice">
 												<div class="row">
-													<div class="col-lg-7"> ${sandwichSausageWithAmountAndPrice.sandwichSausage.nameGeo }</div>
+													<c:choose>
+														<c:when test="${locale eq 'ka' }">
+															<div class="col-lg-7"> ${sandwichSausageWithAmountAndPrice.sandwichSausage.nameGeo }</div>
+														</c:when>
+														<c:when test="${locale eq 'en' }">
+															<div class="col-lg-7"> ${sandwichSausageWithAmountAndPrice.sandwichSausage.nameEng }</div>
+														</c:when>
+														<c:when test="${locale eq 'ru' }">
+															<div class="col-lg-7"> ${sandwichSausageWithAmountAndPrice.sandwichSausage.nameRus }</div>
+														</c:when>
+													</c:choose>
 													<div class="col-lg-5"> ${sandwichSausageWithAmountAndPrice.amountAndPrice.portion }</div>
 												</div>
 											</c:forEach>
 											<c:forEach items="${customerSandwich.sandwichVegetables }" var="sandwichVegetableWithAmountAndPrice">
 												<div class="row">
-													<div class="col-lg-7"> ${sandwichVegetableWithAmountAndPrice.sandwichVegetable.nameGeo }</div>
+													<c:choose>
+														<c:when test="${locale eq 'ka' }">
+															<div class="col-lg-7"> ${sandwichVegetableWithAmountAndPrice.sandwichVegetable.nameGeo }</div>
+														</c:when>
+														<c:when test="${locale eq 'en' }">
+															<div class="col-lg-7"> ${sandwichVegetableWithAmountAndPrice.sandwichVegetable.nameEng }</div>
+														</c:when>
+														<c:when test="${locale eq 'ru' }">
+															<div class="col-lg-7"> ${sandwichVegetableWithAmountAndPrice.sandwichVegetable.nameRus }</div>
+														</c:when>
+													</c:choose>
 													<div class="col-lg-5"> ${sandwichVegetableWithAmountAndPrice.sandwichVegetableAmountAndPrice.portion }</div>
 												</div>
 											</c:forEach>
 											<c:forEach items="${customerSandwich.sandwichSauces }" var="sandwichSauceWithAmountAndPrice">
 												<div class="row">
-													<div class="col-lg-7"> ${sandwichSauceWithAmountAndPrice.sandwichSauce.nameGeo }</div>
+													<c:choose>
+														<c:when test="${locale eq 'ka' }">
+															<div class="col-lg-7"> ${sandwichSauceWithAmountAndPrice.sandwichSauce.nameGeo }</div>
+														</c:when>
+														<c:when test="${locale eq 'en' }">
+															<div class="col-lg-7"> ${sandwichSauceWithAmountAndPrice.sandwichSauce.nameEng }</div>
+														</c:when>
+														<c:when test="${locale eq 'ru' }">
+															<div class="col-lg-7"> ${sandwichSauceWithAmountAndPrice.sandwichSauce.nameRus }</div>
+														</c:when>
+													</c:choose>
 													<div class="col-lg-5"> ${sandwichSauceWithAmountAndPrice.sandwichSauceAmountAndPrice.portion }</div>
 												</div>
 											</c:forEach>
 											<c:forEach items="${customerSandwich.sandwichSpices }" var="sandwichSpicesWithAmountAndPrice">
 												<div class="row">
-													<div class="col-lg-7"> ${sandwichSpicesWithAmountAndPrice.sandwichSpice.nameGeo }</div>
+													<c:choose>
+														<c:when test="${locale eq 'ka' }">
+															<div class="col-lg-7"> ${sandwichSpicesWithAmountAndPrice.sandwichSpice.nameGeo }</div>
+														</c:when>
+														<c:when test="${locale eq 'en' }">
+															<div class="col-lg-7"> ${sandwichSpicesWithAmountAndPrice.sandwichSpice.nameEng }</div>
+														</c:when>
+														<c:when test="${locale eq 'ru' }">
+															<div class="col-lg-7"> ${sandwichSpicesWithAmountAndPrice.sandwichSpice.nameRus }</div>
+														</c:when>
+													</c:choose>
 													<div class="col-lg-5"> ${sandwichSpicesWithAmountAndPrice.sandwichSpiceAmountAndPrice.portion }</div>
 												</div>
 											</c:forEach>
@@ -110,7 +164,17 @@
 										<c:forEach items="${customerSalad.ingredientWithAmountAndPrices }" var="ingredientWithAmountAndPrice">
 											<div class="row">
 												<div class="col-lg-7">
-													${ingredientWithAmountAndPrice.saladIngredient.nameGeo }
+													<c:choose>
+														<c:when test="${locale eq 'ka' }">
+															${ingredientWithAmountAndPrice.saladIngredient.nameGeo }
+														</c:when>
+														<c:when test="${locale eq 'en' }">
+															${ingredientWithAmountAndPrice.saladIngredient.nameEng }
+														</c:when>
+														<c:when test="${locale eq 'ru' }">
+															${ingredientWithAmountAndPrice.saladIngredient.nameRus }
+														</c:when>
+													</c:choose>
 												</div>
 												<div class="col-lg-5">
 													${ingredientWithAmountAndPrice.amountAndPrice.amount }
@@ -126,7 +190,17 @@
 										</div>
 										<div class="row">
 											<div class="col-lg-7">
-												${customerDrink.drinkWithSizeAndPrice.drink.nameGeo }
+												<c:choose>
+													<c:when test="${locale eq 'ka' }">
+														${customerDrink.drinkWithSizeAndPrice.drink.nameGeo }
+													</c:when>
+													<c:when test="${locale eq 'en' }">
+														${customerDrink.drinkWithSizeAndPrice.drink.nameEng }
+													</c:when>
+													<c:when test="${locale eq 'ru' }">
+														${customerDrink.drinkWithSizeAndPrice.drink.nameRus }
+													</c:when>
+												</c:choose>
 											</div>
 											<div class="col-lg-5">
 												${customerDrink.drinkWithSizeAndPrice.sizeAndPrice.size }
@@ -136,7 +210,17 @@
 										<c:forEach items="${customerDrink.addonWithAmountAndPrices }" var="addonWithAmountAndPrice">
 											<div class="row">
 												<div class="col-lg-7">
-													${addonWithAmountAndPrice.drinkAddOn.nameGeo }
+													<c:choose>
+														<c:when test="${locale eq 'ka' }">
+															${addonWithAmountAndPrice.drinkAddOn.nameGeo }
+														</c:when>
+														<c:when test="${locale eq 'en' }">
+															${addonWithAmountAndPrice.drinkAddOn.nameEng }
+														</c:when>
+														<c:when test="${locale eq 'ru' }">
+															${addonWithAmountAndPrice.drinkAddOn.nameRus }
+														</c:when>
+													</c:choose>
 												</div>
 												<div class="col-lg-5">
 													${addonWithAmountAndPrice.addOnAmountAndPrice.amount }
@@ -152,7 +236,17 @@
 										</div>
 										<div class="row">
 											<div class="col-lg-7">
-												${customerHotdog.bread.nameGeo }
+												<c:choose>
+													<c:when test="${locale eq 'ka' }">
+														${customerHotdog.bread.nameGeo }
+													</c:when>
+													<c:when test="${locale eq 'en' }">
+														${customerHotdog.bread.nameEng }
+													</c:when>
+													<c:when test="${locale eq 'ru' }">
+														${customerHotdog.bread.nameRus }
+													</c:when>
+												</c:choose>
 											</div>
 											<div class="col-lg-5">
 												${customerHotdog.sizeAndPrice.size }
@@ -160,7 +254,17 @@
 										</div>
 										<div class="row">
 											<div class="col-lg-7">
-												${customerHotdog.sausage.nameGeo }
+												<c:choose>
+													<c:when test="${locale eq 'ka' }">
+														${customerHotdog.sausage.nameGeo }
+													</c:when>
+													<c:when test="${locale eq 'en' }">
+														${customerHotdog.sausage.nameEng }
+													</c:when>
+													<c:when test="${locale eq 'ru' }">
+														${customerHotdog.sausage.nameRus }
+													</c:when>
+												</c:choose>
 											</div>
 											<div class="col-lg-5">
 												${customerHotdog.amountAndPrice.portion }
@@ -169,7 +273,17 @@
 										<c:forEach items="${customerHotdog.amountAndPrices }" var="hotDogSauceWithAmountAndPrice">
 											<div class="row">
 												<div class="col-lg-7">
-													${hotDogSauceWithAmountAndPrice.sauce.nameGeo }
+													<c:choose>
+														<c:when test="${locale eq 'ka' }">
+															${hotDogSauceWithAmountAndPrice.sauce.nameGeo }
+														</c:when>
+														<c:when test="${locale eq 'en' }">
+															${hotDogSauceWithAmountAndPrice.sauce.nameEng }
+														</c:when>
+														<c:when test="${locale eq 'ru' }">
+															${hotDogSauceWithAmountAndPrice.sauce.nameRus }
+														</c:when>
+													</c:choose>
 												</div>
 												<div class="col-lg-5">
 													${hotDogSauceWithAmountAndPrice.amountAndPrice.amount }
