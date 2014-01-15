@@ -69,7 +69,7 @@
 								<td style="width: 5%;">
 									<c:choose>
 										<c:when test="${locale eq 'ka' }">
-											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-default" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left" data-content="${sandwichBread.descriptionGeo }" data-original-title="" title="">
+											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-warning" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left" data-content="${sandwichBread.descriptionGeo }" data-original-title="" title="">
 												<span class="glyphicon glyphicon-info-sign"></span>
 										    </button>										
 										</c:when>

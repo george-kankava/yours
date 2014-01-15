@@ -10,8 +10,8 @@
 	<http pattern="/images/**" security="none" />
 	<http use-expressions="true" >
 		<intercept-url pattern="/resources/**" access="permitAll"/>
-		<intercept-url pattern="/signin" access="permitAll" />
-		<intercept-url pattern="/register-user" access="permitAll" />
+		<intercept-url pattern="/signin" requires-channel="https" access="permitAll" />
+		<intercept-url pattern="/register-user" requires-channel="https" access="permitAll" />
 		<intercept-url pattern="/process-register-user" access="permitAll"/>
 		<intercept-url pattern="/change-password-step-1" access="permitAll"/>
 		<intercept-url pattern="/change-password-step-2" access="permitAll"/>
