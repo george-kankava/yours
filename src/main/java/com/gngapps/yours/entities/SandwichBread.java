@@ -3,13 +3,14 @@ package com.gngapps.yours.entities;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Size;
 
 @Entity
 public class SandwichBread {
@@ -23,6 +24,8 @@ public class SandwichBread {
 	private String descriptionGeo;
 	private String descriptionEng;
 	private String descriptionRus;
+	@Lob
+	private byte [] breadImage;
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name = "bread_id")
@@ -92,10 +95,19 @@ public class SandwichBread {
 			List<SandwichBreadSizeAndPrice> sandwichBreadSizeAndPrices) {
 		this.sandwichBreadSizeAndPrices = sandwichBreadSizeAndPrices;
 	}
+	
+	public byte [] getBreadImage() {
+		return breadImage;
+	}
+
+	public void setBreadImage(byte [] breadImage) {
+		this.breadImage = breadImage;
+	}
 
 	@Override
 	public String toString() {
 		return "Bread [id=" + id + ", nameGeo=" + nameGeo + ", nameEng=" + nameEng + ", nameRus=" + nameRus + ", descriptionGeo=" 
 				+ descriptionGeo + ", descriptionEng=" + descriptionEng + ", descriptionRus=" + descriptionRus + ", breadSizes=" + sandwichBreadSizeAndPrices + "]";
 	}
+
 }

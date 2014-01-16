@@ -1,5 +1,6 @@
 package com.gngapps.yours.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -93,12 +95,26 @@ public class SandwichController {
     	return mav;
 	}
     
-    @RequestMapping(value = "admin/process-add-sandwich-bread-form", method = RequestMethod.POST, consumes = {"application/json"})
-	public ModelAndView processAddSandwichBreadForm(ModelAndView mav, @RequestBody @Valid SandwichBread sandwichBread) {
-    	databaseService.addNewSandwichBreadType(sandwichBread);
-    	mav.addObject("sandwichBread", sandwichBread);
-    	mav.setViewName("add-sandwich-bread-response");
-    	return mav;
+    @RequestMapping(value = "admin/process-add-sandwich-bread-form", method = RequestMethod.POST)
+	public ModelAndView processAddSandwichBreadForm(ModelAndView mav, @RequestParam String nameGeo, @RequestParam String nameEng, @RequestParam String nameRus, @RequestParam String descriptionGeo, @RequestParam  String descriptionEng, @RequestParam String descriptionRus, @RequestParam(value="image", required = false) MultipartFile image) {
+    	try {
+	    	SandwichBread sandwichBread = new SandwichBread();
+	    	sandwichBread.setNameGeo(nameGeo);
+	    	sandwichBread.setNameEng(nameEng);
+	    	sandwichBread.setNameRus(nameRus);
+	    	sandwichBread.setDescriptionGeo(descriptionGeo);
+	    	sandwichBread.setDescriptionEng(descriptionEng);
+	    	sandwichBread.setDescriptionRus(descriptionRus);
+			sandwichBread.setBreadImage(image.getBytes());
+	    	databaseService.addNewSandwichBreadType(sandwichBread);
+	    	mav.addObject("sandwichBread", sandwichBread);
+	    	mav.setViewName("add-sandwich-bread-response");
+	    	return mav;
+    	} catch (Exception ex) {
+			logger.info(ex.getMessage());
+	    	mav.setViewName("add-sandwich-bread-response");
+	    	return mav;
+		}
 	}
     
     @ResponseBody
