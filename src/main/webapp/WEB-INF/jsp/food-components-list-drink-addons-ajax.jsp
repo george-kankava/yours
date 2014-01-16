@@ -3,11 +3,31 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <thead>
 	<tr>
+		<th></th>
 		<th colspan="2"><spring:message code="yours.food.service.food.components.list.drink.addon.title" text="Drink Addon"/></th>
 	</tr>
 </thead>
 <c:forEach items="${drinkAddOns }" var="drinkAddOn">
 	<tr>
+		<td>
+			<c:choose>
+				<c:when test="${locale eq 'ka' }">
+					<button id="drinkAddOnPopover${drinkAddOn.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${drinkAddOn.descriptionGeo }" data-original-title="" title="">
+						<span class="glyphicon glyphicon-info-sign"></span>
+				    </button>										
+				</c:when>
+				<c:when test="${locale eq 'en' }">
+					<button id="drinkAddOnPopover${drinkAddOn.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${drinkAddOn.descriptionEng }" data-original-title="" title="">
+						<span class="glyphicon glyphicon-info-sign"></span>
+		    		</button>
+				</c:when>
+				<c:when test="${locale eq 'ru' }">
+					<button id="drinkAddOnPopover${drinkAddOn.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${drinkAddOn.descriptionRus }" data-original-title="" title="">
+						<span class="glyphicon glyphicon-info-sign"></span>
+		    		</button>
+				</c:when>
+			</c:choose>
+		</td>
 		<td class="td-50-percent">
 			<div>
 				<input name="drinkAddOn" type="checkbox" id="${drinkAddOn.id }">
@@ -33,6 +53,7 @@
 		</td>
 	</tr>
 	<script>
+	$('#drinkAddOnPopover${drinkAddOn.id}').popover();
 	(function () {
     	var previousPrice = null;
 

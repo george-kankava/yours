@@ -20,6 +20,18 @@
 				<td><input type="text" class="form-control" id="vegetableRus" placeholder="${vegetableRus }" /></td>
 			</tr>
 			<tr>
+				<spring:message code="yours.food.service.admin.vegetable.desc.geo" var="vegetableDescGeo"></spring:message>
+				<td><input type="text" class="form-control" id="vegetableDescGeo" placeholder="${vegetableDescGeo }" /></td>
+			</tr>
+			<tr>
+				<spring:message code="yours.food.service.admin.vegetable.desc.eng" var="vegetableDescEng"></spring:message>
+				<td><input type="text" class="form-control" id="vegetableDescEng" placeholder="${vegetableDescEng }" /></td>
+			</tr>
+			<tr>
+				<spring:message code="yours.food.service.admin.vegetable.desc.rus" var="vegetableDescRus"></spring:message>
+				<td><input type="text" class="form-control" id="vegetableDescRus" placeholder="${vegetableDescRus }" /></td>
+			</tr>
+			<tr>
 				<td><button type="button" id="sandwich-vegetable-add-btn" class="btn btn-default"><spring:message code="yours.food.service.add.button.title"></spring:message></button></td>
 			</tr>
 		</table>
@@ -29,6 +41,7 @@
 			<thead>
 				<tr>
 					<th><spring:message code="yours.food.ingredient.vegetable" /></th>
+					<th><spring:message code="yours.food.ingredient.vegetable.desc"></spring:message></th>
 					<th colspan="3"><spring:message code="yours.food.service.admin.sandwich.amount.and.price" /></th>
 					<th><spring:message code="yours.food.service.remove.button.title"></spring:message></th>
 				</tr>
@@ -41,6 +54,13 @@
 								<option>${sandwichVegetable.nameGeo }</option>
 								<option>${sandwichVegetable.nameEng }</option>
 								<option>${sandwichVegetable.nameRus }</option>
+							</select>
+						</td>
+						<td>
+							<select class="form-control">
+								<option>${sandwichVegetable.descriptionGeo }</option>
+								<option>${sandwichVegetable.descriptionEng }</option>
+								<option>${sandwichVegetable.descriptionRus }</option>
 							</select>
 						</td>
 						<td>
@@ -100,11 +120,17 @@
 				nameGeo: toUnicode($('#vegetableGeo').val()),
 				nameEng: toUnicode($('#vegetableEng').val()),
 				nameRus: toUnicode($('#vegetableRus').val()),
+				descriptionGeo: toUnicode($('#vegetableDescGeo').val()),
+				descriptionEng: toUnicode($('#vegetableDescEng').val()),
+				descriptionRus: toUnicode($('#vegetableDescRus').val())
 			})
 		}).done(function(response) {
 			$('#vegetableGeo').val('');
 			$('#vegetableEng').val('');
 			$('#vegetableRus').val('');
+			$('#vegetableDescGeo').val('');
+			$('#vegetableDescEng').val('');
+			$('#vegetableDescRus').val('');
 			$('.table-sandwich-vegetables > tbody:last').append(response);
 			alertify.success('<spring:message code="yours.food.service.admin.data.saved.message" />');
 		});

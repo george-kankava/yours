@@ -126,4 +126,5 @@ public interface DatabaseService {
 	void changeCustomerPasswordAndRemovePasswordChangeToken(String changePasswordToken, String password);
 	void removeCustomerPasswordChangeToken(ChangePasswordToken token);
 	Drink findDrinkById(Integer drinkId);
+	void trackOrderDeliveryTime(String operatorEmail, Integer customerOrderId);
 }

@@ -134,4 +134,6 @@ public interface DataGetterDao {
 
 	ChangePasswordToken findPasswordChangeTokenByToken(String token);
 
+	Customer findOperatorByEmail(String operatorEmail);
+
 }

@@ -19,6 +19,10 @@ public class SandwichSpice {
 	private String nameGeo;
 	private String nameEng;
 	private String nameRus;
+	private String descriptionGeo;
+	private String descriptionEng;
+	private String descriptionRus;
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "spice_id")
 	private List<SandwichSpiceAmountAndPrice> spiceAmountAndPrice;
@@ -53,10 +57,30 @@ public class SandwichSpice {
 	public void setSpiceAmountAndPrice(List<SandwichSpiceAmountAndPrice> spiceAmountAndPrice) {
 		this.spiceAmountAndPrice = spiceAmountAndPrice;
 	}
-	
+	public String getDescriptionGeo() {
+		return descriptionGeo;
+	}
+	public void setDescriptionGeo(String descriptionGeo) {
+		this.descriptionGeo = descriptionGeo;
+	}
+	public String getDescriptionEng() {
+		return descriptionEng;
+	}
+	public void setDescriptionEng(String descriptionEng) {
+		this.descriptionEng = descriptionEng;
+	}
+	public String getDescriptionRus() {
+		return descriptionRus;
+	}
+	public void setDescriptionRus(String descriptionRus) {
+		this.descriptionRus = descriptionRus;
+	}
 	@Override
 	public String toString() {
-		return "Spice [id=" + id + ", nameGeo=" + nameGeo + ", nameEng=" + nameEng + ", nameRus=" + nameRus + ", spiceAmountAndPrice=" + spiceAmountAndPrice + "]";
+		return "SandwichSpice [id=" + id + ", nameGeo=" + nameGeo + ", nameEng=" + nameEng + ", nameRus=" + nameRus
+				+ ", descriptionGeo=" + descriptionGeo + ", descriptionEng=" + descriptionEng + ", descriptionRus=" + descriptionRus
+				+ ", spiceAmountAndPrice=" + spiceAmountAndPrice + "]";
 	}
+	
 	
 }

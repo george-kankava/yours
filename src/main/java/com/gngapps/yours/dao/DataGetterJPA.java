@@ -351,5 +351,14 @@ public class DataGetterJPA implements DataGetterDao {
 			return null;
 		}
 	}
+
+	@Override
+	public Customer findOperatorByEmail(String operatorEmail) {
+		try {
+			return (Customer)em.createQuery("FROM Customer c WHERE c.email = :email").setParameter("email", operatorEmail).getSingleResult();
+		} catch(NoResultException e) {
+			return null;
+		}
+	}
 	
 }

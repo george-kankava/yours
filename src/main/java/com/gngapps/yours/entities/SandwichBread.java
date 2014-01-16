@@ -17,17 +17,11 @@ public class SandwichBread {
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Size(min = 1, max = 500, message = "Name Georgian is empty")
 	private String nameGeo;
-	@Size(min = 1, max = 500, message = "Name English is empty")
 	private String nameEng;
-	@Size(min = 1, max = 500, message = "Name Russian is empty")
 	private String nameRus;
-	@Size(min = 1, max = 500, message = "Description Georgian is empty")
 	private String descriptionGeo;
-	@Size(min = 1, max = 500, message = "Description English is empty")
 	private String descriptionEng;
-	@Size(min = 1, max = 500, message = "Description Russian is empty")
 	private String descriptionRus;
 	
 	@OneToMany(cascade=CascadeType.ALL)

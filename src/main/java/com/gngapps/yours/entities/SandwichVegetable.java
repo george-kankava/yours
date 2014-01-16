@@ -18,6 +18,9 @@ public class SandwichVegetable {
 	private String nameGeo;
 	private String nameEng;
 	private String nameRus;
+	private String descriptionGeo;
+	private String descriptionEng;
+	private String descriptionRus;
 	
 	@OneToMany
 	@JoinColumn(name = "vegetable_id")
@@ -63,13 +66,36 @@ public class SandwichVegetable {
 			List<SandwichVegetableAmountAndPrice> vegetableAmountAndPrices) {
 		this.vegetableAmountAndPrices = vegetableAmountAndPrices;
 	}
+	
+	public String getDescriptionGeo() {
+		return descriptionGeo;
+	}
+
+	public void setDescriptionGeo(String descriptionGeo) {
+		this.descriptionGeo = descriptionGeo;
+	}
+
+	public String getDescriptionEng() {
+		return descriptionEng;
+	}
+
+	public void setDescriptionEng(String descriptionEng) {
+		this.descriptionEng = descriptionEng;
+	}
+
+	public String getDescriptionRus() {
+		return descriptionRus;
+	}
+
+	public void setDescriptionRus(String descriptionRus) {
+		this.descriptionRus = descriptionRus;
+	}
 
 	@Override
 	public String toString() {
-		return "Vegetables [id=" + id + ", nameGeo=" + nameGeo + ", nameEng="
-				+ nameEng + ", nameRus=" + nameRus
-				+ ", vegetableAmountAndPrices=" + vegetableAmountAndPrices
-				+ "]";
+		return "SandwichVegetable [id=" + id + ", nameGeo=" + nameGeo + ", nameEng=" + nameEng + ", nameRus=" + nameRus
+				+ ", descriptionGeo=" + descriptionGeo + ", descriptionEng=" + descriptionEng + ", descriptionRus=" + descriptionRus
+				+ ", vegetableAmountAndPrices=" + vegetableAmountAndPrices + "]";
 	}
-	
+
 }

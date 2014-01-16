@@ -190,8 +190,13 @@ public class YoursController {
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@RequestMapping("operator/customer-order-delivered")
-	public void customerOrderDelivered(@RequestParam Integer customerOrderId) {
-		databaseService.changeCustomerOrderActiveStatus(customerOrderId, false);
+	public void customerOrderDelivered(Principal principal, @RequestParam Integer customerOrderId) {
+		try {
+			databaseService.changeCustomerOrderActiveStatus(customerOrderId, false);
+			databaseService.trackOrderDeliveryTime(principal.getName(), customerOrderId);
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+		}
 	}
 	
 	@RequestMapping("remove-customer-phone")

@@ -20,6 +20,18 @@
 				<td><input type="text" class="form-control" id="spiceRus" placeholder="${spiceTypeRus }" /></td>
 			</tr>
 			<tr>
+				<spring:message code="yours.food.service.admin.spice.desc.geo" var="spiceDescGeo"></spring:message>
+				<td><input type="text" class="form-control" id="spiceDescGeo" placeholder="${spiceDescGeo }" /></td>
+			</tr>
+			<tr>
+				<spring:message code="yours.food.service.admin.spice.desc.eng" var="spiceDescEng"></spring:message>
+				<td><input type="text" class="form-control" id="spiceDescEng" placeholder="${spiceDescEng }" /></td>
+			</tr>
+			<tr>
+				<spring:message code="yours.food.service.admin.spice.desc.rus" var="spiceDescRus"></spring:message>
+				<td><input type="text" class="form-control" id="spiceDescRus" placeholder="${spiceDescRus }" /></td>
+			</tr>
+			<tr>
 				<td><button id="sandwich-spice-add-btn" type="button" class="btn btn-default"><spring:message code="yours.food.service.add.button.title"></spring:message></button></td>
 			</tr>
 		</table>
@@ -29,6 +41,7 @@
 			<thead>
 				<tr>
 					<th><spring:message code="yours.food.service.ingredients.spices"></spring:message></th>
+					<th><spring:message code="yours.food.service.ingredients.spices.desc"></spring:message></th>
 					<th colspan="3"><spring:message code="yours.food.service.admin.sandwich.amount.and.price"></spring:message></th>
 					<th><spring:message code="yours.food.service.remove.button.title"></spring:message></th>
 				</tr>
@@ -41,6 +54,13 @@
 								<option>${sandwichSpice.nameGeo }</option>
 								<option>${sandwichSpice.nameEng }</option>
 								<option>${sandwichSpice.nameRus }</option>
+							</select>
+						</td>
+						<td>
+							<select class="form-control">
+								<option>${sandwichSpice.descriptionGeo }</option>
+								<option>${sandwichSpice.descriptionEng }</option>
+								<option>${sandwichSpice.descriptionRus }</option>
 							</select>
 						</td>
 						<td>
@@ -102,11 +122,17 @@
 				nameGeo: toUnicode($('#spiceGeo').val()),
 				nameEng: toUnicode($('#spiceEng').val()),
 				nameRus: toUnicode($('#spiceRus').val()),
+				descriptionGeo: toUnicode($('#spiceDescGeo').val()),
+				descriptionEng: toUnicode($('#spiceDescEng').val()),
+				descriptionRus: toUnicode($('#spiceDescRus').val())
 			})
 		}).done(function(response) {
 			$('#spiceGeo').val('');
 			$('#spiceEng').val('');
 			$('#spiceRus').val('');
+			$('#spiceDescGeo').val('');
+			$('#spiceDescEng').val('');
+			$('#spiceDescRus').val('');
 			$('.table-sandwich-spices > tbody:last').append(response);
 			alertify.success('<spring:message code="yours.food.service.admin.data.saved.message" />');			
 		});

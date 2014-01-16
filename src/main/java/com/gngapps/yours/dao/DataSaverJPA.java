@@ -13,6 +13,7 @@ import com.gngapps.yours.entities.CustomerHotdog;
 import com.gngapps.yours.entities.CustomerOrder;
 import com.gngapps.yours.entities.CustomerSalad;
 import com.gngapps.yours.entities.CustomerSandwich;
+import com.gngapps.yours.entities.DeliveredOrders;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
@@ -319,6 +320,15 @@ public class DataSaverJPA implements DataSaverDao {
 			em.merge(passwordToken);
 		} else {
 			em.persist(passwordToken);
+		}
+	}
+
+	@Override
+	public void saveCustomerDeliveredOrder(DeliveredOrders deliveredOrder) {
+		if(deliveredOrder.getId() != null) {
+			em.merge(deliveredOrder);
+		} else {
+			em.persist(deliveredOrder);
 		}
 	}
 

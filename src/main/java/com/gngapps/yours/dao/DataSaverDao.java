@@ -7,6 +7,7 @@ import com.gngapps.yours.entities.CustomerHotdog;
 import com.gngapps.yours.entities.CustomerOrder;
 import com.gngapps.yours.entities.CustomerSalad;
 import com.gngapps.yours.entities.CustomerSandwich;
+import com.gngapps.yours.entities.DeliveredOrders;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
@@ -63,4 +64,5 @@ public interface DataSaverDao {
 	void saveCustomerHotdog(CustomerHotdog customerHotdog);
 	void saveCustomerOrder(CustomerOrder order);
 	void saveChangePasswordToken(ChangePasswordToken passwordToken);
+	void saveCustomerDeliveredOrder(DeliveredOrders deliveredOrder);
 }

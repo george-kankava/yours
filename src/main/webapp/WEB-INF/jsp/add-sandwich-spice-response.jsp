@@ -10,6 +10,13 @@
 		</select>
 	</td>
 	<td>
+		<select class="form-control">
+			<option>${sandwichSpice.descriptionGeo }</option>
+			<option>${sandwichSpice.descriptionEng }</option>
+			<option>${sandwichSpice.descriptionRus }</option>
+		</select>
+	</td>
+	<td>
 		<select id="sandwich-spice-amount-and-price-${sandwichSpice.id }" class="form-control">
 			<c:forEach items="${sandwichSpice.spiceAmountAndPrice }" var="spiceAmountAndPrice">
 				<option value="${spiceAmountAndPrice.id}">${spiceAmountAndPrice.portion} - ${spiceAmountAndPrice.price }</option>

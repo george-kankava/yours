@@ -41,6 +41,7 @@ import com.gngapps.yours.entities.CustomerHotdog;
 import com.gngapps.yours.entities.CustomerOrder;
 import com.gngapps.yours.entities.CustomerSalad;
 import com.gngapps.yours.entities.CustomerSandwich;
+import com.gngapps.yours.entities.DeliveredOrders;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
@@ -1042,6 +1043,19 @@ public class DatabaseServiceImpl implements DatabaseService {
 	@Override
 	public Drink findDrinkById(Integer drinkId) {
 		return dataGetterDao.findDrinkById(drinkId);
+	}
+
+	@Override
+	@Transactional
+	public void trackOrderDeliveryTime(String operatorEmailail, Integer customerOrderId) {
+		// operators are registered as customers but with different roles
+		Customer operator = dataGetterDao.findOperatorByEmail(operatorEmailail);
+		CustomerOrder customerOrder = dataGetterDao.findcustomerOrderById(customerOrderId);
+		DeliveredOrders deliveredOrder = new DeliveredOrders();
+		deliveredOrder.setCustomer(operator);
+		deliveredOrder.setDeliveryTime(new Date());
+		deliveredOrder.setOrder(customerOrder);
+		dataSaverDao.saveCustomerDeliveredOrder(deliveredOrder);
 	}
 
 }

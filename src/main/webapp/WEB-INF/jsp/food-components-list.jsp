@@ -66,26 +66,26 @@
 						</thead>
 						<c:forEach items="${sandwichBreads }" var="sandwichBread">
 							<tr>
-								<td style="width: 5%;">
+								<td>
 									<c:choose>
 										<c:when test="${locale eq 'ka' }">
-											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-warning" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left" data-content="${sandwichBread.descriptionGeo }" data-original-title="" title="">
+											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichBread.descriptionGeo }" data-original-title="" title="">
 												<span class="glyphicon glyphicon-info-sign"></span>
 										    </button>										
 										</c:when>
 										<c:when test="${locale eq 'en' }">
-											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-default" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left" data-content="${sandwichBread.descriptionEng }" data-original-title="" title="">
+											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichBread.descriptionEng }" data-original-title="" title="">
 												<span class="glyphicon glyphicon-info-sign"></span>
 								    		</button>
 										</c:when>
 										<c:when test="${locale eq 'ru' }">
-											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-default" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left" data-content="${sandwichBread.descriptionRus }" data-original-title="" title="">
+											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichBread.descriptionRus }" data-original-title="" title="">
 												<span class="glyphicon glyphicon-info-sign"></span>
 								    		</button>
 										</c:when>
 									</c:choose>
 								</td>
-								<td style="width: 55%;">
+								<td class="td-50-percent">
 									<input type="radio" name="sandwichBread" id="${sandwichBread.id }"/>
 									<c:choose>
 										<c:when test="${locale eq 'ka' }">
@@ -99,7 +99,7 @@
 										</c:when>
 									</c:choose>
 								</td>
-								<td class="" style="width: 40%;">
+								<td class="td-50-percent">
 									<select disabled class="form-control" id="sandwichBreadSizeAndPrice${sandwichBread.id }">
 										<c:forEach items="${sandwichBread.sandwichBreadSizeAndPrices }" var="sizeAndPrice">
 											<option ingredient-price="${sizeAndPrice.price }" value="${sizeAndPrice.id}">${sizeAndPrice.size}</option>
@@ -127,11 +127,31 @@
 					<table class="table table-bordered">
 						<thead>
 							<tr>
+								<th></th>
 								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichSausages }" var="sandwichSausage">
 							<tr>
+								<td>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<button id="sandwichSausagePopover${sandwichSausage.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichSausage.descriptionGeo }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+										    </button>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<button id="sandwichSausagePopover${sandwichSausage.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichSausage.descriptionEng }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<button id="sandwichSausagePopover${sandwichSausage.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichSausage.descriptionRus }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+									</c:choose>
+								</td>
 								<td class="td-50-percent">
 										<input name="sandwichSausage" type="checkbox" id="${sandwichSausage.id }">
 										<c:choose>
@@ -156,29 +176,50 @@
 								</td>
 							</tr>
 							<script>
-							(function () {
-						    	var previousPrice = null;
-
-						    	$("#sandwichSausageAmountAndPrice${sandwichSausage.id }").mousedown(function () {
-						    		previousPrice = $(this.options[this.selectedIndex]).attr('ingredient-price');
-						    	}).change(function() {
-									sandwichPrice -= parseFloat(previousPrice);
-									var price = $(this.options[this.selectedIndex]).attr('ingredient-price');
-									sandwichPrice += parseFloat(price);
-									$('#sandwichPrice').text(parseFloat(Math.round(sandwichPrice * 100) / 100).toFixed(2));
-						    	});
-							})();
-						</script>
+								$('#sandwichSausagePopover${sandwichSausage.id}').popover();
+								(function () {
+							    	var previousPrice = null;
+	
+							    	$("#sandwichSausageAmountAndPrice${sandwichSausage.id }").mousedown(function () {
+							    		previousPrice = $(this.options[this.selectedIndex]).attr('ingredient-price');
+							    	}).change(function() {
+										sandwichPrice -= parseFloat(previousPrice);
+										var price = $(this.options[this.selectedIndex]).attr('ingredient-price');
+										sandwichPrice += parseFloat(price);
+										$('#sandwichPrice').text(parseFloat(Math.round(sandwichPrice * 100) / 100).toFixed(2));
+							    	});
+								})();
+							</script>
 						</c:forEach>
 					</table>
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
+								<th></th>
 								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.vegetables" text="Vegetables" /></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichVegetables }" var="sandwichVegetable">
 							<tr>
+								<td>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<button id="sandwichVegetablePopover${sandwichVegetable.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichVegetable.descriptionGeo }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+										    </button>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<button id="sandwichVegetablePopover${sandwichVegetable.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichVegetable.descriptionEng }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<button id="sandwichVegetablePopover${sandwichVegetable.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichVegetable.descriptionRus }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+									</c:choose>
+								</td>
 								<td class="td-50-percent">
 									<input name="sandwichVegetable"  id="${sandwichVegetable.id }" type="checkbox">
 									<c:choose>
@@ -202,6 +243,7 @@
 								</td>
 							</tr>
 							<script>
+							$('#sandwichVegetablePopover${sandwichVegetable.id}').popover();
 							(function () {
 						    	var previousPrice = null;
 
@@ -220,11 +262,31 @@
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
+								<th></th>
 								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sauce" text="Sauce" /></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichSauces }" var="sandwichSauce">
 							<tr>
+								<td>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<button id="sandwichSaucePopover${sandwichSauce.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichSauce.descriptionGeo }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+										    </button>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<button id="sandwichSaucePopover${sandwichSauce.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichSauce.descriptionEng }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<button id="sandwichSaucePopover${sandwichSauce.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichSauce.descriptionRus }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+									</c:choose>
+								</td>
 								<td class="td-50-percent">
 									<input name="sandwichSauce"  id="${sandwichSauce.id }" type="checkbox">
 									<c:choose>
@@ -248,6 +310,7 @@
 								</td>
 							</tr>
 							<script>
+							$('#sandwichSaucePopover${sandwichSauce.id}').popover();
 							(function () {
 						    	var previousPrice = null;
 
@@ -266,11 +329,31 @@
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
+								<th></th>
 								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.spice" text="Spice" /></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichSpices }" var="sandwichSpice">
 							<tr>
+								<td>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<button id="sandwichSpicePopover${sandwichSpice.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichSpice.descriptionGeo }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+										    </button>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<button id="sandwichSpicePopover${sandwichSpice.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichSpice.descriptionEng }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<button id="sandwichSpicePopover${sandwichSpice.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichSpice.descriptionRus }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+									</c:choose>
+								</td>
 								<td class="td-50-percent">
 									<input name="sandwichSpice" type="checkbox" id="${sandwichSpice.id }">
 									<c:choose>
@@ -294,6 +377,7 @@
 								</td>
 							</tr>
 							<script>
+							$('#sandwichSpicePopover${sandwichSpice.id}').popover();
 							(function () {
 						    	var previousPrice = null;
 
@@ -317,12 +401,32 @@
 				<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
+								<th></th>
 								<th><spring:message code="yours.food.service.salad.ingredients" text="Salad Ingredients" /></th>
 								<th><spring:message code="yours.food.ingredient.price" text="Price" />: <span class="badge" id="saladPrice">0.00</span></th>
 							</tr>
 						</thead>
 						<c:forEach items="${saladIngredients }" var="saladIngredient">
 							<tr>
+								<td>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<button id="saladIngredientPopover${saladIngredient.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${saladIngredient.descriptionGeo }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+										    </button>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<button id="saladIngredientPopover${saladIngredient.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${saladIngredient.descriptionEng }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<button id="saladIngredientPopover${saladIngredient.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${saladIngredient.descriptionRus }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+									</c:choose>
+								</td>
 								<td class="td-50-percent">
 									<input type="checkbox" name="saladIngredient" id="${saladIngredient.id }"/>
 									<c:choose>
@@ -346,6 +450,7 @@
 								</td>
 							</tr>
 							<script>
+							$('#saladIngredientPopover${saladIngredient.id}').popover();
 							(function () {
 						    	var previousPrice = null;
 
@@ -369,12 +474,32 @@
 				<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
+								<th></th>
 								<th><spring:message code="yours.list.heading.drinks" text="Drinks" /></th>
 								<th><spring:message code="yours.food.ingredient.price" text="Price" />: <span class="badge" id="drinkPrice">0.00</span></th>
 							</tr>
 						</thead>
 						<c:forEach items="${drinks }" var="drink">
-							<tr>
+							<tr>	
+								<td>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<button id="drinkPopover${drink.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${drink.descriptionGeo }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+										    </button>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<button id="drinkPopover${drink.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${drink.descriptionEng }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<button id="drinkPopover${drink.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${drink.descriptionRus }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+									</c:choose>
+								</td>
 								<td class="td-50-percent">
 									<input type="radio" name="drink" id="${drink.id }"/>
 									<c:choose>
@@ -398,6 +523,7 @@
 								</td>
 							</tr>
 							<script>
+							$('#drinkPopover${drink.id}').popover();
 							(function () {
 						    	var previousPrice = null;
 
@@ -423,12 +549,32 @@
 				<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
+								<th></th>
 								<th><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
 								<th><spring:message code="yours.food.ingredient.price" text="Price" />: <span class="badge" id="hotdogPrice">0.00</span></th>
 							</tr>
 						</thead>
 						<c:forEach items="${hotdogBreads}" var="hotdogBread">
 							<tr>
+								<td>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<button id="hotdogBreadPopover${hotdogBread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${hotdogBread.descriptionGeo }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+										    </button>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<button id="hotdogBreadPopover${hotdogBread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${hotdogBread.descriptionEng }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<button id="hotdogBreadPopover${hotdogBread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${hotdogBread.descriptionRus }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+									</c:choose>
+								</td>
 								<td class="td-50-percent">
 									<input type="radio" name="hotdogBread" id="${hotdogBread.id }"/>
 									<c:choose>
@@ -452,6 +598,7 @@
 								</td>
 							</tr>
 							<script>
+							$('#hotdogBreadPopover${hotdogBread.id}').popover();
 							(function () {
 						    	var previousPrice = null;
 
@@ -470,11 +617,31 @@
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
+								<th></th>
 								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
 							</tr>
 						</thead>
 						<c:forEach items="${hotdogSausages}" var="hotdogSausage">
 							<tr>
+								<td>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<button id="hotdogSausagePopover${hotdogSausage.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${hotdogSausage.descriptionGeo }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+										    </button>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<button id="hotdogSausagePopover${hotdogSausage.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${hotdogSausage.descriptionEng }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<button id="hotdogSausagePopover${hotdogSausage.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${hotdogSausage.descriptionRus }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+									</c:choose>
+								</td>
 								<td class="td-50-percent">
 									<div>
 										<input name="hotdogSausages" type="radio" id="${hotdogSausage.id }">
@@ -500,6 +667,7 @@
 								</td>
 							</tr>
 							<script>
+							$('#hotdogSausagePopover${hotdogSausage.id}').popover();
 							(function () {
 						    	var previousPrice = null;
 
@@ -518,11 +686,31 @@
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
+								<th></th>
 								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sauce" text="Sauce" /></th>
 							</tr>
 						</thead>
 						<c:forEach items="${hotdogSauces}" var="hotdogSauce">
 							<tr>
+								<td>
+									<c:choose>
+										<c:when test="${locale eq 'ka' }">
+											<button id="hotdogSaucePopover${hotdogSauce.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${hotdogSauce.descriptionGeo }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+										    </button>										
+										</c:when>
+										<c:when test="${locale eq 'en' }">
+											<button id="hotdogSaucePopover${hotdogSauce.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${hotdogSauce.descriptionEng }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+										<c:when test="${locale eq 'ru' }">
+											<button id="hotdogSaucePopover${hotdogSauce.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${hotdogSauce.descriptionRus }" data-original-title="" title="">
+												<span class="glyphicon glyphicon-info-sign"></span>
+								    		</button>
+										</c:when>
+									</c:choose>
+								</td>
 								<td class="td-50-percent">
 									<input name="hotdogSauces"  id="${hotdogSauce.id }" type="checkbox">
 									<c:choose>
@@ -546,6 +734,7 @@
 								</td>
 							</tr>
 							<script>
+							$('#hotdogSaucePopover${hotdogSauce.id}').popover();
 							(function () {
 						    	var previousPrice = null;
 
