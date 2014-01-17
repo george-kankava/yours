@@ -99,6 +99,14 @@
 										</c:when>
 									</c:choose>
 								</td>
+								<td>
+									<button id="sandwichBreadImage${sandwichBread.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="right" data-content="<img src='http://upload.wikimedia.org/wikipedia/commons/1/1f/FD_1.jpg' />" data-original-title="" title="">
+										<span class="glyphicon glyphicon-film"></span>
+						    		</button>
+						    		<script>
+						    			$('#sandwichBreadImage${sandwichBread.id }').popover();
+						    		</script>
+								</td>
 								<td class="td-50-percent">
 									<select disabled class="form-control" id="sandwichBreadSizeAndPrice${sandwichBread.id }">
 										<c:forEach items="${sandwichBread.sandwichBreadSizeAndPrices }" var="sizeAndPrice">
