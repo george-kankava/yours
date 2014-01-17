@@ -48,6 +48,7 @@ import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
 import com.gngapps.yours.entities.DrinkAddonWithAmountAndPrice;
 import com.gngapps.yours.entities.DrinkSizeAndPrice;
 import com.gngapps.yours.entities.DrinkWithSizeAndPrice;
+import com.gngapps.yours.entities.FoodComponentImage;
 import com.gngapps.yours.entities.HotDogBread;
 import com.gngapps.yours.entities.HotDogSauce;
 import com.gngapps.yours.entities.HotDogSauceWithAmountAndPrice;
@@ -1056,6 +1057,17 @@ public class DatabaseServiceImpl implements DatabaseService {
 		deliveredOrder.setDeliveryTime(new Date());
 		deliveredOrder.setOrder(customerOrder);
 		dataSaverDao.saveCustomerDeliveredOrder(deliveredOrder);
+	}
+
+	@Override
+	@Transactional
+	public void saveFoodComponentImage(FoodComponentImage foodComponentImage) {
+		dataSaverDao.saveFoodComponentImage(foodComponentImage);
+	}
+
+	@Override
+	public FoodComponentImage findFoodComponentImage(Integer foodComponentImageId) {
+		return dataGetterDao.findFoodComponentImageById(foodComponentImageId);
 	}
 
 }

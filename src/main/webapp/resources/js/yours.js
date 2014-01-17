@@ -11,7 +11,6 @@ $(document).ready(function(){
       insert: '<div class="icheck_line-icon"></div>' + label_text
     });
   });
-  
 });
 
 $('input').on('ifChecked', function(event){

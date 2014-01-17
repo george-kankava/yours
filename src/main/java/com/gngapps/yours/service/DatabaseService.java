@@ -21,6 +21,7 @@ import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
 import com.gngapps.yours.entities.DrinkSizeAndPrice;
+import com.gngapps.yours.entities.FoodComponentImage;
 import com.gngapps.yours.entities.HotDogBread;
 import com.gngapps.yours.entities.HotDogSauce;
 import com.gngapps.yours.entities.HotDogSausage;
@@ -127,4 +128,6 @@ public interface DatabaseService {
 	void removeCustomerPasswordChangeToken(ChangePasswordToken token);
 	Drink findDrinkById(Integer drinkId);
 	void trackOrderDeliveryTime(String operatorEmail, Integer customerOrderId);
+	void saveFoodComponentImage(FoodComponentImage foodComponentImage);
+	FoodComponentImage findFoodComponentImage(Integer foodComponentImageId);
 }

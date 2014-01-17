@@ -23,6 +23,7 @@ import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
 import com.gngapps.yours.entities.DrinkSizeAndPrice;
+import com.gngapps.yours.entities.FoodComponentImage;
 import com.gngapps.yours.entities.HotDogBread;
 import com.gngapps.yours.entities.HotDogSauce;
 import com.gngapps.yours.entities.HotDogSausage;
@@ -356,6 +357,15 @@ public class DataGetterJPA implements DataGetterDao {
 	public Customer findOperatorByEmail(String operatorEmail) {
 		try {
 			return (Customer)em.createQuery("FROM Customer c WHERE c.email = :email").setParameter("email", operatorEmail).getSingleResult();
+		} catch(NoResultException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public FoodComponentImage findFoodComponentImageById(Integer foodComponentImageId) {
+		try {
+			return em.find(FoodComponentImage.class, foodComponentImageId);
 		} catch(NoResultException e) {
 			return null;
 		}

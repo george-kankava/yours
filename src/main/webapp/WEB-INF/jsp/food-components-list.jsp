@@ -23,10 +23,8 @@
 	<link href="resources/css/alertify.core.css" rel="stylesheet" />
 	<link href="resources/css/alertify.default.css" rel="stylesheet" />
 	<link href="resources/css/alertify.bootstrap.css" rel="stylesheet" />
-	<link rel="stylesheet" type="text/css" href="resources/css/tooltipster.css" />
 	<script src="resources/js/jquery-2.0.3.min.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="resources/js/jquery.tooltipster.min.js"></script>
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	      <script src="resources/assets/js/html5shiv.js"></script>
@@ -55,6 +53,7 @@
 			<li><a href="#drinks" data-toggle="tab"><spring:message code="yours.food.service.food.componenet.list.drink.tab.title" text="Drink"/></a></li>
 			<li><a href="#hotdog" data-toggle="tab"><spring:message code="yours.food.service.food.componenet.list.hotdog.tab.title" text="hotdog"/></a></li>
 		</ul>
+		
 		<div class="tab-content">
 			<div class="tab-pane active" id="sandwich">
 				<table class="table table-bordered">
@@ -62,6 +61,7 @@
 							<tr>
 								<th></th>
 								<th><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
+								<th></th>
 								<th><spring:message code="yours.food.ingredient.price" text="Price" />: <span class="badge" id="sandwichPrice">0.00</span></th>
 							</tr>
 						</thead>
@@ -70,17 +70,17 @@
 								<td>
 									<c:choose>
 										<c:when test="${locale eq 'ka' }">
-											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" data-content="${sandwichBread.descriptionGeo }" data-original-title="" title="">
+											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichBread.descriptionGeo }" data-original-title="" title="">
 												<span class="glyphicon glyphicon-info-sign"></span>
 										    </button>										
 										</c:when>
 										<c:when test="${locale eq 'en' }">
-											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" data-content="${sandwichBread.descriptionEng }" data-original-title="" title="">
+											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichBread.descriptionEng }" data-original-title="" title="">
 												<span class="glyphicon glyphicon-info-sign"></span>
 								    		</button>
 										</c:when>
 										<c:when test="${locale eq 'ru' }">
-											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" data-content="${sandwichBread.descriptionRus }" data-original-title="" title="">
+											<button id="sandwichBreadPopover${sandwichBread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichBread.descriptionRus }" data-original-title="" title="">
 												<span class="glyphicon glyphicon-info-sign"></span>
 								    		</button>
 										</c:when>
@@ -101,7 +101,12 @@
 									</c:choose>
 								</td>
 								<td>
-									<a href="http://calebjacob.com" class="ketchup tooltip" title="This is my link's tooltip message!">Link</a>
+									<button id="sandwichBreadImage${sandwichBread.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='process-food-component-image?imageId=${sandwichBread.foodComponentImage.id }' />" data-original-title="" title="">
+										<span class="glyphicon glyphicon-film"></span>
+						    		</button>
+						    		<script>
+						    			$('#sandwichBreadImage${sandwichBread.id }').popover();
+						    		</script>
 								</td>
 								<td class="td-50-percent">
 									<select disabled class="form-control" id="sandwichBreadSizeAndPrice${sandwichBread.id }">

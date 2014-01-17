@@ -3,13 +3,12 @@ package com.gngapps.yours.entities;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -24,8 +23,8 @@ public class SandwichBread {
 	private String descriptionGeo;
 	private String descriptionEng;
 	private String descriptionRus;
-	@Lob
-	private byte [] breadImage;
+	@ManyToOne
+	private FoodComponentImage foodComponentImage;
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name = "bread_id")
@@ -95,13 +94,13 @@ public class SandwichBread {
 			List<SandwichBreadSizeAndPrice> sandwichBreadSizeAndPrices) {
 		this.sandwichBreadSizeAndPrices = sandwichBreadSizeAndPrices;
 	}
-	
-	public byte [] getBreadImage() {
-		return breadImage;
+
+	public FoodComponentImage getFoodComponentImage() {
+		return foodComponentImage;
 	}
 
-	public void setBreadImage(byte [] breadImage) {
-		this.breadImage = breadImage;
+	public void setFoodComponentImage(FoodComponentImage foodComponentImage) {
+		this.foodComponentImage = foodComponentImage;
 	}
 
 	@Override
@@ -109,5 +108,5 @@ public class SandwichBread {
 		return "Bread [id=" + id + ", nameGeo=" + nameGeo + ", nameEng=" + nameEng + ", nameRus=" + nameRus + ", descriptionGeo=" 
 				+ descriptionGeo + ", descriptionEng=" + descriptionEng + ", descriptionRus=" + descriptionRus + ", breadSizes=" + sandwichBreadSizeAndPrices + "]";
 	}
-
+	
 }

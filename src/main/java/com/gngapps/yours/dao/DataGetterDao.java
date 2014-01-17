@@ -14,6 +14,7 @@ import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
 import com.gngapps.yours.entities.DrinkSizeAndPrice;
+import com.gngapps.yours.entities.FoodComponentImage;
 import com.gngapps.yours.entities.HotDogBread;
 import com.gngapps.yours.entities.HotDogSauce;
 import com.gngapps.yours.entities.HotDogSausage;
@@ -135,5 +136,7 @@ public interface DataGetterDao {
 	ChangePasswordToken findPasswordChangeTokenByToken(String token);
 
 	Customer findOperatorByEmail(String operatorEmail);
+
+	FoodComponentImage findFoodComponentImageById(Integer foodComponentImageId);
 
 }

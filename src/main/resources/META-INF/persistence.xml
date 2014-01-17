@@ -47,6 +47,7 @@
 		<class>com.gngapps.yours.entities.Phone</class>
 		<class>com.gngapps.yours.entities.ChangePasswordToken</class>
 		<class>com.gngapps.yours.entities.DeliveredOrders</class>
+		<class>com.gngapps.yours.entities.FoodComponentImage</class>
 	</persistence-unit>
 
 </persistence>

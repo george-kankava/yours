@@ -1,6 +1,5 @@
 package com.gngapps.yours.controller;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
@@ -28,6 +27,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gngapps.yours.databinding.json.request.SandwichJson;
+import com.gngapps.yours.entities.FoodComponentImage;
 import com.gngapps.yours.entities.SandwichBread;
 import com.gngapps.yours.entities.SandwichBreadSizeAndPrice;
 import com.gngapps.yours.entities.SandwichSauce;
@@ -105,7 +105,13 @@ public class SandwichController {
 	    	sandwichBread.setDescriptionGeo(descriptionGeo);
 	    	sandwichBread.setDescriptionEng(descriptionEng);
 	    	sandwichBread.setDescriptionRus(descriptionRus);
-			sandwichBread.setBreadImage(image.getBytes());
+	    	if(!image.isEmpty()) {
+	    		FoodComponentImage foodComponentImage = new FoodComponentImage();
+	    		foodComponentImage.setImage(image.getBytes());
+	    		foodComponentImage.setContentType(image.getContentType());
+	    		databaseService.saveFoodComponentImage(foodComponentImage);
+	    		sandwichBread.setFoodComponentImage(foodComponentImage);
+    		}
 	    	databaseService.addNewSandwichBreadType(sandwichBread);
 	    	mav.addObject("sandwichBread", sandwichBread);
 	    	mav.setViewName("add-sandwich-bread-response");

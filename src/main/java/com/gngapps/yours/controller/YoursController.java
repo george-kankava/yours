@@ -41,6 +41,7 @@ import com.gngapps.yours.entities.CustomerSalad;
 import com.gngapps.yours.entities.CustomerSandwich;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
+import com.gngapps.yours.entities.FoodComponentImage;
 import com.gngapps.yours.entities.HotDogBread;
 import com.gngapps.yours.entities.HotDogSauce;
 import com.gngapps.yours.entities.HotDogSausage;
@@ -80,6 +81,35 @@ public class YoursController {
 	@Autowired
 	private MessageSource messageSource;
 
+	@ResponseBody
+	@RequestMapping(value = "/process-food-component-image")
+	public synchronized void processFoodComponentImage(HttpServletResponse response, @RequestParam(value = "imageId", required = false) Integer foodComponentImageId) {
+		try {
+			System.out.println("YoursController.processFoodComponentImage()");
+			if(foodComponentImageId == null) {
+				response.sendRedirect("resources/img/NoPhotoAvailable.jpg");
+//				Resource resource = new ServletContextResource(servletContext, "/resources/img/NoPhotoAvailable.jpg");
+//				String imageName = resource.getFilename();
+//				String imageExtension = imageName.substring(imageName.lastIndexOf('.'));
+//				InputStream inputStream = resource.getInputStream();
+//				byte [] imageBytes = new byte [inputStream.available()];
+//				inputStream.read(imageBytes);
+//				response.setContentType("image/" + imageExtension);
+//				response.setContentLength(imageBytes.length);
+//				response.getOutputStream().write(imageBytes);
+				
+			}
+			FoodComponentImage image = databaseService.findFoodComponentImage(foodComponentImageId);
+			if(image != null) {
+				response.setContentType(image.getContentType());
+				response.setContentType(image.getContentType());
+				response.setContentLength(image.getImage().length);
+				response.getOutputStream().write(image.getImage());
+			}
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+		}
+	}
 	
 	@RequestMapping(value = "/get-drink-addons.ajax")
 	public ModelAndView getDrinkAddons(HttpServletRequest request, @RequestParam Integer drinkId, ModelAndView mav) {
