@@ -31,4 +31,6 @@ public interface AppConstants {
 	String ONE_ZERO = "0";
 	long ONE_HOUR_IN_MILLIES = 60 * 60 * 1000;
 	String DIGEST_ALGORITHM_SHA = "SHA";
+	String FOOD_COMPONENT_IMAGES_RELATIVE_LOCATION = "food-component-images/";
+	String NO_IMAGE_IMAGE_RELATIVE_LOCATION = "resources/img/NoPhotoAvailable.jpg";
 }

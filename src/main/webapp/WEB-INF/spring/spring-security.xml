@@ -8,6 +8,7 @@
 	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 	<http pattern="/resources/**" security="none" />
 	<http pattern="/images/**" security="none" />
+	<http pattern="/food-component-images/**" security="none" />
 	<http use-expressions="true" >
 		<intercept-url pattern="/resources/**" access="permitAll"/>
 		<intercept-url pattern="/signin" requires-channel="https" access="permitAll" />

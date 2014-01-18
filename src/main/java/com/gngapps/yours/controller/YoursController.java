@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -76,6 +77,9 @@ public class YoursController {
 	@Autowired
 	private YoursHelper helper;
 	
+	@Autowired
+	private ServletContext servletContext;
+	
 	private static final Logger logger = LoggerFactory.getLogger(YoursController.class);
 	
 	@Autowired
@@ -87,24 +91,13 @@ public class YoursController {
 		try {
 			System.out.println("YoursController.processFoodComponentImage()");
 			if(foodComponentImageId == null) {
-				response.sendRedirect("resources/img/NoPhotoAvailable.jpg");
-//				Resource resource = new ServletContextResource(servletContext, "/resources/img/NoPhotoAvailable.jpg");
-//				String imageName = resource.getFilename();
-//				String imageExtension = imageName.substring(imageName.lastIndexOf('.'));
-//				InputStream inputStream = resource.getInputStream();
-//				byte [] imageBytes = new byte [inputStream.available()];
-//				inputStream.read(imageBytes);
-//				response.setContentType("image/" + imageExtension);
-//				response.setContentLength(imageBytes.length);
-//				response.getOutputStream().write(imageBytes);
-				
+				response.sendRedirect(AppConstants.NO_IMAGE_IMAGE_RELATIVE_LOCATION);
 			}
 			FoodComponentImage image = databaseService.findFoodComponentImage(foodComponentImageId);
 			if(image != null) {
-				response.setContentType(image.getContentType());
-				response.setContentType(image.getContentType());
-				response.setContentLength(image.getImage().length);
-				response.getOutputStream().write(image.getImage());
+				StringBuilder imagePathAndFileName = new StringBuilder();
+				imagePathAndFileName.append(AppConstants.FOOD_COMPONENT_IMAGES_RELATIVE_LOCATION).append(image.getImageFileName());
+				response.sendRedirect(imagePathAndFileName.toString());
 			}
 		} catch(Exception ex) {
 			logger.info(ex.getMessage());

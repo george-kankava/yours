@@ -1,10 +1,14 @@
 package com.gngapps.yours.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -26,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gngapps.yours.AppConstants;
 import com.gngapps.yours.databinding.json.request.SandwichJson;
 import com.gngapps.yours.entities.FoodComponentImage;
 import com.gngapps.yours.entities.SandwichBread;
@@ -52,6 +57,9 @@ public class SandwichController {
 	@Autowired
 	private MessageSource messageSource;
 
+	@Autowired
+	private ServletContext servletContext;
+	
 	private static final Logger logger = LoggerFactory.getLogger(SandwichController.class);
 
 	@ResponseBody
@@ -106,9 +114,18 @@ public class SandwichController {
 	    	sandwichBread.setDescriptionEng(descriptionEng);
 	    	sandwichBread.setDescriptionRus(descriptionRus);
 	    	if(!image.isEmpty()) {
+	    		StringBuilder foodComponentImageVirtualPath = new StringBuilder();
+	    		foodComponentImageVirtualPath.append(AppConstants.FOOD_COMPONENT_IMAGES_RELATIVE_LOCATION).append(image.getOriginalFilename());
+	    		String foodComponentImageAbsolutePath = servletContext.getRealPath(foodComponentImageVirtualPath.toString());
+	    		OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(foodComponentImageAbsolutePath));
+	    		try {
+		    		outputStream.write(image.getBytes());
+		    		outputStream.flush();
+	    		} finally {
+	    			outputStream.close();
+	    		}
 	    		FoodComponentImage foodComponentImage = new FoodComponentImage();
-	    		foodComponentImage.setImage(image.getBytes());
-	    		foodComponentImage.setContentType(image.getContentType());
+	    		foodComponentImage.setImageFileName(image.getOriginalFilename());
 	    		databaseService.saveFoodComponentImage(foodComponentImage);
 	    		sandwichBread.setFoodComponentImage(foodComponentImage);
     		}
