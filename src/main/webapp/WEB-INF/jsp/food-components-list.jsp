@@ -101,9 +101,19 @@
 									</c:choose>
 								</td>
 								<td>
-									<button id="sandwichBreadImage${sandwichBread.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='process-food-component-image?imageId=${sandwichBread.foodComponentImage.id }' />" data-original-title="" title="">
-										<span class="glyphicon glyphicon-film"></span>
-						    		</button>
+									<c:choose>
+										<c:when test="${sandwichBread.foodComponentImage ne null }">
+											<button id="sandwichBreadImage${sandwichBread.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${sandwichBread.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>	
+										</c:when>
+										<c:otherwise>
+											<button id="sandwichBreadImage${sandwichBread.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>
+										</c:otherwise>
+									</c:choose>
+									
 						    		<script>
 						    			$('#sandwichBreadImage${sandwichBread.id }').popover();
 						    		</script>

@@ -31,6 +31,12 @@
 				<td><input type="text" class="form-control" id="sausageDescRus" placeholder="${sausageDescRus }"></td>
 			</tr>
 			<tr>
+				<td>
+					<spring:message code="yours.food.service.admin.add.food.components.image" text="Image"></spring:message>
+					<input type="file" class="form-control" id="breadImage" />
+				</td>
+			</tr>
+			<tr>
 				<td><button type="button" id="sandwich-sausage-add-btn" class="btn btn-default"><spring:message code="yours.food.service.add.button.title"></spring:message></button></td>
 			</tr>
 		</table>
