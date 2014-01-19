@@ -1,8 +1,5 @@
 package com.gngapps.yours.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
@@ -30,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gngapps.yours.AppConstants;
 import com.gngapps.yours.databinding.json.request.SandwichJson;
 import com.gngapps.yours.entities.FoodComponentImage;
 import com.gngapps.yours.entities.SandwichBread;
@@ -161,7 +157,7 @@ public class SandwichController {
     	return mav;
 	}
     
-    @RequestMapping(value = "admin/process-add-sandwich-sausage-form", method = RequestMethod.POST, consumes = {"application/json"})
+    @RequestMapping(value = "admin/process-add-sandwich-sausage-form", method = RequestMethod.POST)
 	public ModelAndView processAddSandwichSausageForm(ModelAndView mav, @RequestParam String nameGeo, @RequestParam String nameEng, @RequestParam String nameRus, @RequestParam String descriptionGeo, @RequestParam  String descriptionEng, @RequestParam String descriptionRus, @RequestParam(value="image", required = false) MultipartFile image) {
     	try {
 	    	SandwichSausage sandwichSausage = new SandwichSausage();

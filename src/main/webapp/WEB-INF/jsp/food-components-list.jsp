@@ -186,6 +186,24 @@
 										</c:choose>
 										
 								</td>
+								<td>
+									<c:choose>
+										<c:when test="${sandwichSausage.foodComponentImage ne null }">
+											<button id="sandwichSausageImage${sandwichSausage.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${sandwichSausage.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>	
+										</c:when>
+										<c:otherwise>
+											<button id="sandwichSausageImage${sandwichSausage.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>
+										</c:otherwise>
+									</c:choose>
+									
+						    		<script>
+						    			$('#sandwichSausageImage${sandwichSausage.id }').popover();
+						    		</script>
+								</td>
 								<td class="td-50-percent">
 									<select disabled class="form-control" id="sandwichSausageAmountAndPrice${sandwichSausage.id }">
 										<c:forEach items="${sandwichSausage.sausageAmountAndPrices }" var="amountAndPrice">

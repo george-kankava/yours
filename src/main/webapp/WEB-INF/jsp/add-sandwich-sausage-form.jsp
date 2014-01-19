@@ -34,7 +34,7 @@
 			<tr>
 				<td>
 					<spring:message code="yours.food.service.admin.add.food.components.image" text="Image"></spring:message>
-					<input type="file" class="form-control" id="breadImage" />
+					<input type="file" class="form-control" id="sausageImage" />
 				</td>
 			</tr>
 			<tr>
