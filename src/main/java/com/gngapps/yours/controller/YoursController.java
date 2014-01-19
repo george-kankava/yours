@@ -87,9 +87,9 @@ public class YoursController {
 
 	@ResponseBody
 	@RequestMapping(value = "/process-food-component-image")
+	@Deprecated
 	public synchronized void processFoodComponentImage(HttpServletResponse response, @RequestParam(value = "imageId", required = false) Integer foodComponentImageId) {
 		try {
-			System.out.println("YoursController.processFoodComponentImage()");
 			if(foodComponentImageId == null) {
 				response.sendRedirect(AppConstants.NO_IMAGE_IMAGE_RELATIVE_LOCATION);
 			}
