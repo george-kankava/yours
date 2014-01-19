@@ -44,6 +44,7 @@ import com.gngapps.yours.entities.SandwichSpiceAmountAndPrice;
 import com.gngapps.yours.entities.SandwichVegetable;
 import com.gngapps.yours.entities.SandwichVegetableAmountAndPrice;
 import com.gngapps.yours.service.DatabaseService;
+import com.gngapps.yours.service.impl.YoursHelper;
 
 @Controller
 public class SandwichController {
@@ -59,6 +60,9 @@ public class SandwichController {
 
 	@Autowired
 	private ServletContext servletContext;
+	
+	@Autowired
+	private YoursHelper helper;
 	
 	private static final Logger logger = LoggerFactory.getLogger(SandwichController.class);
 
@@ -114,18 +118,7 @@ public class SandwichController {
 	    	sandwichBread.setDescriptionEng(descriptionEng);
 	    	sandwichBread.setDescriptionRus(descriptionRus);
 	    	if(!image.isEmpty()) {
-	    		StringBuilder foodComponentImageVirtualPath = new StringBuilder();
-	    		foodComponentImageVirtualPath.append(AppConstants.FOOD_COMPONENT_IMAGES_RELATIVE_LOCATION).append(image.getOriginalFilename());
-	    		String foodComponentImageAbsolutePath = servletContext.getRealPath(foodComponentImageVirtualPath.toString());
-	    		OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(foodComponentImageAbsolutePath));
-	    		try {
-		    		outputStream.write(image.getBytes());
-		    		outputStream.flush();
-	    		} finally {
-	    			outputStream.close();
-	    		}
-	    		FoodComponentImage foodComponentImage = new FoodComponentImage();
-	    		foodComponentImage.setImageFileName(image.getOriginalFilename());
+	    		FoodComponentImage foodComponentImage = helper.noname(image, servletContext);
 	    		databaseService.saveFoodComponentImage(foodComponentImage);
 	    		sandwichBread.setFoodComponentImage(foodComponentImage);
     		}
@@ -169,11 +162,29 @@ public class SandwichController {
 	}
     
     @RequestMapping(value = "admin/process-add-sandwich-sausage-form", method = RequestMethod.POST, consumes = {"application/json"})
-	public ModelAndView processAddSandwichSausageForm(ModelAndView mav, @RequestBody SandwichSausage sandwichSausage) {
-    	databaseService.addNewSandwichSausage(sandwichSausage);
-    	mav.addObject("sandwichSausage", sandwichSausage);
-    	mav.setViewName("add-sandwich-sausage-response");
-    	return mav;
+	public ModelAndView processAddSandwichSausageForm(ModelAndView mav, @RequestParam String nameGeo, @RequestParam String nameEng, @RequestParam String nameRus, @RequestParam String descriptionGeo, @RequestParam  String descriptionEng, @RequestParam String descriptionRus, @RequestParam(value="image", required = false) MultipartFile image) {
+    	try {
+	    	SandwichSausage sandwichSausage = new SandwichSausage();
+	    	sandwichSausage.setNameEng(nameEng);
+	    	sandwichSausage.setNameGeo(nameGeo);
+	    	sandwichSausage.setNameRus(nameRus);
+	    	sandwichSausage.setDescriptionEng(descriptionEng);
+	    	sandwichSausage.setDescriptionGeo(descriptionGeo);
+	    	sandwichSausage.setDescriptionRus(descriptionRus);
+	    	if(!image.isEmpty()) {
+	    		FoodComponentImage foodComponentImage = helper.noname(image, servletContext);
+	    		databaseService.saveFoodComponentImage(foodComponentImage);
+	    		sandwichSausage.setFoodComponentImage(foodComponentImage);
+	    	}
+	    	databaseService.addNewSandwichSausage(sandwichSausage);
+	    	mav.addObject("sandwichSausage", sandwichSausage);
+	    	mav.setViewName("add-sandwich-sausage-response");
+	    	return mav;
+    	} catch(Exception ex) {
+    		logger.info(ex.getMessage());
+    		mav.setViewName("add-sandwich-sausage-response");
+	    	return mav;
+    	}
 	}
     
     @ResponseBody

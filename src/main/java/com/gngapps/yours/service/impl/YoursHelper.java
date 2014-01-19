@@ -1,12 +1,19 @@
 package com.gngapps.yours.service.impl;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Random;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gngapps.yours.AppConstants;
 import com.gngapps.yours.entities.Customer;
+import com.gngapps.yours.entities.FoodComponentImage;
 
 @Component("yoursHelper")
 public class YoursHelper {
@@ -46,4 +53,21 @@ public class YoursHelper {
 	public String emptyJson() {
 		return "{}";
 	}
+	
+	public FoodComponentImage noname(MultipartFile image, ServletContext servletContext) throws Exception {
+		StringBuilder foodComponentImageVirtualPath = new StringBuilder();
+		foodComponentImageVirtualPath.append(AppConstants.FOOD_COMPONENT_IMAGES_RELATIVE_LOCATION).append(image.getOriginalFilename());
+		String foodComponentImageAbsolutePath = servletContext.getRealPath(foodComponentImageVirtualPath.toString());
+		OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(foodComponentImageAbsolutePath));
+		try {
+			outputStream.write(image.getBytes());
+			outputStream.flush();
+		} finally {
+			outputStream.close();
+		}
+		FoodComponentImage foodComponentImage = new FoodComponentImage();
+		foodComponentImage.setImageFileName(image.getOriginalFilename());
+		return foodComponentImage;
+	}
+	
 }
