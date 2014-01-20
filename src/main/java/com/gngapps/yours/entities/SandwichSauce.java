@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -24,6 +25,8 @@ public class SandwichSauce {
 	@OneToMany
 	@JoinColumn(name = "souce_id")
 	private List<SandwichSauceAmountAndPrice> sauceAmountAndPrices;
+	@ManyToOne
+	private FoodComponentImage foodComponentImage;
 	
 	public Integer getId() {
 		return id;
@@ -73,10 +76,21 @@ public class SandwichSauce {
 	public void setSauceAmountAndPrices(List<SandwichSauceAmountAndPrice> sauceAmountAndPrices) {
 		this.sauceAmountAndPrices = sauceAmountAndPrices;
 	}
+	public FoodComponentImage getFoodComponentImage() {
+		return foodComponentImage;
+	}
+	public void setFoodComponentImage(FoodComponentImage foodComponentImage) {
+		this.foodComponentImage = foodComponentImage;
+	}
+
 	@Override
 	public String toString() {
-		return "Sauce [id=" + id + ", nameGeo=" + nameGeo + ", nameEng=" + nameEng + ", nameRus=" + nameRus + ", descriptionGeo=" + descriptionGeo + 
-				", descriptionEng=" + descriptionEng + ", descriptionRus=" + descriptionRus + ", sauceAmountAndPrices=" + sauceAmountAndPrices + "]";
+		return "SandwichSauce [id=" + id + ", nameGeo=" + nameGeo
+				+ ", nameEng=" + nameEng + ", nameRus=" + nameRus
+				+ ", descriptionGeo=" + descriptionGeo + ", descriptionEng="
+				+ descriptionEng + ", descriptionRus=" + descriptionRus
+				+ ", sauceAmountAndPrices=" + sauceAmountAndPrices
+				+ ", foodComponentImage=" + foodComponentImage + "]";
 	}
 	
 }

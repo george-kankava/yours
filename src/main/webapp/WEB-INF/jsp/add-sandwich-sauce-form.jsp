@@ -32,6 +32,12 @@
 				<td><input id="sauceDescRus" type="text" class="form-control" placeholder="${sauceDescRus }" /></td>
 			</tr>
 			<tr>
+				<td>
+					<spring:message code="yours.food.service.admin.add.food.components.image" text="Image"></spring:message>
+					<input type="file" class="form-control" id="sauceImage" />
+				</td>
+			</tr>
+			<tr>
 				<td><button type="button" id="sandwich-sauce-add-btn" class="btn btn-default"><spring:message code="yours.food.service.add.button.title"></spring:message></button></td>
 			</tr>
 		</table>
@@ -111,19 +117,21 @@
 </div>
 <script>
 	$('#sandwich-sauce-add-btn').click(function() {
+		var data = new FormData();
+		data.append('nameGeo', toUnicode($('#breadTypeGeo').val()));
+		data.append('nameEng', toUnicode($('#breadTypeEng').val()));
+		data.append('nameRus', toUnicode($('#breadTypeRus').val()));
+		data.append('descriptionGeo', toUnicode($('#breadDescGeo').val()));
+		data.append('descriptionEng', toUnicode($('#breadDescEng').val()));
+		data.append('descriptionRus', toUnicode($('#breadDescRus').val()));
+		data.append('image', document.formSubmit.sauceImage.files[0]);
 		var url = 'process-add-sandwich-sauce-form';
 		$.ajax({
 			url: url,
 			type: "POST",
-			contentType: "application/json",
-			data: JSON.stringify({
-				nameGeo: toUnicode($('#sauceNameGeo').val()),
-				nameEng: toUnicode($('#sauceNameEng').val()),
-				nameRus: toUnicode($('#sauceNameRus').val()),
-				descriptionGeo: toUnicode($('#sauceDescGeo').val()),
-				descriptionEng: toUnicode($('#sauceDescEng').val()),
-				descriptionRus: toUnicode($('#sauceDescRus').val())
-			})
+			processData:false,
+			contentType: false,
+			data: data
 		}).done(function(response) {
 			$('#sauceNameGeo').val('');
 			$('#sauceNameEng').val('');
