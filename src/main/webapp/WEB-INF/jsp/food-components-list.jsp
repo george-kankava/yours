@@ -147,7 +147,9 @@
 						<thead>
 							<tr>
 								<th></th>
-								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
+								<th colspan="1"><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
+								<th></th>
+								<th></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichSausages }" var="sandwichSausage">
