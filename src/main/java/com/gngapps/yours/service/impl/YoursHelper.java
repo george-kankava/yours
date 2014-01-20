@@ -54,7 +54,7 @@ public class YoursHelper {
 		return "{}";
 	}
 	
-	public FoodComponentImage noname(MultipartFile image, ServletContext servletContext) throws Exception {
+	public FoodComponentImage writeFoodComponentImage(MultipartFile image, ServletContext servletContext) throws Exception {
 		StringBuilder foodComponentImageVirtualPath = new StringBuilder();
 		foodComponentImageVirtualPath.append(AppConstants.FOOD_COMPONENT_IMAGES_RELATIVE_LOCATION).append(image.getOriginalFilename());
 		String foodComponentImageAbsolutePath = servletContext.getRealPath(foodComponentImageVirtualPath.toString());

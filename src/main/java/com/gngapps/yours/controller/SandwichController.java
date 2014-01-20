@@ -114,7 +114,7 @@ public class SandwichController {
 	    	sandwichBread.setDescriptionEng(descriptionEng);
 	    	sandwichBread.setDescriptionRus(descriptionRus);
 	    	if(!image.isEmpty()) {
-	    		FoodComponentImage foodComponentImage = helper.noname(image, servletContext);
+	    		FoodComponentImage foodComponentImage = helper.writeFoodComponentImage(image, servletContext);
 	    		databaseService.saveFoodComponentImage(foodComponentImage);
 	    		sandwichBread.setFoodComponentImage(foodComponentImage);
     		}
@@ -168,7 +168,7 @@ public class SandwichController {
 	    	sandwichSausage.setDescriptionGeo(descriptionGeo);
 	    	sandwichSausage.setDescriptionRus(descriptionRus);
 	    	if(!image.isEmpty()) {
-	    		FoodComponentImage foodComponentImage = helper.noname(image, servletContext);
+	    		FoodComponentImage foodComponentImage = helper.writeFoodComponentImage(image, servletContext);
 	    		databaseService.saveFoodComponentImage(foodComponentImage);
 	    		sandwichSausage.setFoodComponentImage(foodComponentImage);
 	    	}
@@ -212,11 +212,29 @@ public class SandwichController {
 	}
     
     @RequestMapping(value = "admin/process-add-sandwich-vegetable-form", method = RequestMethod.POST, consumes = {"application/json"})
-	public ModelAndView processSandwichVegetablesForm(ModelAndView mav, @RequestBody SandwichVegetable sandwichVegetable, BindingResult result) {
-    	databaseService.addSandwichVegetable(sandwichVegetable);
-    	mav.addObject("sandwichVegetable", sandwichVegetable);
-    	mav.setViewName("add-sandwich-vegetable-response");
-    	return mav;
+	public ModelAndView processSandwichVegetablesForm(ModelAndView mav, @RequestParam String nameGeo, @RequestParam String nameEng, @RequestParam String nameRus,@RequestParam String descriptionGeo, @RequestParam  String descriptionEng, @RequestParam String descriptionRus, @RequestParam(value="image", required = false) MultipartFile image) {
+    	try {
+	    	SandwichVegetable sandwichVegetable = new SandwichVegetable();
+	    	sandwichVegetable.setNameEng(nameEng);
+	    	sandwichVegetable.setNameGeo(nameGeo);
+	    	sandwichVegetable.setNameRus(nameRus);
+	    	sandwichVegetable.setDescriptionEng(descriptionEng);
+	    	sandwichVegetable.setDescriptionGeo(descriptionGeo);
+	    	sandwichVegetable.setDescriptionRus(descriptionRus);
+	    	if(!image.isEmpty()) {
+	    		FoodComponentImage foodComponentImage = helper.writeFoodComponentImage(image, servletContext);
+	    		databaseService.saveFoodComponentImage(foodComponentImage);
+	    		sandwichVegetable.setFoodComponentImage(foodComponentImage);
+	    	}
+	    	databaseService.addSandwichVegetable(sandwichVegetable);
+	    	mav.addObject("sandwichVegetable", sandwichVegetable);
+	    	mav.setViewName("add-sandwich-vegetable-response");
+	    	return mav;
+    	} catch(Exception ex) {
+    		logger.info(ex.getMessage());
+    		mav.setViewName("add-sandwich-vegetable-response");
+    		return mav;
+    	}
 	}
     
     @ResponseBody
@@ -248,11 +266,29 @@ public class SandwichController {
     
     @RequestMapping(value = "admin/process-add-sandwich-sauce-form", method = RequestMethod.POST, consumes = {"application/json"})
     @ResponseStatus(HttpStatus.OK)
-	public ModelAndView processAddSandwichSauceForm(ModelAndView mav, @RequestBody SandwichSauce sandwichSauce, BindingResult result) {
-    	databaseService.addNewSandwichSauce(sandwichSauce);
-    	mav.addObject("sandwichBread", sandwichSauce);
-    	mav.setViewName("add-sandwich-sauce-response");
-    	return mav;
+	public ModelAndView processAddSandwichSauceForm(ModelAndView mav, @RequestParam String nameGeo, @RequestParam String nameEng, @RequestParam String nameRus,@RequestParam String descriptionGeo, @RequestParam  String descriptionEng, @RequestParam String descriptionRus, @RequestParam(value="image", required = false) MultipartFile image) {
+    	try {
+	    	SandwichSauce sandwichSauce = new SandwichSauce();
+	    	sandwichSauce.setNameEng(nameEng);
+	    	sandwichSauce.setNameGeo(nameGeo);
+	    	sandwichSauce.setNameRus(nameRus);
+	    	sandwichSauce.setDescriptionEng(descriptionEng);
+	    	sandwichSauce.setDescriptionGeo(descriptionGeo);
+	    	sandwichSauce.setDescriptionRus(descriptionRus);
+	    	if(!image.isEmpty()) {
+	    		FoodComponentImage foodComponentImage = helper.writeFoodComponentImage(image, servletContext);
+	    		databaseService.saveFoodComponentImage(foodComponentImage);
+	    		sandwichSauce.setFoodComponentImage(foodComponentImage);
+	    	}
+	    	databaseService.addNewSandwichSauce(sandwichSauce);
+	    	mav.addObject("sandwichBread", sandwichSauce);
+	    	mav.setViewName("add-sandwich-sauce-response");
+	    	return mav;
+    	} catch(Exception ex) {
+    		logger.info(ex.getMessage());
+    		mav.setViewName("add-sandwich-sauce-response");
+        	return mav;
+    	}
 	}
     
     @RequestMapping("admin/remove-sandwich-sauce")
