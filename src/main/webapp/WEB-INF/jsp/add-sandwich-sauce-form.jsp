@@ -6,6 +6,7 @@
 	<span style="margin-left: 35px">Sauce</span>
 </h5>
 <div class="col-md-3">
+	<form action="#" name="formSubmit"></form>
 		<table class="table table-bordered">
 			<tr>
 				<spring:message code="yours.food.service.admin.sauce.geo" var="sauceGeo"></spring:message>
@@ -118,12 +119,12 @@
 <script>
 	$('#sandwich-sauce-add-btn').click(function() {
 		var data = new FormData();
-		data.append('nameGeo', toUnicode($('#breadTypeGeo').val()));
-		data.append('nameEng', toUnicode($('#breadTypeEng').val()));
-		data.append('nameRus', toUnicode($('#breadTypeRus').val()));
-		data.append('descriptionGeo', toUnicode($('#breadDescGeo').val()));
-		data.append('descriptionEng', toUnicode($('#breadDescEng').val()));
-		data.append('descriptionRus', toUnicode($('#breadDescRus').val()));
+		data.append('nameGeo', toUnicode($('#sauceNameGeo').val()));
+		data.append('nameEng', toUnicode($('#sauceNameEng').val()));
+		data.append('nameRus', toUnicode($('#sauceNameRus').val()));
+		data.append('descriptionGeo', toUnicode($('#sauceDescGeo').val()));
+		data.append('descriptionEng', toUnicode($('#sauceDescEng').val()));
+		data.append('descriptionRus', toUnicode($('#sauceDescRus').val()));
 		data.append('image', document.formSubmit.sauceImage.files[0]);
 		var url = 'process-add-sandwich-sauce-form';
 		$.ajax({

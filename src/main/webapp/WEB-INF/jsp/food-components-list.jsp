@@ -273,6 +273,24 @@
 										</c:when>
 									</c:choose>
 								</td>
+								<td>
+									<c:choose>
+										<c:when test="${sandwichVegetable.foodComponentImage ne null }">
+											<button id="sandwichVegetableImage${sandwichVegetable.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${sandwichVegetable.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>	
+										</c:when>
+										<c:otherwise>
+											<button id="sandwichVegetableImage${sandwichVegetable.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>
+										</c:otherwise>
+									</c:choose>
+									
+						    		<script>
+						    			$('#sandwichVegetableImage${sandwichVegetable.id }').popover();
+						    		</script>
+								</td>
 								<td class="td-50-percent">
 									<select disabled class="form-control" id="sandwichVegetableAmountAndPrice${sandwichVegetable.id }">
 										<c:forEach items="${sandwichVegetable.vegetableAmountAndPrices }" var="amountAndPrice">
@@ -340,6 +358,23 @@
 										</c:when>
 									</c:choose>
 								</td>
+								<td>
+									<c:choose>
+										<c:when test="${sandwichSauce.foodComponentImage ne null }">
+											<button id="sandwichSauceImage${sandwichSauce.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${sandwichSauce.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>	
+										</c:when>
+										<c:otherwise>
+											<button id="sandwichSauceImage${sandwichSauce.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>
+										</c:otherwise>
+									</c:choose>
+									<script>
+						    			$('#sandwichSauceImage${sandwichSauce.id }').popover();
+						    		</script>
+					    		</td>
 								<td class="td-50-percent">
 									<select disabled class="form-control" id="sandwichSauceAmountAndPrice${sandwichSauce.id }">
 										<c:forEach items="${sandwichSauce.sauceAmountAndPrices}" var="amountAndPrice">
@@ -407,6 +442,23 @@
 										</c:when>
 									</c:choose>
 								</td>
+								<td>
+									<c:choose>
+										<c:when test="${sandwichSpice.foodComponentImage ne null }">
+											<button id="sandwichSpiceImage${sandwichSpice.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${sandwichSpice.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>	
+										</c:when>
+										<c:otherwise>
+											<button id="sandwichSpiceImage${sandwichSpice.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>
+										</c:otherwise>
+									</c:choose>
+									<script>
+						    			$('#sandwichSpiceImage${sandwichSpice.id }').popover();
+						    		</script>
+					    		</td>
 								<td class="td-50-percent">
 									<select disabled class="form-control" id="sandwichSpiceAmountAndPrice${sandwichSpice.id }">
 										<c:forEach items="${sandwichSpice.spiceAmountAndPrice}" var="amountAndPrice">

@@ -113,19 +113,21 @@
 </div>
 <script>
 	$('#sandwich-spice-add-btn').click(function() {
+		var data = new FormData();
+		data.append('nameGeo', toUnicode($('#spiceGeo').val()));
+		data.append('nameEng', toUnicode($('#spiceEng').val()));
+		data.append('nameRus', toUnicode($('#spiceRus').val()));
+		data.append('descriptionGeo', toUnicode($('#spiceDescGeo').val()));
+		data.append('descriptionEng', toUnicode($('#spiceDescEng').val()));
+		data.append('descriptionRus', toUnicode($('#spiceDescRus').val()));
+		data.append('image', document.formSubmit.sauceImage.files[0]);
 		var url = 'process-add-sandwich-spice-form';
 		$.ajax({
 			url: url,
 			type: "POST",
-			contentType: "application/json",
-			data: JSON.stringify({
-				nameGeo: toUnicode($('#spiceGeo').val()),
-				nameEng: toUnicode($('#spiceEng').val()),
-				nameRus: toUnicode($('#spiceRus').val()),
-				descriptionGeo: toUnicode($('#spiceDescGeo').val()),
-				descriptionEng: toUnicode($('#spiceDescEng').val()),
-				descriptionRus: toUnicode($('#spiceDescRus').val())
-			})
+			processData:false,
+			contentType: false,
+			data: data
 		}).done(function(response) {
 			$('#spiceGeo').val('');
 			$('#spiceEng').val('');
