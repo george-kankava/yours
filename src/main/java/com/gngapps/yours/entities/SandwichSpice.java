@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -23,8 +22,7 @@ public class SandwichSpice {
 	private String descriptionGeo;
 	private String descriptionEng;
 	private String descriptionRus;
-	@ManyToOne
-	private FoodComponentImage foodComponentImage;
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "spice_id")
 	private List<SandwichSpiceAmountAndPrice> spiceAmountAndPrice;
@@ -77,20 +75,12 @@ public class SandwichSpice {
 	public void setDescriptionRus(String descriptionRus) {
 		this.descriptionRus = descriptionRus;
 	}
-	public FoodComponentImage getFoodComponentImage() {
-		return foodComponentImage;
-	}
-	public void setFoodComponentImage(FoodComponentImage foodComponentImage) {
-		this.foodComponentImage = foodComponentImage;
-	}
-	
 	@Override
 	public String toString() {
-		return "SandwichSpice [id=" + id + ", nameGeo=" + nameGeo
-				+ ", nameEng=" + nameEng + ", nameRus=" + nameRus
-				+ ", descriptionGeo=" + descriptionGeo + ", descriptionEng="
-				+ descriptionEng + ", descriptionRus=" + descriptionRus
-				+ ", foodComponentImage=" + foodComponentImage
+		return "SandwichSpice [id=" + id + ", nameGeo=" + nameGeo + ", nameEng=" + nameEng + ", nameRus=" + nameRus
+				+ ", descriptionGeo=" + descriptionGeo + ", descriptionEng=" + descriptionEng + ", descriptionRus=" + descriptionRus
 				+ ", spiceAmountAndPrice=" + spiceAmountAndPrice + "]";
 	}
+	
+	
 }

@@ -6,6 +6,7 @@
 	<span style="margin-left: 35px"><spring:message code="yours.list.heading.sandwich.sublist.vegetables" /></span>
 </h5>
 <div class="col-md-3">
+	<form action="#" name="formSubmit">
 		<table class="table table-bordered">
 			<tr>
 				<spring:message code="yours.food.service.admin.vegetable.type.geo" var="vegetableGeo"></spring:message>
@@ -31,7 +32,6 @@
 				<spring:message code="yours.food.service.admin.vegetable.desc.rus" var="vegetableDescRus"></spring:message>
 				<td><input type="text" class="form-control" id="vegetableDescRus" placeholder="${vegetableDescRus }" /></td>
 			</tr>
-			
 			<tr>
 				<td>
 					<spring:message code="yours.food.service.admin.add.food.components.image" text="Image"></spring:message>
@@ -42,6 +42,7 @@
 				<td><button type="button" id="sandwich-vegetable-add-btn" class="btn btn-default"><spring:message code="yours.food.service.add.button.title"></spring:message></button></td>
 			</tr>
 		</table>
+	</form>
 </div>
 <div class="col-md-9">
 		<table class="table table-bordered table-sandwich-vegetables">

@@ -320,29 +320,11 @@ public class SandwichController {
     
     @ResponseBody
     @RequestMapping(value = "admin/process-add-sandwich-spice-form", method = RequestMethod.POST, consumes = {"application/json"})
-	public ModelAndView processAddSandwichSpiceForm(ModelAndView mav, @RequestParam String nameGeo, @RequestParam String nameEng, @RequestParam String nameRus, @RequestParam String descriptionGeo, @RequestParam  String descriptionEng, @RequestParam String descriptionRus, @RequestParam(value="image", required = false) MultipartFile image) {
-    	try {
-    		SandwichSpice sandwichSpice = new SandwichSpice();
-        	sandwichSpice.setNameEng(nameEng);
-        	sandwichSpice.setNameGeo(nameGeo);
-        	sandwichSpice.setNameRus(nameRus);
-        	sandwichSpice.setDescriptionEng(descriptionEng);
-        	sandwichSpice.setDescriptionGeo(descriptionGeo);
-        	sandwichSpice.setDescriptionRus(descriptionRus);
-        	if(!image.isEmpty()) {
-        		FoodComponentImage foodComponentImage = helper.writeFoodComponentImage(image, servletContext);
-        		databaseService.saveFoodComponentImage(foodComponentImage);
-        		sandwichSpice.setFoodComponentImage(foodComponentImage);
-        	}
-        	databaseService.addNewSandwichSpice(sandwichSpice);
-        	mav.addObject("sandwichSpice", sandwichSpice);
-        	mav.setViewName("add-sandwich-spice-response");
-        	return mav;
-    	} catch(Exception ex) {
-    		logger.info(ex.getMessage());
-    		mav.setViewName("add-sandwich-spice-response");
-        	return mav;
-    	}
+	public ModelAndView processAddSandwichSpiceForm(ModelAndView mav, @RequestBody SandwichSpice sandwichSpice, BindingResult result) {
+    	databaseService.addNewSandwichSpice(sandwichSpice);
+    	mav.addObject("sandwichSpice", sandwichSpice);
+    	mav.setViewName("add-sandwich-spice-response");
+    	return mav;
 	}
     
     @ResponseBody
