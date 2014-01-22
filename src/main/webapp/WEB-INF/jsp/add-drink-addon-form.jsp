@@ -6,6 +6,7 @@
 	<span style="margin-left: 35px">Drink Add-On</span>
 </h5>
 <div class="col-md-3">
+	<form action="#" name="formSubmit">
 		<table class="table table-bordered">
 			<tr>
 				<td>
@@ -41,9 +42,16 @@
 				<td><input type="text" class="form-control" id="addonDescRus" placeholder="${drinkAddonDescRus }" /></td>
 			</tr>
 			<tr>
+				<td>
+					<spring:message code="yours.food.service.admin.add.food.components.image" text="Image"></spring:message>
+					<input type="file" class="form-control" id="drinkAddonImage" />
+				</td>
+			</tr>
+			<tr>
 				<td><button type="submit" id="drink-add-on-add-btn" class="btn btn-default"><spring:message code="yours.food.service.add.button.title"></spring:message></button></td>
 			</tr>
 		</table>
+	</form>
 </div>
 <div class="col-md-9">
 	<table class="table table-bordered table-drink-add-ons">
@@ -126,20 +134,22 @@
 </div>
 <script>
 	$('#drink-add-on-add-btn').click(function() {
+		var data = new FormData();
+		data.append('nameGeo', toUnicode($('#addonNameGeo').val()));
+		data.append('nameEng', toUnicode($('#addonNameEng').val()));
+		data.append('nameRus', toUnicode($('#addonNameRus').val()));
+		data.append('descriptionGeo', toUnicode($('#addonDescGeo').val()));
+		data.append('descriptionEng', toUnicode($('#addonDescEng').val()));
+		data.append('descriptionRus', toUnicode($('#addonDescRus').val()));
+		data.append('drinkId', $('#drinkId').val());
+		data.append('image', document.formSubmit.drinkAddonImage.files[0]);
 		var url = 'process-add-drink-add-on-form';
 		$.ajax({
 			url: url,
 			type: "POST",
-			contentType: "application/json; charset=UTF-8",
-			data: JSON.stringify({
-				nameGeo: toUnicode($('#addonNameGeo').val()),
-				nameEng: toUnicode($('#addonNameEng').val()),
-				nameRus: toUnicode($('#addonNameRus').val()),
-				descriptionGeo: toUnicode($('#addonDescGeo').val()),
-				descriptionEng: toUnicode($('#addonDescEng').val()),
-				descriptionRus: toUnicode($('#addonDescRus').val()),
-				drinkId: $('#drinkId').val()
-			})
+			processData:false,
+			contentType: false,
+			data: data
 		}).done(function(response) {
 			$('#addonNameGeo').val('');
 			$('#addonNameEng').val('');

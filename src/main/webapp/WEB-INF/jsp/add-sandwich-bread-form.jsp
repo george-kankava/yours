@@ -142,7 +142,7 @@
 			$('#breadDescEng').val('');
 			$('#breadDescRus').val('');
 			$('.table-sandwich-breads > tbody:last').append(response);
-			alertify.success('<spring:message code="yours.food.service.admin.data.saved.message" />');			
+			alertify.success('<spring:message code="yours.food.service.admin.data.saved.message" />');	
 		});
 	});
 	<c:forEach items="${sandwichBreads }" var="sandwichBread">

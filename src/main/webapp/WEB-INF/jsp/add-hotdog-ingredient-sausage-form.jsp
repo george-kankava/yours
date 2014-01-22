@@ -6,6 +6,7 @@
 	<span style="margin-left: 35px"><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></span>
 </h5>
 <div class="col-md-3">
+	<form action="#" name="formSubmit">
 		<table class="table table-bordered">
 			<tr>
 				<spring:message code="yours.food.service.admin.add.food.components.sausage.type.geo" var="sausageTypeGeo"></spring:message>
@@ -32,9 +33,16 @@
 				<td><input type="text" class="form-control" id="sausageDescRus" placeholder="${sausageDescRus }" /></td>
 			</tr>
 			<tr>
+				<td>
+					<spring:message code="yours.food.service.admin.add.food.components.image" text="Image"></spring:message>
+					<input type="file" class="form-control" id="sausageImage" />
+				</td>
+			</tr>
+			<tr>
 				<td><button type="button" id="hotdog-sausage-add-btn" class="btn btn-default"><spring:message code="yours.food.service.add.button.title"></spring:message></button></td>
 			</tr>
 		</table>
+	</form>
 </div>
 <div class="col-md-9">
 	<table class="table table-bordered table-hotdog-sausage">
@@ -113,19 +121,21 @@
 </div>
 <script>
 	$('#hotdog-sausage-add-btn').click(function() {
+		var data = new FormData();
+		data.append('nameGeo', toUnicode($('#sausageNameGeo').val()));
+		data.append('nameEng', toUnicode($('#sausageNameEng').val()));
+		data.append('nameRus', toUnicode($('#sausageNameRus').val()));
+		data.append('descriptionGeo', toUnicode($('#sausageDescGeo').val()));
+		data.append('descriptionEng', toUnicode($('#sausageDescEng').val()));
+		data.append('descriptionRus', toUnicode($('#sausageDescRus').val()));
+		data.append('image', document.formSubmit.sausageImage.files[0]);
 		var url = 'process-add-hotdog-sausage-form';
 		$.ajax({
 			url: url,
 			type: "POST",
-			contentType: "application/json",
-			data: JSON.stringify({
-				nameGeo: toUnicode($('#sausageNameGeo').val()),
-				nameEng: toUnicode($('#sausageNameEng').val()),
-				nameRus: toUnicode($('#sausageNameRus').val()),
-				descriptionGeo: toUnicode($('#sausageDescGeo').val()),
-				descriptionEng: toUnicode($('#sausageDescEng').val()),
-				descriptionRus: toUnicode($('#sausageDescRus').val())
-			})
+			processData:false,
+			contentType: false,
+			data: data
 		}).done(function(response) {
 			$('#sausageNameGeo').val('');
 			$('#sausageNameEng').val('');

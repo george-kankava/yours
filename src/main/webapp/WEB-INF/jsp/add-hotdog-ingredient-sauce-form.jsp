@@ -6,6 +6,7 @@
 	<span style="margin-left: 35px"><spring:message code="yours.food.service.ingredients.hotdog.sauce" /></span>
 </h5>
 <div class="col-md-3">
+	<form action="#" name="formSubmit">
 		<table class="table table-bordered">
 			<tr>
 				<spring:message code="yours.food.service.admin.sauce.geo" var="sauceNameGeo"></spring:message>
@@ -32,9 +33,17 @@
 				<td><input id="sauceDescRus" type="text" class="form-control" placeholder="${sauceDescRus }" /></td>
 			</tr>
 			<tr>
+				<td>
+					<spring:message code="yours.food.service.admin.add.food.components.image" text="Image"></spring:message>
+					<input type="file" class="form-control" id="sauceImage" />
+				</td>
+			</tr>
+			
+			<tr>
 				<td><button type="button" id="hotdog-sauce-add-btn" class="btn btn-default"><spring:message code="yours.food.service.add.button.title"></spring:message></button></td>
 			</tr>
 		</table>
+	</form>
 </div>
 <div class="col-md-9">
 	<table class="table table-bordered table-hotdog-sauces">
@@ -113,19 +122,21 @@
 </div>
 <script>
 	$('#hotdog-sauce-add-btn').click(function() {
+		var data = new FormData();
+		data.append('nameGeo', toUnicode($('#sauceNameGeo').val()));
+		data.append('nameEng', toUnicode($('#sauceNameEng').val()));
+		data.append('nameRus', toUnicode($('#sauceNameRus').val()));
+		data.append('descriptionGeo', toUnicode($('#sauceDescGeo').val()));
+		data.append('descriptionEng', toUnicode($('#sauceDescEng').val()));
+		data.append('descriptionRus', toUnicode($('#sauceDescRus').val()));
+		data.append('image', document.formSubmit.sausageImage.files[0]);
 		var url = 'process-add-hotdog-sauce-form';
 		$.ajax({
 			url: url,
 			type: "POST",
-			contentType:"application/json; charset=utf-8",
-			data: JSON.stringify({
-				nameGeo: toUnicode($('#sauceNameGeo').val()),
-				nameEng: toUnicode($('#sauceNameEng').val()),
-				nameRus: toUnicode($('#sauceNameRus').val()),
-				descriptionGeo: toUnicode($('#sauceDescGeo').val()),
-				descriptionEng: toUnicode($('#sauceDescEng').val()),
-				descriptionRus: toUnicode($('#sauceDescRus').val())
-			})
+			processData:false,
+			contentType: false,
+			data: data
 		}).done(function(response) {
 			$('#sauceNameGeo').val('');
 			$('#sauceNameEng').val('');

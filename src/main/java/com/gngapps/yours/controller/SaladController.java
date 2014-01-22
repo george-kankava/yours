@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -21,13 +22,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gngapps.yours.databinding.json.request.SaladJson;
+import com.gngapps.yours.entities.FoodComponentImage;
 import com.gngapps.yours.entities.SaladIngredient;
 import com.gngapps.yours.entities.SaladIngredientAmountAndPrice;
 import com.gngapps.yours.service.DatabaseService;
+import com.gngapps.yours.service.impl.YoursHelper;
 
 @Controller
 public class SaladController {
@@ -40,6 +44,12 @@ public class SaladController {
 	
 	@Autowired
 	private MessageSource messageSource;
+	
+	@Autowired
+	private YoursHelper helper;
+	
+	@Autowired
+	private ServletContext servletContext;
 
 	private static final Logger logger = LoggerFactory.getLogger(SaladController.class);
     
@@ -83,13 +93,31 @@ public class SaladController {
     	return mav;
 	}
     
-    @RequestMapping(value = "admin/process-add-salad-ingredient-form", method = RequestMethod.POST, consumes = {"application/json"})
+    @RequestMapping(value = "admin/process-add-salad-ingredient-form", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-	public ModelAndView processAddSaladIngredientForm(ModelAndView mav, @RequestBody SaladIngredient saladIngredient, BindingResult result) {
-    	databaseService.addNewSaladIngredient(saladIngredient);
-    	mav.addObject("saladIngredient", saladIngredient);
-    	mav.setViewName("add-salad-ingredient-response");
-    	return mav;
+	public ModelAndView processAddSaladIngredientForm(ModelAndView mav, @RequestParam String nameGeo, @RequestParam String nameEng, @RequestParam String nameRus,@RequestParam String descriptionGeo, @RequestParam  String descriptionEng, @RequestParam String descriptionRus, @RequestParam(value="image", required = false) MultipartFile image) {
+    	try {
+	    	SaladIngredient saladIngredient = new SaladIngredient();
+	    	saladIngredient.setNameEng(nameEng);
+	    	saladIngredient.setNameGeo(nameGeo);
+	    	saladIngredient.setNameRus(nameRus);
+	    	saladIngredient.setDescriptionEng(descriptionEng);
+	    	saladIngredient.setDescriptionGeo(descriptionGeo);
+	    	saladIngredient.setDescriptionRus(descriptionRus);
+	    	if(!image.isEmpty()) {
+	    		FoodComponentImage foodComponentImage = helper.writeFoodComponentImage(image, servletContext);
+	    		databaseService.saveFoodComponentImage(foodComponentImage);
+	    		saladIngredient.setFoodComponentImage(foodComponentImage);
+	    	}
+	    	databaseService.addNewSaladIngredient(saladIngredient);
+	    	mav.addObject("saladIngredient", saladIngredient);
+	    	mav.setViewName("add-salad-ingredient-response");
+	    	return mav;
+    	} catch(Exception ex) {
+    		logger.info(ex.getMessage());
+    		mav.setViewName("add-salad-ingredient-response");
+        	return mav;
+    	}
 	}
     
     @RequestMapping("admin/remove-salad-ingredient")

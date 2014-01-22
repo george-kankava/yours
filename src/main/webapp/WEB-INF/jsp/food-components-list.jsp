@@ -235,7 +235,9 @@
 						<thead>
 							<tr>
 								<th></th>
-								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.vegetables" text="Vegetables" /></th>
+								<th colspan="1"><spring:message code="yours.list.heading.sandwich.sublist.vegetables" text="Vegetables" /></th>
+								<th></th>
+								<th></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichVegetables }" var="sandwichVegetable">
@@ -320,7 +322,9 @@
 						<thead>
 							<tr>
 								<th></th>
-								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sauce" text="Sauce" /></th>
+								<th colspan="1"><spring:message code="yours.list.heading.sandwich.sublist.sauce" text="Sauce" /></th>
+								<th></th>
+								<th></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichSauces }" var="sandwichSauce">
@@ -404,7 +408,9 @@
 						<thead>
 							<tr>
 								<th></th>
-								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.spice" text="Spice" /></th>
+								<th colspan="1"><spring:message code="yours.list.heading.sandwich.sublist.spice" text="Spice" /></th>
+								<th></th>
+								<th></th>
 							</tr>
 						</thead>
 						<c:forEach items="${sandwichSpices }" var="sandwichSpice">

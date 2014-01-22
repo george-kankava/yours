@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -21,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gngapps.yours.databinding.json.request.HotdogJson;
+import com.gngapps.yours.entities.FoodComponentImage;
 import com.gngapps.yours.entities.HotDogBread;
 import com.gngapps.yours.entities.HotDogSauce;
 import com.gngapps.yours.entities.HotDogSausage;
@@ -32,6 +35,7 @@ import com.gngapps.yours.entities.HotDogSausageAmountAndPrice;
 import com.gngapps.yours.entities.HotdogBreadSizeAndPrice;
 import com.gngapps.yours.entities.HotdogSauceAmountAndPrice;
 import com.gngapps.yours.service.DatabaseService;
+import com.gngapps.yours.service.impl.YoursHelper;
 
 @Controller
 public class HotdogController {
@@ -43,6 +47,12 @@ public class HotdogController {
 	
 	@Autowired
 	private MessageSource messageSource;
+	
+	@Autowired
+	private YoursHelper helper;
+	
+	@Autowired
+	private ServletContext servletContext;
 
 	private static final Logger logger = LoggerFactory.getLogger(HotdogController.class);
 	
@@ -86,13 +96,31 @@ public class HotdogController {
     	return mav;
 	}
     
-    @RequestMapping(value = "admin/process-add-hotdog-bread-form", method = RequestMethod.POST, consumes = {"application/json"})
+    @RequestMapping(value = "admin/process-add-hotdog-bread-form", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-	public ModelAndView processAddHotdogBreadForm(ModelAndView mav, @RequestBody HotDogBread hotdogBread, BindingResult result) {
-    	databaseService.addNewHotdogBread(hotdogBread);
-    	mav.addObject("hotdogBread", hotdogBread);
-    	mav.setViewName("add-hotdog-bread-response");
-    	return mav;
+	public ModelAndView processAddHotdogBreadForm(ModelAndView mav, @RequestParam String nameGeo, @RequestParam String nameEng, @RequestParam String nameRus, @RequestParam String descriptionGeo, @RequestParam  String descriptionEng, @RequestParam String descriptionRus, @RequestParam(value="image", required = false) MultipartFile image) {
+    	try {
+	    	HotDogBread hotdogBread = new HotDogBread();
+	    	hotdogBread.setNameEng(nameEng);
+	    	hotdogBread.setNameGeo(nameGeo);
+	    	hotdogBread.setNameRus(nameRus);
+	    	hotdogBread.setDescriptionEng(descriptionEng);
+	    	hotdogBread.setDescriptionGeo(descriptionGeo);
+	    	hotdogBread.setDescriptionRus(descriptionRus);
+	    	if(!image.isEmpty()) {
+	    		FoodComponentImage foodComponentImage = helper.writeFoodComponentImage(image, servletContext);
+	    		databaseService.saveFoodComponentImage(foodComponentImage);
+	    		hotdogBread.setFoodComponentImage(foodComponentImage);
+	    	}
+	    	databaseService.addNewHotdogBread(hotdogBread);
+	    	mav.addObject("hotdogBread", hotdogBread);
+	    	mav.setViewName("add-hotdog-bread-response");
+	    	return mav;
+    	} catch(Exception ex) {
+    		logger.info(ex.getMessage());
+    		mav.setViewName("add-hotdog-bread-response");
+        	return mav;
+    	}
 	}
     
     @ResponseBody
@@ -122,13 +150,31 @@ public class HotdogController {
        	return mav;
    	}
     
-    @RequestMapping(value = "admin/process-add-hotdog-sausage-form", method = RequestMethod.POST, consumes = {"application/json"})
+    @RequestMapping(value = "admin/process-add-hotdog-sausage-form", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-	public ModelAndView processAddHotdogSausageForm(ModelAndView mav, @RequestBody HotDogSausage hotdogSausage, BindingResult result) {
-    	databaseService.addNewHotdogSausage(hotdogSausage);
-    	mav.addObject("hotdogSausage", hotdogSausage);
-    	mav.setViewName("add-hotdog-sausage-response");
-    	return mav;
+	public ModelAndView processAddHotdogSausageForm(ModelAndView mav, @RequestParam String nameGeo, @RequestParam String nameEng, @RequestParam String nameRus, @RequestParam String descriptionGeo, @RequestParam  String descriptionEng, @RequestParam String descriptionRus, @RequestParam(value="image", required = false) MultipartFile image) {
+    	try {
+	    	HotDogSausage hotdogSausage = new HotDogSausage();
+	    	hotdogSausage.setNameEng(nameEng);
+	    	hotdogSausage.setNameGeo(nameGeo);
+	    	hotdogSausage.setNameRus(nameRus);
+	    	hotdogSausage.setDescriptionEng(descriptionEng);
+	    	hotdogSausage.setDescriptionGeo(descriptionGeo);
+	    	hotdogSausage.setDescriptionRus(descriptionRus);
+	    	if(!image.isEmpty()) {
+	    		FoodComponentImage foodComponentImage = helper.writeFoodComponentImage(image, servletContext);
+	    		databaseService.saveFoodComponentImage(foodComponentImage);
+	    		hotdogSausage.setFoodComponentImage(foodComponentImage);
+	    	}
+	    	databaseService.addNewHotdogSausage(hotdogSausage);
+	    	mav.addObject("hotdogSausage", hotdogSausage);
+	    	mav.setViewName("add-hotdog-sausage-response");
+	    	return mav;
+    	} catch(Exception ex) {
+    		logger.info(ex.getMessage());
+    		mav.setViewName("add-hotdog-sausage-response");
+	    	return mav;
+    	}
 	}
     
     @ResponseBody
@@ -158,13 +204,31 @@ public class HotdogController {
        	return mav;
    	}
     
-    @RequestMapping(value = "admin/process-add-hotdog-sauce-form", method = RequestMethod.POST, consumes = {"application/json"})
+    @RequestMapping(value = "admin/process-add-hotdog-sauce-form", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-	public ModelAndView processAddHotdogSauceForm(ModelAndView mav, @RequestBody HotDogSauce hotdogSauce, BindingResult result) {
-    	databaseService.addNewHotdogSauce(hotdogSauce);
-    	mav.addObject("hotdogSauce", hotdogSauce);
-    	mav.setViewName("add-hotdog-sauce-response");
-    	return mav;
+	public ModelAndView processAddHotdogSauceForm(ModelAndView mav, @RequestParam String nameGeo, @RequestParam String nameEng, @RequestParam String nameRus, @RequestParam String descriptionGeo, @RequestParam  String descriptionEng, @RequestParam String descriptionRus, @RequestParam(value="image", required = false) MultipartFile image) {
+    	try {
+	    	HotDogSauce hotdogSauce = new HotDogSauce();
+	    	hotdogSauce.setNameEng(nameEng);
+	    	hotdogSauce.setNameGeo(nameGeo);
+	    	hotdogSauce.setNameRus(nameRus);
+	    	hotdogSauce.setDescriptionEng(descriptionEng);
+	    	hotdogSauce.setDescriptionGeo(descriptionGeo);
+	    	hotdogSauce.setDescriptionRus(descriptionRus);
+	    	if(!image.isEmpty()) {
+	    		FoodComponentImage foodComponentImage = helper.writeFoodComponentImage(image, servletContext);
+	    		databaseService.saveFoodComponentImage(foodComponentImage);
+	    		hotdogSauce.setFoodComponentImage(foodComponentImage);
+	    	}
+	    	databaseService.addNewHotdogSauce(hotdogSauce);
+	    	mav.addObject("hotdogSauce", hotdogSauce);
+	    	mav.setViewName("add-hotdog-sauce-response");
+	    	return mav;
+    	} catch(Exception ex) {
+    		logger.info(ex.getMessage());
+    		mav.setViewName("add-hotdog-sauce-response");
+	    	return mav;
+    	}
 	}
     
     @ResponseBody

@@ -28,6 +28,8 @@ public class DrinkAddOn {
 	private List<DrinkAddOnAmountAndPrice> drinkAddOnAmountAndPrices;
 	@ManyToOne
 	private Drink drink;
+	@ManyToOne
+	private FoodComponentImage foodComponentImage;
 	
 	public Integer getId() {
 		return id;
@@ -84,11 +86,20 @@ public class DrinkAddOn {
 	public void setDrink(Drink drink) {
 		this.drink = drink;
 	}
+	public FoodComponentImage getFoodComponentImage() {
+		return foodComponentImage;
+	}
+	public void setFoodComponentImage(FoodComponentImage foodComponentImage) {
+		this.foodComponentImage = foodComponentImage;
+	}
 	@Override
 	public String toString() {
-		return "DrinkAddOn [id=" + id + ", nameGeo=" + nameGeo + ", nameEng=" + nameEng + ", nameRus=" + nameRus + ", descriptionGeo="
-				+ descriptionGeo + ", descriptionEng=" + descriptionEng + ", descriptionRus=" + descriptionRus
-				+ ", drinkAddOnAmountAndPrices=" + drinkAddOnAmountAndPrices + ", drink=" + drink + "]";
+		return "DrinkAddOn [id=" + id + ", nameGeo=" + nameGeo + ", nameEng="
+				+ nameEng + ", nameRus=" + nameRus + ", descriptionGeo="
+				+ descriptionGeo + ", descriptionEng=" + descriptionEng
+				+ ", descriptionRus=" + descriptionRus
+				+ ", drinkAddOnAmountAndPrices=" + drinkAddOnAmountAndPrices
+				+ ", drink=" + drink + ", foodComponentImage="
+				+ foodComponentImage + "]";
 	}
-	
 }

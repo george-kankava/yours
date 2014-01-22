@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -25,6 +26,8 @@ public class HotDogSausage {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "hot_dog_sausage_id")
 	private List<HotDogSausageAmountAndPrice> hotDogSausageAmountAndPrice;
+	@ManyToOne
+	private FoodComponentImage foodComponentImage;
 	
 	public Integer getId() {
 		return id;
@@ -75,10 +78,21 @@ public class HotDogSausage {
 			List<HotDogSausageAmountAndPrice> hotDogSausageAmountAndPrice) {
 		this.hotDogSausageAmountAndPrice = hotDogSausageAmountAndPrice;
 	}
+	public FoodComponentImage getFoodComponentImage() {
+		return foodComponentImage;
+	}
+	public void setFoodComponentImage(FoodComponentImage foodComponentImage) {
+		this.foodComponentImage = foodComponentImage;
+	}
 	@Override
 	public String toString() {
-		return "HotDogSausage [id=" + id + ", nameGeo=" + nameGeo + ", nameEng=" + nameEng + ", nameRus=" + nameRus + ", descriptionGeo=" + descriptionGeo + ", descriptionEng="
-				+ descriptionEng + ", descriptionRus=" + descriptionRus + ", hotDogSausageAmountAndPrice=" + hotDogSausageAmountAndPrice + "]";
+		return "HotDogSausage [id=" + id + ", nameGeo=" + nameGeo
+				+ ", nameEng=" + nameEng + ", nameRus=" + nameRus
+				+ ", descriptionGeo=" + descriptionGeo + ", descriptionEng="
+				+ descriptionEng + ", descriptionRus=" + descriptionRus
+				+ ", hotDogSausageAmountAndPrice="
+				+ hotDogSausageAmountAndPrice + ", foodComponentImage="
+				+ foodComponentImage + "]";
 	}
 	
 }

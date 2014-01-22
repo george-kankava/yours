@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -25,6 +26,8 @@ public class SaladIngredient {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "salad_ingredient_id")
 	private List<SaladIngredientAmountAndPrice> saladIngredientAmountAndPrices;
+	@ManyToOne
+	private FoodComponentImage foodComponentImage;
 	public Integer getId() {
 		return id;
 	}
@@ -75,7 +78,12 @@ public class SaladIngredient {
 	public void setSaladIngredientAmountAndPrice(List<SaladIngredientAmountAndPrice> saladIngredientAmountAndPrices) {
 		this.saladIngredientAmountAndPrices = saladIngredientAmountAndPrices;
 	}
-	
+	public FoodComponentImage getFoodComponentImage() {
+		return foodComponentImage;
+	}
+	public void setFoodComponentImage(FoodComponentImage foodComponentImage) {
+		this.foodComponentImage = foodComponentImage;
+	}
 	@Override
 	public String toString() {
 		return "SaladIngredient [id=" + id + ", nameGeo=" + nameGeo
@@ -83,6 +91,7 @@ public class SaladIngredient {
 				+ ", descriptionGeo=" + descriptionGeo + ", descriptionEng="
 				+ descriptionEng + ", descriptionRus=" + descriptionRus
 				+ ", saladIngredientAmountAndPrices="
-				+ saladIngredientAmountAndPrices + "]";
+				+ saladIngredientAmountAndPrices + ", foodComponentImage="
+				+ foodComponentImage + "]";
 	}
 }

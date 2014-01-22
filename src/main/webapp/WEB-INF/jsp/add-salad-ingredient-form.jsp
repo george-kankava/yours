@@ -6,6 +6,7 @@
 	<span style="margin-left: 35px"><spring:message code="yours.list.heading.sandwich.sublist.vegetables" text="Bread" /></span>
 </h5>
 <div class="col-md-3">
+	<form action="#" name="formSubmit">
 		<table class="table table-bordered">
 			<tr>
 				<spring:message code="yours.food.service.admin.add.food.components.salad.ingredient.type.geo" var="ingredientTypeGeo"></spring:message>
@@ -32,9 +33,16 @@
 				<td><input type="text" class="form-control" id="ingredientDescRus" placeholder="${ingredientDescRus }" /></td>
 			</tr>
 			<tr>
+				<td>
+					<spring:message code="yours.food.service.admin.add.food.components.image" text="Image"></spring:message>
+					<input type="file" class="form-control" id="ingredientImage" />
+				</td>
+			</tr>
+			<tr>
 				<td><button type="button" id="salad-ingredient-add-btn" class="btn btn-default"><spring:message code="yours.food.service.add.button.title"></spring:message></button></td>
 			</tr>
 		</table>
+	</form>
 </div>
 <div class="col-md-9">
 	<table class="table table-bordered table-salad-ingredients">
@@ -113,19 +121,21 @@
 </div>
 <script>
 	$('#salad-ingredient-add-btn').click(function() {
+		var data = new FormData();
+		data.append('nameGeo', toUnicode($('#ingredientTypeGeo').val()));
+		data.append('nameEng', toUnicode($('#ingredientTypeEng').val()));
+		data.append('nameRus', toUnicode($('#ingredientTypeRus').val()));
+		data.append('descriptionGeo', toUnicode($('#breadDescGeo').val()));
+		data.append('descriptionEng', toUnicode($('#breadDescEng').val()));
+		data.append('descriptionRus', toUnicode($('#breadDescRus').val()));
+		data.append('image', document.formSubmit.ingredientImage.files[0]);
 		var url = 'process-add-salad-ingredient-form';
 		$.ajax({
 			url: url,
 			type: "POST",
-			contentType: "application/json",
-			data: JSON.stringify({
-				nameGeo: toUnicode($('#ingredientGeo').val()),
-				nameEng: toUnicode($('#ingredientEng').val()),
-				nameRus: toUnicode($('#ingredientRus').val()),
-				descriptionGeo: toUnicode($('#ingredientDescGeo').val()),
-				descriptionEng: toUnicode($('#ingredientDescEng').val()),
-				descriptionRus: toUnicode($('#ingredientDescRus').val())
-			})
+			processData:false,
+			contentType: false,
+			data: data
 		}).done(function(response) {
 			$('#ingredientGeo').val('');
 			$('#ingredientEng').val('');

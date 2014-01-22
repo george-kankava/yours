@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -21,16 +22,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gngapps.yours.databinding.json.request.DrinkAddonRequestJson;
 import com.gngapps.yours.databinding.json.request.DrinksJson;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
 import com.gngapps.yours.entities.DrinkSizeAndPrice;
+import com.gngapps.yours.entities.FoodComponentImage;
 import com.gngapps.yours.service.DatabaseService;
+import com.gngapps.yours.service.impl.YoursHelper;
 
 @Controller
 public class DrinksController {
@@ -43,6 +46,12 @@ public class DrinksController {
 	
 	@Autowired
 	private MessageSource messageSource;
+	
+	@Autowired
+	private YoursHelper helper;
+	
+	@Autowired
+	private ServletContext servletContext;
 
 	private static final Logger logger = LoggerFactory.getLogger(DrinksController.class);
 	
@@ -86,13 +95,31 @@ public class DrinksController {
     	return mav;
 	}
     
-    @RequestMapping(value = "admin/process-add-drink-form", method = RequestMethod.POST, consumes = {"application/json"})
+    @RequestMapping(value = "admin/process-add-drink-form", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-	public ModelAndView processAddDrinkForm(ModelAndView mav, @RequestBody Drink drink, BindingResult result) {
-    	databaseService.addNewDrink(drink);
-    	mav.addObject("drink", drink);
-    	mav.setViewName("add-drink-response");
-    	return mav;
+	public ModelAndView processAddDrinkForm(ModelAndView mav, @RequestParam String nameGeo, @RequestParam String nameEng, @RequestParam String nameRus, @RequestParam String descriptionGeo, @RequestParam  String descriptionEng, @RequestParam String descriptionRus, @RequestParam(value="image", required = false) MultipartFile image) {
+    	try {
+	    	Drink drink = new Drink();
+	    	drink.setNameEng(nameEng);
+	    	drink.setNameGeo(nameGeo);
+	    	drink.setNameRus(nameRus);
+	    	drink.setDescriptionEng(descriptionEng);
+	    	drink.setDescriptionGeo(descriptionGeo);
+	    	drink.setDescriptionRus(descriptionRus);
+	    	if(!image.isEmpty()) {
+	    		FoodComponentImage foodComponentImage = helper.writeFoodComponentImage(image, servletContext);
+	    		databaseService.saveFoodComponentImage(foodComponentImage);
+	    		drink.setFoodComponentImage(foodComponentImage);
+	    	}
+	    	databaseService.addNewDrink(drink);
+	    	mav.addObject("drink", drink);
+	    	mav.setViewName("add-drink-response");
+	    	return mav;
+    	} catch(Exception ex) {
+    		logger.info(ex.getMessage());
+    		mav.setViewName("add-drink-response");
+	    	return mav;
+    	}
 	}
     
     @ResponseBody
@@ -125,14 +152,24 @@ public class DrinksController {
     	return mav;
 	}
     
-    @RequestMapping(value = "admin/process-add-drink-add-on-form", method = RequestMethod.POST, consumes = {"application/json"})
+    @RequestMapping(value = "admin/process-add-drink-add-on-form", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-	public ModelAndView processAddDrinkAddOnForm(ModelAndView mav, @RequestBody DrinkAddonRequestJson drinkAddonJson, BindingResult result) {
-    	DrinkAddOn drinkAddOn = databaseService.addNewDrinkAddOn(drinkAddonJson.getNameGeo(), drinkAddonJson.getNameRus(), drinkAddonJson.getNameEng(), 
-    			drinkAddonJson.getDescriptionEng(), drinkAddonJson.getDescriptionEng(), drinkAddonJson.getDescriptionRus(), drinkAddonJson.getDrinkId());
-    	mav.addObject("drinkAddOn", drinkAddOn);
-    	mav.setViewName("add-drink-add-on-response");
-    	return mav;
+	public ModelAndView processAddDrinkAddOnForm(ModelAndView mav, @RequestParam String nameGeo, @RequestParam String nameEng, @RequestParam String nameRus, @RequestParam String descriptionGeo, @RequestParam  String descriptionEng, @RequestParam String descriptionRus, @RequestParam Integer drinkId, @RequestParam(value="image", required = false) MultipartFile image) {
+    	try {
+    		DrinkAddOn drinkAddon = databaseService.addNewDrinkAddOn(nameGeo, nameRus, nameEng, descriptionEng, descriptionEng, descriptionRus, drinkId);
+    		if(!image.isEmpty()) {
+    			FoodComponentImage foodComponentImage = helper.writeFoodComponentImage(image, servletContext);
+    			databaseService.saveFoodComponentImage(foodComponentImage);
+    			drinkAddon.setFoodComponentImage(foodComponentImage);
+    		}
+    		mav.addObject("drinkAddOn", drinkAddon);
+    		mav.setViewName("add-drink-add-on-response");
+    		return mav;
+    	} catch(Exception ex) {
+    		logger.info(ex.getMessage());
+    		mav.setViewName("add-drink-add-on-response");
+        	return mav;
+    	}
 	}
     
     @ResponseBody

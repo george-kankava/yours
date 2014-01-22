@@ -6,6 +6,7 @@
 	<span style="margin-left: 35px"><spring:message code="yours.list.heading.drinks" text="Drinks" /></span>
 </h5>
 <div class="col-md-3">
+	<form action="#" name="formSubmit">
 		<table class="table table-bordered">
 			<tr>
 				<spring:message code="yours.food.service.admin.add.food.components.drink.type.geo" var="drinkTypeGeo"></spring:message>
@@ -32,9 +33,17 @@
 				<td><input type="text" class="form-control" id="drinkDescRus" placeholder="${drinkDescRus }" /></td>
 			</tr>
 			<tr>
+				<td>
+					<spring:message code="yours.food.service.admin.add.food.components.image" text="Image"></spring:message>
+					<input type="file" class="form-control" id="drinkImage" />
+				</td>
+			</tr>
+			
+			<tr>
 				<td><button type="button" id="drink-add-btn" class="btn btn-default"><spring:message code="yours.food.service.add.button.title"></spring:message></button></td>
 			</tr>
 		</table>
+	</form>
 </div>
 <div class="col-md-9">
 	<table class="table table-bordered table-drinks">
@@ -111,19 +120,21 @@
 </div>
 <script>
 	$('#drink-add-btn').click(function() {
+		var data = new FormData();
+		data.append('nameGeo', toUnicode($('#drinkNameGeo').val()));
+		data.append('nameEng', toUnicode($('#drinkNameEng').val()));
+		data.append('nameRus', toUnicode($('#drinkNameRus').val()));
+		data.append('descriptionGeo', toUnicode($('#drinkDescGeo').val()));
+		data.append('descriptionEng', toUnicode($('#drinkDescEng').val()));
+		data.append('descriptionRus', toUnicode($('#drinkDescRus').val()));
+		data.append('image', document.formSubmit.drinkImage.files[0]);
 		var url = 'process-add-drink-form';
 		$.ajax({
 			url: url,
 			type: "POST",
-			contentType: "application/json;charset=utf-8",
-			data: JSON.stringify({
-				nameGeo: toUnicode($('#drinkNameGeo').val()),
-				nameEng: toUnicode($('#drinkNameEng').val()),
-				nameRus: toUnicode($('#drinkNameRus').val()),
-				descriptionGeo: toUnicode($('#drinkDescGeo').val()),
-				descriptionEng: toUnicode($('#drinkDescEng').val()),
-				descriptionRus: toUnicode($('#drinkDescRus').val())
-			})
+			processData:false,
+			contentType: false,
+			data: data
 		}).done(function(response) {
 			$('#drinkNameGeo').val('');
 			$('#drinkNameEng').val('');
