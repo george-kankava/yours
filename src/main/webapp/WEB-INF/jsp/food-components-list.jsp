@@ -39,12 +39,10 @@
 		var drinkPrice = 0;
 		var hotdogPrice = 0;
   	</script>
-
     <div class="container">
 		<jsp:include page="include/header.jsp">
 			<jsp:param name="pageName" value="food-components-list"/>
 		</jsp:include>
-      
       <div class="logo-image-narrow"></div>
 
 		<ul class="nav nav-tabs" id="foodComponentsTab">
@@ -500,6 +498,7 @@
 							<tr>
 								<th></th>
 								<th><spring:message code="yours.food.service.salad.ingredients" text="Salad Ingredients" /></th>
+								<th></th>
 								<th><spring:message code="yours.food.ingredient.price" text="Price" />: <span class="badge" id="saladPrice">0.00</span></th>
 							</tr>
 						</thead>
@@ -538,6 +537,23 @@
 										</c:when>
 									</c:choose>
 								</td>
+								<td>
+									<c:choose>
+										<c:when test="${saladIngredient.foodComponentImage ne null }">
+											<button id="saladIngredientImage${saladIngredient.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${saladIngredient.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>	
+										</c:when>
+										<c:otherwise>
+											<button id="saladIngredientImage${saladIngredient.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>
+										</c:otherwise>
+									</c:choose>
+						    		<script>
+						    			$('#saladIngredientImage${saladIngredient.id }').popover();
+						    		</script>
+								</td>
 								<td class="td-50-percent">
 									<select disabled class="form-control" id="saladIngredientAmountAndPrice${saladIngredient.id }">
 										<c:forEach items="${saladIngredient.saladIngredientAmountAndPrices }" var="amountAndPrice">
@@ -573,7 +589,9 @@
 							<tr>
 								<th></th>
 								<th><spring:message code="yours.list.heading.drinks" text="Drinks" /></th>
+								<th></th>
 								<th><spring:message code="yours.food.ingredient.price" text="Price" />: <span class="badge" id="drinkPrice">0.00</span></th>
+								
 							</tr>
 						</thead>
 						<c:forEach items="${drinks }" var="drink">
@@ -610,6 +628,23 @@
 											<label>${drink.nameRus }</label>
 										</c:when>
 									</c:choose>
+								</td>
+								<td>
+									<c:choose>
+										<c:when test="${drink.foodComponentImage ne null }">
+											<button id="drinkImage${drink.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${drink.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>	
+										</c:when>
+										<c:otherwise>
+											<button id="drinkImage${drink.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>
+										</c:otherwise>
+									</c:choose>
+						    		<script>
+						    			$('#drinkImage${drink.id }').popover();
+						    		</script>
 								</td>
 								<td class="td-50-percent">
 									<select disabled class="form-control" id="drinkSizeAndPrices${drink.id }">
@@ -648,6 +683,7 @@
 							<tr>
 								<th></th>
 								<th><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
+								<th></th>
 								<th><spring:message code="yours.food.ingredient.price" text="Price" />: <span class="badge" id="hotdogPrice">0.00</span></th>
 							</tr>
 						</thead>
@@ -686,6 +722,23 @@
 										</c:when>
 									</c:choose>
 								</td>
+								<td>
+									<c:choose>
+										<c:when test="${hotdogBread.foodComponentImage ne null }">
+											<button id="hotdogBreadImage${hotdogBread.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${hotdogBread.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>	
+										</c:when>
+										<c:otherwise>
+											<button id="hotdogBreadImage${hotdogBread.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>
+										</c:otherwise>
+									</c:choose>
+						    		<script>
+						    			$('#hotdogBreadImage${hotdogBread.id }').popover();
+						    		</script>
+								</td>
 								<td class="td-50-percent">
 									<select disabled class="form-control" id="hotdogBreadSizeAndPrices${hotdogBread.id }">
 										<c:forEach items="${hotdogBread.hotdogBreadSizeAndPrices }" var="sizeAndPrice">
@@ -715,7 +768,9 @@
 						<thead>
 							<tr>
 								<th></th>
-								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
+								<th colspan="1"><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
+								<th></th>
+								<th></th>
 							</tr>
 						</thead>
 						<c:forEach items="${hotdogSausages}" var="hotdogSausage">
@@ -755,6 +810,23 @@
 										</c:choose>
 									</div>
 								</td>
+								<td>
+									<c:choose>
+										<c:when test="${hotdogSausage.foodComponentImage ne null }">
+											<button id="hotdogSausageImage${hotdogSausage.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${hotdogSausage.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>	
+										</c:when>
+										<c:otherwise>
+											<button id="hotdogSausageImage${hotdogSausage.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>
+										</c:otherwise>
+									</c:choose>
+						    		<script>
+						    			$('#hotdogSausageImage${hotdogSausage.id }').popover();
+						    		</script>
+								</td>
 								<td class="td-50-percent">
 									<select disabled class="form-control" id="hotDogSausageAmountAndPrice${hotdogSausage.id }">
 										<c:forEach items="${hotdogSausage.hotDogSausageAmountAndPrice }" var="amountAndPrice">
@@ -784,7 +856,9 @@
 						<thead>
 							<tr>
 								<th></th>
-								<th colspan="2"><spring:message code="yours.list.heading.sandwich.sublist.sauce" text="Sauce" /></th>
+								<th colspan="1"><spring:message code="yours.list.heading.sandwich.sublist.sauce" text="Sauce" /></th>
+								<th></th>
+								<th></th>
 							</tr>
 						</thead>
 						<c:forEach items="${hotdogSauces}" var="hotdogSauce">
@@ -821,6 +895,23 @@
 											<label>${hotdogSauce.nameRus }</label>
 										</c:when>
 									</c:choose>
+								</td>
+								<td>
+									<c:choose>
+										<c:when test="${hotdogSauce.foodComponentImage ne null }">
+											<button id="hotdogSauceImage${hotdogSauce.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${hotdogSauce.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>	
+										</c:when>
+										<c:otherwise>
+											<button id="hotdogSauceImage${hotdogSauce.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+												<span class="glyphicon glyphicon-film"></span>
+								    		</button>
+										</c:otherwise>
+									</c:choose>
+						    		<script>
+						    			$('#hotdogSauceImage${hotdogSauce.id }').popover();
+						    		</script>
 								</td>
 								<td class="td-50-percent">
 									<select disabled class="form-control" id="hotdogSauceAmountAndPrice${hotdogSauce.id }">

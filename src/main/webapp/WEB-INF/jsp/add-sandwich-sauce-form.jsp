@@ -3,10 +3,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <h5>
-	<span style="margin-left: 35px">Sauce</span>
+	<span style="margin-left: 35px"><spring:message code="yours.food.ingredient.sauce"></spring:message></span>
 </h5>
 <div class="col-md-3">
-	<form action="#" name="formSubmit"></form>
+	<form action="#" name="formSubmit">
 		<table class="table table-bordered">
 			<tr>
 				<spring:message code="yours.food.service.admin.sauce.geo" var="sauceGeo"></spring:message>
@@ -42,6 +42,7 @@
 				<td><button type="button" id="sandwich-sauce-add-btn" class="btn btn-default"><spring:message code="yours.food.service.add.button.title"></spring:message></button></td>
 			</tr>
 		</table>
+	</form>
 </div>
 <div class="col-md-9">
 		<table class="table table-bordered table-sandwich-sauces">

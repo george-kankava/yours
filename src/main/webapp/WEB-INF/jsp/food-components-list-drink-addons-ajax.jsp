@@ -4,7 +4,9 @@
 <thead>
 	<tr>
 		<th></th>
-		<th colspan="2"><spring:message code="yours.food.service.food.components.list.drink.addon.title" text="Drink Addon"/></th>
+		<th colspan="1"><spring:message code="yours.food.service.food.components.list.drink.addon.title" text="Drink Addon"/></th>
+		<th></th>
+		<th></th>
 	</tr>
 </thead>
 <c:forEach items="${drinkAddOns }" var="drinkAddOn">
@@ -43,6 +45,23 @@
 					</c:when>
 				</c:choose>
 			</div>
+		</td>
+		<td>
+			<c:choose>
+				<c:when test="${drinkAddOn.foodComponentImage ne null }">
+					<button id="drinkAddOnImage${drinkAddOn.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${drinkAddOn.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+						<span class="glyphicon glyphicon-film"></span>
+		    		</button>	
+				</c:when>
+				<c:otherwise>
+					<button id="drinkAddOnImage${drinkAddOn.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+						<span class="glyphicon glyphicon-film"></span>
+		    		</button>
+				</c:otherwise>
+			</c:choose>
+    		<script>
+    			$('#drinkAddOnImage${drinkAddOn.id }').popover();
+    		</script>
 		</td>
 		<td class="td-50-percent">
 			<select disabled class="form-control" id="drinkAddOnAmountAndPrice${drinkAddOn.id }">

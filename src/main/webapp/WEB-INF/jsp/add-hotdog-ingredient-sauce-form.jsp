@@ -129,7 +129,7 @@
 		data.append('descriptionGeo', toUnicode($('#sauceDescGeo').val()));
 		data.append('descriptionEng', toUnicode($('#sauceDescEng').val()));
 		data.append('descriptionRus', toUnicode($('#sauceDescRus').val()));
-		data.append('image', document.formSubmit.sausageImage.files[0]);
+		data.append('image', document.formSubmit.sauceImage.files[0]);
 		var url = 'process-add-hotdog-sauce-form';
 		$.ajax({
 			url: url,

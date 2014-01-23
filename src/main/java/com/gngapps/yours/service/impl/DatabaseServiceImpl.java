@@ -704,17 +704,10 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 	@Override
 	@Transactional
-	public DrinkAddOn addNewDrinkAddOn(String nameGeo, String nameRus, String nameEng, String descriptionGeo, String descriptionEng, String descriptionRus, Integer drinkId) {
+	public DrinkAddOn addNewDrinkAddOn(Integer drinkId, DrinkAddOn drinkAddOn) {
 		Drink drink = dataGetterDao.findDrinkById(drinkId);
-		DrinkAddOn addOn = new DrinkAddOn();
-		addOn.setNameEng(nameEng);
-		addOn.setNameGeo(nameGeo);
-		addOn.setNameRus(nameRus);
-		addOn.setDescriptionEng(descriptionEng);
-		addOn.setDescriptionGeo(descriptionGeo);
-		addOn.setDescriptionRus(descriptionRus);
-		addOn.setDrink(drink);
-		return dataSaverDao.saveDrinkAddOn(addOn);
+		drinkAddOn.setDrink(drink);
+		return dataSaverDao.saveDrinkAddOn(drinkAddOn);
 	}
 
 	@Override

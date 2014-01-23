@@ -3,9 +3,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <h5>
-	<span style="margin-left: 35px">Spice</span>
+	<span style="margin-left: 35px"><spring:message code="yours.food.ingredient.spice"></spring:message></span>
 </h5>
 <div class="col-md-3">
+	<form action="#" name="formSubmit">
 		<table class="table table-bordered">
 			<tr>
 				<spring:message code="yours.food.service.admin.spice.type.geo" var="spiceTypeGeo"></spring:message>
@@ -32,9 +33,16 @@
 				<td><input type="text" class="form-control" id="spiceDescRus" placeholder="${spiceDescRus }" /></td>
 			</tr>
 			<tr>
+				<td>
+					<spring:message code="yours.food.service.admin.add.food.components.image" text="Image"></spring:message>
+					<input type="file" class="form-control" id="sauceImage" />
+				</td>
+			</tr>
+			<tr>
 				<td><button id="sandwich-spice-add-btn" type="button" class="btn btn-default"><spring:message code="yours.food.service.add.button.title"></spring:message></button></td>
 			</tr>
 		</table>
+	</form>
 </div>
 <div class="col-md-9">
 		<table class="table table-bordered table-sandwich-spices">

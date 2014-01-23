@@ -281,7 +281,7 @@ public class SandwichController {
 	    		sandwichSauce.setFoodComponentImage(foodComponentImage);
 	    	}
 	    	databaseService.addNewSandwichSauce(sandwichSauce);
-	    	mav.addObject("sandwichBread", sandwichSauce);
+	    	mav.addObject("sandwichSauce", sandwichSauce);
 	    	mav.setViewName("add-sandwich-sauce-response");
 	    	return mav;
     	} catch(Exception ex) {
@@ -319,7 +319,7 @@ public class SandwichController {
 	}
     
     @ResponseBody
-    @RequestMapping(value = "admin/process-add-sandwich-spice-form", method = RequestMethod.POST, consumes = {"application/json"})
+    @RequestMapping(value = "admin/process-add-sandwich-spice-form", method = RequestMethod.POST)
 	public ModelAndView processAddSandwichSpiceForm(ModelAndView mav, @RequestParam String nameGeo, @RequestParam String nameEng, @RequestParam String nameRus,@RequestParam String descriptionGeo, @RequestParam  String descriptionEng, @RequestParam String descriptionRus, @RequestParam(value="image", required = false) MultipartFile image) {
     	try {
 	    	SandwichSpice sandwichSpice = new SandwichSpice();

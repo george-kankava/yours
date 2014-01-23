@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -122,12 +122,12 @@
 <script>
 	$('#salad-ingredient-add-btn').click(function() {
 		var data = new FormData();
-		data.append('nameGeo', toUnicode($('#ingredientTypeGeo').val()));
-		data.append('nameEng', toUnicode($('#ingredientTypeEng').val()));
-		data.append('nameRus', toUnicode($('#ingredientTypeRus').val()));
-		data.append('descriptionGeo', toUnicode($('#breadDescGeo').val()));
-		data.append('descriptionEng', toUnicode($('#breadDescEng').val()));
-		data.append('descriptionRus', toUnicode($('#breadDescRus').val()));
+		data.append('nameGeo', toUnicode($('#ingredientGeo').val()));
+		data.append('nameEng', toUnicode($('#ingredientEng').val()));
+		data.append('nameRus', toUnicode($('#ingredientRus').val()));
+		data.append('descriptionGeo', toUnicode($('#ingredientDescGeo').val()));
+		data.append('descriptionEng', toUnicode($('#ingredientDescEng').val()));
+		data.append('descriptionRus', toUnicode($('#ingredientDescRus').val()));
 		data.append('image', document.formSubmit.ingredientImage.files[0]);
 		var url = 'process-add-salad-ingredient-form';
 		$.ajax({

@@ -156,12 +156,19 @@ public class DrinksController {
     @ResponseStatus(HttpStatus.OK)
 	public ModelAndView processAddDrinkAddOnForm(ModelAndView mav, @RequestParam String nameGeo, @RequestParam String nameEng, @RequestParam String nameRus, @RequestParam String descriptionGeo, @RequestParam  String descriptionEng, @RequestParam String descriptionRus, @RequestParam Integer drinkId, @RequestParam(value="image", required = false) MultipartFile image) {
     	try {
-    		DrinkAddOn drinkAddon = databaseService.addNewDrinkAddOn(nameGeo, nameRus, nameEng, descriptionEng, descriptionEng, descriptionRus, drinkId);
+    		DrinkAddOn drinkAddon = new DrinkAddOn();
+    		drinkAddon.setNameEng(nameEng);
+    		drinkAddon.setNameGeo(nameGeo);
+    		drinkAddon.setNameRus(nameRus);
+    		drinkAddon.setDescriptionEng(descriptionEng);
+    		drinkAddon.setDescriptionGeo(descriptionGeo);
+    		drinkAddon.setDescriptionRus(descriptionRus);
     		if(!image.isEmpty()) {
     			FoodComponentImage foodComponentImage = helper.writeFoodComponentImage(image, servletContext);
     			databaseService.saveFoodComponentImage(foodComponentImage);
     			drinkAddon.setFoodComponentImage(foodComponentImage);
     		}
+    		databaseService.addNewDrinkAddOn(drinkId, drinkAddon);
     		mav.addObject("drinkAddOn", drinkAddon);
     		mav.setViewName("add-drink-add-on-response");
     		return mav;
