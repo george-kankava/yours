@@ -19,7 +19,7 @@
 	<!-- Custom styles for this template -->
 	<link href="resources/css/yours-food-service.css" rel="stylesheet" />
 	<link href="resources/css/jumbotron-narrow.css" rel="stylesheet" />
-	<link href="resources/css/line/blue.css" rel="stylesheet">
+	<link href="resources/css/flat/red.css" rel="stylesheet">
 	<link href="resources/css/alertify.core.css" rel="stylesheet" />
 	<link href="resources/css/alertify.default.css" rel="stylesheet" />
 	<link href="resources/css/alertify.bootstrap.css" rel="stylesheet" />
@@ -55,7 +55,7 @@
 		
 		<div class="tab-content">
 			<div class="tab-pane active" id="sandwich">
-				<table class="table table-bordered">
+				<table class="table table-striped">
 						<thead>
 							<tr>
 								<th></th>
@@ -142,7 +142,7 @@
 						</script>
 						</c:forEach>
 					</table>
-					<table class="table table-bordered">
+					<table class="table table-striped">
 						<thead>
 							<tr>
 								<th></th>
@@ -230,7 +230,7 @@
 							</script>
 						</c:forEach>
 					</table>
-					<table class="table table-bordered table-striped">
+					<table class="table table-striped">
 						<thead>
 							<tr>
 								<th></th>
@@ -317,7 +317,7 @@
 							</script>
 						</c:forEach>
 					</table>
-					<table class="table table-bordered table-striped">
+					<table class="table table-striped">
 						<thead>
 							<tr>
 								<th></th>
@@ -403,7 +403,7 @@
 							</script>
 						</c:forEach>
 					</table>
-					<table class="table table-bordered table-striped">
+					<table class="table table-striped">
 						<thead>
 							<tr>
 								<th></th>
@@ -964,7 +964,7 @@
 	<script src="resources/js/jquery.icheck.js"></script>
 	<script src="resources/js/yours.js"></script>
 	<script>
-	$(document).ready(function(){
+		$(document).ready(function(){
 		  $('input').each(function(){
 		    var self = $(this),
 		      label = self.next(),
@@ -972,12 +972,13 @@
 
 		    label.remove();
 		    self.iCheck({
-		      checkboxClass: 'icheckbox_line-blue',
-		      radioClass: 'iradio_line-blue',
-		      insert: '<div class="icheck_line-icon"></div>' + label_text
+		      checkboxClass: 'icheckbox_flat-red',
+		      radioClass: 'iradio_flat-red',
+		      insert: '<div class="icheck_flat-icon"></div>' + '<div style="margin-left:30px">' + label_text + '</div>'
 		    });
 		  });
 		});
 	</script>
+	
 </body>
 </html>

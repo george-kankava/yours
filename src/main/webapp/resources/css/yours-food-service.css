@@ -1,5 +1,17 @@
 @CHARSET "UTF-8";
 
+.left-wall {
+  background-image: url("../img/widescreen.jpg");
+  background-position: 100% 0%;
+  background-repeat: repeat-y;
+}
+
+.right-wall {
+  background-image: url("../img/widescreen.jpg");
+  background-position: 0% 100%;
+  background-repeat: repeat-y;
+}
+
 @media ( max-width : 600px) {
 	.logo-image {
 		width: 257px;

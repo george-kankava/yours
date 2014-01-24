@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -150,6 +150,7 @@
 						<div id="collapseOne" class="panel-collapse collapse">
 							<div class="panel-body">
 								<c:forEach items="${meals['sandwiches']}" var="customerSandwich">
+									<c:set var="sandwichTotalPrice" value="0"/>
 									<div class="alert alert-success" id="sandwichTitle${customerSandwich.id}">
 										<spring:message text="Sandwich" code="yours.food.service.meals.list.sandwich" /> - ${customerSandwich.id}
 										<button style="margin-left: 5px" id="sandwichOrderButtion${customerSandwich.id }" type="button" class="btn btn-info" data-toggle="button">
@@ -164,48 +165,48 @@
 											<tr>
 												<th><spring:message code="yours.list.heading.sandwich.sublist.bread" text="Bread" /></th>
 												<th><spring:message code="yours.food.ingredients.size" text="Size" /></th>
-												<th><spring:message code="yours.food.ingredient.price" text="Price" /></th>
 											<tr>
 										</thead>
+										<tbody>
 										<tr>
 											<c:choose>
 												<c:when test="${locale eq 'ka' }">
-													<td>${customerSandwich.sandwichBread.nameGeo }</td>
+													<td class="td-50-percent" >${customerSandwich.sandwichBread.nameGeo }</td>
 												</c:when>
 												<c:when test="${locale eq 'en' }">
-													<td>${customerSandwich.sandwichBread.nameEng }</td>
+													<td class="td-50-percent" >${customerSandwich.sandwichBread.nameEng }</td>
 												</c:when>
 												<c:when test="${locale eq 'ru' }">
-													<td>${customerSandwich.sandwichBread.nameRus }</td>
+													<td class="td-50-percent" >${customerSandwich.sandwichBread.nameRus }</td>
 												</c:when>
 											</c:choose>
-											<td>${customerSandwich.sandwichBreadSizeAndPrice.size }</td>
-											<td>${customerSandwich.sandwichBreadSizeAndPrice.price }</td>
+											<td class="td-50-percent">${customerSandwich.sandwichBreadSizeAndPrice.size }</td>
+											<c:set var="sandwichTotalPrice" value="${sandwichTotalPrice + customerSandwich.sandwichBreadSizeAndPrice.price}"/>
 										</tr>
+										</tbody>
 									</table>
 									<table id="sandwichSausage${customerSandwich.id}" class="table">
 										<thead>
 											<tr>
 												<th><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
 												<th><spring:message code="yours.food.ingredients.amount" text="Amount" /></th>
-												<th><spring:message code="yours.food.ingredient.price" text="Price" /></th>
 											</tr>
 										</thead>
 										<c:forEach items="${customerSandwich.sandwichSausages }" var="sandwichSausage">
 											<tr>
 												<c:choose>
 													<c:when test="${locale eq 'ka' }">
-														<td>${sandwichSausage.sandwichSausage.nameGeo }</td>
+														<td class="td-50-percent">${sandwichSausage.sandwichSausage.nameGeo }</td>
 													</c:when>
 													<c:when test="${locale eq 'en' }">
-														<td>${sandwichSausage.sandwichSausage.nameEng }</td>
+														<td class="td-50-percent">${sandwichSausage.sandwichSausage.nameEng }</td>
 													</c:when>
 													<c:when test="${locale eq 'ru' }">
-														<td>${sandwichSausage.sandwichSausage.nameRus }</td>
+														<td> class="td-50-percent"${sandwichSausage.sandwichSausage.nameRus }</td>
 													</c:when>
 												</c:choose>
-												<td>${sandwichSausage.amountAndPrice.portion }</td>
-												<td>${sandwichSausage.amountAndPrice.price }</td>
+												<td class="td-50-percent">${sandwichSausage.amountAndPrice.portion }</td>
+												<c:set var="sandwichTotalPrice" value="${sandwichTotalPrice + sandwichSausage.amountAndPrice.price}"/>
 											</tr>
 										</c:forEach>
 									</table>
@@ -214,24 +215,23 @@
 											<tr>
 												<th><spring:message code="yours.list.heading.sandwich.sublist.vegetables" text="Vegetables" /></th>
 												<th><spring:message code="yours.food.ingredients.amount" text="Amount" /></th>
-												<th><spring:message code="yours.food.ingredient.price" text="Price" /></th>
 											</tr>
 										</thead>
 										<c:forEach items="${customerSandwich.sandwichVegetables }" var="vegetableWithAmountAndPrice">
 											<tr>
 												<c:choose>
 													<c:when test="${locale eq 'ka' }">
-														<td>${vegetableWithAmountAndPrice.sandwichVegetable.nameGeo }</td>
+														<td class="td-50-percent" >${vegetableWithAmountAndPrice.sandwichVegetable.nameGeo }</td>
 													</c:when>
 													<c:when test="${locale eq 'en' }">
-														<td>${vegetableWithAmountAndPrice.sandwichVegetable.nameEng }</td>
+														<td class="td-50-percent">${vegetableWithAmountAndPrice.sandwichVegetable.nameEng }</td>
 													</c:when>
 													<c:when test="${locale eq 'ru' }">
-														<td>${vegetableWithAmountAndPrice.sandwichVegetable.nameRus }</td>
+														<td class="td-50-percent" >${vegetableWithAmountAndPrice.sandwichVegetable.nameRus }</td>
 													</c:when>
 												</c:choose>
-												<td>${vegetableWithAmountAndPrice.sandwichVegetableAmountAndPrice.portion }</td>
-												<td>${vegetableWithAmountAndPrice.sandwichVegetableAmountAndPrice.price }</td>
+												<td class="td-50-percent">${vegetableWithAmountAndPrice.sandwichVegetableAmountAndPrice.portion }</td>
+												<c:set var="sandwichTotalPrice" value="${sandwichTotalPrice + vegetableWithAmountAndPrice.sandwichVegetableAmountAndPrice.price}"/>
 											</tr>
 										</c:forEach>
 									</table>
@@ -239,23 +239,22 @@
 										<tr>
 											<th><spring:message code="yours.food.ingredient.sauce" text="Sauce" /></th>
 											<th><spring:message code="yours.food.ingredients.amount" text="Amount" /></th>
-											<th><spring:message code="yours.food.ingredient.price" text="Price" /></th>
 										</tr>
 										<c:forEach items="${customerSandwich.sandwichSauces }" var="sauceWithAmountAndPrice">
 											<tr>
 												<c:choose>
 													<c:when test="${locale eq 'ka' }">
-														<td>${sauceWithAmountAndPrice.sandwichSauce.nameGeo }</td>
+														<td class="td-50-percent">${sauceWithAmountAndPrice.sandwichSauce.nameGeo }</td>
 													</c:when>
 													<c:when test="${locale eq 'en' }">
-														<td>${sauceWithAmountAndPrice.sandwichSauce.nameEng }</td>
+														<td class="td-50-percent">${sauceWithAmountAndPrice.sandwichSauce.nameEng }</td>
 													</c:when>
 													<c:when test="${locale eq 'ru' }">
-														<td>${sauceWithAmountAndPrice.sandwichSauce.nameRus }</td>
+														<td class="td-50-percent">${sauceWithAmountAndPrice.sandwichSauce.nameRus }</td>
 													</c:when>
 												</c:choose>
-												<td>${sauceWithAmountAndPrice.sandwichSauceAmountAndPrice.portion }</td>
-												<td>${sauceWithAmountAndPrice.sandwichSauceAmountAndPrice.price }</td>
+												<td class="td-50-percent">${sauceWithAmountAndPrice.sandwichSauceAmountAndPrice.portion }</td>
+												<c:set var="sandwichTotalPrice" value="${sandwichTotalPrice + sauceWithAmountAndPrice.sandwichSauceAmountAndPrice.price}"/>
 											</tr>
 										</c:forEach>
 									</table>
@@ -263,25 +262,44 @@
 										<tr>
 											<th><spring:message code="yours.food.ingredient.spice" text="Sauce" /></th>
 											<th><spring:message code="yours.food.ingredients.amount" text="Amount" /></th>
-											<th><spring:message code="yours.food.ingredient.price" text="Price" /></th>
 										</tr>
 										<c:forEach items="${customerSandwich.sandwichSpices }" var="spiceWithAmountAndPrice">
 											<tr>
 												<c:choose>
 													<c:when test="${locale eq 'ka' }">
-														<td>${spiceWithAmountAndPrice.sandwichSpice.nameGeo }</td>
+														<td class="td-50-percent">${spiceWithAmountAndPrice.sandwichSpice.nameGeo }</td>
 													</c:when>
 													<c:when test="${locale eq 'en' }">
-														<td>${spiceWithAmountAndPrice.sandwichSpice.nameEng }</td>
+														<td class="td-50-percent">${spiceWithAmountAndPrice.sandwichSpice.nameEng }</td>
 													</c:when>
 													<c:when test="${locale eq 'ru' }">
-														<td>${spiceWithAmountAndPrice.sandwichSpice.nameRus }</td>
+														<td class="td-50-percent">${spiceWithAmountAndPrice.sandwichSpice.nameRus }</td>
 													</c:when>
 												</c:choose>
-												<td>${spiceWithAmountAndPrice.sandwichSpiceAmountAndPrice.portion }</td>
-												<td>${spiceWithAmountAndPrice.sandwichSpiceAmountAndPrice.price }</td>
+												<td class="td-50-percent">${spiceWithAmountAndPrice.sandwichSpiceAmountAndPrice.portion }</td>
+												<c:set var="sandwichTotalPrice" value="${sandwichTotalPrice + spiceWithAmountAndPrice.sandwichSpiceAmountAndPrice.price}"/>
 											</tr>
 										</c:forEach>
+									</table>
+									<table class="table">
+										<tr>
+											<td class="td-50-percent">
+												<c:choose>
+													<c:when test="${locale eq 'ka' }">
+														<strong><spring:message code="yours.food.service.total.price" /></strong>
+													</c:when>
+													<c:when test="${locale eq 'en' }">
+														<strong><spring:message code="yours.food.service.total.price" /></strong>
+													</c:when>
+													<c:when test="${locale eq 'ru' }">
+														<strong><spring:message code="yours.food.service.total.price" /></strong>
+													</c:when>
+												</c:choose>
+											</td>
+											<td class="td-50-percent">
+												<code>${sandwichTotalPrice } <spring:message code="yours.food.service.currency.gel" /></code>
+											</td>
+										</tr>
 									</table>
 									<script type="text/javascript">
 										$('#sandwichOrderButtion${customerSandwich.id }').click(function(event) {
@@ -345,12 +363,12 @@
 											<button id="saladRemoveButtion${customerSalad.id}" type="button" class="close" aria-hidden="true">&times;</button>
 										</div>
 									</div>
+									<c:set var="saladTotalPrice" value="0"/>
 									<table id="saladIngredients${customerSalad.id }" class="table">
 										<thead>
 											<tr>
 												<th><spring:message code="yours.food.service.salad.ingredients" text="Salad Ingredients" /></th>
 												<th><spring:message code="yours.food.ingredients.amount" text="Amount" /></th>
-												<th><spring:message code="yours.food.ingredient.price" text="Price" /></th>
 											<tr>
 										</thead>
 										<c:forEach items="${customerSalad.ingredientWithAmountAndPrices }" var="ingredientsWithAmountAndPrices">
@@ -367,9 +385,29 @@
 													</c:when>
 												</c:choose>
 												<td>${ingredientsWithAmountAndPrices.amountAndPrice.amount }</td>
-												<td>${ingredientsWithAmountAndPrices.amountAndPrice.price }</td>
+												<c:set var="saladTotalPrice" value="${saladTotalPrice + ingredientsWithAmountAndPrices.amountAndPrice.price}"/>
 											</tr>
 										</c:forEach>
+									</table>
+									<table class="table">
+										<tr>
+											<td class="td-50-percent">
+												<c:choose>
+													<c:when test="${locale eq 'ka' }">
+														<strong><spring:message code="yours.food.service.total.price" /></strong>
+													</c:when>
+													<c:when test="${locale eq 'en' }">
+														<strong><spring:message code="yours.food.service.total.price" /></strong>
+													</c:when>
+													<c:when test="${locale eq 'ru' }">
+														<strong><spring:message code="yours.food.service.total.price" /></strong>
+													</c:when>
+												</c:choose>
+											</td>
+											<td class="td-50-percent">
+												<code>${saladTotalPrice } <spring:message code="yours.food.service.currency.gel" /></code>
+											</td>
+										</tr>
 									</table>
 									<script type="text/javascript">
 										$('#saladOrderButtion${customerSalad.id }').click(function(event) {
@@ -429,12 +467,12 @@
 											<button id="drinkRemoveButtion${customerDrink.id}" type="button" class="close" aria-hidden="true">&times;</button>
 										</div>
 									</div>
+									<c:set var="drinkTotalPrice" value="0"/>
 									<table id="drink${customerDrink.id}" class="table">
 										<thead>
 											<tr>
 												<th><spring:message code="yours.food.service.drink.name" text="Drink Name" /></th>
 												<th><spring:message code="yours.food.ingredients.amount" text="Amount" /></th>
-												<th><spring:message code="yours.food.ingredient.price" text="Price" /></th>
 											<tr>
 										</thead>
 										<tr>
@@ -450,7 +488,7 @@
 												</c:when>
 											</c:choose>
 											<td>${customerDrink.drinkWithSizeAndPrice.sizeAndPrice.size }</td>
-											<td>${customerDrink.drinkWithSizeAndPrice.sizeAndPrice.price }</td>
+											<c:set var="drinkTotalPrice" value="${drinkTotalPrice + customerDrink.drinkWithSizeAndPrice.sizeAndPrice.price}"/>
 										</tr>
 									</table>
 									<table id="drinkAddon${customerDrink.id}" class="table">
@@ -458,7 +496,6 @@
 											<tr>
 												<th><spring:message code="yours.food.service.drink.addon.name" text="Add-on Name" /></th>
 												<th><spring:message code="yours.food.ingredients.amount" text="Amount" /></th>
-												<th><spring:message code="yours.food.ingredient.price" text="Price" /></th>
 											</tr>
 										</thead>
 										<c:forEach items="${customerDrink.addonWithAmountAndPrices }" var="addonWithAmountAndPrice">
@@ -475,9 +512,29 @@
 													</c:when>
 												</c:choose>
 												<td>${addonWithAmountAndPrice.addOnAmountAndPrice.amount }</td>
-												<td>${addonWithAmountAndPrice.addOnAmountAndPrice.price }</td>
+												<c:set var="drinkTotalPrice" value="${drinkTotalPrice + addonWithAmountAndPrice.addOnAmountAndPrice.price}"/>
 											</tr>
 										</c:forEach>
+									</table>
+									<table class="table">
+										<tr>
+											<td class="td-50-percent">
+												<c:choose>
+													<c:when test="${locale eq 'ka' }">
+														<strong><spring:message code="yours.food.service.total.price" /></strong>
+													</c:when>
+													<c:when test="${locale eq 'en' }">
+														<strong><spring:message code="yours.food.service.total.price" /></strong>
+													</c:when>
+													<c:when test="${locale eq 'ru' }">
+														<strong><spring:message code="yours.food.service.total.price" /></strong>
+													</c:when>
+												</c:choose>
+											</td>
+											<td class="td-50-percent">
+												<code>${drinkTotalPrice } <spring:message code="yours.food.service.currency.gel" /></code>
+											</td>
+										</tr>
 									</table>
 									<script type="text/javascript">
 										$('#drinkOrderButtion${customerDrink.id }').click(function(event) {
@@ -539,6 +596,7 @@
 											<button id="hotdogRemoveButtion${customerHotdog.id}" type="button" class="close" aria-hidden="true">&times;</button>
 										</div>
 									</div>
+									<c:set var="hotdogTotalPrice" value="0" />
 									<table class="table" id="hotdogBread${customerHotdog.id }">
 										<thead>
 											<tr>
@@ -550,17 +608,18 @@
 										<tr>
 											<c:choose>
 												<c:when test="${locale eq 'ka' }">
-													<td>${customerHotdog.bread.nameGeo }</td>
+													<td class="td-50-percent">${customerHotdog.bread.nameGeo }</td>
 												</c:when>
 												<c:when test="${locale eq 'en' }">
-													<td>${customerHotdog.bread.nameEng }</td>
+													<td class="td-50-percent">${customerHotdog.bread.nameEng }</td>
 												</c:when>
 												<c:when test="${locale eq 'ru' }">
-													<td>${customerHotdog.bread.nameRus }</td>
+													<td class="td-50-percent">${customerHotdog.bread.nameRus }</td>
 												</c:when>
 											</c:choose>
-											<td>${customerHotdog.sizeAndPrice.size }</td>
+											<td class="td-50-percent">${customerHotdog.sizeAndPrice.size }</td>
 											<td>${customerHotdog.sizeAndPrice.price }</td>
+											<c:set var="hotdogTotalPrice" value="${hotdogTotalPrice + customerHotdog.sizeAndPrice.price}"></c:set>
 										</tr>
 									</table>
 									<table class="table" id="hotdogSausage${customerHotdog.id }">
@@ -574,17 +633,18 @@
 										<tr>
 											<c:choose>
 												<c:when test="${locale eq 'ka' }">
-													<td>${customerHotdog.sausage.nameGeo }</td>
+													<td class="td-50-percent">${customerHotdog.sausage.nameGeo }</td>
 												</c:when>
 												<c:when test="${locale eq 'en' }">
-													<td>${customerHotdog.sausage.nameEng }</td>
+													<td class="td-50-percent">${customerHotdog.sausage.nameEng }</td>
 												</c:when>
 												<c:when test="${locale eq 'ru' }">
-													<td>${customerHotdog.sausage.nameRus }</td>
+													<td class="td-50-percent">${customerHotdog.sausage.nameRus }</td>
 												</c:when>
 											</c:choose>
-											<td>${addonWithAmountAndPrice.amountAndPrice.portion }</td>
-											<td>${addonWithAmountAndPrice.amountAndPrice.price }</td>
+											<td class="td-50-percent">${customerHotdog.amountAndPrice.portion }</td>
+											<td>${customerHotdog.amountAndPrice.price }</td>
+											<c:set var="hotdogTotalPrice" value="${hotdogTotalPrice + customerHotdog.amountAndPrice.price}"></c:set>
 										</tr>
 									</table>
 									<table class="table" id="hotdogSauce${customerHotdog.id }">
@@ -599,19 +659,40 @@
 											<tr>
 												<c:choose>
 													<c:when test="${locale eq 'ka' }">
-														<td>${sauceWithAmountAndPrice.sauce.nameGeo }</td>
+														<td class="td-50-percent">${sauceWithAmountAndPrice.sauce.nameGeo }</td>
 													</c:when>
 													<c:when test="${locale eq 'en' }">
-														<td>${sauceWithAmountAndPrice.sauce.nameEng }</td>
+														<td class="td-50-percent">${sauceWithAmountAndPrice.sauce.nameEng }</td>
 													</c:when>
 													<c:when test="${locale eq 'ru' }">
-														<td>${sauceWithAmountAndPrice.sauce.nameRus }</td>
+														<td class="td-50-percent">${sauceWithAmountAndPrice.sauce.nameRus }</td>
 													</c:when>
 												</c:choose>
-												<td>${sauceWithAmountAndPrice.amountAndPrice.amount }</td>
+												<td class="td-50-percent">${sauceWithAmountAndPrice.amountAndPrice.amount }</td>
 												<td>${sauceWithAmountAndPrice.amountAndPrice.price }</td>
+												<c:set var="hotdogTotalPrice" value="${hotdogTotalPrice + sauceWithAmountAndPrice.amountAndPrice.price}"></c:set>
 											</tr>
 										</c:forEach>
+									</table>
+									<table class="table">
+										<tr>
+											<td class="td-50-percent">
+												<c:choose>
+													<c:when test="${locale eq 'ka' }">
+														<strong><spring:message code="yours.food.service.total.price" /></strong>
+													</c:when>
+													<c:when test="${locale eq 'en' }">
+														<strong><spring:message code="yours.food.service.total.price" /></strong>
+													</c:when>
+													<c:when test="${locale eq 'ru' }">
+														<strong><spring:message code="yours.food.service.total.price" /></strong>
+													</c:when>
+												</c:choose>
+											</td>
+											<td class="td-50-percent">
+												<code>${hotdogTotalPrice } <spring:message code="yours.food.service.currency.gel" /></code>
+											</td>
+										</tr>
 									</table>
 									<script type="text/javascript">
 										$('#hotdogOrderButtion${customerHotdog.id }').click(function(event) {

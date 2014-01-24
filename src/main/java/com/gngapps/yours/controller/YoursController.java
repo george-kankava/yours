@@ -345,7 +345,7 @@ public class YoursController {
     	Locale locale = localeResolver.resolveLocale(request);
     	mav.addObject("locale", locale.getLanguage());
     	mav.addObject("hotdogSauces", hotdogSauces);
-    	mav.setViewName("food-components-list");
+    	mav.setViewName("food-components-list-v2");
     	return mav;
 	}
     
