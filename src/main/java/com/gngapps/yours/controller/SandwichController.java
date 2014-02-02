@@ -2,11 +2,14 @@ package com.gngapps.yours.controller;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -27,7 +30,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gngapps.yours.AppConstants;
 import com.gngapps.yours.databinding.json.request.SandwichJson;
+import com.gngapps.yours.entities.CustomerSandwich;
 import com.gngapps.yours.entities.FoodComponentImage;
 import com.gngapps.yours.entities.SandwichBread;
 import com.gngapps.yours.entities.SandwichBreadSizeAndPrice;
@@ -62,6 +67,48 @@ public class SandwichController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SandwichController.class);
 
+	@ResponseBody
+	@RequestMapping(value = "/add-customer-sandwich-to-session", produces = "application/json")
+	public String addSandwichToClientSession(HttpSession session, @RequestParam Integer sandwichId) {
+		try {
+			CustomerSandwich sandwich = databaseService.findSandwichById(sandwichId);
+			if(sandwich == null) {
+				throw new IllegalArgumentException("sandwich with id not found : " + sandwichId);
+			}
+			@SuppressWarnings("unchecked")
+			Map<Integer, CustomerSandwich> customerSandwiches = (Map<Integer, CustomerSandwich>)session.getAttribute(AppConstants.CUSTOMER_SANDWICH_SESSION_TOKEN);
+			if(customerSandwiches == null) {
+				customerSandwiches = new LinkedHashMap<Integer, CustomerSandwich>();
+				customerSandwiches.put(sandwich.getId(), sandwich);
+				session.setAttribute(AppConstants.CUSTOMER_SANDWICH_SESSION_TOKEN, customerSandwiches);
+			} else {
+				customerSandwiches.put(sandwich.getId(), sandwich);
+			}
+			return "{\"sandwichId\" : \"" + sandwich.getId() + "\"}";
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+			return helper.emptyJson();
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/remove-customer-sandwich-from-session", produces = "application/json")
+	public String removeSandwichFromClientSession(HttpSession session, @RequestParam Integer sandwichId) {
+		try {
+			CustomerSandwich sandwich = databaseService.findSandwichById(sandwichId);
+			if(sandwich == null) {
+				throw new IllegalArgumentException("sandwich with id not found : " + sandwichId);
+			}
+			@SuppressWarnings("unchecked")
+			Map<Integer, CustomerSandwich> customerSandwiches = (Map<Integer, CustomerSandwich>)session.getAttribute(AppConstants.CUSTOMER_SANDWICH_SESSION_TOKEN);
+			customerSandwiches.remove(sandwichId);
+			return "{\"sandwichId\" : \"" + sandwich.getId() + "\"}";
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+			return helper.emptyJson();
+		}
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/process-add-sandwich", consumes = "application/json", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)
 	public String processAddSandwich(HttpServletRequest request, Principal principal, @RequestBody @Valid SandwichJson sandwich, BindingResult result) {

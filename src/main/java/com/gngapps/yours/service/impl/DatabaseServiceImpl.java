@@ -755,8 +755,19 @@ public class DatabaseServiceImpl implements DatabaseService {
 	}
 
 	@Override
-	public Map<String, Object> getCustomerMeals(String customerUsername) {
-		Customer customer = dataGetterDao.findCustomerByEmail(customerUsername);
+	public Map<String, Object> getCustomerMealsByCustomerEmail(String customerEmail) {
+		Customer customer = dataGetterDao.findCustomerByEmail(customerEmail);
+		return getCustomerMeals(customer);
+	}
+	
+	@Override
+	public Map<String, Object> getCustomerMealsByCustomerUsername(String customerUsername) {
+		Customer customer = dataGetterDao.findCustomerByUsername(customerUsername);
+		return getCustomerMeals(customer);
+		
+	}
+	
+	private Map<String, Object> getCustomerMeals(Customer customer) {
 		Map<String, Object> customerMeals = new LinkedHashMap<String, Object>();
 		if(customer != null) {
 			customerMeals.put("sandwiches", customer.getSandwichs());
@@ -1061,6 +1072,26 @@ public class DatabaseServiceImpl implements DatabaseService {
 	@Override
 	public FoodComponentImage findFoodComponentImage(Integer foodComponentImageId) {
 		return dataGetterDao.findFoodComponentImageById(foodComponentImageId);
+	}
+
+	@Override
+	public CustomerSandwich findSandwichById(Integer sandwichId) {
+		return dataGetterDao.findSandwichById(sandwichId);
+	}
+
+	@Override
+	public CustomerSalad findSaladById(Integer saladId) {
+		return dataGetterDao.findCustomerSaladById(saladId);
+	}
+
+	@Override
+	public CustomerDrink findCustomerDrinkById(Integer drinkId) {
+		return dataGetterDao.findCustomerDrinkById(drinkId);
+	}
+
+	@Override
+	public CustomerHotdog findCustomerHotdogById(Integer hotdogId) {
+		return dataGetterDao.findCustomerHotdogById(hotdogId);
 	}
 
 }

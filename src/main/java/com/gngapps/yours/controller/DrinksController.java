@@ -2,11 +2,14 @@ package com.gngapps.yours.controller;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -26,7 +29,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gngapps.yours.AppConstants;
 import com.gngapps.yours.databinding.json.request.DrinksJson;
+import com.gngapps.yours.entities.CustomerDrink;
+import com.gngapps.yours.entities.CustomerSalad;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
 import com.gngapps.yours.entities.DrinkAddOnAmountAndPrice;
@@ -54,6 +60,48 @@ public class DrinksController {
 	private ServletContext servletContext;
 
 	private static final Logger logger = LoggerFactory.getLogger(DrinksController.class);
+	
+	@ResponseBody
+	@RequestMapping(value = "/add-customer-drink-to-session", produces = "application/json")
+	public String addDrinkToClientSession(HttpSession session, @RequestParam Integer drinkId) {
+		try {
+			CustomerDrink drink = databaseService.findCustomerDrinkById(drinkId);
+			if(drink == null) {
+				throw new IllegalArgumentException("drink with id not found : " + drinkId);
+			}
+			@SuppressWarnings("unchecked")
+			Map<Integer, CustomerDrink> customerDrinks = (Map<Integer, CustomerDrink>)session.getAttribute(AppConstants.CUSTOMER_DRINK_SESSION_TOKEN);
+			if(customerDrinks == null) {
+				customerDrinks = new LinkedHashMap<Integer, CustomerDrink>();
+				customerDrinks.put(drink.getId(), drink);
+				session.setAttribute(AppConstants.CUSTOMER_DRINK_SESSION_TOKEN, customerDrinks);
+			} else {
+				customerDrinks.put(drink.getId(), drink);
+			}
+			return "{\"drinkId\" : \"" + drink.getId() + "\"}";
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+			return helper.emptyJson();
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/remove-customer-drink-from-session", produces = "application/json")
+	public String removeDrinkFromClientSession(HttpSession session, @RequestParam Integer drinkId) {
+		try {
+			CustomerDrink drink = databaseService.findCustomerDrinkById(drinkId);
+			if(drink == null) {
+				throw new IllegalArgumentException("drink with id not found : " + drinkId);
+			}
+			@SuppressWarnings("unchecked")
+			Map<Integer, CustomerDrink> customerDrinks = (Map<Integer, CustomerDrink>)session.getAttribute(AppConstants.CUSTOMER_DRINK_SESSION_TOKEN);
+			customerDrinks.remove(drinkId);
+			return "{\"drinkId\" : \"" + drink.getId() + "\"}";
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+			return helper.emptyJson();
+		}
+	}
 	
     @ResponseBody
     @RequestMapping(value = "/process-add-drink", consumes = "application/json", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)

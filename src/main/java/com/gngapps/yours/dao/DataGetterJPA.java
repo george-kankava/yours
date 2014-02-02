@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.gngapps.yours.controller.YoursController;
 import com.gngapps.yours.entities.Address;
 import com.gngapps.yours.entities.ChangePasswordToken;
 import com.gngapps.yours.entities.Customer;
@@ -356,7 +355,8 @@ public class DataGetterJPA implements DataGetterDao {
 	@Override
 	public Customer findOperatorByEmail(String operatorEmail) {
 		try {
-			return (Customer)em.createQuery("FROM Customer c WHERE c.email = :email").setParameter("email", operatorEmail).getSingleResult();
+			String qlString = "FROM Customer c WHERE c.email = :email";
+			return (Customer)em.createQuery(qlString).setParameter("email", operatorEmail).getSingleResult();
 		} catch(NoResultException e) {
 			return null;
 		}
@@ -367,6 +367,15 @@ public class DataGetterJPA implements DataGetterDao {
 		try {
 			return em.find(FoodComponentImage.class, foodComponentImageId);
 		} catch(NoResultException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public Customer findCustomerByUsername(String customerUsername) {
+		try {
+			return (Customer)em.createQuery("FROM Customer c WHERE c.username = :username").setParameter("username", customerUsername).getSingleResult();
+		} catch(NoResultException ex) {
 			return null;
 		}
 	}

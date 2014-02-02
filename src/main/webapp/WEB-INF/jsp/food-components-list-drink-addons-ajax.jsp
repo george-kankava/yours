@@ -72,46 +72,45 @@
 		</td>
 	</tr>
 	<script>
-	$('#drinkAddOnPopover${drinkAddOn.id}').popover();
-	(function () {
-    	var previousPrice = null;
-
-    	$("#drinkAddOnAmountAndPrice${drinkAddOn.id }").mousedown(function () {
-    		previousPrice = $(this.options[this.selectedIndex]).attr('ingredient-price');
-    	}).change(function() {
-    		drinkPrice -= parseFloat(previousPrice);
-			var price = $(this.options[this.selectedIndex]).attr('ingredient-price');
+		$('#drinkAddOnPopover${drinkAddOn.id}').popover();
+		(function () {
+	    	var previousPrice = null;
+	
+	    	$("#drinkAddOnAmountAndPrice${drinkAddOn.id }").mousedown(function () {
+	    		previousPrice = $(this.options[this.selectedIndex]).attr('ingredient-price');
+	    	}).change(function() {
+	    		drinkPrice -= parseFloat(previousPrice);
+				var price = $(this.options[this.selectedIndex]).attr('ingredient-price');
+				drinkPrice += parseFloat(price);
+				$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
+	    	});
+		})();
+		$('input[name="drinkAddOn"]').on('ifChecked', function(event){
+			var ingredientName = $(event.target.outerHTML).attr('name');
+			var selectElement = $('#' + ingredientName + 'AmountAndPrice' + event.target.id);
+			$(selectElement).removeAttr('disabled');
+			var price = $('#' + ingredientName + 'AmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
 			drinkPrice += parseFloat(price);
 			$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
-    	});
-	})();
-	$('input[name="drinkAddOn"]').each(function(){
-	    var self = $(this),
-	      label = self.next(),
-	      label_text = label.text();
-
-	    label.remove();
-	    self.iCheck({
-	      checkboxClass: 'icheckbox_line-blue',
-	      radioClass: 'iradio_line-blue',
-	      insert: '<div class="icheck_line-icon"></div>' + label_text
-	    });
-	  });
-	$('input[name="drinkAddOn"]').on('ifChecked', function(event){
-		var ingredientName = $(event.target.outerHTML).attr('name');
-		var selectElement = $('#' + ingredientName + 'AmountAndPrice' + event.target.id);
-		$(selectElement).removeAttr('disabled');
-		var price = $('#' + ingredientName + 'AmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
-		drinkPrice += parseFloat(price);
-		$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
-	});
-	$('input[name="drinkAddOn"]').on('ifUnchecked', function(event){
-		var ingredientName = $(event.target.outerHTML).attr('name');
-		var selectElement = $('#' + ingredientName + 'AmountAndPrice' + event.target.id);
-		$(selectElement).attr('disabled', 'disabled');
-		var price = $('#' + ingredientName + 'AmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
-		drinkPrice -= parseFloat(price);
-		$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
-	});
+		});
+		$('input[name="drinkAddOn"]').on('ifUnchecked', function(event){
+			var ingredientName = $(event.target.outerHTML).attr('name');
+			var selectElement = $('#' + ingredientName + 'AmountAndPrice' + event.target.id);
+			$(selectElement).attr('disabled', 'disabled');
+			var price = $('#' + ingredientName + 'AmountAndPrice' + event.target.id + " :selected").attr('ingredient-price');
+			drinkPrice -= parseFloat(price);
+			$('#drinkPrice').text(parseFloat(Math.round(drinkPrice * 100) / 100).toFixed(2));
+		});
+		$('input[name="drinkAddOn"]').each(function() {
+		    var self = $(this),
+	        label = self.next(),
+	      	label_text = label.text();
+		    label.remove();
+		    self.iCheck({
+		      checkboxClass: 'icheckbox_line-blue',
+		      radioClass: 'iradio_line-blue',
+		      insert: '<div class="icheck_line-icon"></div>' + label_text
+		    });
+		});
 	</script>
 </c:forEach>

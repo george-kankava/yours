@@ -1,5 +1,6 @@
 package com.gngapps.yours.controller;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
@@ -37,21 +38,30 @@ import com.gngapps.yours.databinding.json.request.CustoemrOrderJson;
 import com.gngapps.yours.databinding.json.request.CustomerMealsJson;
 import com.gngapps.yours.entities.ChangePasswordToken;
 import com.gngapps.yours.entities.Customer;
+import com.gngapps.yours.entities.CustomerDrink;
+import com.gngapps.yours.entities.CustomerHotdog;
 import com.gngapps.yours.entities.CustomerOrder;
 import com.gngapps.yours.entities.CustomerSalad;
 import com.gngapps.yours.entities.CustomerSandwich;
 import com.gngapps.yours.entities.Drink;
 import com.gngapps.yours.entities.DrinkAddOn;
+import com.gngapps.yours.entities.DrinkAddonWithAmountAndPrice;
 import com.gngapps.yours.entities.FoodComponentImage;
 import com.gngapps.yours.entities.HotDogBread;
 import com.gngapps.yours.entities.HotDogSauce;
+import com.gngapps.yours.entities.HotDogSauceWithAmountAndPrice;
 import com.gngapps.yours.entities.HotDogSausage;
 import com.gngapps.yours.entities.SaladIngredient;
+import com.gngapps.yours.entities.SaladIngredientWithAmountAndPrice;
 import com.gngapps.yours.entities.SandwichBread;
 import com.gngapps.yours.entities.SandwichSauce;
+import com.gngapps.yours.entities.SandwichSauceWithAmountAndPrice;
 import com.gngapps.yours.entities.SandwichSausage;
+import com.gngapps.yours.entities.SandwichSausageWithAmountAndPrice;
 import com.gngapps.yours.entities.SandwichSpice;
+import com.gngapps.yours.entities.SandwichSpiceWithAmountAndPrice;
 import com.gngapps.yours.entities.SandwichVegetable;
+import com.gngapps.yours.entities.SandwichVegetableWithAmountAndPrice;
 import com.gngapps.yours.exceptions.PhoneAlreadyInUseException;
 import com.gngapps.yours.forms.CustomerChangePasswordEmail;
 import com.gngapps.yours.forms.CustomerChangePasswordPasswordsForm;
@@ -199,7 +209,7 @@ public class YoursController {
 			if(pagesCount > AppConstants.CUSTOMER_ORDER_PAGES_PER_PAGE) {
 				mav.addObject("endIndex", AppConstants.CUSTOMER_ORDER_PAGES_PER_PAGE);
 			} else {
-				mav.addObject("endIndex", pagesCount);
+				mav.addObject("endIndex", pagesCount == 0 ? 1 : pagesCount);
 				mav.addObject("lastPage", Boolean.TRUE);
 			}
 			mav.addObject("customerOrders", activeOrders);
@@ -277,7 +287,7 @@ public class YoursController {
 	}
 
 	@RequestMapping("operator/operator-customer-meals")
-	public ModelAndView customerMeals(Principal principal, ModelAndView mav) {
+	public ModelAndView customerMeals(HttpSession session, Principal principal, ModelAndView mav) {
 		mav.setViewName("operator-customer-meals-list");
 		return mav;
 	}
@@ -289,7 +299,7 @@ public class YoursController {
 				throw new IllegalArgumentException("username is null");
 			}
 			mav.setViewName("operator-customer-meal-list-ajax");
-			Map<String, Object> customerMeals = databaseService.getCustomerMeals(username);
+			Map<String, Object> customerMeals = databaseService.getCustomerMealsByCustomerUsername(username);
 			if(!customerMeals.isEmpty()) {
 				mav.addObject("username", username);
 				mav.addObject("meals", customerMeals);
@@ -301,12 +311,73 @@ public class YoursController {
 		return mav;
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/customer-meals-list")
-	public ModelAndView mealsList(HttpServletRequest request, Principal principal, ModelAndView mav) {
+	public ModelAndView mealsList(HttpServletRequest request, HttpSession session, Principal principal, ModelAndView mav) {
 		try {
-			Map<String, Object> customerMeals = databaseService.getCustomerMeals(principal.getName());
-			Customer customer = databaseService.findCustomerByEmail(principal.getName());
 			Locale locale = localeResolver.resolveLocale(request);
+			Map<String, Object> customerMeals = databaseService.getCustomerMealsByCustomerEmail(principal.getName());
+			Customer customer = databaseService.findCustomerByEmail(principal.getName());
+			BigDecimal customerOrdersTotalPrice = new BigDecimal(0.0);
+			Map<Integer, CustomerSandwich> customerSandwiches = (Map<Integer, CustomerSandwich>)session.getAttribute(AppConstants.CUSTOMER_SANDWICH_SESSION_TOKEN);
+			if(customerSandwiches != null && !customerSandwiches.isEmpty()) {
+				mav.addObject("customerSessionSandwiches", customerSandwiches.values());
+				for(CustomerSandwich sandwich : customerSandwiches.values()) {
+					CustomerSandwich freshSandwichInstance = databaseService.findSandwichById(sandwich.getId());
+					BigDecimal sandwichBreadPrice = freshSandwichInstance.getSandwichBreadSizeAndPrice().getPrice();
+					customerOrdersTotalPrice = customerOrdersTotalPrice.add(sandwichBreadPrice);
+					for(SandwichSausageWithAmountAndPrice amountAndPrice : freshSandwichInstance.getSandwichSausages()) {
+						customerOrdersTotalPrice = customerOrdersTotalPrice.add(amountAndPrice.getAmountAndPrice().getPrice());
+					}
+					for(SandwichVegetableWithAmountAndPrice amountAndPrice : freshSandwichInstance.getSandwichVegetables()) {
+						customerOrdersTotalPrice = customerOrdersTotalPrice.add(amountAndPrice.getSandwichVegetableAmountAndPrice().getPrice());
+					}
+					for(SandwichSauceWithAmountAndPrice amountAndPrice : freshSandwichInstance.getSandwichSauces()) {
+						customerOrdersTotalPrice = customerOrdersTotalPrice.add(amountAndPrice.getSandwichSauceAmountAndPrice().getPrice());
+					}
+					for(SandwichSpiceWithAmountAndPrice amountAndPrice : freshSandwichInstance.getSandwichSpices()) {
+						customerOrdersTotalPrice = customerOrdersTotalPrice.add(amountAndPrice.getSandwichSpiceAmountAndPrice().getPrice());
+					}
+				}
+			}
+			Map<Integer, CustomerSalad> customerSalads = (Map<Integer, CustomerSalad>)session.getAttribute(AppConstants.CUSTOMER_SALAD_SESSION_TOKEN);
+			if(customerSalads != null && !customerSalads.isEmpty()) {
+				mav.addObject("customerSessionSalads", customerSalads.values());
+				for(CustomerSalad salad : customerSalads.values()) {
+					CustomerSalad freshSaladInstance = databaseService.findSaladById(salad.getId());
+					for(SaladIngredientWithAmountAndPrice amountAndPrice : freshSaladInstance.getIngredientWithAmountAndPrices()) {
+						customerOrdersTotalPrice = customerOrdersTotalPrice.add(amountAndPrice.getAmountAndPrice().getPrice());
+					}
+				}
+			}
+			Map<Integer, CustomerDrink> customerDrinks = (Map<Integer, CustomerDrink>)session.getAttribute(AppConstants.CUSTOMER_DRINK_SESSION_TOKEN);
+			if(customerDrinks != null && !customerDrinks.isEmpty()) {
+				mav.addObject("customerSessionDrinks", customerDrinks.values());
+				for(CustomerDrink drink : customerDrinks.values()) {
+					CustomerDrink freshDrinkInstance = databaseService.findCustomerDrinkById(drink.getId());
+					BigDecimal drinkPrice = freshDrinkInstance.getDrinkWithSizeAndPrice().getSizeAndPrice().getPrice();
+					customerOrdersTotalPrice = customerOrdersTotalPrice.add(drinkPrice);
+					for(DrinkAddonWithAmountAndPrice amountAndPrice : freshDrinkInstance.getAddonWithAmountAndPrices()) {
+						customerOrdersTotalPrice = customerOrdersTotalPrice.add(amountAndPrice.getAddOnAmountAndPrice().getPrice());
+					}
+				}
+			}
+			Map<Integer, CustomerHotdog> customerHotdogs = (Map<Integer, CustomerHotdog>)session.getAttribute(AppConstants.CUSTOMER_HOTDOG_SESSION_TOKEN);
+			if(customerHotdogs != null && !customerHotdogs.isEmpty()) {
+				mav.addObject("customerSessionHotdogs", customerHotdogs.values());
+				for(CustomerHotdog hotdog : customerHotdogs.values()) {
+					CustomerHotdog freshHotdogInstance = databaseService.findCustomerHotdogById(hotdog.getId());
+					BigDecimal breadPrice = freshHotdogInstance.getSizeAndPrice().getPrice();
+					customerOrdersTotalPrice = customerOrdersTotalPrice.add(breadPrice);
+					BigDecimal sausagePrice = freshHotdogInstance.getAmountAndPrice().getPrice();
+					customerOrdersTotalPrice = customerOrdersTotalPrice.add(sausagePrice);
+					for(HotDogSauceWithAmountAndPrice amountAndPrice : freshHotdogInstance.getAmountAndPrices()) {
+						customerOrdersTotalPrice = customerOrdersTotalPrice.add(amountAndPrice.getAmountAndPrice().getPrice());
+					}
+				}
+			}
+			customerOrdersTotalPrice.setScale(2);
+			mav.addObject("customerOrdersTotalPrice", customerOrdersTotalPrice.toString());
 	    	mav.addObject("locale", locale.getLanguage());
 			mav.addObject("meals", customerMeals);
 			mav.addObject("customer", customer);
@@ -345,7 +416,7 @@ public class YoursController {
     	Locale locale = localeResolver.resolveLocale(request);
     	mav.addObject("locale", locale.getLanguage());
     	mav.addObject("hotdogSauces", hotdogSauces);
-    	mav.setViewName("food-components-list-v2");
+    	mav.setViewName("food-components-list");
     	return mav;
 	}
     

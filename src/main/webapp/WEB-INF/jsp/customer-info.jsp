@@ -96,8 +96,8 @@
 	      	</div>
 	
 	      <div class="footer">
-	       	<div class="pull-left">&copy; Company 2013</div>
-	        <div class="pull-right">Created by GNG Apps</div>
+	       	<div class="pull-left">&copy; Yours.ge</div>
+	        <div class="pull-right">&copy; Created by GNG Apps</div>
 	      </div>
 		</div>
 	</div>

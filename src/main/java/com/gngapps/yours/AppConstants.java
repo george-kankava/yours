@@ -33,4 +33,8 @@ public interface AppConstants {
 	String DIGEST_ALGORITHM_SHA = "SHA";
 	String FOOD_COMPONENT_IMAGES_RELATIVE_LOCATION = "food-component-images/";
 	String NO_IMAGE_IMAGE_RELATIVE_LOCATION = "resources/img/NoPhotoAvailable.jpg";
+	String CUSTOMER_SANDWICH_SESSION_TOKEN = "customerSandwichSessionToken";
+	String CUSTOMER_SALAD_SESSION_TOKEN = "customerSaladSessionToken";
+	String CUSTOMER_DRINK_SESSION_TOKEN = "customerDrinkSessionToken";
+	String CUSTOMER_HOTDOG_SESSION_TOKEN = "customerHotdogSessionToken";
 }

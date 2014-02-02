@@ -11,7 +11,7 @@
 	<meta name="author" content="GNG Apps" />
 	<link rel="shortcut icon" href="resources/ico/yours-sml-logo.gif" />
 	
-	<title><spring:message code="yours.food.service.food.components.list.title" text="Food Components" /></title>
+	<title><spring:message code="yours.food.service.ingredients" text="Ingredient" /></title>
 	
 	<!-- Bootstrap core CSS -->
 	<link href="resources/css/bootstrap.css" rel="stylesheet" />
@@ -951,8 +951,8 @@
       	</div>
 
       <div class="footer">
-       	<div class="pull-left">&copy; Company 2013</div>
-        <div class="pull-right">Created by GNG Apps</div>
+       	<div class="pull-left">&copy; Yours.ge</div>
+        <div class="pull-right">&copy; Created by GNG Apps</div>
       </div>
 	  </div>
     </div> <!-- /container -->

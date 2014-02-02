@@ -2,11 +2,14 @@ package com.gngapps.yours.controller;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -26,7 +29,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gngapps.yours.AppConstants;
 import com.gngapps.yours.databinding.json.request.HotdogJson;
+import com.gngapps.yours.entities.CustomerHotdog;
 import com.gngapps.yours.entities.FoodComponentImage;
 import com.gngapps.yours.entities.HotDogBread;
 import com.gngapps.yours.entities.HotDogSauce;
@@ -55,6 +60,48 @@ public class HotdogController {
 	private ServletContext servletContext;
 
 	private static final Logger logger = LoggerFactory.getLogger(HotdogController.class);
+	
+	@ResponseBody
+	@RequestMapping(value = "/add-customer-hotdog-to-session", produces = "application/json")
+	public String addHotdogToClientSession(HttpSession session, @RequestParam Integer hotdogId) {
+		try {
+			CustomerHotdog hotdog = databaseService.findCustomerHotdogById(hotdogId);
+			if(hotdog == null) {
+				throw new IllegalArgumentException("hotdog with id not found : " + hotdogId);
+			}
+			@SuppressWarnings("unchecked")
+			Map<Integer, CustomerHotdog> customerHotdogs = (Map<Integer, CustomerHotdog>)session.getAttribute(AppConstants.CUSTOMER_HOTDOG_SESSION_TOKEN);
+			if(customerHotdogs == null) {
+				customerHotdogs = new LinkedHashMap<Integer, CustomerHotdog>();
+				customerHotdogs.put(hotdog.getId(), hotdog);
+				session.setAttribute(AppConstants.CUSTOMER_HOTDOG_SESSION_TOKEN, customerHotdogs);
+			} else {
+				customerHotdogs.put(hotdog.getId(), hotdog);
+			}
+			return "{\"hotdogId\" : \"" + hotdog.getId() + "\"}";
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+			return helper.emptyJson();
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/remove-customer-hotdog-from-session", produces = "application/json")
+	public String removeHotdogFromClientSession(HttpSession session, @RequestParam Integer hotdogId) {
+		try {
+			CustomerHotdog hotdog = databaseService.findCustomerHotdogById(hotdogId);
+			if(hotdog == null) {
+				throw new IllegalArgumentException("hotdog with id not found : " + hotdogId);
+			}
+			@SuppressWarnings("unchecked")
+			Map<Integer, CustomerHotdog> customerHotdogs = (Map<Integer, CustomerHotdog>)session.getAttribute(AppConstants.CUSTOMER_HOTDOG_SESSION_TOKEN);
+			customerHotdogs.remove(hotdogId);
+			return "{\"hotdogId\" : \"" + hotdog.getId() + "\"}";
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+			return helper.emptyJson();
+		}
+	}
 	
 	@ResponseBody
     @RequestMapping(value = "/process-add-hotdog", consumes = "application/json", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)

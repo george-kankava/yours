@@ -14,6 +14,8 @@ import com.gngapps.yours.databinding.json.request.SaladJson;
 import com.gngapps.yours.databinding.json.request.SandwichJson;
 import com.gngapps.yours.entities.ChangePasswordToken;
 import com.gngapps.yours.entities.Customer;
+import com.gngapps.yours.entities.CustomerDrink;
+import com.gngapps.yours.entities.CustomerHotdog;
 import com.gngapps.yours.entities.CustomerOrder;
 import com.gngapps.yours.entities.CustomerSalad;
 import com.gngapps.yours.entities.CustomerSandwich;
@@ -104,7 +106,7 @@ public interface DatabaseService {
 	void saveCustomerDrink(DrinksJson drink, String username);
 	DrinkAddOn addNewDrinkAddOn(Integer drinkId, DrinkAddOn drinkAddOn);
 	void saveCustomerHotdog(HotdogJson hotdog, String username);
-	Map<String, Object> getCustomerMeals(String customerUsername);
+	Map<String, Object> getCustomerMealsByCustomerEmail(String customerUsername);
 	void removeCustomerSandwich(Integer customerSandwichId);
 	void removeCustomerSalad(Integer customerSaladId);
 	void removeCustomerDrink(Integer customerDrinkId);
@@ -130,4 +132,9 @@ public interface DatabaseService {
 	void trackOrderDeliveryTime(String operatorEmail, Integer customerOrderId);
 	void saveFoodComponentImage(FoodComponentImage foodComponentImage);
 	FoodComponentImage findFoodComponentImage(Integer foodComponentImageId);
+	CustomerSandwich findSandwichById(Integer sandwichId);
+	CustomerSalad findSaladById(Integer saladId);
+	CustomerDrink findCustomerDrinkById(Integer drinkId);
+	CustomerHotdog findCustomerHotdogById(Integer hotdogId);
+	Map<String, Object> getCustomerMealsByCustomerUsername(String customerUsername);
 }

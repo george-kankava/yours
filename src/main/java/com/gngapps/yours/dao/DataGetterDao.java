@@ -139,4 +139,6 @@ public interface DataGetterDao {
 
 	FoodComponentImage findFoodComponentImageById(Integer foodComponentImageId);
 
+	Customer findCustomerByUsername(String customerUsername);
+
 }

@@ -951,8 +951,8 @@
       	</div>
 
       <div class="footer">
-       	<div class="pull-left">&copy; Company 2013</div>
-        <div class="pull-right">Created by GNG Apps</div>
+       	<div class="pull-left">&copy; Yours.ge</div>
+        <div class="pull-right">&copy; Created by GNG Apps</div>
       </div>
 	  </div>
     </div> <!-- /container -->
@@ -972,9 +972,9 @@
 
 		    label.remove();
 		    self.iCheck({
-		      checkboxClass: 'icheckbox_line-blue',
-		      radioClass: 'iradio_line-blue',
-		      insert: '<div class="icheck_line-icon"></div>' + label_text
+			checkboxClass: 'icheckbox_line-blue',
+			radioClass: 'iradio_line-blue',
+			insert: '<div class="icheck_line-icon"></div>' + label_text
 		    });
 		  });
 		});

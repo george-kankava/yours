@@ -2,11 +2,14 @@ package com.gngapps.yours.controller;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -26,7 +29,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gngapps.yours.AppConstants;
 import com.gngapps.yours.databinding.json.request.SaladJson;
+import com.gngapps.yours.entities.CustomerSalad;
 import com.gngapps.yours.entities.FoodComponentImage;
 import com.gngapps.yours.entities.SaladIngredient;
 import com.gngapps.yours.entities.SaladIngredientAmountAndPrice;
@@ -53,6 +58,48 @@ public class SaladController {
 
 	private static final Logger logger = LoggerFactory.getLogger(SaladController.class);
     
+	@ResponseBody
+	@RequestMapping(value = "/add-customer-salad-to-session", produces = "application/json")
+	public String addSaladToClientSession(HttpSession session, @RequestParam Integer saladId) {
+		try {
+			CustomerSalad salad = databaseService.findSaladById(saladId);
+			if(salad == null) {
+				throw new IllegalArgumentException("salad with id not found : " + saladId);
+			}
+			@SuppressWarnings("unchecked")
+			Map<Integer, CustomerSalad> customerSalads = (Map<Integer, CustomerSalad>)session.getAttribute(AppConstants.CUSTOMER_SALAD_SESSION_TOKEN);
+			if(customerSalads == null) {
+				customerSalads = new LinkedHashMap<Integer, CustomerSalad>();
+				customerSalads.put(salad.getId(), salad);
+				session.setAttribute(AppConstants.CUSTOMER_SALAD_SESSION_TOKEN, customerSalads);
+			} else {
+				customerSalads.put(salad.getId(), salad);
+			}
+			return "{\"saladId\" : \"" + salad.getId() + "\"}";
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+			return helper.emptyJson();
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/remove-customer-salad-from-session", produces = "application/json")
+	public String removeSaladFromClientSession(HttpSession session, @RequestParam Integer saladId) {
+		try {
+			CustomerSalad salad = databaseService.findSaladById(saladId);
+			if(salad == null) {
+				throw new IllegalArgumentException("salad with id not found : " + saladId);
+			}
+			@SuppressWarnings("unchecked")
+			Map<Integer, CustomerSalad> customerSalads = (Map<Integer, CustomerSalad>)session.getAttribute(AppConstants.CUSTOMER_SALAD_SESSION_TOKEN);
+			customerSalads.remove(saladId);
+			return "{\"saladId\" : \"" + salad.getId() + "\"}";
+		} catch(Exception ex) {
+			logger.info(ex.getMessage());
+			return helper.emptyJson();
+		}
+	}
+	
 	@ResponseBody
     @RequestMapping(value = "/process-add-salad", consumes = "application/json",  produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)
 	public String processAddSalad(HttpServletRequest request, Principal principal, @RequestBody @Valid SaladJson salad, BindingResult result) {
