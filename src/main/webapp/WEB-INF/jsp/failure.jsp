@@ -36,7 +36,7 @@
 		<div class="logo-image-narrow"></div>
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="jumbotron">
+				<div class="lead">
 					<h1><spring:message code="yours.food.service.login.failure.message"></spring:message></h1>
 					<p><spring:message code="yours.food.service.login.failure.message"></spring:message></p>
 				</div>

@@ -14,7 +14,7 @@
 	<c:choose>
 		<c:when test="${param.pageName eq 'customer-info'}">
 			<script>
-				$('#customer-info').addClass('active');			
+				$('#customer-info').addClass('active');
 			</script>
 		</c:when>
 		<c:when test="${param.pageName eq 'food-components-list'}">

@@ -238,17 +238,17 @@
 											<td>
 												<c:choose>
 													<c:when test="${locale eq 'ka' }">
-														<button id="sandwichBreadPopover${customerSandwich.sandwichBread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerSandwich.sandwichBread.descriptionGeo }" data-original-title="" title="">
+														<button id="sandwichBreadPopover${customerSandwich.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerSandwich.sandwichBread.descriptionGeo }" data-original-title="" title="">
 															<span class="glyphicon glyphicon-info-sign"></span>
 													    </button>										
 													</c:when>
 													<c:when test="${locale eq 'en' }">
-														<button id="sandwichBreadPopover${customerSandwich.sandwichBread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerSandwich.sandwichBread.descriptionEng }" data-original-title="" title="">
+														<button id="sandwichBreadPopover${customerSandwich.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerSandwich.sandwichBread.descriptionEng }" data-original-title="" title="">
 															<span class="glyphicon glyphicon-info-sign"></span>
 											    		</button>
 													</c:when>
 													<c:when test="${locale eq 'ru' }">
-														<button id="sandwichBreadPopover${customerSandwich.sandwichBread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerSandwich.sandwichBread.descriptionRus }" data-original-title="" title="">
+														<button id="sandwichBreadPopover${customerSandwich.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerSandwich.sandwichBread.descriptionRus }" data-original-title="" title="">
 															<span class="glyphicon glyphicon-info-sign"></span>
 											    		</button>
 													</c:when>
@@ -268,12 +268,12 @@
 											<td>
 												<c:choose>
 													<c:when test="${customerSandwich.sandwichBread.foodComponentImage ne null }">
-														<button id="sandwichBreadImage${customerSandwich.sandwichBread.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${customerSandwich.sandwichBread.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+														<button id="sandwichBreadImage${customerSandwich.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${customerSandwich.sandwichBread.foodComponentImage.imageFileName }' />" data-original-title="" title="">
 															<span class="glyphicon glyphicon-film"></span>
 											    		</button>	
 													</c:when>
 													<c:otherwise>
-														<button id="sandwichBreadImage${customerSandwich.sandwichBread.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+														<button id="sandwichBreadImage${customerSandwich.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
 															<span class="glyphicon glyphicon-film"></span>
 											    		</button>
 													</c:otherwise>
@@ -285,8 +285,8 @@
 										</tbody>
 									</table>
 									<script>
-										$('#sandwichBreadImage${customerSandwich.sandwichBread.id }').popover();
-										$('#sandwichBreadPopover${customerSandwich.sandwichBread.id}').popover();
+										$('#sandwichBreadImage${customerSandwich.id }').popover();
+										$('#sandwichBreadPopover${customerSandwich.id}').popover();
 									</script>
 									<table id="sandwichSausage${customerSandwich.id}" class="table">
 										<thead>
@@ -302,17 +302,17 @@
 												<td>
 													<c:choose>
 														<c:when test="${locale eq 'ka' }">
-															<button id="sandwichSausagePopover${sandwichSausage.sandwichSausage.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichSausage.sandwichSausage.descriptionGeo }" data-original-title="" title="">
+															<button id="sandwichSausagePopover${customerSandwich.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichSausage.sandwichSausage.descriptionGeo }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 														    </button>										
 														</c:when>
 														<c:when test="${locale eq 'en' }">
-															<button id="sandwichSausagePopover${sandwichSausage.sandwichSausage.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichSausage.sandwichSausage.descriptionEng }" data-original-title="" title="">
+															<button id="sandwichSausagePopover${customerSandwich.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichSausage.sandwichSausage.descriptionEng }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 												    		</button>
 														</c:when>
 														<c:when test="${locale eq 'ru' }">
-															<button id="sandwichSausagePopover${sandwichSausage.sandwichSausage.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichSausage.sandwichSausage.descriptionRus }" data-original-title="" title="">
+															<button id="sandwichSausagePopover${customerSandwich.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sandwichSausage.sandwichSausage.descriptionRus }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 												    		</button>
 														</c:when>
@@ -332,12 +332,12 @@
 												<td>
 													<c:choose>
 														<c:when test="${sandwichSausage.sandwichSausage.foodComponentImage ne null }">
-															<button id="sandwichSausageImage${sandwichSausage.sandwichSausage.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${sandwichSausage.sandwichSausage.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+															<button id="sandwichSausageImage${customerSandwich.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${sandwichSausage.sandwichSausage.foodComponentImage.imageFileName }' />" data-original-title="" title="">
 																<span class="glyphicon glyphicon-film"></span>
 												    		</button>	
 														</c:when>
 														<c:otherwise>
-															<button id="sandwichSausageImage${sandwichSausage.sandwichSausage.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+															<button id="sandwichSausageImage${customerSandwich.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
 																<span class="glyphicon glyphicon-film"></span>
 												    		</button>
 														</c:otherwise>
@@ -347,8 +347,8 @@
 												<c:set var="sandwichTotalPrice" value="${sandwichTotalPrice + sandwichSausage.amountAndPrice.price}"/>
 											</tr>
 											<script>
-												$('#sandwichSausageImage${sandwichSausage.sandwichSausage.id }').popover();
-												$('#sandwichSausagePopover${sandwichSausage.sandwichSausage.id}').popover();
+												$('#sandwichSausageImage${customerSandwich.id }').popover();
+												$('#sandwichSausagePopover${customerSandwich.id}').popover();
 											</script>
 										</c:forEach>
 									</table>
@@ -366,17 +366,17 @@
 												<td>
 													<c:choose>
 														<c:when test="${locale eq 'ka' }">
-															<button id="sandwichVegetablePopover${vegetableWithAmountAndPrice.sandwichVegetable.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${vegetableWithAmountAndPrice.sandwichVegetable.descriptionGeo }" data-original-title="" title="">
+															<button id="sandwichVegetablePopover${customerSandwich.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${vegetableWithAmountAndPrice.sandwichVegetable.descriptionGeo }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 														    </button>										
 														</c:when>
 														<c:when test="${locale eq 'en' }">
-															<button id="sandwichVegetablePopover${vegetableWithAmountAndPrice.sandwichVegetable.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${vegetableWithAmountAndPrice.sandwichVegetable.descriptionEng }" data-original-title="" title="">
+															<button id="sandwichVegetablePopover${customerSandwich.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${vegetableWithAmountAndPrice.sandwichVegetable.descriptionEng }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 												    		</button>
 														</c:when>
 														<c:when test="${locale eq 'ru' }">
-															<button id="sandwichVegetablePopover${vegetableWithAmountAndPrice.sandwichVegetable.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${vegetableWithAmountAndPrice.sandwichVegetable.descriptionRus }" data-original-title="" title="">
+															<button id="sandwichVegetablePopover${customerSandwich.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${vegetableWithAmountAndPrice.sandwichVegetable.descriptionRus }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 												    		</button>
 														</c:when>
@@ -396,12 +396,12 @@
 												<td>
 													<c:choose>
 														<c:when test="${vegetableWithAmountAndPrice.sandwichVegetable.foodComponentImage ne null }">
-															<button id="sandwichVegetableImage${vegetableWithAmountAndPrice.sandwichVegetable.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${vegetableWithAmountAndPrice.sandwichVegetable.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+															<button id="sandwichVegetableImage${customerSandwich.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${vegetableWithAmountAndPrice.sandwichVegetable.foodComponentImage.imageFileName }' />" data-original-title="" title="">
 																<span class="glyphicon glyphicon-film"></span>
 												    		</button>	
 														</c:when>
 														<c:otherwise>
-															<button id="sandwichVegetableImage${vegetableWithAmountAndPrice.sandwichVegetable.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+															<button id="sandwichVegetableImage${customerSandwich.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
 																<span class="glyphicon glyphicon-film"></span>
 												    		</button>
 														</c:otherwise>
@@ -411,8 +411,8 @@
 												<c:set var="sandwichTotalPrice" value="${sandwichTotalPrice + vegetableWithAmountAndPrice.sandwichVegetableAmountAndPrice.price}"/>
 											</tr>
 											<script>
-								    			$('#sandwichVegetableImage${vegetableWithAmountAndPrice.sandwichVegetable.id }').popover();
-								    			$('#sandwichVegetablePopover${vegetableWithAmountAndPrice.sandwichVegetable.id}').popover();
+								    			$('#sandwichVegetableImage${customerSandwich.id }').popover();
+								    			$('#sandwichVegetablePopover${customerSandwich.id}').popover();
 								    		</script>
 										</c:forEach>
 									</table>
@@ -428,17 +428,17 @@
 												<td>
 													<c:choose>
 														<c:when test="${locale eq 'ka' }">
-															<button id="sandwichSaucePopover${sauceWithAmountAndPrice.sandwichSauce.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sauceWithAmountAndPrice.sandwichSauce.descriptionGeo }" data-original-title="" title="">
+															<button id="sandwichSaucePopover${customerSandwich.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sauceWithAmountAndPrice.sandwichSauce.descriptionGeo }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 														    </button>										
 														</c:when>
 														<c:when test="${locale eq 'en' }">
-															<button id="sandwichSaucePopover${sauceWithAmountAndPrice.sandwichSauce.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sauceWithAmountAndPrice.sandwichSauce.descriptionEng }" data-original-title="" title="">
+															<button id="sandwichSaucePopover${customerSandwich.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sauceWithAmountAndPrice.sandwichSauce.descriptionEng }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 												    		</button>
 														</c:when>
 														<c:when test="${locale eq 'ru' }">
-															<button id="sandwichSaucePopover${sauceWithAmountAndPrice.sandwichSauce.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sauceWithAmountAndPrice.sandwichSauce.descriptionRus }" data-original-title="" title="">
+															<button id="sandwichSaucePopover${customerSandwich.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sauceWithAmountAndPrice.sandwichSauce.descriptionRus }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 												    		</button>
 														</c:when>
@@ -458,12 +458,12 @@
 												<td>
 													<c:choose>
 														<c:when test="${sauceWithAmountAndPrice.sandwichSauce.foodComponentImage ne null }">
-															<button id="sandwichSauceImage${sauceWithAmountAndPrice.sandwichSauce.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${sauceWithAmountAndPrice.sandwichSauce.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+															<button id="sandwichSauceImage${customerSandwich.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${sauceWithAmountAndPrice.sandwichSauce.foodComponentImage.imageFileName }' />" data-original-title="" title="">
 																<span class="glyphicon glyphicon-film"></span>
 												    		</button>	
 														</c:when>
 														<c:otherwise>
-															<button id="sandwichSauceImage${sauceWithAmountAndPrice.sandwichSauce.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+															<button id="sandwichSauceImage${customerSandwich.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
 																<span class="glyphicon glyphicon-film"></span>
 												    		</button>
 														</c:otherwise>
@@ -473,8 +473,8 @@
 												<c:set var="sandwichTotalPrice" value="${sandwichTotalPrice + sauceWithAmountAndPrice.sandwichSauceAmountAndPrice.price}"/>
 											</tr>
 											<script>
-												$('#sandwichSaucePopover${sauceWithAmountAndPrice.sandwichSauce.id}').popover();
-												$('#sandwichSauceImage${sauceWithAmountAndPrice.sandwichSauce.id }').popover();
+												$('#sandwichSaucePopover${customerSandwich.id}').popover();
+												$('#sandwichSauceImage${customerSandwich.id }').popover();
 											</script>
 										</c:forEach>
 									</table>
@@ -490,17 +490,17 @@
 												<td>
 													<c:choose>
 														<c:when test="${locale eq 'ka' }">
-															<button id="sandwichSpicePopover${spiceWithAmountAndPrice.sandwichSpice.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${spiceWithAmountAndPrice.sandwichSpice.descriptionGeo }" data-original-title="" title="">
+															<button id="sandwichSpicePopover${customerSandwich.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${spiceWithAmountAndPrice.sandwichSpice.descriptionGeo }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 														    </button>										
 														</c:when>
 														<c:when test="${locale eq 'en' }">
-															<button id="sandwichSpicePopover${spiceWithAmountAndPrice.sandwichSpice.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${spiceWithAmountAndPrice.sandwichSpice.descriptionEng }" data-original-title="" title="">
+															<button id="sandwichSpicePopover${customerSandwich.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${spiceWithAmountAndPrice.sandwichSpice.descriptionEng }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 												    		</button>
 														</c:when>
 														<c:when test="${locale eq 'ru' }">
-															<button id="sandwichSpicePopover${spiceWithAmountAndPrice.sandwichSpice.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${spiceWithAmountAndPrice.sandwichSpice.descriptionRus }" data-original-title="" title="">
+															<button id="sandwichSpicePopover${customerSandwich.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${spiceWithAmountAndPrice.sandwichSpice.descriptionRus }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 												    		</button>
 														</c:when>
@@ -520,12 +520,12 @@
 												<td>
 													<c:choose>
 														<c:when test="${spiceWithAmountAndPrice.sandwichSpice.foodComponentImage ne null }">
-															<button id="sandwichSpiceImage${spiceWithAmountAndPrice.sandwichSpice.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${spiceWithAmountAndPrice.sandwichSpice.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+															<button id="sandwichSpiceImage${customerSandwich.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${spiceWithAmountAndPrice.sandwichSpice.foodComponentImage.imageFileName }' />" data-original-title="" title="">
 																<span class="glyphicon glyphicon-film"></span>
 												    		</button>	
 														</c:when>
 														<c:otherwise>
-															<button id="sandwichspiceImage${spiceWithAmountAndPrice.sandwichSpice.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+															<button id="sandwichspiceImage${customerSandwich.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
 																<span class="glyphicon glyphicon-film"></span>
 												    		</button>
 														</c:otherwise>
@@ -535,8 +535,8 @@
 												<c:set var="sandwichTotalPrice" value="${sandwichTotalPrice + spiceWithAmountAndPrice.sandwichSpiceAmountAndPrice.price}"/>
 											</tr>
 											<script>
-												$('#sandwichSpicePopover${spiceWithAmountAndPrice.sandwichSpice.id}').popover();
-												$('#sandwichSpiceImage${spiceWithAmountAndPrice.sandwichSpice.id}').popover();
+												$('#sandwichSpicePopover${customerSandwich.id}').popover();
+												$('#sandwichSpiceImage${customerSandwich.id}').popover();
 											</script>
 										</c:forEach>
 									</table>
@@ -675,17 +675,17 @@
 												<td>
 													<c:choose>
 														<c:when test="${locale eq 'ka' }">
-															<button id="saladIngredientPopover${ingredientsWithAmountAndPrices.saladIngredient.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${ingredientsWithAmountAndPrices.saladIngredient.descriptionGeo }" data-original-title="" title="">
+															<button id="saladIngredientPopover${customerSalad.id}${ingredientsWithAmountAndPrices.saladIngredient.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${ingredientsWithAmountAndPrices.saladIngredient.descriptionGeo }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 														    </button>										
 														</c:when>
 														<c:when test="${locale eq 'en' }">
-															<button id="saladIngredientPopover${ingredientsWithAmountAndPrices.saladIngredient.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${ingredientsWithAmountAndPrices.saladIngredient.descriptionEng }" data-original-title="" title="">
+															<button id="saladIngredientPopover${customerSalad.id}${ingredientsWithAmountAndPrices.saladIngredient.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${ingredientsWithAmountAndPrices.saladIngredient.descriptionEng }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 												    		</button>
 														</c:when>
 														<c:when test="${locale eq 'ru' }">
-															<button id="saladIngredientPopover${ingredientsWithAmountAndPrices.saladIngredient.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${ingredientsWithAmountAndPrices.saladIngredient.descriptionRus }" data-original-title="" title="">
+															<button id="saladIngredientPopover${customerSalad.id}${ingredientsWithAmountAndPrices.saladIngredient.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${ingredientsWithAmountAndPrices.saladIngredient.descriptionRus }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 												    		</button>
 														</c:when>
@@ -705,12 +705,12 @@
 												<td>
 													<c:choose>
 														<c:when test="${ingredientsWithAmountAndPrices.saladIngredient.foodComponentImage ne null }">
-															<button id="saladIngredientImage${ingredientsWithAmountAndPrices.saladIngredient.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${ingredientsWithAmountAndPrices.saladIngredient.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+															<button id="saladIngredientImage${customerSalad.id}${ingredientsWithAmountAndPrices.saladIngredient.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${ingredientsWithAmountAndPrices.saladIngredient.foodComponentImage.imageFileName }' />" data-original-title="" title="">
 																<span class="glyphicon glyphicon-film"></span>
 												    		</button>	
 														</c:when>
 														<c:otherwise>
-															<button id="saladIngredientImage${ingredientsWithAmountAndPrices.saladIngredient.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+															<button id="saladIngredientImage${customerSalad.id}${ingredientsWithAmountAndPrices.saladIngredient.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
 																<span class="glyphicon glyphicon-film"></span>
 												    		</button>
 														</c:otherwise>
@@ -720,8 +720,8 @@
 												<c:set var="saladTotalPrice" value="${saladTotalPrice + ingredientsWithAmountAndPrices.amountAndPrice.price}"/>
 											</tr>
 											<script>
-												$('#saladIngredientPopover${ingredientsWithAmountAndPrices.saladIngredient.id }').popover();
-												$('#saladIngredientImage${ingredientsWithAmountAndPrices.saladIngredient.id }').popover();
+												$('#saladIngredientPopover${customerSalad.id}${ingredientsWithAmountAndPrices.saladIngredient.id }').popover();
+												$('#saladIngredientImage${customerSalad.id}${ingredientsWithAmountAndPrices.saladIngredient.id }').popover();
 											</script>
 										</c:forEach>
 									</table>
@@ -855,17 +855,17 @@
 											<td>
 												<c:choose>
 													<c:when test="${locale eq 'ka' }">
-														<button id="drinkPopover${customerDrink.drinkWithSizeAndPrice.drink.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerDrink.drinkWithSizeAndPrice.drink.descriptionGeo }" data-original-title="" title="">
+														<button id="drinkPopover${customerDrink.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerDrink.drinkWithSizeAndPrice.drink.descriptionGeo }" data-original-title="" title="">
 															<span class="glyphicon glyphicon-info-sign"></span>
 													    </button>										
 													</c:when>
 													<c:when test="${locale eq 'en' }">
-														<button id="drinkPopover${drink.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerDrink.drinkWithSizeAndPrice.drink.descriptionEng }" data-original-title="" title="">
+														<button id="drinkPopover${customerDrink.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerDrink.drinkWithSizeAndPrice.drink.descriptionEng }" data-original-title="" title="">
 															<span class="glyphicon glyphicon-info-sign"></span>
 											    		</button>
 													</c:when>
 													<c:when test="${locale eq 'ru' }">
-														<button id="drinkPopover${customerDrink.drinkWithSizeAndPrice.drink.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerDrink.drinkWithSizeAndPrice.drink.descriptionRus }" data-original-title="" title="">
+														<button id="drinkPopover${customerDrink.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerDrink.drinkWithSizeAndPrice.drink.descriptionRus }" data-original-title="" title="">
 															<span class="glyphicon glyphicon-info-sign"></span>
 											    		</button>
 													</c:when>
@@ -885,12 +885,12 @@
 											<td>
 												<c:choose>
 													<c:when test="${customerDrink.drinkWithSizeAndPrice.drink.foodComponentImage ne null }">
-														<button id="drinkImage${customerDrink.drinkWithSizeAndPrice.drink.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${customerDrink.drinkWithSizeAndPrice.drink.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+														<button id="drinkImage${customerDrink.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${customerDrink.drinkWithSizeAndPrice.drink.foodComponentImage.imageFileName }' />" data-original-title="" title="">
 															<span class="glyphicon glyphicon-film"></span>
 											    		</button>	
 													</c:when>
 													<c:otherwise>
-														<button id="drinkImage${customerDrink.drinkWithSizeAndPrice.drink.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+														<button id="drinkImage${customerDrink.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
 															<span class="glyphicon glyphicon-film"></span>
 											    		</button>
 													</c:otherwise>
@@ -901,8 +901,8 @@
 										</tr>
 									</table>
 									<script>
-										$('#drinkPopover${customerDrink.drinkWithSizeAndPrice.drink.id }').popover();	
-						    			$('#drinkImage${customerDrink.drinkWithSizeAndPrice.drink.id }').popover();
+										$('#drinkPopover${customerDrink.id }').popover();	
+						    			$('#drinkImage${customerDrink.id }').popover();
 						    		</script>
 									<table id="drinkAddon${customerDrink.id}" class="table">
 										<thead>
@@ -918,17 +918,17 @@
 												<td>
 													<c:choose>
 														<c:when test="${locale eq 'ka' }">
-															<button id="drinkAddOnPopover${addonWithAmountAndPrice.drinkAddOn.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${addonWithAmountAndPrice.drinkAddOn.descriptionGeo }" data-original-title="" title="">
+															<button id="drinkAddOnPopover${customerDrink.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${addonWithAmountAndPrice.drinkAddOn.descriptionGeo }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 														    </button>										
 														</c:when>
 														<c:when test="${locale eq 'en' }">
-															<button id="drinkAddOnPopover${addonWithAmountAndPrice.drinkAddOn.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${addonWithAmountAndPrice.drinkAddOn.descriptionEng }" data-original-title="" title="">
+															<button id="drinkAddOnPopover${customerDrink.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${addonWithAmountAndPrice.drinkAddOn.descriptionEng }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 												    		</button>
 														</c:when>
 														<c:when test="${locale eq 'ru' }">
-															<button id="drinkAddOnPopover${addonWithAmountAndPrice.drinkAddOn.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${addonWithAmountAndPrice.drinkAddOn.descriptionRus }" data-original-title="" title="">
+															<button id="drinkAddOnPopover${customerDrink.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${addonWithAmountAndPrice.drinkAddOn.descriptionRus }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 												    		</button>
 														</c:when>
@@ -948,12 +948,12 @@
 												<td>
 													<c:choose>
 														<c:when test="${addonWithAmountAndPrice.drinkAddOn.foodComponentImage ne null }">
-															<button id="drinkAddOnImage${addonWithAmountAndPrice.drinkAddOn.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${addonWithAmountAndPrice.drinkAddOn.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+															<button id="drinkAddOnImage${customerDrink.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${addonWithAmountAndPrice.drinkAddOn.foodComponentImage.imageFileName }' />" data-original-title="" title="">
 																<span class="glyphicon glyphicon-film"></span>
 												    		</button>	
 														</c:when>
 														<c:otherwise>
-															<button id="drinkAddOnImage${addonWithAmountAndPrice.drinkAddOn.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+															<button id="drinkAddOnImage${customerDrink.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
 																<span class="glyphicon glyphicon-film"></span>
 												    		</button>
 														</c:otherwise>
@@ -963,8 +963,8 @@
 												<c:set var="drinkTotalPrice" value="${drinkTotalPrice + addonWithAmountAndPrice.addOnAmountAndPrice.price}"/>
 											</tr>
 								    		<script>
-								    			$('#drinkAddOnPopover${addonWithAmountAndPrice.drinkAddOn.id }').popover();
-								    			$('#drinkAddOnImage${addonWithAmountAndPrice.drinkAddOn.id }').popover();
+								    			$('#drinkAddOnPopover${customerDrink.id }').popover();
+								    			$('#drinkAddOnImage${customerDrink.id }').popover();
 								    		</script>
 										</c:forEach>
 									</table>
@@ -1100,17 +1100,17 @@
 											<td>
 												<c:choose>
 													<c:when test="${locale eq 'ka' }">
-														<button id="hotdogBreadPopover${customerHotdog.bread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerHotdog.bread.descriptionGeo }" data-original-title="" title="">
+														<button id="hotdogBreadPopover${customerHotdog.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerHotdog.bread.descriptionGeo }" data-original-title="" title="">
 															<span class="glyphicon glyphicon-info-sign"></span>
 													    </button>										
 													</c:when>
 													<c:when test="${locale eq 'en' }">
-														<button id="hotdogBreadPopover${customerHotdog.bread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerHotdog.bread.descriptionEng }" data-original-title="" title="">
+														<button id="hotdogBreadPopover${customerHotdog.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerHotdog.bread.descriptionEng }" data-original-title="" title="">
 															<span class="glyphicon glyphicon-info-sign"></span>
 											    		</button>
 													</c:when>
 													<c:when test="${locale eq 'ru' }">
-														<button id="hotdogBreadPopover${customerHotdog.bread.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerHotdog.bread.descriptionRus }" data-original-title="" title="">
+														<button id="hotdogBreadPopover${customerHotdog.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerHotdog.bread.descriptionRus }" data-original-title="" title="">
 															<span class="glyphicon glyphicon-info-sign"></span>
 											    		</button>
 													</c:when>
@@ -1130,12 +1130,12 @@
 											<td>
 												<c:choose>
 													<c:when test="${customerHotdog.bread.foodComponentImage ne null }">
-														<button id="hotdogBreadImage${customerHotdog.bread.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${customerHotdog.bread.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+														<button id="hotdogBreadImage${customerHotdog.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${customerHotdog.bread.foodComponentImage.imageFileName }' />" data-original-title="" title="">
 															<span class="glyphicon glyphicon-film"></span>
 											    		</button>	
 													</c:when>
 													<c:otherwise>
-														<button id="hotdogBreadImage${customerHotdog.bread.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+														<button id="hotdogBreadImage${customerHotdog.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
 															<span class="glyphicon glyphicon-film"></span>
 											    		</button>
 													</c:otherwise>
@@ -1145,8 +1145,8 @@
 											<c:set var="hotdogTotalPrice" value="${hotdogTotalPrice + customerHotdog.sizeAndPrice.price}"></c:set>
 										</tr>
 							    		<script>
-							    			$('#hotdogBreadPopover${customerHotdog.bread.id }').popover();
-							    			$('#hotdogBreadImage${customerHotdog.bread.id }').popover();
+							    			$('#hotdogBreadPopover${customerHotdog.id }').popover();
+							    			$('#hotdogBreadImage${customerHotdog.id }').popover();
 							    		</script>
 									</table>
 									<table class="table" id="hotdogSausage${customerHotdog.id }">
@@ -1162,17 +1162,17 @@
 											<td>
 												<c:choose>
 													<c:when test="${locale eq 'ka' }">
-														<button id="hotdogSausagePopover${customerHotdog.sausage.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerHotdog.sausage.descriptionGeo }" data-original-title="" title="">
+														<button id="hotdogSausagePopover${customerHotdog.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerHotdog.sausage.descriptionGeo }" data-original-title="" title="">
 															<span class="glyphicon glyphicon-info-sign"></span>
 													    </button>										
 													</c:when>
 													<c:when test="${locale eq 'en' }">
-														<button id="hotdogSausagePopover${customerHotdog.sausage.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerHotdog.sausage.descriptionEng }" data-original-title="" title="">
+														<button id="hotdogSausagePopover${customerHotdog.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerHotdog.sausage.descriptionEng }" data-original-title="" title="">
 															<span class="glyphicon glyphicon-info-sign"></span>
 											    		</button>
 													</c:when>
 													<c:when test="${locale eq 'ru' }">
-														<button id="hotdogSausagePopover${customerHotdog.sausage.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerHotdog.sausage.descriptionRus }" data-original-title="" title="">
+														<button id="hotdogSausagePopover${customerHotdog.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${customerHotdog.sausage.descriptionRus }" data-original-title="" title="">
 															<span class="glyphicon glyphicon-info-sign"></span>
 											    		</button>
 													</c:when>
@@ -1192,12 +1192,12 @@
 											<td>
 												<c:choose>
 													<c:when test="${customerHotdog.sausage.foodComponentImage ne null }">
-														<button id="hotdogSausageImage${customerHotdog.sausage.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${customerHotdog.sausage.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+														<button id="hotdogSausageImage${customerHotdog.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${customerHotdog.sausage.foodComponentImage.imageFileName }' />" data-original-title="" title="">
 															<span class="glyphicon glyphicon-film"></span>
 											    		</button>	
 													</c:when>
 													<c:otherwise>
-														<button id="hotdogSausageImage${customerHotdog.sausage.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+														<button id="hotdogSausageImage${customerHotdog.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
 															<span class="glyphicon glyphicon-film"></span>
 											    		</button>
 													</c:otherwise>
@@ -1207,8 +1207,8 @@
 											<c:set var="hotdogTotalPrice" value="${hotdogTotalPrice + customerHotdog.amountAndPrice.price}"></c:set>
 										</tr>
 							    		<script>
-							    			$('#hotdogSausagePopover${customerHotdog.sausage.id }').popover();
-							    			$('#hotdogSausageImage${customerHotdog.sausage.id }').popover();
+							    			$('#hotdogSausagePopover${customerHotdog.id }').popover();
+							    			$('#hotdogSausageImage${customerHotdog.id }').popover();
 							    		</script>
 									</table>
 									<table class="table" id="hotdogSauce${customerHotdog.id }">
@@ -1225,17 +1225,17 @@
 												<td>
 													<c:choose>
 														<c:when test="${locale eq 'ka' }">
-															<button id="hotdogSaucePopover${sauceWithAmountAndPrice.sauce.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sauceWithAmountAndPrice.sauce.descriptionGeo }" data-original-title="" title="">
+															<button id="hotdogSaucePopover${customerHotdog.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sauceWithAmountAndPrice.sauce.descriptionGeo }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 														    </button>										
 														</c:when>
 														<c:when test="${locale eq 'en' }">
-															<button id="hotdogSaucePopover${sauceWithAmountAndPrice.sauce.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sauceWithAmountAndPrice.sauce.descriptionEng }" data-original-title="" title="">
+															<button id="hotdogSaucePopover${customerHotdog.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sauceWithAmountAndPrice.sauce.descriptionEng }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 												    		</button>
 														</c:when>
 														<c:when test="${locale eq 'ru' }">
-															<button id="hotdogSaucePopover${sauceWithAmountAndPrice.sauce.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sauceWithAmountAndPrice.sauce.descriptionRus }" data-original-title="" title="">
+															<button id="hotdogSaucePopover${customerHotdog.id}" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="${sauceWithAmountAndPrice.sauce.descriptionRus }" data-original-title="" title="">
 																<span class="glyphicon glyphicon-info-sign"></span>
 												    		</button>
 														</c:when>
@@ -1255,12 +1255,12 @@
 												<td>
 													<c:choose>
 														<c:when test="${sauceWithAmountAndPrice.sauce.foodComponentImage ne null }">
-															<button id="hotdogSauceImage${sauceWithAmountAndPrice.sauce.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${sauceWithAmountAndPrice.sauce.foodComponentImage.imageFileName }' />" data-original-title="" title="">
+															<button id="hotdogSauceImage${customerHotdog.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='food-component-images/${sauceWithAmountAndPrice.sauce.foodComponentImage.imageFileName }' />" data-original-title="" title="">
 																<span class="glyphicon glyphicon-film"></span>
 												    		</button>	
 														</c:when>
 														<c:otherwise>
-															<button id="hotdogSauceImage${sauceWithAmountAndPrice.sauce.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
+															<button id="hotdogSauceImage${customerHotdog.id }" type="button" class="btn btn-link" data-trigger="hover" data-container="body" data-toggle="popover" data-html="true" data-placement="auto" data-content="<img src='resources/img/NoPhotoAvailable.jpg' />" data-original-title="" title="">
 																<span class="glyphicon glyphicon-film"></span>
 												    		</button>
 														</c:otherwise>
@@ -1270,8 +1270,8 @@
 												<c:set var="hotdogTotalPrice" value="${hotdogTotalPrice + sauceWithAmountAndPrice.amountAndPrice.price}"></c:set>
 											</tr>
 								    		<script>
-								    			$('#hotdogSaucePopover${sauceWithAmountAndPrice.sauce.id }').popover();
-								    			$('#hotdogSauceImage${sauceWithAmountAndPrice.sauce.id }').popover();
+								    			$('#hotdogSaucePopover${customerHotdog.id }').popover();
+								    			$('#hotdogSauceImage${customerHotdog.id }').popover();
 								    		</script>
 										</c:forEach>
 									</table>

@@ -55,7 +55,7 @@
 		
 		<div class="tab-content">
 			<div class="tab-pane active" id="sandwich">
-				<table class="table table-striped">
+				<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
 								<th></th>
@@ -142,7 +142,7 @@
 						</script>
 						</c:forEach>
 					</table>
-					<table class="table table-striped">
+					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
 								<th></th>
@@ -230,7 +230,7 @@
 							</script>
 						</c:forEach>
 					</table>
-					<table class="table table-striped">
+					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
 								<th></th>
@@ -317,7 +317,7 @@
 							</script>
 						</c:forEach>
 					</table>
-					<table class="table table-striped">
+					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
 								<th></th>
@@ -403,7 +403,7 @@
 							</script>
 						</c:forEach>
 					</table>
-					<table class="table table-striped">
+					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
 								<th></th>
@@ -769,7 +769,7 @@
 						<thead>
 							<tr>
 								<th></th>
-								<th colspan="1"><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
+								<th colspan="1"><spring:message code="yours.food.service.ingredients.hotdog.sausage" text="Sausage" /></th>
 								<th></th>
 								<th></th>
 							</tr>

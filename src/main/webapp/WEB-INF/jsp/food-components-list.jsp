@@ -19,7 +19,7 @@
 	<!-- Custom styles for this template -->
 	<link href="resources/css/yours-food-service.css" rel="stylesheet" />
 	<link href="resources/css/jumbotron-narrow.css" rel="stylesheet" />
-	<link href="resources/css/line/blue.css" rel="stylesheet">
+	<link href="resources/css/line/red.css" rel="stylesheet">
 	<link href="resources/css/alertify.core.css" rel="stylesheet" />
 	<link href="resources/css/alertify.default.css" rel="stylesheet" />
 	<link href="resources/css/alertify.bootstrap.css" rel="stylesheet" />
@@ -769,7 +769,7 @@
 						<thead>
 							<tr>
 								<th></th>
-								<th colspan="1"><spring:message code="yours.list.heading.sandwich.sublist.sausage" text="Sausage" /></th>
+								<th colspan="1"><spring:message code="yours.food.service.ingredients.hotdog.sausage" text="Sausage" /></th>
 								<th></th>
 								<th></th>
 							</tr>
@@ -972,8 +972,8 @@
 
 		    label.remove();
 		    self.iCheck({
-			checkboxClass: 'icheckbox_line-blue',
-			radioClass: 'iradio_line-blue',
+			checkboxClass: 'icheckbox_line-red',
+			radioClass: 'iradio_line-red',
 			insert: '<div class="icheck_line-icon"></div>' + label_text
 		    });
 		  });

@@ -315,6 +315,9 @@ public class YoursController {
 	@RequestMapping("/customer-meals-list")
 	public ModelAndView mealsList(HttpServletRequest request, HttpSession session, Principal principal, ModelAndView mav) {
 		try {
+			if(true) {
+				throw new IllegalArgumentException("error");
+			}
 			Locale locale = localeResolver.resolveLocale(request);
 			Map<String, Object> customerMeals = databaseService.getCustomerMealsByCustomerEmail(principal.getName());
 			Customer customer = databaseService.findCustomerByEmail(principal.getName());
@@ -416,7 +419,7 @@ public class YoursController {
     	Locale locale = localeResolver.resolveLocale(request);
     	mav.addObject("locale", locale.getLanguage());
     	mav.addObject("hotdogSauces", hotdogSauces);
-    	mav.setViewName("food-components-list");
+    	mav.setViewName("food-components-list-v2");
     	return mav;
 	}
     

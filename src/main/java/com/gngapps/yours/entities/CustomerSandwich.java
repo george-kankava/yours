@@ -79,8 +79,7 @@ public class CustomerSandwich implements Serializable {
 	public List<SandwichSpiceWithAmountAndPrice> getSandwichSpices() {
 		return sandwichSpices;
 	}
-	public void setSandwichSpices(
-			List<SandwichSpiceWithAmountAndPrice> sandwichSpices) {
+	public void setSandwichSpices(List<SandwichSpiceWithAmountAndPrice> sandwichSpices) {
 		this.sandwichSpices = sandwichSpices;
 	}
 	public Customer getCustomer() {
